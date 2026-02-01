@@ -1,0 +1,104 @@
+{
+  "home": {
+    "welcome": "Welcome, {name}",
+    "news": "News",
+    "notes": "Notes",
+    "recommendation": "Recommendation"
+  },
+  "sidebar": {
+    "home": "Home",
+    "profile": "My Profile",
+    "settings": "Settings",
+    "security": "Security",
+    "billing": "Billing",
+    "support": "Support"
+  },
+  "inbox": {
+    "title": "Inbox",
+    "from": "From",
+    "subject": "Subject",
+    "empty": "No messages",
+    "ago": "{time} ago",
+    "status": {
+      "read": "Read",
+      "unread": "Unread"
+    }
+  },
+  "weather": {
+    "title": "Weather",
+    "conditions": {
+      "cloudy": "Cloudy",
+      "sunny": "Sunny",
+      "rain": "Rain"
+    }
+  },
+  "calendar": {
+    "title": "Calendar",
+    "events": {
+      "dailyStandup": "Daily Standup",
+      "productReview": "Product Review"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "open": "Open {name}",
+    "checkpoint": {
+      "name": "Checkpoint",
+      "subtitle": "Events & Tickets",
+      "description": "Events · Tickets · Security"
+    },
+    "finyx": {
+      "name": "Finyx",
+      "subtitle": "Banking",
+      "description": "Banking · Accounts · Analytics"
+    },
+    "profile": {
+      "name": "Profile Service",
+      "subtitle": "Identity",
+      "description": "Identity · Personal Data"
+    },
+    "notifications": {
+      "name": "Notifications",
+      "subtitle": "Messaging",
+      "description": "Messaging · Templates · Events"
+    }
+  },
+  "branding": {
+    "title": "Nexys",
+    "tagline": "Build. Connect. Evolve."
+  },
+  "auth": {
+    "username": {
+      "label": "Username"
+    },
+    "password": {
+      "label": "Password",
+      "toggleVisibility": "Toggle password visibility",
+      "placeholder": "Enter your password",
+      "required": "Password is required",
+      "minLength": "Password must be at least 8 characters"
+    },
+    "terms": {
+      "label": "I agree with the Terms & Conditions",
+      "required": "You must accept the Terms & Conditions"
+    },
+    "submit": {
+      "login": "Log in",
+      "loading": "Signing in…",
+      "register": "Create account",
+      "loading2": "Please wait…"
+    },
+    "links": {
+      "signup": "Sign up",
+      "forgotPassword": "Forgot password?"
+    },
+    "provider": {
+      "title": "Sign in with"
+    },
+    "errors": {
+      "termsRequired": "Please accept the Terms and Conditions first",
+      "missingCredentials": "Username or password is missing",
+      "loginFailed": "Login failed. Please try again."
+    }
+  }
+}

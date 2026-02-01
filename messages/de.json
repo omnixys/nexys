@@ -1,0 +1,98 @@
+{
+  "home": {
+    "welcome": "Willkommen, {name}",
+    "news": "Neues",
+    "notes": "Notizen",
+    "recommendation": "Empfehlung"
+  },
+  "sidebar": {
+    "home": "Startseite",
+    "profile": "Mein Profil",
+    "settings": "Einstellungen",
+    "security": "Sicherheit",
+    "billing": "Abrechnung",
+    "support": "Support"
+  },
+  "inbox": {
+    "title": "Posteingang",
+    "from": "Von",
+    "subject": "Betreff",
+    "empty": "Keine Nachrichten",
+    "ago": "{time} her",
+    "status": {
+      "read": "Gelesen",
+      "unread": "Ungelesen"
+    }
+  },
+  "weather": {
+    "title": "Wetter",
+    "conditions": {
+      "cloudy": "Bewölkt",
+      "sunny": "Sonnig",
+      "rain": "Regen"
+    }
+  },
+  "calendar": {
+    "title": "Kalender",
+    "events": {
+      "dailyStandup": "Tägliches Standup",
+      "productReview": "Produkt-Review"
+    }
+  },
+  "products": {
+    "title": "Produkte",
+    "open": "{name} öffnen",
+    "checkpoint": {
+      "name": "Checkpoint",
+      "subtitle": "Events & Tickets",
+      "description": "Events · Tickets · Sicherheit"
+    },
+    "finyx": {
+      "name": "Finyx",
+      "subtitle": "Banking",
+      "description": "Banking · Konten · Analysen"
+    },
+    "profile": {
+      "name": "Profil-Service",
+      "subtitle": "Identität",
+      "description": "Identität · Persönliche Daten"
+    },
+    "notifications": {
+      "name": "Benachrichtigungen",
+      "subtitle": "Nachrichten",
+      "description": "Nachrichten · Vorlagen · Events"
+    }
+  },
+  "branding": {
+    "title": "Nexys",
+    "tagline": "Bauen. Verbinden. Weiterentwickeln."
+  },
+  "auth": {
+    "username": {
+      "label": "Benutzername"
+    },
+    "password": {
+      "label": "Passwort",
+      "toggleVisibility": "Passwort anzeigen oder verbergen"
+    },
+    "terms": {
+      "label": "Ich stimme den Nutzungsbedingungen zu"
+    },
+    "submit": {
+      "login": "Anmelden",
+      "loading": "Anmeldung läuft…"
+    },
+    "links": {
+      "signup": "Registrieren",
+      "forgotPassword": "Passwort vergessen?"
+    },
+    "provider": {
+      "title": "Anmelden mit"
+    },
+    "errors": {
+      "termsRequired": "Bitte akzeptiere zuerst die Nutzungsbedingungen",
+      "missingCredentials": "Benutzername oder Passwort fehlt",
+      "loginFailed": "Anmeldung fehlgeschlagen. Bitte erneut versuchen."
+    }
+  }
+}
