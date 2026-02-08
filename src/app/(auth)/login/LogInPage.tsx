@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import { useTheme } from "@mui/material";
-import AuthLayout from "../components/auth/login/AuthLayout";
-import CredentialsLoginCard from "../components/auth/login/CredentialsLoginCard";
-import ProviderLoginCard from "../components/auth/login/ProviderLoginCard";
+import AuthLayout from "@/components/auth/login/AuthLayout";
+import CredentialsLoginCard from "@/components/auth/login/CredentialsLoginCard";
+import ProviderLoginCard from "@/components/auth/login/ProviderLoginCard";
 import { useRouter } from "next/navigation";
 import { LoginInput } from "@/types/authentication/auth-input.type";
 import { AuthManager } from "@/utils/AuthManager";
 import { useAuth } from "@/providers/AuthProvider";
-
-export type AuthErrorKey = "termsRequired" | "missingCredentials" | "loginFailed";
+import { AuthErrorKey } from "@/types/authentication/auth.type";
 
 export default function BrandingLogInPage() {
   const theme = useTheme();

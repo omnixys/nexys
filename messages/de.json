@@ -94,5 +94,299 @@
       "missingCredentials": "Benutzername oder Passwort fehlt",
       "loginFailed": "Anmeldung fehlgeschlagen. Bitte erneut versuchen."
     }
+  },
+  "sections": {
+    "roleData": "Rollendaten",
+    "interests": "Interessen"
+  },
+
+  "user": {
+    "labels": {
+      "addresses": "Standorte",
+      "contacts": "Kontakte",
+      "status": "Kontostatus",
+      "type": "Kontoart"
+    },
+    "personal": {
+        "labels": {
+      "title": "Persönliches Profil",
+      "contact": "Kontakt"
+    },
+    "values": {
+      "bornOn": "Geboren am {date}",
+       "bornOnWithAge": "Geboren am {date} ({age} Jahre alt)"
+    },
+    "gender": {
+      "male": "Männlich",
+      "female": "Weiblich",
+      "other": "Divers"
+    },
+      "maritalStatus": {
+        "single": "Ledig",
+        "married": "Verheiratet",
+        "divorced": "Geschieden",
+        "widowed": "Verwitwet"
+      },
+      "phoneType": {
+        "whatsapp": "WhatsApp",
+        "mobile": "Mobil",
+        "private": "Privat",
+        "work": "Arbeit",
+        "home": "Zuhause",
+        "other": "Sonstiges"
+      }
+    },
+    "type": {
+      "customer": "Kunde",
+      "employee": "Mitarbeiter",
+      "guest": "Gast"
+    },
+    "role": {
+      "supreme": "Supreme",
+      "admin": "Administrator",
+      "security": "Sicherheit",
+      "user": "Benutzer",
+      "guest": "Gast"
+    },
+    "status": {
+      "active": "Aktiv",
+      "disabled": "Deaktiviert",
+      "deleted": "Gelöscht",
+      "inactive": "Inaktiv",
+      "blocked": "Gesperrt",
+      "closed": "Geschlossen"
+    },
+    "customer": {
+      "labels": {
+        "tier": "Stufe",
+        "contactOptions": "Kontaktoptionen",
+        "subscription": "Abo",
+        "interests": "Interessen",
+        "noInterests": "Noch keine Interessen hinterlegt.",
+        "moreInterests": "weitere Interessen"
+      },
+      "values": {
+        "subscribed": "Abonniert",
+        "notSubscribed": "Nicht abonniert"
+      },
+      "tiers": {
+        "basic": "Basic",
+        "elite": "Elite",
+        "supreme": "Supreme"
+      },
+      "contactOption": {
+        "email": "E-Mail",
+        "phone": "Telefon",
+        "sms": "SMS",
+        "whatsapp": "WhatsApp",
+        "letter": "Brief"
+      },
+      "contacts": {
+      "title": "Vertrauensnetzwerk",
+      "emptyTitle": "Noch keine Kontakte",
+      "emptySubtitle": "Füge vertrauenswürdige Kontakte hinzu, um Limits, Notfall-Markierungen und geteilten Zugriff zu aktivieren.",
+      "count": "{count} Kontakte",
+      "totalLimit": "Gesamtes Limit",
+      "filtered": "Gefiltert",
+      "emergency": "Notfall",
+      "filters": {
+        "all": "Alle Beziehungen"
+      },
+      "noResultsTitle": "Keine Ergebnisse",
+      "noResultsSubtitle": "Keine Kontakte passen zum ausgewählten Beziehungsfilter.",
+      "resetFilter": "Filter zurücksetzen",
+      "labels": {
+        "limit": "Limit",
+        "start": "Start",
+        "end": "Ende"
+      },
+       "relationship": {
+        "family": "Familie",
+        "friend": "Freund",
+        "partner": "Partner",
+        "colleague": "Kollege",
+        "businessPartner": "Geschäftspartner",
+        "relative": "Verwandter",
+        "parent": "Elternteil",
+        "sibling": "Geschwister",
+        "child": "Kind",
+        "cousin": "Cousin",
+        "other": "Sonstiges"
+      }
+      },
+      "interest": {
+        "sports": "Sport",
+        "music": "Musik",
+        "travel": "Reisen",
+        "technology": "Technologie",
+        "investments": "Investitionen",
+        "savingAndFinance": "Sparen & Finanzen",
+        "creditAndDebt": "Kredite & Schulden",
+        "realEstate": "Immobilien",
+        "insurance": "Versicherungen",
+        "sustainableFinance": "Nachhaltige Finanzen",
+        "technologyAndInnovation": "Technologien & Innovationen",
+        "bankProductsAndServices": "Bankprodukte & Services"
+      },
+      "interestCategory": {
+        "banking": "Banking",
+        "technology": "Technologie",
+        "realEstate": "Immobilien",
+        "insurance": "Versicherung",
+        "investments": "Investments",
+        "lifestyle": "Lifestyle"
+      }
+    },
+    "employee": {
+      "labels": {
+        "department": "Abteilung",
+        "position": "Position",
+        "role": "Funktion",
+        "isExternal": "Extern",
+        "access": "Berechtigung"
+      },
+      "values": {
+        "admin": "Administrator",
+        "standard": "Standardzugriff",
+        "external": "Extern",
+        "internal": "Intern",
+        "notAvailable": "—"
+      }
+    },
+    "guest": {
+  "messages": {
+    "guestRoleDataUnavailable": "Dieser Bereich ist für Gäste nicht verfügbar. Lege einen Account an, um Tier, Abo und weitere Account-Details zu sehen."
+  },
+  "actions": {
+    "createAccount": "Account anlegen"
+  }
+    }
+  },
+
+  "personal": {
+    "marital": {
+      "single": "Ledig",
+      "married": "Verheiratet",
+      "divorced": "Geschieden",
+      "widowed": "Verwitwet"
+    },
+    "phone": {
+      "mobile": "Mobil",
+      "whatsapp": "WhatsApp",
+      "private": "Privat",
+      "work": "Arbeit",
+      "home": "Zuhause",
+      "other": "Sonstiges"
+    }
+  },
+
+  "relationship": {
+    "family": "Familie",
+    "friend": "Freund",
+    "partner": "Partner",
+    "colleague": "Kollege",
+    "businessPartner": "Geschäftspartner",
+    "relative": "Verwandter",
+    "parent": "Elternteil",
+    "sibling": "Geschwister",
+    "child": "Kind",
+    "cousin": "Cousin",
+    "other": "Sonstiges"
+  },
+
+  "common":{
+  "labels": {
+    "department": "Abteilung",
+    "position": "Position",
+    "employment": "Anstellung",
+    "customerTier": "Kundentyp",
+ 
+
+    "subscribed": "Abonniert",
+    "security": "Schutzlevel",
+    "type": "Kontoart",
+    "status": "Kontostatus"
+  },
+  "values": {
+    "yes": "Ja",
+    "no": "Nein",
+    "internal": "Intern",
+    "external": "Extern"
+  }
+},
+
+  "profile": {
+    "labels": {
+      "profile": "Profil-Score"
+    },
+    "role": {
+      "titles": {
+        "employee": "Beschäftigungsdetails",
+        "customer": "Kundendetails",
+        "guest": "Gastzugang",
+        "default": "Rolleninformationen"
+      },
+      "employee": {
+        "department": "Abteilung",
+        "position": "Position",
+        "employment": "Anstellung",
+        "internal": "Intern",
+        "external": "Extern",
+        "hireDate": "Eintrittsdatum"
+      },
+      "customer": {
+        "interests": "Interessen",
+        "noInterests": "Keine Interessen angegeben"
+      },
+      "guest": {
+        "note": "Dies ist ein Gastkonto mit eingeschränktem, temporärem Zugriff."
+      }
+    },
+    "addresses": {
+      "title": "Standorte",
+      "emptyTitle": "Noch keine Standorte",
+      "emptySubtitle": "Füge deinen ersten Standort hinzu, um loszulegen.",
+      "counter": "{current}/{total}",
+      "favorited": "{count} favorisiert",
+      "hint": "Nutze ← / → zum Navigieren • Drücke P für Autoplay • Klicke eine Karte für Details",
+      "openHint": "Klicken für Details",
+      "noAdditionalInfo": "Keine zusätzlichen Hinweise",
+      "labels": {
+        "postalCode": "PLZ",
+        "city": "Stadt"
+      },
+      "actions": {
+        "play": "Abspielen",
+        "pause": "Pausieren",
+        "prev": "Zurück",
+        "next": "Weiter",
+        "favorite": "Als Favorit markieren",
+        "unfavorite": "Favorit entfernen"
+      }
+    },
+
+      "stats": {
+        "labels": {
+          "profileCompleteness": "Profil-Score",
+          "securityScore": "Schutzlevel",
+          "dataPoints": "Datenpunkte",
+          "lastUpdated": "Zuletzt aktualisiert",
+          "profileId": "Profil-ID",
+          "since": "Seit"
+        },
+        "values": {
+          "today": "Heute"
+        }
+      }
+  },
+
+  "security": {
+    "labels": {
+      "securityLevel": "Schutzlevel"
+    },
+    "values": {
+      "secure": "Sicher",
+      "actionRequired": "Aktion nötig"
+    }
   }
 }

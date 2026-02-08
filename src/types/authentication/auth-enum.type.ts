@@ -1,9 +1,13 @@
+import { CustomerInfo } from '../user/user.type';
 export enum KcRole {
   ADMIN = "ADMIN",
-  SECURITY = "SECURITY",
-  GUEST = "GUEST",
-  EVENT_ADMIN = "EVENT_ADMIN",
-  ANON = "ANON",
+  // SECURITY = "SECURITY",
+  // GUEST = "GUEST",
+  // EVENT_ADMIN = "EVENT_ADMIN",
+  SUPREME = "SUPREME",
+  ELITE = "ELITE",
+  BASIC = "BASIC",
+  // ANON = "ANON",
 }
 
 /**
@@ -16,9 +20,10 @@ export function extractRoles(raw?: string[] | null): KcRole[] {
   const set = new Set((raw ?? []).map((r) => r.toUpperCase()));
   const roles: KcRole[] = [];
   if (set.has("ADMIN")) roles.push(KcRole.ADMIN);
-  if (set.has("SECURITY")) roles.push(KcRole.SECURITY);
-  if (set.has("EVENT_ADMIN")) roles.push(KcRole.EVENT_ADMIN);
-  if (set.has("GUEST")) roles.push(KcRole.GUEST);
+  // if (set.has("SECURITY")) roles.push(KcRole.SECURITY);
+  // if (set.has("EVENT_ADMIN")) roles.push(KcRole.EVENT_ADMIN);
+  // if (set.has("GUEST")) roles.push(KcRole.GUEST);
+    if (set.has("SUPREME")) roles.push(KcRole.SUPREME);
 
   return roles;
 }
@@ -32,9 +37,9 @@ export function resolveUserRoles(
   isAuthenticated: boolean,
   raw?: string[] | null
 ): KcRole[] {
-  if (!isAuthenticated) return [KcRole.ANON];
+  // if (!isAuthenticated) return [KcRole.ANON];
   const mapped = extractRoles(raw);
-  if (mapped.length === 0) return [KcRole.GUEST];
+  // if (mapped.length === 0) return [KcRole.GUEST];
   return mapped;
 }
 

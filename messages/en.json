@@ -5,6 +5,7 @@
     "notes": "Notes",
     "recommendation": "Recommendation"
   },
+
   "sidebar": {
     "home": "Home",
     "profile": "My Profile",
@@ -13,6 +14,7 @@
     "billing": "Billing",
     "support": "Support"
   },
+
   "inbox": {
     "title": "Inbox",
     "from": "From",
@@ -24,6 +26,7 @@
       "unread": "Unread"
     }
   },
+
   "weather": {
     "title": "Weather",
     "conditions": {
@@ -32,6 +35,7 @@
       "rain": "Rain"
     }
   },
+
   "calendar": {
     "title": "Calendar",
     "events": {
@@ -39,6 +43,7 @@
       "productReview": "Product Review"
     }
   },
+
   "products": {
     "title": "Products",
     "open": "Open {name}",
@@ -63,10 +68,12 @@
       "description": "Messaging · Templates · Events"
     }
   },
+
   "branding": {
     "title": "Nexys",
     "tagline": "Build. Connect. Evolve."
   },
+
   "auth": {
     "username": {
       "label": "Username"
@@ -99,6 +106,255 @@
       "termsRequired": "Please accept the Terms and Conditions first",
       "missingCredentials": "Username or password is missing",
       "loginFailed": "Login failed. Please try again."
+    }
+  },
+
+  "sections": {
+    "roleData": "Role data",
+    "interests": "Interests"
+  },
+
+  "user": {
+    "labels": {
+      "addresses": "Locations",
+      "contacts": "Contacts",
+      "status": "Account status",
+      "type": "Account type"
+    },
+    "personal": {
+      "labels": {
+        "title": "Personal profile",
+        "contact": "Contact"
+    },
+      "values": {
+        "bornOn": "Born on {date}",
+        "bornOnWithAge": "Born on {date} ({age} years old)"
+    },
+      "gender": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "maritalStatus": {
+        "single": "Single",
+        "married": "Married",
+        "divorced": "Divorced",
+        "widowed": "Widowed"
+      },
+      "phoneType": {
+        "whatsapp": "WhatsApp",
+        "mobile": "Mobile",
+        "private": "Private",
+        "work": "Work",
+        "home": "Home",
+        "other": "Other"
+      }
+    },
+    "type": {
+      "customer": "Customer",
+      "employee": "Employee",
+      "guest": "Guest"
+    },
+    "role": {
+      "admin": "Administrator",
+      "security": "Security",
+      "user": "User",
+      "guest": "Guest"
+    },
+    "status": {
+      "active": "Active",
+      "disabled": "Disabled",
+      "deleted": "Deleted",
+      "inactive": "Inactive",
+      "blocked": "Blocked",
+      "closed": "Closed"
+    },
+    "customer": {
+      "labels": {
+        "tier": "Tier",
+        "subscription": "Subscription",
+        "contactOptions": "Contact options",
+        "interests": "Interests",
+        "noInterests": "No interests specified"
+      },
+      "values": {
+        "subscribed": "Subscribed",
+        "notSubscribed": "Not subscribed"
+      },
+      "tiers": {
+        "basic": "Basic",
+        "elite": "Elite",
+        "supreme": "Supreme"
+      },
+       "contacts": {
+             "title": "Trust Network",
+         "emptyTitle": "No contacts yet",
+         "emptySubtitle": "Add trusted contacts to enable limits, emergency flags and shared access.",
+         "count": "{count} contacts",
+         "totalLimit": "Total limit",
+         "filtered": "Filtered",
+         "emergency": "Emergency",
+         "filters": {
+           "all": "All relationships"
+         },
+         "noResultsTitle": "No results",
+         "noResultsSubtitle": "No contacts match the selected relationship filter.",
+         "resetFilter": "Reset filter",
+         "labels": {
+           "limit": "Limit",
+           "start": "Start",
+           "end": "End"
+         },
+         "relationship": {
+           "family": "Family",
+           "friend": "Friend",
+           "partner": "Partner",
+           "colleague": "Colleague",
+           "businessPartner": "Business partner",
+           "relative": "Relative",
+           "parent": "Parent",
+           "sibling": "Sibling",
+           "child": "Child",
+           "cousin": "Cousin",
+           "other": "Other"
+         }
+       },
+      "contactOption": {
+        "email": "Email",
+        "phone": "Phone",
+        "sms": "SMS",
+        "whatsapp": "WhatsApp",
+        "letter": "Letter"
+      },
+      "interest": {
+        "sports": "Sports",
+        "music": "Music",
+        "travel": "Travel",
+        "technology": "Technology",
+        "investments": "Investments",
+        "savingAndFinance": "Saving & Finance",
+        "creditAndDebt": "Credit & Debt",
+        "realEstate": "Real Estate",
+        "insurance": "Insurance",
+        "sustainableFinance": "Sustainable Finance",
+        "technologyAndInnovation": "Ttechnology & Innovation",
+        "bankProductsAndServices": "Bankproducts & Services"
+      },
+      "interestCategory": {
+        "banking": "Banking",
+        "technology": "Technology",
+        "realEstate": "Real Estate",
+        "insurance": "Insurance",
+        "investments": "Investments",
+        "lifestyle": "Lifestyle"
+      }
+    },
+    "employee": {
+      "labels": {
+        "department": "Department",
+        "position": "Position",
+        "role": "Job role",
+        "isExternal": "External",
+        "access": "Access",
+        "hireDate": "Hire date"
+      },
+      "values": {
+        "admin": "Administrator",
+        "standard": "Standard access",
+        "external": "External",
+        "internal": "Internal",
+        "notAvailable": "—"
+      }
+    },
+    "guest": {
+      "messages": {
+        "guestRoleDataUnavailable": "This section is not available for guests. Create an account to view tier, subscription, and more account details.",
+        "note": "This is a guest account with limited, temporary access."
+      },
+      "actions": {
+        "createAccount": "Create account"
+      }
+    }
+  },
+
+  "relationship": {
+    "family": "Family",
+    "friend": "Friend",
+    "partner": "Partner",
+    "colleague": "Colleague",
+    "businessPartner": "Business Partner",
+    "relative": "Relative",
+    "parent": "Parent",
+    "sibling": "Sibling",
+    "child": "Child",
+    "cousin": "Cousin",
+    "other": "Other"
+  },
+
+  "common": {
+    "values": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+
+  "profile": {
+    "labels": {
+      "profile": "Profile-Score"
+    },
+    "role": {
+      "titles": {
+        "employee": "Employment details",
+        "customer": "Customer details",
+        "guest": "Guest access",
+        "default": "Role details"
+      }
+    },
+    "addresses": {
+      "title": "Locations",
+      "emptyTitle": "No locations yet",
+      "emptySubtitle": "Add your first location to get started.",
+      "counter": "{current}/{total}",
+      "favorited": "{count} favorited",
+      "hint": "Use ← / → to navigate • Press P to toggle autoplay • Click a card for details",
+      "openHint": "Click to view details",
+      "noAdditionalInfo": "No additional notes",
+      "labels": {
+        "postalCode": "Postal code",
+        "city": "City"
+      },
+      "actions": {
+        "play": "Play",
+        "pause": "Pause",
+        "prev": "Previous",
+        "next": "Next",
+        "favorite": "Add to favorites",
+        "unfavorite": "Remove from favorites"
+      }
+    },
+
+      "stats": {
+        "labels": {
+          "profileCompleteness": "Profile completeness",
+          "securityScore": "Security score",
+          "dataPoints": "Data points",
+          "lastUpdated": "Last updated",
+          "profileId": "Profile ID",
+          "since": "Since"
+        },
+        "values": {
+          "today": "Today"
+        }
+      }
+  },
+
+  "security": {
+    "labels": {
+      "securityLevel": "Protection level"
+    },
+    "values": {
+      "secure": "Secure",
+      "actionRequired": "Action required"
     }
   }
 }

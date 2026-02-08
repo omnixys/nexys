@@ -9,12 +9,13 @@
 
 "use client";
 
-import SignUpLayout from "../components/auth/signUp/SignUpLayout";
-import SignUpStepper from "../components/auth/signUp/SignUpStepper";
-import StepRenderer from "../components/auth/signUp/StepRenderer";
-import SignUpActions from "../components/auth/signUp/actions/SignUpActions";
-import { useSignUpForm } from "../components/auth/signUp/hooks/useSignUpForm";
-import BrandingHeader from "../components/auth/login/BrandingHeader";
+import BrandingHeader from "../../../components/auth/login/BrandingHeader";
+import SignUpActions from "../../../components/auth/signUp/actions/SignUpActions";
+import { useSignUpForm } from "../../../components/auth/signUp/hooks/useSignUpForm";
+import SignUpLayout from "../../../components/auth/signUp/SignUpLayout";
+import SignUpStepper from "../../../components/auth/signUp/SignUpStepper";
+import StepRenderer from "../../../components/auth/signUp/StepRenderer";
+
 
 export default function SignUpPage() {
   const formState = useSignUpForm();

@@ -6,24 +6,22 @@
 "use client";
 
 import { Box, CssBaseline } from "@mui/material";
-import LayoutShell from "./components/layout/LayoutShell";
+import LayoutShell from "@/components/home/layout/LayoutShell";
 import { JSX } from "react";
-import CommandPalette from "./components/CommandPalette";
-import BentoGrid from "./components/BentoGrid";
+import CommandPalette from "@/components/home/CommandPalette";
+import BentoGrid from "@/components/home/BentoGrid";
 import { useAuth } from "@/providers/AuthProvider";
 
 export default function NexysHomePage(): JSX.Element {
   const { user, loading } = useAuth()
   
   return (
-    <>
-      <CssBaseline />
-      <LayoutShell user={user} loading={loading}>
+          <LayoutShell user={user} loading={loading}>
         <Box sx={{ position: "relative" }}>
           <CommandPalette />
           <BentoGrid user={user} />
         </Box>
       </LayoutShell>
-    </>
+
   );
 }

@@ -14,6 +14,7 @@ import { createCombinedApolloClient } from "@/lib/client/combined-client";
 import type { MeResult } from "@/types/user/user-graphql.type";
 import { User } from "@/types/user/user.type";
 import { AuthEventsBus, AuthManager } from "@/utils/AuthManager";
+import { KcRole } from '../types/authentication/auth-enum.type';
 
 export interface AuthContextType {
   user?: User;
@@ -39,7 +40,7 @@ export function AuthProvider({
   });
 
   const user = data?.me;
-  const isAdmin = false;
+  const isAdmin = user?.role == KcRole.ADMIN;
   const isAuthenticated = !!user;
 
   /* Initialize AuthManager */

@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, ".extras/inspiration/ProfileContactsCarousel1.tsx", ".extras/inspiration/ProfileContactsCarousel2.tsx", ".extras/inspiration/ProfileContactsCarousel3.tsx", ".extras/inspiration/ProfileContactsCarousel5.tsx", ".extras/inspiration/ProfileContactsCarousel4.tsx", ".extras/inspiration/ProfileContactsCarousel6.tsx"  ],
   "exclude": ["node_modules"]
 }

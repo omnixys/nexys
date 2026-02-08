@@ -7,6 +7,7 @@ export const ME = gql`
       username
       createdAt
       updatedAt
+      role
       phoneNumbers {
         id
         number

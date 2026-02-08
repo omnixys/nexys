@@ -1,16 +1,27 @@
-import { ContactOptionType, InterestType, MaritalStatusType, PhoneNumberType, RelationshipType, UserStatusType, UserType } from "./user-enum-type";
+import { KcRole } from "../authentication/auth-enum.type";
+import {
+  ContactOptionType,
+  GenderType,
+  InterestType,
+  MaritalStatusType,
+  PhoneNumberType,
+  RelationshipType,
+  UserStatusType,
+  UserType,
+} from "./user-enum-type";
 
 export type User = {
   id: string;
   username: string;
-  type: UserType;
+  userType: UserType;
   status: UserStatusType;
-  customerInfo: CustomerInfo;
-  employeeInfo: EmployeeInfo;
+  customer: CustomerInfo;
+  employee: EmployeeInfo;
   personalInfo: PersonalInfo;
-  address: Address[];
-  contacts: Contact[]
-  securityQuestions: SecurityQuestion[]
+  addresses: Address[];
+  contacts: Contact[];
+  securityQuestions: SecurityQuestion[];
+  role: KcRole;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -23,15 +34,15 @@ export type EmployeeInfo = {
   salary: string;
   hireDate: Date;
   isExternal: boolean;
-}
+};
 
 export type CustomerInfo = {
   id: string;
   tierLevel: number;
   subscribed: boolean;
-  interests: InterestType[]
-  contactOptions: ContactOptionType[]
-}
+  interests: InterestType[];
+  contactOptions: ContactOptionType[];
+};
 
 export type PersonalInfo = {
   id: string;
@@ -41,10 +52,11 @@ export type PersonalInfo = {
   birthDate: Date;
   maritalStatus: MaritalStatusType;
   phoneNumbers?: PhoneNumber[];
+  gender: GenderType;
 };
 
 export type Address = {
-  id: string
+  id: string;
   street: string;
   houseNumber: string;
   zipCode: string;
@@ -52,7 +64,7 @@ export type Address = {
   state: string;
   country: string;
   additionalInfo: string;
-}
+};
 
 export type Contact = {
   id: string;
@@ -63,19 +75,30 @@ export type Contact = {
   emergency: boolean;
   startDate: Date;
   endDate: Date;
-}
+};
 
 export type SecurityQuestion = {
   id: string;
   question: string;
   anser: string;
-}
-
-
+};
 
 export type PhoneNumber = {
   id: string;
   number: string;
   type?: PhoneNumberType;
   isPrimary?: boolean;
+};
+
+export type InterestCategory =
+  | "banking"
+  | "technology"
+  | "realEstate"
+  | "insurance"
+  | "lifestyle"
+  | "investments";
+
+export type UserInterest = {
+  id: string;
+  category: InterestCategory;
 };

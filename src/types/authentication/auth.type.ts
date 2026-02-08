@@ -26,3 +26,8 @@ export type AuthToken = {
   idToken: string;
   scope: string;
 };
+
+export type AuthErrorKey =
+  | "termsRequired"
+  | "missingCredentials"
+  | "loginFailed";
