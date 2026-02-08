@@ -7,9 +7,9 @@
 
 import { Box, useTheme } from "@mui/material";
 import GlobalNavbar from "./GlobalNavbar";
-import UserSidebar from "./UserSidebar";
 import { JSX } from "react";
 import { User } from "@/types/user/user.type";
+import UserSidebar from "../../layout/sidebar/UserSidebar";
 
 const SIDEBAR_WIDTH = 260;
 

@@ -5,14 +5,7 @@
     "notes": "Notizen",
     "recommendation": "Empfehlung"
   },
-  "sidebar": {
-    "home": "Startseite",
-    "profile": "Mein Profil",
-    "settings": "Einstellungen",
-    "security": "Sicherheit",
-    "billing": "Abrechnung",
-    "support": "Support"
-  },
+
   "inbox": {
     "title": "Posteingang",
     "from": "Von",
@@ -108,19 +101,19 @@
       "type": "Kontoart"
     },
     "personal": {
-        "labels": {
-      "title": "Persönliches Profil",
-      "contact": "Kontakt"
-    },
-    "values": {
-      "bornOn": "Geboren am {date}",
-       "bornOnWithAge": "Geboren am {date} ({age} Jahre alt)"
-    },
-    "gender": {
-      "male": "Männlich",
-      "female": "Weiblich",
-      "other": "Divers"
-    },
+      "labels": {
+        "title": "Persönliches Profil",
+        "contact": "Kontakt"
+      },
+      "values": {
+        "bornOn": "Geboren am {date}",
+        "bornOnWithAge": "Geboren am {date} ({age} Jahre alt)"
+      },
+      "gender": {
+        "male": "Männlich",
+        "female": "Weiblich",
+        "other": "Divers"
+      },
       "maritalStatus": {
         "single": "Ledig",
         "married": "Verheiratet",
@@ -182,37 +175,37 @@
         "letter": "Brief"
       },
       "contacts": {
-      "title": "Vertrauensnetzwerk",
-      "emptyTitle": "Noch keine Kontakte",
-      "emptySubtitle": "Füge vertrauenswürdige Kontakte hinzu, um Limits, Notfall-Markierungen und geteilten Zugriff zu aktivieren.",
-      "count": "{count} Kontakte",
-      "totalLimit": "Gesamtes Limit",
-      "filtered": "Gefiltert",
-      "emergency": "Notfall",
-      "filters": {
-        "all": "Alle Beziehungen"
-      },
-      "noResultsTitle": "Keine Ergebnisse",
-      "noResultsSubtitle": "Keine Kontakte passen zum ausgewählten Beziehungsfilter.",
-      "resetFilter": "Filter zurücksetzen",
-      "labels": {
-        "limit": "Limit",
-        "start": "Start",
-        "end": "Ende"
-      },
-       "relationship": {
-        "family": "Familie",
-        "friend": "Freund",
-        "partner": "Partner",
-        "colleague": "Kollege",
-        "businessPartner": "Geschäftspartner",
-        "relative": "Verwandter",
-        "parent": "Elternteil",
-        "sibling": "Geschwister",
-        "child": "Kind",
-        "cousin": "Cousin",
-        "other": "Sonstiges"
-      }
+        "title": "Vertrauensnetzwerk",
+        "emptyTitle": "Noch keine Kontakte",
+        "emptySubtitle": "Füge vertrauenswürdige Kontakte hinzu, um Limits, Notfall-Markierungen und geteilten Zugriff zu aktivieren.",
+        "count": "{count} Kontakte",
+        "totalLimit": "Gesamtes Limit",
+        "filtered": "Gefiltert",
+        "emergency": "Notfall",
+        "filters": {
+          "all": "Alle Beziehungen"
+        },
+        "noResultsTitle": "Keine Ergebnisse",
+        "noResultsSubtitle": "Keine Kontakte passen zum ausgewählten Beziehungsfilter.",
+        "resetFilter": "Filter zurücksetzen",
+        "labels": {
+          "limit": "Limit",
+          "start": "Start",
+          "end": "Ende"
+        },
+        "relationship": {
+          "family": "Familie",
+          "friend": "Freund",
+          "partner": "Partner",
+          "colleague": "Kollege",
+          "businessPartner": "Geschäftspartner",
+          "relative": "Verwandter",
+          "parent": "Elternteil",
+          "sibling": "Geschwister",
+          "child": "Kind",
+          "cousin": "Cousin",
+          "other": "Sonstiges"
+        }
       },
       "interest": {
         "sports": "Sport",
@@ -254,12 +247,12 @@
       }
     },
     "guest": {
-  "messages": {
-    "guestRoleDataUnavailable": "Dieser Bereich ist für Gäste nicht verfügbar. Lege einen Account an, um Tier, Abo und weitere Account-Details zu sehen."
-  },
-  "actions": {
-    "createAccount": "Account anlegen"
-  }
+      "messages": {
+        "guestRoleDataUnavailable": "Dieser Bereich ist für Gäste nicht verfügbar. Lege einen Account an, um Tier, Abo und weitere Account-Details zu sehen."
+      },
+      "actions": {
+        "createAccount": "Account anlegen"
+      }
     }
   },
 
@@ -294,26 +287,25 @@
     "other": "Sonstiges"
   },
 
-  "common":{
-  "labels": {
-    "department": "Abteilung",
-    "position": "Position",
-    "employment": "Anstellung",
-    "customerTier": "Kundentyp",
- 
+  "common": {
+    "labels": {
+      "department": "Abteilung",
+      "position": "Position",
+      "employment": "Anstellung",
+      "customerTier": "Kundentyp",
 
-    "subscribed": "Abonniert",
-    "security": "Schutzlevel",
-    "type": "Kontoart",
-    "status": "Kontostatus"
+      "subscribed": "Abonniert",
+      "security": "Schutzlevel",
+      "type": "Kontoart",
+      "status": "Kontostatus"
+    },
+    "values": {
+      "yes": "Ja",
+      "no": "Nein",
+      "internal": "Intern",
+      "external": "Extern"
+    }
   },
-  "values": {
-    "yes": "Ja",
-    "no": "Nein",
-    "internal": "Intern",
-    "external": "Extern"
-  }
-},
 
   "profile": {
     "labels": {
@@ -365,19 +357,19 @@
       }
     },
 
-      "stats": {
-        "labels": {
-          "profileCompleteness": "Profil-Score",
-          "securityScore": "Schutzlevel",
-          "dataPoints": "Datenpunkte",
-          "lastUpdated": "Zuletzt aktualisiert",
-          "profileId": "Profil-ID",
-          "since": "Seit"
-        },
-        "values": {
-          "today": "Heute"
-        }
+    "stats": {
+      "labels": {
+        "profileCompleteness": "Profil-Score",
+        "securityScore": "Schutzlevel",
+        "dataPoints": "Datenpunkte",
+        "lastUpdated": "Zuletzt aktualisiert",
+        "profileId": "Profil-ID",
+        "since": "Seit"
+      },
+      "values": {
+        "today": "Heute"
       }
+    }
   },
 
   "security": {
@@ -388,5 +380,56 @@
       "secure": "Sicher",
       "actionRequired": "Aktion nötig"
     }
+  },
+
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Passe dein Nexys-Erlebnis an",
+    "quick": "Schnelleinstellungen",
+    "overview": "Übersicht",
+    "configured": "Konfiguriert",
+
+    "tiles": {
+      "appearance": "Darstellung",
+      "language": "Sprache & Region",
+      "notifications": "Benachrichtigungen",
+      "data": "Datenverwaltung",
+      "advanced": "Erweiterte Einstellungen",
+      "privacy": "Datenschutz",
+      "family": "Familie"
+    },
+
+    "labels": {
+      "theme": "Design",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "fontSize": "Schriftgröße",
+      "language": "Sprache",
+      "currency": "Währung",
+      "regionFormat": "Regionsformat",
+      "total": "gesamt"
+    }
+  },
+
+  "sidebar": {
+    "home": "Startseite",
+    "profile": "Mein Profil",
+    "settings": "Einstellungen",
+    "security": "Sicherheit",
+    "billing": "Abrechnung",
+    "support": "Support",
+
+    "settings_appearance": "Darstellung",
+    "settings_language": "Sprache & Region",
+    "settings_notifications": "Benachrichtigungen",
+    "settings_data": "Daten",
+    "settings_advanced": "Erweitert",
+
+    "security_score": "Security Score",
+    "security_features": "Features",
+    "security_devices": "Geräte",
+    "security_history": "Login-Verlauf",
+    "security_auth": "Authentifizierung",
+    "security_actions": "Aktionen"
   }
 }

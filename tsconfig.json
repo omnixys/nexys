@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, ".extras/inspiration/ProfileContactsCarousel1.tsx", ".extras/inspiration/ProfileContactsCarousel2.tsx", ".extras/inspiration/ProfileContactsCarousel3.tsx", ".extras/inspiration/ProfileContactsCarousel5.tsx", ".extras/inspiration/ProfileContactsCarousel4.tsx", ".extras/inspiration/ProfileContactsCarousel6.tsx"  ],
+, ".extras/inspiration/profile/ProfileContactsCarousel1.tsx", ".extras/inspiration/profile/ProfileContactsCarousel2.tsx", ".extras/inspiration/profile/ProfileContactsCarousel3.tsx", ".extras/inspiration/profile/ProfileContactsCarousel5.tsx", ".extras/inspiration/profile/ProfileContactsCarousel4.tsx", ".extras/inspiration/profile/ProfileContactsCarousel6.tsx", ".extras/inspiration/settings/page1.tsx"  ],
   "exclude": ["node_modules"]
 }

@@ -3,7 +3,8 @@ import RootProviders from "@/providers/RootProvider";
 import { Box } from "@mui/material";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import React from "react";
+import React, { ReactNode } from "react";
+import SettingsLayoutClient from "./SettingsLayoutClient";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  modal: ReactNode;
 }) {
   return (
     <Box
@@ -33,7 +36,7 @@ export default function RootLayout({
       <StarsCanvas />
       {/* Page Content */}
       <RootProviders>
-        {children}
+        <SettingsLayoutClient modal={modal}>{children}</SettingsLayoutClient>
 
         {/* <Footer /> */}
       </RootProviders>

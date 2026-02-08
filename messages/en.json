@@ -356,5 +356,35 @@
       "secure": "Secure",
       "actionRequired": "Action required"
     }
+  },
+
+  "settings": {
+    "title": "Settings Dashboard",
+    "subtitle": "Customize your Nexys experience",
+    "quick": "Quick Settings",
+    "overview": "Settings Overview",
+    "configured": "Configured",
+
+    "tiles": {
+      "appearance": "Appearance",
+      "language": "Language & Region",
+      "notifications": "Notifications",
+      "data": "Data Management",
+      "advanced": "Advanced Settings",
+      "privacy": "Privacy",
+      "family": "Family"
+    },
+
+    "labels": {
+      "theme": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "fontSize": "Font Size",
+      "language": "Language",
+      "currency": "Currency",
+      "regionFormat": "Region Format",
+      "total": "total"
+    }
   }
+
 }

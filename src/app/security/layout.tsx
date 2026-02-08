@@ -1,10 +1,11 @@
 import { Box, createTheme, CssBaseline } from "@mui/material";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import React from "react";
+import React, { ReactNode } from "react";
 import StarsCanvas from "@/components/landing/StarBackground";
 import RootProviders from "@/providers/RootProvider";
 import Footer from "@/components/home/Footer";
+import SecurityLayoutClient from "./SecurityLayoutClient";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,28 +18,30 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  modal: ReactNode;
 }) {
   return (
-        <Box
-          sx={{
-            minHeight: "100vh",
-            // backgroundColor: "palette.background",
-            backgroundColor: "#030014",
-            overflowY: "auto",
-            overflowX: "hidden",
-            position: "relative",
-          }}
-        >
-          {/* Global FX / Layout */}
-          <StarsCanvas />
-          {/* Page Content */}
-          <RootProviders>
-            {children}
+    <Box
+      sx={{
+        minHeight: "100vh",
+        // backgroundColor: "palette.background",
+        backgroundColor: "#030014",
+        overflowY: "auto",
+        overflowX: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Global FX / Layout */}
+      <StarsCanvas />
+      {/* Page Content */}
+      <RootProviders>
+        <SecurityLayoutClient modal={modal}>{children}</SecurityLayoutClient>
 
-            {/* <Footer /> */}
-          </RootProviders>
-        </Box>
+        {/* <Footer /> */}
+      </RootProviders>
+    </Box>
   );
 }
