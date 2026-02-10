@@ -20,32 +20,25 @@ const NAV_ITEMS = [
 export default function AboutSidebar() {
   const pathname = usePathname();
 
-
-  const activeIndex = NAV_ITEMS.findIndex(
-    (i) => pathname === i.href,
-  );
-
-  const [progress, setProgress] = useState<number>(activeIndex);
+  const activeIndex = NAV_ITEMS.findIndex((i) => pathname === i.href);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-  setProgress(activeIndex >= 0 ? (activeIndex + 1) / NAV_ITEMS.length : 0);
-  console.log(activeIndex);
-  }, [activeIndex])
-
+    setProgress(activeIndex >= 0 ? (activeIndex + 1) / NAV_ITEMS.length : 0);
+  }, [activeIndex]);
 
   return (
     <Box
       sx={{
         position: "sticky",
         top: 120,
-        minWidth: 260,
-        pl: 3,
+        width: 260,
         display: "flex",
         gap: 3,
-        zIndex: 1300,
+        zIndex: 20,
       }}
     >
-      {/* PROGRESS LINE */}
+      {/* Progress Bar */}
       <Box
         sx={{
           position: "relative",
@@ -60,26 +53,18 @@ export default function AboutSidebar() {
             width: "100%",
             background: "linear-gradient(180deg, #a855f7, #06b6d4)",
           }}
-          initial={{ height: 0 }}
           animate={{ height: `${progress * 100}%` }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         />
       </Box>
 
-      {/* NAV ITEMS */}
+      {/* Nav */}
       <Box sx={{ flex: 1 }}>
-        <Typography
-          sx={{
-            fontSize: 12,
-            opacity: 0.6,
-            mb: 2,
-            pointerEvents: "none",
-          }}
-        >
+        <Typography sx={{ fontSize: 12, opacity: 0.6, mb: 2 }}>
           {activeIndex + 1} / {NAV_ITEMS.length}
         </Typography>
 
-        {NAV_ITEMS.map((item, index) => {
+        {NAV_ITEMS.map((item) => {
           const active = pathname === item.href;
 
           return (
@@ -87,20 +72,14 @@ export default function AboutSidebar() {
               key={item.href}
               whileHover={{ x: 6 }}
               animate={
-                active ? { boxShadow: "0 0 24px rgba(168,62,180,0.45)" } : {}
+                active ? { boxShadow: "0 0 20px rgba(168,62,180,0.45)" } : {}
               }
               transition={{ duration: 0.25 }}
-              style={{
-                borderRadius: 8,
-                pointerEvents: "auto", // 👈 wichtig
-              }}
+              style={{ borderRadius: 8 }}
             >
               <Link
                 href={item.href}
-                style={{
-                  display: "block",
-                  textDecoration: "none",
-                }}
+                style={{ textDecoration: "none", display: "block" }}
               >
                 <Typography
                   sx={{
@@ -109,7 +88,6 @@ export default function AboutSidebar() {
                     fontSize: 14,
                     fontWeight: active ? 600 : 400,
                     color: active ? "#fff" : "rgba(255,255,255,0.6)",
-                    cursor: "pointer",
                   }}
                 >
                   {item.label}

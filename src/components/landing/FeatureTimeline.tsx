@@ -90,7 +90,8 @@ export default function FeatureTimeline() {
             position: "absolute",
             top: 0,
             bottom: 0,
-            left: { xs: "calc(50% - 1px)", md: "calc(50% - 1px)" },
+            left: "50%",
+            transform: "translateX(-50%)",
             width: "2px",
             backgroundColor: "rgba(168,62,180,0.35)",
           },
@@ -99,7 +100,14 @@ export default function FeatureTimeline() {
         {MODULE_DETAILS.map((item, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+            initial={{
+              opacity: 0,
+              y: { xs: 24, md: 0 },
+              x: {
+                xs: 0,
+                md: index % 2 === 0 ? -60 : 60,
+              },
+            }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
@@ -163,10 +171,19 @@ export default function FeatureTimeline() {
                 </Typography>
 
                 <Button
-                  variant="outlined"
                   size="small"
-                  color="secondary"
-                  sx={{ mt: 2 }}
+                  sx={{
+                    mt: 2,
+                    color: "#fff",
+                    border: "1px solid rgba(255,255,255,0.35)",
+                    borderRadius: 999,
+                    textTransform: "none",
+                    backdropFilter: "blur(6px)",
+                    background: "rgba(255,255,255,0.06)",
+                    "&:hover": {
+                      background: "rgba(255,255,255,0.12)",
+                    },
+                  }}
                   onClick={() => handleOpen(item)}
                 >
                   Mehr erfahren
@@ -189,7 +206,7 @@ export default function FeatureTimeline() {
             <Box
               sx={{
                 position: "absolute",
-                top: "50%",
+                top: "32px",
                 left: "calc(50% - 8px)",
                 transform: "translateY(-50%)",
                 width: 16,
@@ -204,6 +221,7 @@ export default function FeatureTimeline() {
         ))}
       </Box>
       <Dialog
+        aria-labelledby="module-dialog-title"
         open={open}
         onClose={handleClose}
         maxWidth="sm"
@@ -218,7 +236,9 @@ export default function FeatureTimeline() {
           },
         }}
       >
-        <DialogTitle>{selectedModule?.name}</DialogTitle>
+        <DialogTitle id="module-dialog-title">
+          {selectedModule?.name}
+        </DialogTitle>
         <DialogContent>
           {selectedModule?.image && (
             <Box
@@ -241,16 +261,34 @@ export default function FeatureTimeline() {
           )}
 
           {selectedModule?.video && (
-            <Box sx={{ mb: 2, textAlign: "center" }}>
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                height: 360,
+                mb: 2,
+              }}
+            >
               <video
                 src={selectedModule.video}
                 autoPlay
                 muted
                 loop
                 playsInline
-                style={{ maxWidth: "100%", borderRadius: 12 }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: 12,
+                }}
               />
             </Box>
+          )}
+
+          {!selectedModule?.image && !selectedModule?.video && (
+            <Typography sx={{ opacity: 0.7 }}>
+              Weitere Details folgen in Kürze.
+            </Typography>
           )}
 
           <Typography variant="body1">{selectedModule?.description}</Typography>

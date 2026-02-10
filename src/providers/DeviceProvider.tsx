@@ -14,22 +14,27 @@ interface DeviceContextValue {
 const DeviceContext = createContext<DeviceContextValue | undefined>(undefined);
 
 export function DeviceProvider({ children }: { children: React.ReactNode }) {
-  const [device, setDevice] = useState<DeviceType>("desktop");
+  const [device, setDevice] = useState<DeviceType | null>(null);
 
-  // Detect on first render + window resize
+  let timeout: NodeJS.Timeout;
+
   useEffect(() => {
     const detect = () => {
-      const w = window.innerWidth;
-
-      if (w < 768) setDevice("mobile");
-      else if (w < 1200) setDevice("tablet");
-      else setDevice("desktop");
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        const w = window.innerWidth;
+        if (w < 600) setDevice("mobile");
+        else if (w < 1200) setDevice("tablet");
+        else setDevice("desktop");
+      }, 100);
     };
 
     detect();
     window.addEventListener("resize", detect);
     return () => window.removeEventListener("resize", detect);
   }, []);
+
+  if (!device) return null; // oder Skeleton
 
   return (
     <DeviceContext.Provider

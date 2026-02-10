@@ -23,25 +23,29 @@ import {
   slideInFromRight,
   slideInFromTop,
 } from "@/utils/motion";
+import { useDevice } from "../../providers/DeviceProvider";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 const MotionButton = motion(Button);
 
 const HeroContent = () => {
+  const {isMobile} = useDevice()
   return (
     <MotionBox
       initial="hidden"
       animate="visible"
       sx={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { xs: "column", lg: "row" },
         alignItems: "center",
         justifyContent: "center",
-        px: "80px", // px-20
-        mt: "160px", // mt-40
+        px: { xs: 2, sm: 4, md: 6, lg: 10 },
+        mt: { xs: 10, md: 14, lg: 20 },
+        gap: { xs: 6, lg: 10 },
         width: "100%",
         zIndex: 20,
+        pt: isMobile ? 20 : 0,
       }}
     >
       {/* LEFT CONTENT */}
@@ -90,7 +94,9 @@ const HeroContent = () => {
             display: "flex",
             flexDirection: "column",
             gap: "24px",
-            fontSize: "3.75rem", // text-6xl
+            fontSize: "clamp(2.2rem, 5vw, 3.75rem)",
+            lineHeight: 1.1,
+
             fontWeight: 700,
             color: "#fff",
             maxWidth: "600px",
@@ -118,7 +124,7 @@ const HeroContent = () => {
         <MotionTypography
           variants={slideInFromLeft(0.8)}
           sx={{
-            fontSize: "1.125rem", // text-lg
+            fontSize: "clamp(1rem, 1.8vw, 1.125rem)",
             color: "grey.400",
             my: "20px",
             maxWidth: "600px",
@@ -158,9 +164,10 @@ const HeroContent = () => {
         sx={{
           width: "100%",
           height: "100%",
-          display: "flex",
-          justifyContent: "center",
           alignItems: "center",
+          maxWidth: 520,
+          display: { xs: "none", lg: "flex" },
+          justifyContent: "center",
         }}
       >
         <Image

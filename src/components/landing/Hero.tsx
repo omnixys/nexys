@@ -74,10 +74,9 @@ const Hero = () => {
   return (
     <Box
       id="about-me"
+      ref={ref}
       sx={{
         position: "relative",
-        display: "flex",
-        flexDirection: "column",
         width: "100%",
         minHeight: "100svh",
         overflow: "hidden",
@@ -107,40 +106,6 @@ const Hero = () => {
 
       {/* Foreground Content */}
       <Box sx={{ position: "relative", zIndex: 20 }}>
-        {/* Logo */}
-        {/* <Box
-          left={"clamp(47.5%, 45vw, 62%)"}
-          top={"clamp(24px, 6vh, 80px)"}
-          sx={{ position: "relative" }}
-        >
-          <motion.div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              display: "inline-flex",
-              filter,
-              WebkitFilter: filter,
-            }}
-            animate={{ scale: scaleAnim }}
-            transition={{
-              duration: 1.3,
-              ease: [0.4, 0.0, 0.2, 1],
-              // ease: "easeInOut",
-              repeat: Infinity,
-            }}
-          >
-            <motion.div style={{ filter: glow }}>
-              <Image
-                src="/omnixys-original.png"
-                alt="Omnixys Logo"
-                width={120}
-                height={120}
-                style={{ marginBottom: 24 }}
-              />
-            </motion.div>
-          </motion.div>
-        </Box> */}
         <HeroContent />
       </Box>
     </Box>

@@ -83,11 +83,6 @@ export default function TransitionProvider({
           animate={{ height: "0vh", transition: { delay: 0.5 } }}
         />
 
-        {/* NAVBAR */}
-        <Box sx={{ height: 96 }}>
-          {/* <Navbar /> */}
-        </Box>
-
         {/* PAGE CONTENT */}
         <Box sx={{ height: "calc(100vh - 6rem)" }}>{children}</Box>
       </Box>

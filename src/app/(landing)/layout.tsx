@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import React from "react";
 import Footer from "../../components/landing/Footer";
-import Navbar from "../../components/landing/Navbar";
 import StarsCanvas from "../../components/landing/StarBackground";
+import Navbar from "../../components/layout/navbar/Navbar";
+import RootProvider from "../../providers/RootProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,32 +35,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        {/* <ThemeProvider theme={theme}> */}
-        <CssBaseline />
+    <Box
+      sx={{
+        minHeight: "100vh",
+        // backgroundColor: "palette.background",
+        backgroundColor: "#030014",
+        overflowY: "auto",
+        overflowX: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Global FX / Layout */}
+      <StarsCanvas />
+      <Navbar />
 
-        <Box
-          sx={{
-            minHeight: "100vh",
-            // backgroundColor: "palette.background",
-            backgroundColor: "#030014",
-            overflowY: "auto",
-            overflowX: "hidden",
-            position: "relative",
-          }}
-        >
-          {/* Global FX / Layout */}
-          <StarsCanvas />
-          <Navbar />
+      {/* Page Content */}
+      <RootProvider>{children}</RootProvider>
 
-          {/* Page Content */}
-          {children}
-
-          <Footer />
-        </Box>
-        {/* </ThemeProvider> */}
-      </body>
-    </html>
+      <Footer />
+    </Box>
   );
 }

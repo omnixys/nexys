@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import TransitionProvider from "@/components/me/transitionProvider";
 
 const inter = Inter({
@@ -26,15 +26,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        {/* <ThemeProvider theme={theme}> */}
-          <CssBaseline />
-          <TransitionProvider>
-            {children}
-          </TransitionProvider>
-        {/* </ThemeProvider> */}
-      </body>
-    </html>
+      <TransitionProvider>{children}</TransitionProvider>
   );
 }

@@ -11,7 +11,7 @@ export default function OmnixysVisionPage() {
     <Box
       component="main"
       sx={{
-        minHeight: "100vh",
+        minHeight: "100dvh",
         py: { xs: 8, md: 14 },
       }}
     >
@@ -20,22 +20,27 @@ export default function OmnixysVisionPage() {
         <MotionBox
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           sx={{ mb: 10 }}
         >
           <Typography
-            variant="h3"
-            fontWeight={700}
-            sx={{ color: "#fff", mb: 3 }}
+            component="h1"
+            sx={{
+              fontWeight: 700,
+              color: "#fff",
+              mb: 3,
+              fontSize: "clamp(2.2rem, 4.5vw, 3.25rem)",
+            }}
           >
             Unsere Vision
           </Typography>
 
           <Typography
             sx={{
-              fontSize: 20,
+              fontSize: "clamp(1.05rem, 2vw, 1.3rem)",
               color: "rgba(255,255,255,0.75)",
               maxWidth: 820,
+              lineHeight: 1.6,
             }}
           >
             Omnixys existiert, um digitale Systeme neu zu denken – als
@@ -49,16 +54,34 @@ export default function OmnixysVisionPage() {
             Das Problem heutiger Software
           </Typography>
 
-          <Typography sx={{ color: "rgba(255,255,255,0.8)", fontSize: 17 }}>
+          <Typography
+            sx={{
+              color: "rgba(255,255,255,0.8)",
+              fontSize: "1rem",
+              lineHeight: 1.7,
+            }}
+          >
             Viele Unternehmen kämpfen nicht mit fehlender Digitalisierung,
             sondern mit deren Folgen:
-            <br />
-            <br />
-            • unübersichtliche Systemlandschaften • gewachsene Monolithen • enge
-            Kopplung von Fachlichkeit und Technik • schwer wartbare
-            Integrationen • fehlende Skalierbarkeit
-            <br />
-            <br />
+          </Typography>
+
+          <Box
+            component="ul"
+            sx={{
+              mt: 2,
+              pl: 3,
+              color: "rgba(255,255,255,0.8)",
+              "& li": { mb: 0.5 },
+            }}
+          >
+            <li>unübersichtliche Systemlandschaften</li>
+            <li>gewachsene Monolithen</li>
+            <li>enge Kopplung von Fachlichkeit und Technik</li>
+            <li>schwer wartbare Integrationen</li>
+            <li>fehlende Skalierbarkeit</li>
+          </Box>
+
+          <Typography sx={{ mt: 2, color: "rgba(255,255,255,0.75)" }}>
             Software wird zum Risiko – statt zum Wettbewerbsvorteil.
           </Typography>
         </GlassCard>
@@ -69,17 +92,34 @@ export default function OmnixysVisionPage() {
             Die Antwort von Omnixys
           </Typography>
 
-          <Typography sx={{ color: "rgba(255,255,255,0.8)", fontSize: 17 }}>
+          <Typography
+            sx={{
+              color: "rgba(255,255,255,0.8)",
+              fontSize: "1rem",
+              lineHeight: 1.7,
+            }}
+          >
             Unsere Vision ist eine Plattformwelt, in der:
-            <br />
-            <br />
-            • jede Domäne klar abgegrenzt ist • Systeme unabhängig evolvieren
-            können • Integration über stabile Verträge erfolgt • technologische
-            Entscheidungen reversibel bleiben • Wachstum nicht zu Komplexität
-            führt
-            <br />
-            <br />
-            Wir glauben an **strukturierte Freiheit** statt zentraler Kontrolle.
+          </Typography>
+
+          <Box
+            component="ul"
+            sx={{
+              mt: 2,
+              pl: 3,
+              color: "rgba(255,255,255,0.85)",
+              "& li": { mb: 0.5 },
+            }}
+          >
+            <li>jede Domäne klar abgegrenzt ist</li>
+            <li>Systeme unabhängig evolvieren können</li>
+            <li>Integration über stabile Verträge erfolgt</li>
+            <li>technologische Entscheidungen reversibel bleiben</li>
+            <li>Wachstum nicht zu Komplexität führt</li>
+          </Box>
+
+          <Typography sx={{ mt: 3, color: "rgba(255,255,255,0.75)" }}>
+            Wir glauben an strukturierte Freiheit statt zentraler Kontrolle.
           </Typography>
         </GlassCard>
 
@@ -99,21 +139,15 @@ export default function OmnixysVisionPage() {
           {[
             {
               title: "Architektur ist Strategie",
-              text:
-                "Technische Entscheidungen bestimmen langfristig Organisation, " +
-                "Kosten, Geschwindigkeit und Innovationsfähigkeit.",
+              text: "Technische Entscheidungen bestimmen langfristig Organisation, Kosten, Geschwindigkeit und Innovationsfähigkeit.",
             },
             {
               title: "Domänen vor Technologien",
-              text:
-                "Technologie folgt der Fachlichkeit – nicht umgekehrt. " +
-                "Jede Domäne verdient ihre optimale Umsetzung.",
+              text: "Technologie folgt der Fachlichkeit – nicht umgekehrt. Jede Domäne verdient ihre optimale Umsetzung.",
             },
             {
-              title: "Lose Kopplung ist kein Nice-to-have",
-              text:
-                "Entkopplung ist die Voraussetzung für Skalierung, Resilienz " +
-                "und unabhängige Weiterentwicklung.",
+              title: "Lose Kopplung ist Voraussetzung",
+              text: "Entkopplung ermöglicht Skalierung, Resilienz und unabhängige Weiterentwicklung.",
             },
             {
               title: "Langfristigkeit schlägt Geschwindigkeit",
@@ -137,15 +171,33 @@ export default function OmnixysVisionPage() {
             Blick nach vorne
           </Typography>
 
-          <Typography sx={{ color: "rgba(255,255,255,0.8)", fontSize: 17 }}>
+          <Typography
+            sx={{
+              color: "rgba(255,255,255,0.8)",
+              fontSize: "1rem",
+              lineHeight: 1.7,
+            }}
+          >
             Omnixys entwickelt sich kontinuierlich weiter:
-            <br />
-            <br />
-            • neue Domänen ohne Architekturbruch • stärkere Automatisierung •
-            KI-gestützte Entscheidungsmodelle • noch höhere Beobachtbarkeit •
-            maximale Transparenz
-            <br />
-            <br />
+          </Typography>
+
+          <Box
+            component="ul"
+            sx={{
+              mt: 2,
+              pl: 3,
+              color: "rgba(255,255,255,0.85)",
+              "& li": { mb: 0.5 },
+            }}
+          >
+            <li>neue Domänen ohne Architekturbruch</li>
+            <li>stärkere Automatisierung</li>
+            <li>KI-gestützte Entscheidungsmodelle</li>
+            <li>höhere Beobachtbarkeit</li>
+            <li>maximale Transparenz</li>
+          </Box>
+
+          <Typography sx={{ mt: 3, color: "rgba(255,255,255,0.75)" }}>
             Unsere Vision endet nicht bei Software – sie beginnt dort.
           </Typography>
         </GlassCard>
@@ -153,7 +205,11 @@ export default function OmnixysVisionPage() {
         <Divider sx={{ my: 10, borderColor: "rgba(255,255,255,0.12)" }} />
 
         {/* ================= FOOTER ================= */}
-        <Typography align="center" sx={{ color: "rgba(255,255,255,0.6)" }}>
+        <Typography
+          align="center"
+          variant="caption"
+          sx={{ color: "rgba(255,255,255,0.6)" }}
+        >
           Omnixys Vision — Software, die wächst, ohne zu zerbrechen.
         </Typography>
       </Container>

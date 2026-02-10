@@ -18,8 +18,9 @@ import {
   Typography,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GlassCard from '@/components/ui/GlassCard';
+import { glassInputSx } from '../../themes/styles/glassInput';
 
 type ChatMessage = {
   sender: 'user' | 'bot';
@@ -86,13 +87,20 @@ export default function ChatWidget() {
     setSubmitted(true);
   };
 
+  useEffect(() => {
+    if (open) {
+      document.getElementById("omnibot-input")?.focus();
+    }
+  }, [open]);
+
+
   return (
     <Box
       sx={{
         position: "fixed",
-        bottom: 16,
-        right: 16,
         zIndex: 1300,
+        bottom: { xs: 72, md: 16 },
+        right: { xs: 16, md: 16 },
       }}
     >
       <Snackbar
@@ -304,6 +312,7 @@ export default function ChatWidget() {
 
             <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
               <TextField
+                id="omnibot-input"
                 size="small"
                 fullWidth
                 value={userInput}

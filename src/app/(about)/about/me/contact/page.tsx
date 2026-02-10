@@ -27,16 +27,13 @@ export default function ContactPage() {
   };
 
   return (
-    <MotionBox
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+    <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: "100dvh",
         display: "flex",
         flexDirection: { xs: "column", lg: "row" },
         px: { xs: 2, md: 6, lg: 12 },
-        py: { xs: 6, lg: 10 },
+        py: { xs: 8, lg: 10 },
         gap: 8,
         background:
           "radial-gradient(circle at top, rgba(168,62,180,0.12), transparent 60%), #000",
@@ -44,7 +41,10 @@ export default function ContactPage() {
       }}
     >
       {/* LEFT — INTRO */}
-      <Box
+      <MotionBox
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         sx={{
           flex: 1,
           display: "flex",
@@ -58,24 +58,23 @@ export default function ContactPage() {
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
           <Typography variant="h2" fontWeight={700}>
-            Let’s build something{" "}
-            < br />
-            <TypingWord
-              words={["meaningful", "amazing", "great", "impactful"]}
-              variant="h2"
-              fontWeight={700}
-              typingSpeed={110}
-              deletingSpeed={60}
-              pauseAfterType={1400}
-              pauseAfterDelete={500}
-              sx={{
-                background: "linear-gradient(90deg, #a855f7, #06b6d4)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            />
-            .
+            Let’s build something
           </Typography>
+          <TypingWord
+            words={["meaningful", "amazing", "great", "impactful"]}
+            variant="h2"
+            fontWeight={700}
+            typingSpeed={110}
+            deletingSpeed={60}
+            pauseAfterType={1400}
+            pauseAfterDelete={500}
+            sx={{
+              background: "linear-gradient(90deg, #a855f7, #06b6d4)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          />
+          .
         </motion.div>
 
         <Typography variant="body1" sx={{ opacity: 0.75, maxWidth: 520 }}>
@@ -97,7 +96,7 @@ export default function ContactPage() {
             label="LinkedIn"
           />
         </Box>
-      </Box>
+      </MotionBox>
 
       {/* RIGHT — FORM */}
       <Box
@@ -124,6 +123,8 @@ export default function ContactPage() {
         <TextField
           name="user_message"
           label="Your message"
+          autoComplete="email"
+          inputProps={{ inputMode: "email" }}
           multiline
           rows={5}
           required
@@ -132,7 +133,8 @@ export default function ContactPage() {
         />
 
         <TextField
-          name="user_email"
+          name="user_message"
+          autoComplete="off"
           label="Your email"
           type="email"
           required
@@ -147,7 +149,7 @@ export default function ContactPage() {
             mt: 2,
             py: 1.2,
             fontWeight: 600,
-            borderRadius: 2,
+            borderRadius: 999,
             background: "linear-gradient(90deg, #a855f7, #06b6d4)",
             "&:hover": {
               opacity: 0.9,
@@ -158,12 +160,17 @@ export default function ContactPage() {
         </Button>
 
         {success && (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Checkmark />
-            <Typography color="success.main">
-              Message sent successfully
-            </Typography>
-          </Box>
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Checkmark />
+              <Typography color="success.main">
+                Message sent successfully
+              </Typography>
+            </Box>
+          </motion.div>
         )}
 
         {error && (
@@ -172,7 +179,7 @@ export default function ContactPage() {
           </Typography>
         )}
       </Box>
-    </MotionBox>
+    </Box>
   );
 }
 

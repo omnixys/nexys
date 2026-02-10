@@ -10,7 +10,7 @@ type CircularCTAProps = {
 
 export function CircularCTA({ label, href, text }: CircularCTAProps) {
   return (
-    <Box position="relative">
+    <Box position="relative" sx={{zIndex: 1300}}>
       <motion.svg
         animate={{ rotate: 360 }}
         transition={{ duration: 10, ease: "linear", repeat: Infinity }}

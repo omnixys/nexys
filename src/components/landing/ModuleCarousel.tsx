@@ -40,36 +40,27 @@ export default function ModuleCarousel({ modules }: Props) {
       setActive(centerOffset);
     },
     slideChanged(s) {
-      const perView = Number(s.options.slides?.perView ?? 1);
-      const centerOffset = Math.floor(perView / 2);
-      const rawIndex = s.track.details.rel + centerOffset;
-      const safeIndex = rawIndex % modules.length;
-      setActive(safeIndex);
+      const idx = s.track.details.slides[s.track.details.rel].abs;
+      setActive(idx % modules.length);
     },
   });
 
 useEffect(() => {
   if (!slider.current || paused) return;
 
-  let timeout: NodeJS.Timeout;
+  const interval = setInterval(() => {
+    slider.current?.next();
+  }, 2200);
 
-  const autoplay = () => {
-    timeout = setTimeout(() => {
-      slider.current?.next();
-      autoplay();
-    }, 1800); // schneller & smoother
-  };
-
-  autoplay();
-
-  return () => clearTimeout(timeout);
+  return () => clearInterval(interval);
 }, [slider, paused]);
+
 
   return (
     <Box
       sx={{ position: "relative" }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onPointerEnter={() => setPaused(true)}
+      onPointerLeave={() => setPaused(false)}
     >
       <Typography
         variant="h4"
@@ -100,19 +91,17 @@ useEffect(() => {
 
       <Box ref={sliderRef} className="keen-slider" sx={{ mt: 6 }}>
         {modules.map((m, i) => {
-          const isCenter = i === active;
-          const isHovered = hovered === i;
-          const isHighlighted = isHovered || (hovered === null && isCenter);
+          const isHighlighted = hovered !== null ? hovered === i : i === active;
 
           return (
             <Box key={i} className="keen-slider__slide">
               <Box
-                onMouseEnter={() => {
-                    console.log("HOVER", i);
+                onPointerEnter={() => {
+                  console.log("HOVER", i);
                   setHovered(i);
                   setPaused(true);
                 }}
-                onMouseLeave={() => {
+                onPointerLeave={() => {
                   setHovered(null);
                   setPaused(false);
                 }}
@@ -124,22 +113,10 @@ useEffect(() => {
                 <motion.div
                   animate={
                     isHighlighted
-                      ? {
-                          scale: 1.1,
-                          y: -14,
-                          filter: "brightness(1.15)",
-                        }
-                      : {
-                          scale: 0.9,
-                          y: 0,
-                          filter: "brightness(0.7)",
-                        }
+                      ? { scale: 1.08, y: -12 }
+                      : { scale: 0.94, y: 0 }
                   }
-                  transition={{
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 24,
-                  }}
+                  transition={{ type: "spring", stiffness: 240, damping: 26 }}
                 >
                   <ProjectCard
                     src={m.image}
@@ -154,12 +131,10 @@ useEffect(() => {
                     sx={{
                       pointerEvents: "none",
                       position: "absolute",
-                      inset: -16,
+                      inset: -12,
                       borderRadius: 4,
                       background:
-                        "radial-gradient(circle at top, rgba(168,62,180,0.35), transparent 65%)",
-                      boxShadow: "0 0 48px rgba(168,62,180,0.8)",
-                      animation: "pulseGlow 3s ease-in-out infinite",
+                        "radial-gradient(circle at top, rgba(168,62,180,0.25), transparent 70%)",
                     }}
                   />
                 )}
@@ -174,6 +149,7 @@ useEffect(() => {
           position: "absolute",
           inset: 0,
           zIndex: 1,
+          pointerEvents: "none",
         }}
       >
         <Box
@@ -194,7 +170,7 @@ useEffect(() => {
             muted
             loop
             playsInline
-            preload="none"
+            preload="metadata"
             sx={{
               width: "100%",
               height: "100%",

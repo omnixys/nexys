@@ -202,7 +202,7 @@ export default function AboutPage() {
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
-      sx={{ height: "100%" }}
+      sx={{ height: "100%", pt: 20 }}
     >
       {/* CONTAINER */}
       <Box
@@ -242,8 +242,8 @@ export default function AboutPage() {
             gap={3}
             sx={{ zIndex: 1300 }}
           >
-            <Button>
-              <Link href={"/about/me"}>go back</Link>
+            <Button component={Link} href="/about/me" sx={subtleButtonSx}>
+              ← Back
             </Button>
 
             <Image
@@ -450,8 +450,22 @@ export default function AboutPage() {
               today.
             </MotionTypography>
 
-            <Button>
-              <Link href={"/about/me/portfolio"}>My Projects</Link>
+            <Button
+              component={Link}
+              href="/about/me/portfolio"
+              sx={{
+                ...subtleButtonSx,
+                mt: 2,
+                borderColor: "rgba(112, 66, 248, 0.35)",
+                color: "rgb(112, 66, 248)",
+                "&:hover": {
+                  backgroundColor: "rgba(112, 66, 248, 0.08)",
+                  borderColor: "rgba(112, 66, 248, 0.6)",
+                  transform: "translateY(-1px)",
+                },
+              }}
+            >
+              View My Projects →
             </Button>
           </Box>
         </Box>
@@ -487,3 +501,25 @@ export default function AboutPage() {
     </MotionBox>
   );
 }
+
+
+const subtleButtonSx = {
+  alignSelf: "flex-start",
+  px: 2.5,
+  py: 0.75,
+  borderRadius: 999,
+  textTransform: "none",
+  fontSize: "0.875rem",
+  fontWeight: 500,
+  letterSpacing: "0.04em",
+  color: "text.primary",
+  border: "1px solid rgba(0,0,0,0.12)",
+  backgroundColor: "transparent",
+  backdropFilter: "blur(6px)",
+  transition: "all 0.25s ease",
+  "&:hover": {
+    backgroundColor: "rgba(0,0,0,0.04)",
+    borderColor: "rgba(0,0,0,0.25)",
+    transform: "translateY(-1px)",
+  },
+};

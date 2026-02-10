@@ -12,6 +12,7 @@ import NewsletterSection from "@/components/landing/NewsletterSection";
 import Skills from "@/components/landing/Skills";
 import StickyCTA from "@/components/landing/StickyCTA";
 import USPGrid from "@/components/landing/USPGrid";
+import { useDevice } from "../../providers/DeviceProvider";
 
 const MODULES = [
   { title: "Shop", image: "/omnixys-original.png", subtitle: "kp" },
@@ -26,6 +27,7 @@ const MODULES = [
 ];
 
 export default function Home() {
+  const { isMobile } = useDevice();
   return (
     <Box
       component="main"
@@ -63,7 +65,7 @@ export default function Home() {
         {/* Sticky Call-to-Action Banner */}
         <StickyCTA />
 
-        <ChatWidget />
+        {!isMobile && <ChatWidget />}
       </Box>
     </Box>
   );

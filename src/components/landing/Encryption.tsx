@@ -16,7 +16,7 @@ const Encryption = () => {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         width: "100%",
         height: "100%",
         overflow: "hidden",
@@ -35,7 +35,7 @@ const Encryption = () => {
         <MotionDiv variants={slideInFromTop}>
           <Typography
             sx={{
-              fontSize: 40,
+              fontSize: "clamp(1.8rem, 4vw, 2.5rem)",
               fontWeight: 500,
               textAlign: "center",
               color: "grey.300",
@@ -146,7 +146,8 @@ const Encryption = () => {
             fontWeight: 500,
             textAlign: "center",
             color: "grey.400",
-            fontFamily: "cursive",
+            fontStyle: "italic",
+            letterSpacing: "0.02em",
           }}
         >
           Secure your data with end-to-end encryption
@@ -171,11 +172,15 @@ const Encryption = () => {
           loop
           muted
           playsInline
-          preload="none"
+          preload="auto"
           sx={{
+            position: "absolute",
+            inset: 0,
             width: "100%",
-            height: "auto",
+            height: "100%",
             objectFit: "cover",
+            zIndex: 0,
+            pointerEvents: "none",
           }}
         />
       </Box>
