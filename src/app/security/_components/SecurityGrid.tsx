@@ -54,7 +54,7 @@ export default function SecurityGrid({
         gridAutoRows: "minmax(180px, auto)",
         gap: 3,
         position: "relative",
-        zIndex: 1300,
+        zIndex: 100,
       }}
     >
       <SecurityScoreTile

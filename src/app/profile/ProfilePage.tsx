@@ -72,7 +72,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
           gridTemplateRows: "80px 220px 320px",
           gap: 3,
           position: "relative",
-          zIndex: 1300,
+          zIndex: 100,
         }}
       >
         {/* ==================================== */}

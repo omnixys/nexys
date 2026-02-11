@@ -77,7 +77,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
           gap: 3,
           mt: 4,
           position: "relative",
-          zIndex: 1300,
+          zIndex: 100,
         }}
       >
         <BentoTile index={0} focused={focused} setFocused={setFocused}>
