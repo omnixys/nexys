@@ -1,8 +1,8 @@
 import RootProvider from "@/providers/RootProvider";
 import { Box } from "@mui/material";
 import React from "react";
-import Navbar from "../../components/landing/Navbar";
-import StarsCanvas from "../../components/landing/StarBackground";
+import Navbar from "@/components/layout/navbar/landing/Navbar";
+import StarsCanvas from "@/components/background/StarBackground";
 
 export default function RootLayout({
   children,

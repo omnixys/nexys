@@ -5,17 +5,17 @@
 
 "use client";
 
-import { Box, Typography, Stack, useTheme } from "@mui/material";
+import { INBOX } from "@/mocks/liveData";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { JSX, useEffect, useState } from "react";
-import { INBOX } from "@/mock/liveData";
-import TileSkeleton from "./TileSkeleton";
 import { useTranslations } from "next-intl";
+import { JSX, useEffect, useState } from "react";
+import TileSkeleton from "./TileSkeleton";
 
 export default function InboxTile(): JSX.Element {
   const theme = useTheme();
   const t = useTranslations("inbox");
-  
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

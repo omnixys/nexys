@@ -1,12 +1,10 @@
-import Footer from "@/components/home/Footer";
-import StarsCanvas from "@/components/landing/StarBackground";
 import RootProviders from "@/providers/RootProvider";
 import { Box } from "@mui/material";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import React from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import Footer from "../../components/layout/footer/Footer";
+import StarsCanvas from "../../components/background/StarBackground";
 
 export const metadata: Metadata = {
   title: "Omnixys",
@@ -23,16 +21,13 @@ export default function RootLayout({
     <Box
       sx={{
         minHeight: "100vh",
-        // backgroundColor: "palette.background",
         backgroundColor: "#030014",
         overflowY: "auto",
         overflowX: "hidden",
         position: "relative",
       }}
     >
-      {/* Global FX / Layout */}
       <StarsCanvas />
-      {/* Page Content */}
       <RootProviders>
         {children}
 

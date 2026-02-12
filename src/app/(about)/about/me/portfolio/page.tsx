@@ -1,18 +1,17 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Box, Typography } from "@mui/material";
-import { CircularCTA } from "../../../../../components/ui/cta/CircularCTA";
-import { PROJECTS } from "./projects";
-import { ProjectSlide } from "./ProjectSlide";
+import { CircularCTA } from "@/components/ui/cta/CircularCTA";
+import { PROJECTS } from "@/mocks/projects";
+import { ProjectSlide } from "@/components/about/me/portfolio/ProjectSlide";
 
 const MotionBox = motion(Box);
 
 const INTRO_SLIDES = 3;
 const OUTRO_SLIDES = 1;
 const TOTAL_SLIDES = INTRO_SLIDES + PROJECTS.length + OUTRO_SLIDES;
-
 
 export default function PortfolioPage() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -142,7 +141,7 @@ export default function PortfolioPage() {
         </Box>
       </Box>
 
-      <Box sx={{p:20, bgcolor:'#000'}} />
+      <Box sx={{ p: 20, bgcolor: "#000" }} />
 
       {/* CTA SECTION */}
       <Box
@@ -170,7 +169,6 @@ export default function PortfolioPage() {
             justifyContent: "center",
             flexWrap: "wrap", // mobile fallback
             background: "#000",
-  
           }}
         >
           <CircularCTA

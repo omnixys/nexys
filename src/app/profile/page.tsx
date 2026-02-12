@@ -6,15 +6,15 @@
 "use client";
 
 import { Box } from "@mui/material";
-import LayoutShell from "@/components/home/layout/LayoutShell";
 import { JSX } from "react";
 import { useAuth } from "@/providers/AuthProvider";
-import ProfilePage from "./ProfilePage";
-import ProfilePageSkeleton from "./ProfilePageSkeleton";
+import ProfilePage from "@/components/profile/ProfilePage";
+import ProfilePageSkeleton from "@/components/profile/ProfilePageSkeleton";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 
 export default function NexysProfilePage(): JSX.Element {
-  const { user, loading, isAdmin } = useAuth()
-    const showLoading = loading || !user;
+  const { user, loading, isAdmin } = useAuth();
+  const showLoading = loading || !user;
   return (
     <LayoutShell user={user} loading={loading}>
       <Box sx={{ position: "relative" }}>

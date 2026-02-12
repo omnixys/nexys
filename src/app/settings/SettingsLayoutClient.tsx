@@ -6,7 +6,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { SettingsProvider } from "./_components/SettingsContext";
+import { SettingsProvider } from "../../components/settings/SettingsContext";
 
 export default function SettingsLayoutClient({
   children,

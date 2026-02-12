@@ -3,9 +3,9 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import TypingWord from "../../../../../components/ui/typo/TypingWord";
-import { SocialLink } from "../../../../../components/ui/social/SocialLink";
-import { Checkmark } from "../../../../../components/ui/Checkmark";
+import TypingWord from "@/components/ui/typo/TypingWord";
+import { SocialLink } from "@/components/ui/social/SocialLink";
+import { Checkmark } from "@/components/ui/Checkmark";
 
 const MotionBox = motion(Box);
 
@@ -99,10 +99,13 @@ export default function ContactPage() {
       </MotionBox>
 
       {/* RIGHT — FORM */}
-      <Box
+      <MotionBox
         component="form"
         ref={formRef}
         onSubmit={sendEmail}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         sx={{
           flex: 1,
           maxWidth: 520,
@@ -115,70 +118,72 @@ export default function ContactPage() {
           display: "flex",
           flexDirection: "column",
           gap: 3,
-          zIndex: 1300,
+          zIndex: 100,
         }}
       >
-        <Typography fontWeight={600}>Send me a message</Typography>
 
-        <TextField
-          name="user_message"
-          label="Your message"
-          autoComplete="email"
-          inputProps={{ inputMode: "email" }}
-          multiline
-          rows={5}
-          required
-          fullWidth
-          sx={glassFieldStyle}
-        />
+          <Typography fontWeight={600}>Send me a message</Typography>
 
-        <TextField
-          name="user_message"
-          autoComplete="off"
-          label="Your email"
-          type="email"
-          required
-          fullWidth
-          sx={glassFieldStyle}
-        />
+          <TextField
+            name="user_message"
+            label="Your message"
+            autoComplete="email"
+            inputProps={{ inputMode: "email" }}
+            multiline
+            rows={5}
+            required
+            fullWidth
+            sx={glassFieldStyle}
+          />
 
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{
-            mt: 2,
-            py: 1.2,
-            fontWeight: 600,
-            borderRadius: 999,
-            background: "linear-gradient(90deg, #a855f7, #06b6d4)",
-            "&:hover": {
-              opacity: 0.9,
-            },
-          }}
-        >
-          Send message
-        </Button>
+          <TextField
+            name="user_message"
+            autoComplete="off"
+            label="Your email"
+            type="email"
+            required
+            fullWidth
+            sx={glassFieldStyle}
+          />
 
-        {success && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 2,
+              py: 1.2,
+              fontWeight: 600,
+              borderRadius: 999,
+              background: "linear-gradient(90deg, #a855f7, #06b6d4)",
+              "&:hover": {
+                opacity: 0.9,
+              },
+            }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Checkmark />
-              <Typography color="success.main">
-                Message sent successfully
-              </Typography>
-            </Box>
-          </motion.div>
-        )}
+            Send message
+          </Button>
 
-        {error && (
-          <Typography color="error.main" fontWeight={500}>
-            Something went wrong. Please try again.
-          </Typography>
-        )}
-      </Box>
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Checkmark />
+                <Typography color="success.main">
+                  Message sent successfully
+                </Typography>
+              </Box>
+            </motion.div>
+          )}
+
+          {error && (
+            <Typography color="error.main" fontWeight={500}>
+              Something went wrong. Please try again.
+            </Typography>
+          )}
+    
+      </MotionBox>
     </Box>
   );
 }

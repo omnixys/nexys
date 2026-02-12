@@ -1,11 +1,10 @@
 "use client";
 
-import { Button } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Button } from "@mui/material";
 import { usePathname } from "next/navigation";
-import { PRODUCTS } from "../../mock/products.mock";
 import { useTypedTranslations } from "../../i18n/useTypedTranslations";
-import { OMNIXYS_LOGOS } from "../auth/login/omnixysBranding";
+import { PRODUCTS } from "../../mocks/products.mock";
 
 interface Props {
   onOpen: () => void;

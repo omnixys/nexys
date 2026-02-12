@@ -4,19 +4,16 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
-import { useDevice } from "../../../../providers/DeviceProvider";
-
 
 const MotionBox = motion(Box);
 
 export default function Homepage() {
-  // const { isMobile } = useDevice();
   return (
     <MotionBox
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
-      sx={{ height: "100%", pt: 10}}
+      sx={{ height: "100%", pt: 10 }}
     >
       <Box
         sx={{
@@ -25,7 +22,6 @@ export default function Homepage() {
           gap: 10,
           flexDirection: { xs: "column", lg: "row" },
           px: { xs: 2, sm: 4, md: 6, lg: 10, xl: 24 },
-          // background: '#000',
         }}
       >
         {/* IMAGE CONTAINER */}

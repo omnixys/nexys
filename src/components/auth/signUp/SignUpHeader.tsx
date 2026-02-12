@@ -1,12 +1,12 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { useThemeMode } from "../../../../../providers/ThemeModeProvider";
-import { OMNIXYS_LOGOS } from "../login/omnixysBranding";
+import { OMNIXYS_LOGOS } from "../../../utils/omnixysBranding";
 
 export default function SignUpHeader() {
-    const theme = useTheme();
-    const { scheme } = useThemeMode();
-  
-    const logoSrc = OMNIXYS_LOGOS[scheme];
+  const theme = useTheme();
+  const { scheme } = useThemeMode();
+
+  const logoSrc = OMNIXYS_LOGOS[scheme];
   return (
     <Box textAlign="center" mb={3}>
       {BRANDING.logo}

@@ -1,21 +1,19 @@
 "use client";
 
+import { Product, PRODUCTS } from "@/mocks/products.mock";
 import { Box } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import ProductAppIcon from "./ProductAppIcon";
-import { Product, PRODUCTS } from "@/mock/products.mock";
 import { useRouter } from "next/navigation";
+import ProductAppIcon from "./ProductAppIcon";
 
-export default function ProductShelf({ isFocused }: { isFocused: boolean }){
-    const router = useRouter();
-  
+export default function ProductShelf({ isFocused }: { isFocused: boolean }) {
+  const router = useRouter();
+
   const openProduct = (product: Product) => {
     if (isFocused) {
       router.push(product.href);
     }
   };
 
-  
   return (
     <Box
       sx={{
@@ -30,11 +28,7 @@ export default function ProductShelf({ isFocused }: { isFocused: boolean }){
       }}
     >
       {PRODUCTS.map((p, i) => (
-        <ProductAppIcon
-          key={p.id}
-          product={p}
-          onOpen={() => openProduct(p)}
-        />
+        <ProductAppIcon key={p.id} product={p} onOpen={() => openProduct(p)} />
       ))}
     </Box>
   );

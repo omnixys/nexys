@@ -5,12 +5,12 @@
 
 "use client";
 
-import { Box, Typography, Stack, Divider } from "@mui/material";
+import { CALENDAR } from "@/mocks/liveData";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import { useFormatter, useTranslations } from "next-intl";
 import { JSX, useEffect, useState } from "react";
-import { CALENDAR } from "@/mock/liveData";
 import TileSkeleton from "./TileSkeleton";
-import { useTranslations, useFormatter } from "next-intl";
 
 export default function CalendarTile(): JSX.Element {
   const t = useTranslations("calendar");

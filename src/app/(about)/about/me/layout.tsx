@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import TransitionProvider from "@/components/me/transitionProvider";
+import { createTheme } from "@mui/material";
+import TransitionProvider from "@/providers/TransitionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +25,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-      <TransitionProvider>{children}</TransitionProvider>
-  );
+  return <TransitionProvider>{children}</TransitionProvider>;
 }

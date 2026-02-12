@@ -5,12 +5,12 @@
 
 "use client";
 
-import { Box, Typography, Stack } from "@mui/material";
+import { WEATHER } from "@/mocks/liveData";
+import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
 import { JSX, useEffect, useState } from "react";
 import TileSkeleton from "./TileSkeleton";
-import { useTranslations, useLocale } from "next-intl";
-import { WEATHER } from "@/mock/liveData";
 
 function toFahrenheit(c: number) {
   return Math.round((c * 9) / 5 + 32);

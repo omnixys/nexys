@@ -1,16 +1,16 @@
 "use client";
 
-import Brain from "@/components/me/brain/Brain";
+import Brain from "@/components/about/me/about/brain/Brain";
 import { Box, Button, Typography } from "@mui/material";
 import { motion, useInView, useScroll } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { ExperienceTimeline } from "./ExperienceTimeline";
-import SkillDialog from "./SkillDialog";
-import { categoryLabels, Skill } from "./types";
-import { Experience } from "./experience";
-import { ExperienceDialog } from "./ExperienceDialog";
+import { Experience } from "@/mocks/experience";
+import { ExperienceDialog } from "@/components/about/me/about/ExperienceDialog";
+import { ExperienceTimeline } from "@/components/about/me/about/ExperienceTimeline";
+import SkillDialog from "@/components/about/me/about/SkillDialog";
+import { categoryLabels, Skill } from "@/components/about/me/about/types";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
@@ -178,7 +178,6 @@ export default function AboutPage() {
   const [selectedExperience, setSelectedExperience] =
     useState<Experience | null>(null);
 
-  
   const containerRef = useRef<HTMLDivElement | null>(null);
   const skillRef = useRef<HTMLDivElement | null>(null);
   const experienceRef = useRef<HTMLDivElement | null>(null);
@@ -501,7 +500,6 @@ export default function AboutPage() {
     </MotionBox>
   );
 }
-
 
 const subtleButtonSx = {
   alignSelf: "flex-start",

@@ -8,12 +8,11 @@
 import { Container } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-import DepthBlurLayer from "../../components/home/DepthBlurLayer";
-import LayoutShell from "../../components/home/layout/LayoutShell";
-import { useAuth } from "../../providers/AuthProvider";
-import SecurityHeader from "./_components/SecurityHeader";
-import SecurityGrid from "./_components/SecurityGrid";
+import DepthBlurLayer from "@/components/home/DepthBlurLayer";
+import { useAuth } from "@/providers/AuthProvider";
+import SecurityHeader from "@/components/security/SecurityHeader";
+import SecurityGrid from "@/components/security/SecurityGrid";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 
 export default function SecurityPage() {
   const { user, loading } = useAuth();

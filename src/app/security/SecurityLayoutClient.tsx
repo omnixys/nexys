@@ -6,7 +6,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { SecurityProvider } from "./_components/SecurityContext";
+import { SecurityProvider } from "@/components/security/SecurityContext";
 
 export default function SecurityLayoutClient({
   children,

@@ -1,10 +1,10 @@
 "use client";
 
 import { Box } from "@mui/material";
-import AboutChapterOverlay from "@/components/about/AboutChapterOverlay";
-import { useScrollPageNavigation } from "@/components/about/useScrollPageNavigation";
-import AboutSidebar from "@/components/about/AboutSidebar";
-import AboutMobileSidebar from "@/components/about/AboutMobileSidebar";
+import AboutChapterOverlay from "@/components/about/omnixys/AboutChapterOverlay";
+import { useScrollPageNavigation } from "@/components/about/omnixys/useScrollPageNavigation";
+import AboutSidebar from "@/components/about/omnixys/AboutSidebar";
+import AboutMobileSidebar from "@/components/about/omnixys/AboutMobileSidebar";
 
 export default function AboutLayout({
   children,

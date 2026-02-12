@@ -1,36 +1,35 @@
 "use client";
 
-import { Box, Typography, useTheme } from "@mui/material";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Product } from "@/mock/products.mock";
-import { OMNIXYS_LOGOS } from "@/components/auth/login/omnixysBranding";
-import { useThemeMode } from "@/providers/ThemeModeProvider";
-import { useTranslations } from "next-intl";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { Product } from "@/mocks/products.mock";
+import { useThemeMode } from "@/providers/ThemeModeProvider";
+import { OMNIXYS_LOGOS } from "@/utils/omnixysBranding";
+import { Box, Typography, useTheme } from "@mui/material";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function ProductAppIcon({
   product,
   onOpen,
 }: {
-  product: Product
+  product: Product;
   onOpen: (product: any) => void;
-  }) {
+}) {
   const theme = useTheme();
   const { scheme } = useThemeMode();
-    const t = useTypedTranslations("products");
-  
+  const t = useTypedTranslations("products");
+
   const logoSrc = OMNIXYS_LOGOS[scheme];
-    const name = t(product.nameKey);
-    const subtitle = product.subtitleKey ? t(product.subtitleKey) : undefined;
-  
+  const name = t(product.nameKey);
+  const subtitle = product.subtitleKey ? t(product.subtitleKey) : undefined;
+
   return (
     <Box
       component={motion.div}
       tabIndex={0}
       role="button"
       aria-label={t("open", { name })}
-      onClick={() => onOpen(product)} 
+      onClick={() => onOpen(product)}
       onKeyDown={(e) => {
         if (e.key === "Enter") onOpen(product);
       }}

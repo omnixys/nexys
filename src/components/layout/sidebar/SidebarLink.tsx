@@ -43,7 +43,11 @@ export default function SidebarLink({
       }}
       aria-disabled={disabled}
     >
-      <Typography>{label}</Typography>
+      <Typography
+        
+      >
+        {label}
+      </Typography>
     </Box>
   );
 

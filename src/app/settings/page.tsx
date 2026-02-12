@@ -8,13 +8,11 @@
 import { Container } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-import DepthBlurLayer from "../../components/home/DepthBlurLayer";
-import LayoutShell from "../../components/home/layout/LayoutShell";
-import { useAuth } from "../../providers/AuthProvider";
-
-import SettingsDashboardHeader from "./_components/SettingsDashboardHeader";
-import SettingsGrid from "./_components/SettingsGrid";
+import DepthBlurLayer from "@/components/home/DepthBlurLayer";
+import { useAuth } from "@/providers/AuthProvider";
+import SettingsDashboardHeader from "@/components/settings/SettingsDashboardHeader";
+import SettingsGrid from "@/components/settings/SettingsGrid";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 
 export default function SettingsPage() {
   const { user, loading } = useAuth();

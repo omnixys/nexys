@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
-import { Box, Typography, Fade } from "@mui/material";
-import { useSpring, animated } from "@react-spring/web";
+import { Box, Fade, Typography } from "@mui/material";
+import { animated, useSpring } from "@react-spring/web";
 import { useRouter } from "next/navigation";
-import { PRODUCTS } from "../../mock/products.mock";
 import { useTypedTranslations } from "../../i18n/useTypedTranslations";
+import { PRODUCTS } from "../../mocks/products.mock";
 
 interface Props {
   open: boolean;
@@ -14,7 +13,7 @@ interface Props {
 
 export default function ProductSelectorActionSheet({ open, onClose }: Props) {
   const router = useRouter();
-    const t = useTypedTranslations("products");
+  const t = useTypedTranslations("products");
 
   const spring = useSpring({
     from: { y: 300, opacity: 0.8 },

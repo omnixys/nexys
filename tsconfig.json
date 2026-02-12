@@ -28,7 +28,19 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
-, ".extras/inspiration/profile/ProfileContactsCarousel1.tsx", ".extras/inspiration/profile/ProfileContactsCarousel2.tsx", ".extras/inspiration/profile/ProfileContactsCarousel3.tsx", ".extras/inspiration/profile/ProfileContactsCarousel5.tsx", ".extras/inspiration/profile/ProfileContactsCarousel4.tsx", ".extras/inspiration/profile/ProfileContactsCarousel6.tsx", ".extras/inspiration/settings/page1.tsx"  ],
+    "**/*.mts",
+    ".extras/inspiration/profile/ProfileContactsCarousel1.tsx",
+    ".extras/inspiration/profile/ProfileContactsCarousel2.tsx",
+    ".extras/inspiration/profile/ProfileContactsCarousel3.tsx",
+    ".extras/inspiration/profile/ProfileContactsCarousel5.tsx",
+    ".extras/inspiration/profile/ProfileContactsCarousel4.tsx",
+    ".extras/inspiration/profile/ProfileContactsCarousel6.tsx",
+    ".extras/inspiration/settings/page1.tsx",
+    ".extras/inspiration/support/page1.tsx",
+    ".extras/inspiration/profile/PeekPill.tsx",
+    ".extras/inspiration/profile/ProfileCompletenessCard.tsx",
+    ".extras/inspiration/profile/ProfileCompletenessSection.tsx",
+    ".extras/inspiration/profile/ProfileKpiCard.tsx"
+, ".extras/inspiration/profile/ProfileIdentityHeader.tsx", ".extras/inspiration/profile/RoleSection.tsx", ".extras/inspiration/profile/RotatingProfileHeadline1.tsx"  ],
   "exclude": ["node_modules"]
 }
