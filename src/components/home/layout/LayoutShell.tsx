@@ -7,6 +7,7 @@ import { User } from "@/types/user/user.type";
 import UserSidebar from "../../layout/sidebar/UserSidebar";
 import MobileSidebarSheet from "./MobileSidebarSheet";
 import MenuIcon from "@mui/icons-material/Menu";
+import ProductSelectorActionSheet from "../ProductSelectorActionSheet";
 
 const SIDEBAR_WIDTH = 260;
 
@@ -22,13 +23,19 @@ export default function LayoutShell({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#0B0B12" }}>
-      <GlobalNavbar user={user} loading={loading} />
+      <GlobalNavbar
+        user={user}
+        loading={loading}
+        open={open}
+        setOpen={setOpen}
+      />
 
       {/* Desktop Sidebar */}
-      {!isMobile && <UserSidebar width={SIDEBAR_WIDTH} />}
+      {!isMobile && <UserSidebar width={SIDEBAR_WIDTH} sx={{ px: 3 }} />}
 
       {/* Mobile Bottom Sheet */}
       {isMobile && (
@@ -47,6 +54,7 @@ export default function LayoutShell({
           mt: 8,
           px: isMobile ? 2 : 4,
           py: 4,
+          maxWidth: "100%",
         }}
       >
         {/* Mobile Menu Button */}
@@ -73,6 +81,8 @@ export default function LayoutShell({
 
         {children}
       </Box>
+
+      <ProductSelectorActionSheet open={open} onClose={() => setOpen(false)} />
     </Box>
   );
 }

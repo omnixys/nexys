@@ -16,6 +16,14 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    id: "nexys",
+    nameKey: "nexys.name",
+    subtitleKey: "nexys.subtitle",
+    descriptionKey: "nexys.description",
+    href: "/home",
+    icon: "/logo/omnixys-original.png",
+  },
+  {
     id: "checkpoint",
     nameKey: "checkpoint.name",
     subtitleKey: "checkpoint.subtitle",

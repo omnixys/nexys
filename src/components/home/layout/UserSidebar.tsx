@@ -6,13 +6,16 @@
 "use client";
 
 import { Divider, Drawer, useTheme } from "@mui/material";
-import SidebarLink from "../navigation/SidebarLink";
-import { JSX } from "react";
 import { useTranslations } from "next-intl";
+import { JSX } from "react";
+import SidebarLink from "../../layout/sidebar/SidebarLink";
+import { useDevice } from "../../../providers/DeviceProvider";
 
 export default function UserSidebar({ width }: { width: number }): JSX.Element {
   const theme = useTheme();
   const t = useTranslations("sidebar");
+
+  const { isDesktop} = useDevice();
 
   return (
     <Drawer
@@ -32,14 +35,14 @@ export default function UserSidebar({ width }: { width: number }): JSX.Element {
       }}
     >
       <SidebarLink href="/home" label={t("home")} />
-      <SidebarLink href="/profile" label={t("profile")} />
-      <SidebarLink href="/settings" label={t("settings")} />
-      <SidebarLink href="/security" label={t("security")} />
-      <SidebarLink href="/billing" label={t("billing")} />
+        <SidebarLink href="/profile" label={t("profile")} />
+        <SidebarLink href="/settings" label={t("settings")} />
+        <SidebarLink href="/security" label={t("security")} />
+        <SidebarLink href="/billing" label={t("billing")} />
 
-      <Divider sx={{ my: 2, borderColor: theme.palette.divider }} />
+        <Divider sx={{ my: 2, borderColor: theme.palette.divider }} />
 
-      <SidebarLink href="/support" label={t("support")} />
+        <SidebarLink href="/support" label={t("support")} />
     </Drawer>
   );
 }

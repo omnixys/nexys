@@ -10,6 +10,8 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  SxProps,
+  Theme,
   useTheme,
 } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -27,11 +29,15 @@ export default function SidebarGroup({
   label,
   childrenLinks,
   defaultExpanded,
+  disabled,
+  sx,
 }: {
   href: string;
   label: string;
   childrenLinks: ChildLink[];
   defaultExpanded?: boolean;
+  disabled?: boolean;
+  sx?: SxProps<Theme>;
 }) {
   const theme = useTheme();
   const pathname = usePathname();
@@ -50,16 +56,16 @@ export default function SidebarGroup({
   }, [isActiveGroup]);
 
   return (
-    <List disablePadding sx={{ px: 1 }}>
+    <List disablePadding sx={{}}>
       <ListItemButton
+        disabled={disabled}
         onClick={() => {
           // UX choice: click on label navigates to group root, chevron toggles.
           router.push(href);
           setOpen(true);
         }}
         sx={{
-          borderRadius: 2,
-          mx: 1,
+          ...sx,
           mb: 0.5,
           "&:hover": { bgcolor: theme.palette.action.hover },
         }}

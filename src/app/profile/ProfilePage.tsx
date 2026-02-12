@@ -20,6 +20,7 @@ import RotatingProfileHeadline from "../../components/profile/RotatingProfileHea
 import BentoTile from "../../components/home/BentoTile";
 import ProfileRoleSpecificInfo from "../../components/profile/ProfileRoleSpecificInfo";
 import ProfileStatsTile from "../../components/profile/ProfileStatsTile";
+import { useDevice } from "../../providers/DeviceProvider";
 
 /* =====================================================
    STAGGER CONFIG
@@ -39,6 +40,8 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
   const pathname = usePathname();
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
+    const { isMobile, isDesktop } = useDevice();
+  
 
   useEffect(() => {
     setAnimationKey((k) => k + 1);
@@ -68,11 +71,18 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         animate="visible"
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(12, 1fr)",
-          gridTemplateRows: "80px 220px 320px",
           gap: 3,
           position: "relative",
           zIndex: 100,
+          ...(isMobile
+            ? {
+                gridTemplateColumns: "1fr",
+                gridAutoRows: "minmax(140px, auto)",
+              }
+            : {
+                gridTemplateColumns: "repeat(12, 1fr)",
+                gridTemplateRows: "80px 220px 320px",
+              }),
         }}
       >
         {/* ==================================== */}
@@ -80,7 +90,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         {/* ==================================== */}
         <BentoTile
           index={0}
-          area="1 / 1 / span 1 / span 12"
+          area={!isMobile ? "1 / 1 / span 1 / span 12" : undefined}
           focused={focused}
           setFocused={setFocused}
         >
@@ -102,7 +112,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         {/* ==================================== */}
         <BentoTile
           index={2}
-          area="2 / 1 / span 1 / span 3"
+          area={!isMobile ? "2 / 1 / span 1 / span 3" : undefined}
           focused={focused}
           setFocused={setFocused}
         >
@@ -121,7 +131,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         {/* ==================================== */}
         <BentoTile
           index={3}
-          area="2 / 4 / span 1 / span 6"
+          area={!isMobile ? "2 / 4 / span 1 / span 6" : undefined}
           focused={focused}
           setFocused={setFocused}
           heavy
@@ -143,7 +153,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         {user?.customer && (
           <BentoTile
             index={4}
-            area="2 / 10 / span 1 / span 3"
+            area={!isMobile ? "2 / 10 / span 1 / span 3" : undefined}
             focused={focused}
             setFocused={setFocused}
             heavy
@@ -169,47 +179,51 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         {/* ==================================== */}
         {/* ADDRESSES (Span 3) - Rechte Spalte oben */}
         {/* ==================================== */}
-        <BentoTile
-          index={5}
-          area={ "3 / 7 / span 1 / span 6"}
-          focused={focused}
-          setFocused={setFocused}
-        >
-          <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-            }}
+        {isDesktop && (
+          <BentoTile
+            index={5}
+            area={!isMobile ? "3 / 7 / span 1 / span 6" : undefined}
+            focused={focused}
+            setFocused={setFocused}
           >
-            <ProfileAddressStack user={user} />
-          </Box>
-        </BentoTile>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <ProfileAddressStack user={user} />
+            </Box>
+          </BentoTile>
+        )}
 
         {/* ==================================== */}
         {/* CONTACTS (Span 3) - Rechte Spalte unten */}
         {/* ==================================== */}
-        <BentoTile
-          index={6}
-          area={"3 / 1 / span 1 / span 6"}
-          focused={focused}
-          setFocused={setFocused}
-        >
-          <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-            }}
+        {isDesktop && (
+          <BentoTile
+            index={6}
+            area={!isMobile ? "3 / 1 / span 1 / span 6" : undefined}
+            focused={focused}
+            setFocused={setFocused}
           >
-            <ProfileContactsCarousel user={user} />
-          </Box>
-        </BentoTile>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <ProfileContactsCarousel user={user} />
+            </Box>
+          </BentoTile>
+        )}
 
         {/* ==================================== */}
         {/* FOOTER STATS (Span 12) - Unten */}
         {/* ==================================== */}
         <BentoTile
           index={7}
-          area="4 / 1 / span 1 / span 12"
+          area={!isMobile ? "4 / 1 / span 1 / span 12" : undefined}
           focused={focused}
           setFocused={setFocused}
         >

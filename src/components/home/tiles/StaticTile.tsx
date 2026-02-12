@@ -16,7 +16,7 @@ export default function StaticTile({ title }: { title: string }): JSX.Element {
       <Typography
         color={theme.palette.text.primary}
         variant="subtitle2"
-        sx={{ opacity: 0.8, letterSpacing: 0.4 }}
+        sx={{ opacity: 0.8, letterSpacing: 0.4}}
       >
         {title}
       </Typography>

@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, SwipeableDrawer, Divider, useTheme } from "@mui/material";
-import SidebarLink from "../../home/navigation/SidebarLink";
+import { Box, Divider, SwipeableDrawer, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
 import SidebarGroup from "../../layout/sidebar/SidebarGroup";
+import SidebarLink from "../../layout/sidebar/SidebarLink";
 
 type Props = {
   open: boolean;
@@ -47,9 +47,11 @@ export default function MobileSidebarSheet({ open, onOpen, onClose }: Props) {
       {/* Content */}
       <Box sx={{ px: 3 }}>
         <SidebarLink href="/home" label={t("home")} />
+
         <SidebarLink href="/profile" label={t("profile")} />
 
         <SidebarGroup
+          disabled={true}
           href="/settings"
           label={t("settings")}
           childrenLinks={[
@@ -65,6 +67,7 @@ export default function MobileSidebarSheet({ open, onOpen, onClose }: Props) {
         />
 
         <SidebarGroup
+          disabled={true}
           href="/security"
           label={t("security")}
           childrenLinks={[
@@ -79,8 +82,8 @@ export default function MobileSidebarSheet({ open, onOpen, onClose }: Props) {
 
         <Divider sx={{ my: 2 }} />
 
-        <SidebarLink href="/billing" label={t("billing")} />
-        <SidebarLink href="/support" label={t("support")} />
+        <SidebarLink disabled href="/billing" label={t("billing")} />
+        <SidebarLink disabled href="/support" label={t("support")} />
       </Box>
     </SwipeableDrawer>
   );

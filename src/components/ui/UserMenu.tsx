@@ -33,7 +33,11 @@ import ColorBubbleSwitcher from "./ColorBubbleSwitcher";
  */
 type EventRole = "ADMIN" | "SECURITY" | "GUEST";
 
-export default function UserMenu(): JSX.Element | null {
+export default function UserMenu({
+  logoutPath,
+}: {
+  logoutPath: string;
+}): JSX.Element | null {
   const router = useRouter();
   const { device } = useDevice();
 
@@ -41,7 +45,6 @@ export default function UserMenu(): JSX.Element | null {
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
-
 
   if (loading) return null;
   if (!isAuthenticated || !user) return null;
@@ -71,7 +74,7 @@ export default function UserMenu(): JSX.Element | null {
   const doLogout = async () => {
     handleClose();
     await logout();
-    router.replace("/login");
+    router.replace(logoutPath);
   };
 
   return (
@@ -123,7 +126,7 @@ export default function UserMenu(): JSX.Element | null {
           </MenuItem>
         )}
         {/* Profile */}
-        <MenuItem onClick={() => go("/me")}>
+        <MenuItem onClick={() => go("/checkpoint/me")}>
           <ListItemIcon>
             <Person fontSize="small" />
           </ListItemIcon>
@@ -131,7 +134,7 @@ export default function UserMenu(): JSX.Element | null {
         </MenuItem>
 
         {/* Notifications */}
-        <MenuItem onClick={() => go("/me/notifications")}>
+        <MenuItem onClick={() => go("/checkpoint/me/notifications")}>
           <ListItemIcon>
             <NotificationsIcon fontSize="small" />
           </ListItemIcon>
@@ -139,7 +142,7 @@ export default function UserMenu(): JSX.Element | null {
         </MenuItem>
 
         {/* My QR */}
-        <MenuItem onClick={() => go("/my-qr")}>
+        <MenuItem onClick={() => go("/checkpoint/my-qr")}>
           <ListItemIcon>
             <BadgeIcon fontSize="small" />
           </ListItemIcon>

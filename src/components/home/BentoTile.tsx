@@ -68,6 +68,7 @@ export default function BentoTile({
       }}
       sx={{
         gridArea: area,
+        width: 'minmax(200px, auto)',
         height: "100%",
         outline: "none",
         cursor: "pointer",

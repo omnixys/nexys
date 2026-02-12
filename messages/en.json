@@ -46,11 +46,18 @@
 
   "products": {
     "title": "Products",
+    "choose": "Switch Product",
+    "cancel":"Cancel",
     "open": "Open {name}",
     "checkpoint": {
       "name": "Checkpoint",
       "subtitle": "Events & Tickets",
       "description": "Events · Tickets · Security"
+    },
+    "nexys": {
+      "name": "Nexys",
+      "subtitle": "Customize your Nexys experience",
+      "description": "Nexys"
     },
     "finyx": {
       "name": "Finyx",

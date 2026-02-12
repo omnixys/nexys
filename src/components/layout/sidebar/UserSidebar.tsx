@@ -5,13 +5,13 @@
 
 "use client";
 
-import { Divider, Drawer, useTheme } from "@mui/material";
-import SidebarGroup from "./SidebarGroup";
-import { JSX } from "react";
+import { Divider, Drawer, SxProps, Theme, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
-import SidebarLink from "../../home/navigation/SidebarLink";
+import { JSX } from "react";
+import SidebarGroup from "./SidebarGroup";
+import SidebarLink from "./SidebarLink";
 
-export default function UserSidebar({ width }: { width: number }): JSX.Element {
+export default function UserSidebar({ width, sx }: { width: number; sx?: SxProps<Theme>; }): JSX.Element {
   const theme = useTheme();
   const t = useTranslations("sidebar");
 
@@ -32,11 +32,12 @@ export default function UserSidebar({ width }: { width: number }): JSX.Element {
         },
       }}
     >
-      <SidebarLink href="/home" label={t("home")} />
-      <SidebarLink href="/profile" label={t("profile")} />
+      <SidebarLink href="/home" label={t("home")} sx={sx} />
+      <SidebarLink href="/profile" label={t("profile")} sx={sx} />
 
       {/* SETTINGS GROUP */}
       <SidebarGroup
+        sx={sx}
         href="/settings"
         label={t("settings")}
         childrenLinks={[
@@ -53,6 +54,7 @@ export default function UserSidebar({ width }: { width: number }): JSX.Element {
 
       {/* SECURITY GROUP */}
       <SidebarGroup
+        sx={sx}
         href="/security"
         label={t("security")}
         childrenLinks={[
@@ -65,11 +67,11 @@ export default function UserSidebar({ width }: { width: number }): JSX.Element {
         ]}
       />
 
-      <SidebarLink href="/billing" label={t("billing")} />
+      <SidebarLink href="/billing" label={t("billing")} sx={sx} />
 
       <Divider sx={{ my: 2, borderColor: theme.palette.divider }} />
 
-      <SidebarLink href="/support" label={t("support")} />
+      <SidebarLink href="/support" label={t("support")} sx={sx} />
     </Drawer>
   );
 }

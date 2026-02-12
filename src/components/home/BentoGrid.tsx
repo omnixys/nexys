@@ -21,6 +21,7 @@ import TypingHeadline from "./TypingHeadline";
 import ProductsTile from "./tiles/ProductsTile";
 import { User } from "../../../types/user/user.type";
 import { useTranslations } from "next-intl";
+import { useDevice } from "../../providers/DeviceProvider";
 
 /* =====================================================
    STAGGER CONFIG
@@ -41,6 +42,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
   const pathname = usePathname();
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
+  const { isMobile } = useDevice();
 
   /* -----------------------------------------------
      Re-animate when returning to this route
@@ -72,12 +74,19 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
         animate="visible"
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gridTemplateRows: "140px 220px 220px 180px",
           gap: 3,
           mt: 4,
           position: "relative",
           zIndex: 100,
+          ...(isMobile
+            ? {
+                gridTemplateColumns: "1fr",
+                gridAutoRows: "minmax(140px, auto)",
+              }
+            : {
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gridTemplateRows: "140px 220px 220px 180px",
+              }),
         }}
       >
         <BentoTile index={0} focused={focused} setFocused={setFocused}>
@@ -92,15 +101,17 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
           <WeatherTile />
         </BentoTile>
 
-        <BentoTile
-          index={3}
-          area="2 / 1 / span 2 / span 2"
-          focused={focused}
-          setFocused={setFocused}
-          heavy
-        >
-          <ProductsTile isFocused={focused === 3} />
-        </BentoTile>
+        {!isMobile && (
+          <BentoTile
+            index={3}
+            area="2 / 1 / span 2 / span 2"
+            focused={focused}
+            setFocused={setFocused}
+            heavy
+          >
+            <ProductsTile isFocused={focused === 3} />
+          </BentoTile>
+        )}
 
         <BentoTile index={4} focused={focused} setFocused={setFocused}>
           <StaticTile title={t("notes")} />
@@ -108,7 +119,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
 
         <BentoTile
           index={5}
-          area="3 / 3 / span 2 / span 1"
+          area={!isMobile ? "3 / 3 / span 2 / span 1" : undefined}
           focused={focused}
           setFocused={setFocused}
           heavy
@@ -118,7 +129,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
 
         <BentoTile
           index={6}
-          area="4 / 1 / span 1 / span 2"
+          area={!isMobile ? "4 / 1 / span 1 / span 2" : undefined}
           focused={focused}
           setFocused={setFocused}
         >

@@ -56,7 +56,8 @@ export default function TypingHeadline({
       sx={{
         fontWeight: 600,
         letterSpacing: "-0.02em",
-        whiteSpace: "nowrap",
+        maxWidth: "100%",
+        whiteSpace: { xs: "normal", md: "nowrap" },
       }}
       aria-label={text}
     >

@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, useTheme } from "@mui/material";
-
+import { Box, Typography } from "@mui/material";
 import {
   RxDiscordLogo,
   RxGithubLogo,
@@ -11,150 +10,166 @@ import {
   RxLinkedinLogo,
 } from "react-icons/rx";
 import { FaYoutube } from "react-icons/fa";
-
-const SIDEBAR_WIDTH = 80;
-
-const Footer = () => {
-  const theme = useTheme();
-
-
-  return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#000",
-        boxShadow: "0 -8px 24px rgba(0,0,0,0.35)", // shadow-lg
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        borderTop: `1px solid ${theme.palette.divider}`,
-        p: "15px",
-        ml: `${SIDEBAR_WIDTH}px`,
-        color:
-          theme.palette.mode === "dark"
-            ? theme.palette.text.primary
-            : theme.palette.primary.light,
-      }}
-    >
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "auto",
-        }}
-      >
-        {/* LINK SECTIONS */}
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
-            alignItems: "flex-start",
-          }}
-        >
-          {/* Community */}
-          <Box
-            sx={{
-              minWidth: "200px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography sx={{ fontWeight: 700, fontSize: "16px" }}>
-              Community
-            </Typography>
-
-            <FooterItem icon={<FaYoutube />} label="Youtube" />
-            <FooterItem icon={<RxGithubLogo />} label="Github" />
-            <FooterItem icon={<RxDiscordLogo />} label="Discord" />
-          </Box>
-
-          {/* Social Media */}
-          <Box
-            sx={{
-              minWidth: "200px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography sx={{ fontWeight: 700, fontSize: "16px" }}>
-              Social Media
-            </Typography>
-
-            <FooterItem icon={<FaYoutube />} label="Instagram" />
-            <FooterItem icon={<RxGithubLogo />} label="Twitter" />
-            <FooterItem icon={<RxDiscordLogo />} label="LinkedIn" />
-          </Box>
-
-          {/* About */}
-          <Box
-            sx={{
-              minWidth: "200px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography sx={{ fontWeight: 700, fontSize: "16px" }}>
-              About
-            </Typography>
-
-            <FooterItem label="Become Sponsor" />
-            <FooterItem label="Learning about me" />
-            <FooterItem label="mifwebchain@gmail.com" />
-          </Box>
-        </Box>
-
-        {/* COPYRIGHT */}
-        <Typography
-          sx={{
-            mt: "20px",
-            fontSize: "15px",
-            textAlign: "center",
-            color:
-              theme.palette.mode === "dark"
-                ? theme.palette.text.secondary
-                : theme.palette.secondary.light,
-          }}
-        >
-          © 2026 Omnixys – Modular Thinking. Infinite Possibilities.
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
+import { useDevice } from "../../providers/DeviceProvider";
 
 type FooterItemProps = {
   icon?: React.ReactNode;
   label: string;
+  href: string;
 };
 
-const FooterItem = ({ icon, label }: FooterItemProps) => {
-    const theme = useTheme();
-
+const FooterItem = ({ icon, label, href }: FooterItemProps) => {
   return (
     <Box
+      component="a"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       sx={{
         display: "flex",
         alignItems: "center",
-        my: "15px",
-        cursor: "pointer",
+        gap: 1,
+        my: 1,
+        color: "inherit",
+        textDecoration: "none",
+        fontSize: "0.9rem",
+        opacity: 0.85,
         "&:hover": {
-          opacity: 0.85,
+          opacity: 1,
         },
       }}
     >
-      {icon && <Box sx={{ fontSize: "18px" }}>{icon}</Box>}
-      <Typography
-        sx={{ fontSize: "15px", ml: icon ? "6px" : 0 }}
-      >
+      {icon && <Box sx={{ fontSize: 18 }}>{icon}</Box>}
+      <Typography component="span" fontSize="inherit">
         {label}
+      </Typography>
+    </Box>
+  );
+};
+
+const Footer = () => {
+      const { isMobile } = useDevice();
+
+  return (
+    <Box
+      component="footer"
+      sx={{
+        width: "100%",
+        px: { xs: 2, md: 4, lg: 6 },
+        ml: isMobile ? 0 : 26,
+        py: 6,
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+        color: "grey.300",
+        backgroundColor: "transparent",
+      }}
+    >
+      {/* CONTENT GRID */}
+      <Box
+        sx={{
+          maxWidth: 1200,
+          mx: "auto",
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+          },
+          gap: 4,
+        }}
+      >
+        {/* COMMUNITY */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography
+            sx={{
+              fontSize: "0.875rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              mb: 1.5,
+            }}
+          >
+            Community
+          </Typography>
+
+          <FooterItem
+            icon={<FaYoutube />}
+            label="YouTube"
+            href="https://youtube.com"
+          />
+          <FooterItem
+            icon={<RxGithubLogo />}
+            label="GitHub"
+            href="https://github.com/omnixys"
+          />
+          <FooterItem
+            icon={<RxDiscordLogo />}
+            label="Discord"
+            href="https://discord.com"
+          />
+        </Box>
+
+        {/* SOCIAL */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography
+            sx={{
+              fontSize: "0.875rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              mb: 1.5,
+            }}
+          >
+            Social
+          </Typography>
+
+          <FooterItem
+            icon={<RxInstagramLogo />}
+            label="Instagram"
+            href="https://instagram.com"
+          />
+          <FooterItem
+            icon={<RxTwitterLogo />}
+            label="Twitter / X"
+            href="https://twitter.com"
+          />
+          <FooterItem
+            icon={<RxLinkedinLogo />}
+            label="LinkedIn"
+            href="https://linkedin.com"
+          />
+        </Box>
+
+        {/* ABOUT */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography
+            sx={{
+              fontSize: "0.875rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              mb: 1.5,
+            }}
+          >
+            About
+          </Typography>
+
+          <FooterItem label="Become a Sponsor" href="#" />
+          <FooterItem label="Learn more about Omnixys" href="/about/omnixys" />
+          <FooterItem label="Contact" href="mailto:mifwebchain@gmail.com" />
+        </Box>
+      </Box>
+
+      {/* COPYRIGHT */}
+      <Typography
+        variant="caption"
+        sx={{
+          display: "block",
+          textAlign: "center",
+          mt: 5,
+          opacity: 0.6,
+        }}
+      >
+        © 2026 Omnixys — Modular Thinking. Infinite Possibilities.
       </Typography>
     </Box>
   );

@@ -16,12 +16,11 @@ export default function NexysHomePage(): JSX.Element {
   const { user, loading } = useAuth()
   
   return (
-          <LayoutShell user={user} loading={loading}>
-        <Box sx={{ position: "relative" }}>
-          <CommandPalette />
-          <BentoGrid user={user} />
-        </Box>
-      </LayoutShell>
-
+    <LayoutShell user={user} loading={loading}>
+      <Box sx={{ position: "relative" }}>
+        <CommandPalette />
+        <BentoGrid user={user} />
+      </Box>
+    </LayoutShell>
   );
 }
