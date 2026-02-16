@@ -17,6 +17,7 @@
       "unread": "Ungelesen"
     }
   },
+
   "weather": {
     "title": "Wetter",
     "conditions": {
@@ -25,6 +26,7 @@
       "rain": "Regen"
     }
   },
+
   "calendar": {
     "title": "Kalender",
     "events": {
@@ -32,6 +34,7 @@
       "productReview": "Produkt-Review"
     }
   },
+
   "products": {
     "title": "Produkte",
     "choose": "Produkt auswählen",
@@ -63,10 +66,12 @@
       "description": "Nachrichten · Vorlagen · Events"
     }
   },
+
   "branding": {
     "title": "Nexys",
     "tagline": "Bauen. Verbinden. Weiterentwickeln."
   },
+
   "auth": {
     "username": {
       "label": "Benutzername"
@@ -95,6 +100,7 @@
       "loginFailed": "Anmeldung fehlgeschlagen. Bitte erneut versuchen."
     }
   },
+
   "sections": {
     "roleData": "Rollendaten",
     "interests": "Interessen"
@@ -263,23 +269,6 @@
     }
   },
 
-  "personal": {
-    "marital": {
-      "single": "Ledig",
-      "married": "Verheiratet",
-      "divorced": "Geschieden",
-      "widowed": "Verwitwet"
-    },
-    "phone": {
-      "mobile": "Mobil",
-      "whatsapp": "WhatsApp",
-      "private": "Privat",
-      "work": "Arbeit",
-      "home": "Zuhause",
-      "other": "Sonstiges"
-    }
-  },
-
   "relationship": {
     "family": "Familie",
     "friend": "Freund",
@@ -438,5 +427,24 @@
     "security_history": "Login-Verlauf",
     "security_auth": "Authentifizierung",
     "security_actions": "Aktionen"
+  },
+
+  "signUp": {
+    "personal": {
+      "title": "Persönliche Daten",
+      "subtitle": "Bitte gib deine Basisdaten an. Du kannst optionale Angaben jederzeit später ergänzen.",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "birthDate": "Geburtsdatum",
+      "gender": "Geschlecht",
+      "maritalStatus": "Familienstand",
+      "notSpecified": "Keine Angabe"
+    },
+    "validation": {
+      "required": "Pflichtfeld",
+      "email": "Bitte gib eine gültige E-Mail an.",
+      "minAge18": "Du musst mindestens 18 Jahre alt sein."
+    }
   }
 }

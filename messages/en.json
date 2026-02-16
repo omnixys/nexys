@@ -47,7 +47,7 @@
   "products": {
     "title": "Products",
     "choose": "Switch Product",
-    "cancel":"Cancel",
+    "cancel": "Cancel",
     "open": "Open {name}",
     "checkpoint": {
       "name": "Checkpoint",
@@ -132,11 +132,11 @@
       "labels": {
         "title": "Personal profile",
         "contact": "Contact"
-    },
+      },
       "values": {
         "bornOn": "Born on {date}",
         "bornOnWithAge": "Born on {date} ({age} years old)"
-    },
+      },
       "gender": {
         "male": "Male",
         "female": "Female",
@@ -193,39 +193,39 @@
         "elite": "Elite",
         "supreme": "Supreme"
       },
-       "contacts": {
-             "title": "Trust Network",
-         "emptyTitle": "No contacts yet",
-         "emptySubtitle": "Add trusted contacts to enable limits, emergency flags and shared access.",
-         "count": "{count} contacts",
-         "totalLimit": "Total limit",
-         "filtered": "Filtered",
-         "emergency": "Emergency",
-         "filters": {
-           "all": "All relationships"
-         },
-         "noResultsTitle": "No results",
-         "noResultsSubtitle": "No contacts match the selected relationship filter.",
-         "resetFilter": "Reset filter",
-         "labels": {
-           "limit": "Limit",
-           "start": "Start",
-           "end": "End"
-         },
-         "relationship": {
-           "family": "Family",
-           "friend": "Friend",
-           "partner": "Partner",
-           "colleague": "Colleague",
-           "businessPartner": "Business partner",
-           "relative": "Relative",
-           "parent": "Parent",
-           "sibling": "Sibling",
-           "child": "Child",
-           "cousin": "Cousin",
-           "other": "Other"
-         }
-       },
+      "contacts": {
+        "title": "Trust Network",
+        "emptyTitle": "No contacts yet",
+        "emptySubtitle": "Add trusted contacts to enable limits, emergency flags and shared access.",
+        "count": "{count} contacts",
+        "totalLimit": "Total limit",
+        "filtered": "Filtered",
+        "emergency": "Emergency",
+        "filters": {
+          "all": "All relationships"
+        },
+        "noResultsTitle": "No results",
+        "noResultsSubtitle": "No contacts match the selected relationship filter.",
+        "resetFilter": "Reset filter",
+        "labels": {
+          "limit": "Limit",
+          "start": "Start",
+          "end": "End"
+        },
+        "relationship": {
+          "family": "Family",
+          "friend": "Friend",
+          "partner": "Partner",
+          "colleague": "Colleague",
+          "businessPartner": "Business partner",
+          "relative": "Relative",
+          "parent": "Parent",
+          "sibling": "Sibling",
+          "child": "Child",
+          "cousin": "Cousin",
+          "other": "Other"
+        }
+      },
       "contactOption": {
         "email": "Email",
         "phone": "Phone",
@@ -340,19 +340,19 @@
       }
     },
 
-      "stats": {
-        "labels": {
-          "profileCompleteness": "Profile completeness",
-          "securityScore": "Security score",
-          "dataPoints": "Data points",
-          "lastUpdated": "Last updated",
-          "profileId": "Profile ID",
-          "since": "Since"
-        },
-        "values": {
-          "today": "Today"
-        }
+    "stats": {
+      "labels": {
+        "profileCompleteness": "Profile completeness",
+        "securityScore": "Security score",
+        "dataPoints": "Data points",
+        "lastUpdated": "Last updated",
+        "profileId": "Profile ID",
+        "since": "Since"
+      },
+      "values": {
+        "today": "Today"
       }
+    }
   },
 
   "security": {
@@ -392,6 +392,24 @@
       "regionFormat": "Region Format",
       "total": "total"
     }
-  }
+  },
 
+  "signUp": {
+    "personal": {
+      "title": "Personal Information",
+      "subtitle": "Please enter your basic details. Optional fields can be added later.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "birthDate": "Date of birth",
+      "gender": "Gender",
+      "maritalStatus": "Marital status",
+      "notSpecified": "Prefer not to say"
+    },
+    "validation": {
+      "required": "Required field",
+      "email": "Please enter a valid email address.",
+      "minAge18": "You must be at least 18 years old."
+    }
+  }
 }

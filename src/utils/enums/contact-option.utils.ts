@@ -1,16 +1,19 @@
-import { ContactOptionType } from "../../types/user/user-enum-type";
+import { ContactOptionsType } from "../../types/user/user-enum-type";
 
-export function formatContactOption(opt?: ContactOptionType | null, tUser?: any): string {
+export function formatContactOption(
+  opt?: ContactOptionsType | null,
+  tUser?: any,
+): string {
   switch (opt) {
-    case ContactOptionType.EMAIL:
+    case ContactOptionsType.EMAIL:
       return tUser("customer.contactOptions.email");
-    case ContactOptionType.PHONE:
+    case ContactOptionsType.PHONE:
       return tUser("customer.contactOptions.phone");
-    case ContactOptionType.SMS:
+    case ContactOptionsType.SMS:
       return tUser("customer.contactOptions.sms");
-    case ContactOptionType.WHATSAPP:
+    case ContactOptionsType.WHATSAPP:
       return tUser("customer.contactOptions.whatsapp");
-    case ContactOptionType.LETTER:
+    case ContactOptionsType.LETTER:
       return tUser("customer.contactOptions.letter");
     default:
       return "—";

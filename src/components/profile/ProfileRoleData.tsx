@@ -1,25 +1,26 @@
 "use client";
 
-import { Box, Stack, Typography, Chip, Button, useTheme } from "@mui/material";
+import { Box, Button, Chip, Stack, Typography, useTheme } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
+import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
-import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import NotificationsOffOutlinedIcon from "@mui/icons-material/NotificationsOffOutlined";
-import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
-import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 
+import {
+  USER_CUSTOMER_CONTACT_OPTION_I18N,
+  USER_CUSTOMER_TIER_I18N,
+} from "@/types/user/enum-translations";
+import { UserType } from "@/types/user/user-enum-type";
 import { User } from "@/types/user/user.type";
-import { UserType, ContactOptionType } from "@/types/user/user-enum-type";
-import { USER_CUSTOMER_CONTACT_OPTION_I18N, USER_CUSTOMER_TIER_I18N } from "@/types/user/enum-translations";
 import { formatEnum } from "@/utils/format-enum";
-import { IconLabelValueRow } from "../ui/value/IconLabelValueRow";
-import { formatContactOption } from "../../utils/enums/contact-option.utils";
 import { useRotatingValue } from "../../hooks/useRotatingValue";
+import { IconLabelValueRow } from "../ui/value/IconLabelValueRow";
 
 type Props = {
   user: User;
@@ -79,7 +80,6 @@ function CustomerBlock({
 
   const contactOptions = user?.customer?.contactOptions ?? [];
   const rotatingContact = useRotatingValue(contactOptions, 2200);
-  
 
   return (
     <Stack spacing={2}>
@@ -255,13 +255,7 @@ function EmployeeBlock({
   );
 }
 
-
-
-function GuestBlock({
-  tUser,
-}: {
-  tUser: ReturnType<typeof useTranslations>;
-}) {
+function GuestBlock({ tUser }: { tUser: ReturnType<typeof useTranslations> }) {
   return (
     <Stack spacing={2}>
       <Typography variant="body2" color="text.secondary">

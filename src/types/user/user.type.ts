@@ -1,6 +1,6 @@
 import { KcRole } from "../authentication/auth-enum.type";
 import {
-  ContactOptionType,
+  ContactOptionsType,
   GenderType,
   InterestType,
   MaritalStatusType,
@@ -41,7 +41,7 @@ export type CustomerInfo = {
   tierLevel: number;
   subscribed: boolean;
   interests: InterestType[];
-  contactOptions: ContactOptionType[];
+  contactOptions: ContactOptionsType[];
 };
 
 export type PersonalInfo = {

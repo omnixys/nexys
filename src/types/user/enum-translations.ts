@@ -1,6 +1,6 @@
 import type { UserTranslationKey } from "@/i18n/keys";
 import {
-  ContactOptionType,
+  ContactOptionsType,
   GenderType,
   InterestType,
   MaritalStatusType,
@@ -48,7 +48,7 @@ export const USER_CUSTOMER_CONTACT_OPTION_I18N = {
   SMS: "customer.contactOption.sms",
   WHATSAPP: "customer.contactOption.whatsapp",
   LETTER: "customer.contactOption.letter",
-} satisfies Record<ContactOptionType, UserTranslationKey>;
+} satisfies Record<ContactOptionsType, UserTranslationKey>;
 
   export const GENDER_I18N = {
     MALE: "personal.gender.male",

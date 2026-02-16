@@ -13,7 +13,7 @@ import { AuthManager } from "@/utils/AuthManager";
 import { AuthErrorKey } from "@/types/authentication/auth.type";
 import AuthTabs from "@/components/auth/login/AuthTabs";
 
-export default function BrandingLogInPage() {
+export default function LogInPage() {
   const theme = useTheme();
   const router = useRouter();
   const [loading, setLoading] = useState(false);

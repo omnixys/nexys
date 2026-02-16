@@ -77,7 +77,7 @@ export enum InterestType {
   BANK_PRODUCTS_AND_SERVICES = "BANK_PRODUCTS_AND_SERVICES",
 }
 
-export enum ContactOptionType {
+export enum ContactOptionsType {
   EMAIL = "EMAIL",
   PHONE = "PHONE",
   SMS = "SMS",
@@ -88,5 +88,6 @@ export enum ContactOptionType {
 export enum GenderType {
   MALE = "MALE",
   FEMALE = "FEMALE",
-  OTHER = "OTHER",
+  DIVERSE = "DIVERSE",
+  UNKNOWN = "UNKNOWN",
 }
