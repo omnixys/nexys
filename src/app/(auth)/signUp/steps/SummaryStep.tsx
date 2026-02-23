@@ -3,6 +3,7 @@
 import { Box, Divider, Typography, Chip } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import type { SignUpFormValues } from "../SignUpWizard";
+import { formatAddressLines } from "../../../../utils/formatAddress";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -39,7 +40,7 @@ export default function SummaryStep() {
           borderRadius: 3,
         }}
       >
-        {/* ================= ACCOUNT ================= */}
+        {/* ACCOUNT */}
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
           Account
         </Typography>
@@ -47,7 +48,7 @@ export default function SummaryStep() {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* ================= PERSONAL ================= */}
+        {/* PERSONAL */}
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
           Personal Information
         </Typography>
@@ -63,31 +64,27 @@ export default function SummaryStep() {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* ================= ADDRESSES ================= */}
+        {/* ADDRESSES */}
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
           Addresses
         </Typography>
 
         {(v.addresses ?? []).map((addr, i) => (
-          <Box key={i} mb={1.5}>
-            <Typography variant="body2" sx={{ fontWeight: 600 }}>
-              Address {i + 1}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {addr.street} {addr.houseNumber}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {addr.zipCode} {addr.city}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {addr.state} {addr.country}
-            </Typography>
-          </Box>
-        ))}
+  <Box key={i} mb={2}>
+    <Typography variant="body2" sx={{ fontWeight: 600 }}>
+      Address {i + 1}
+    </Typography>
 
+    {formatAddressLines(addr).map((line, idx) => (
+      <Typography key={idx} variant="body2" color="text.secondary">
+        {line}
+      </Typography>
+    ))}
+  </Box>
+))}
         <Divider sx={{ my: 2 }} />
 
-        {/* ================= PHONE NUMBERS ================= */}
+        {/* PHONE NUMBERS */}
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
           Phone Numbers
         </Typography>
@@ -101,7 +98,7 @@ export default function SummaryStep() {
         {(v.phoneNumbers ?? []).map((p, i) => (
           <Box key={i} mb={1}>
             <Typography variant="body2">
-              {p.countryCode ?? ""} {p.number}
+              {p.countryCode} {p.number}
               {p.label ? ` (${p.label})` : ""}
               {p.isPrimary && " • Primary"}
             </Typography>
@@ -110,16 +107,10 @@ export default function SummaryStep() {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* ================= SECURITY QUESTIONS ================= */}
+        {/* SECURITY QUESTIONS */}
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
           Security Questions
         </Typography>
-
-        {(v.securityQuestions ?? []).length === 0 && (
-          <Typography variant="body2" color="text.secondary">
-            —
-          </Typography>
-        )}
 
         {(v.securityQuestions ?? []).map((q, i) => (
           <Box key={i} mb={1}>
@@ -129,7 +120,7 @@ export default function SummaryStep() {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* ================= PREFERENCES ================= */}
+        {/* PREFERENCES */}
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
           Preferences
         </Typography>
@@ -163,7 +154,6 @@ export default function SummaryStep() {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* ================= TERMS ================= */}
         <Row label="Terms accepted" value={v.termsAccepted ? "Yes" : "No"} />
       </Box>
     </>

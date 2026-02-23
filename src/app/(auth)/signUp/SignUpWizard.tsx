@@ -43,6 +43,7 @@ import { useMutation } from "@apollo/client/react";
 import { OMNIXYS_LOGOS } from "../../../utils/omnixysBranding";
 import { useThemeMode } from "../../../providers/ThemeModeProvider";
 import { REGISTER_CUSTOMER } from "../../../graphql/user/user-register.graphql";
+import { SignUpPageProps } from "./SignUpPage";
 
 // ------------------------------
 // Types
@@ -148,15 +149,44 @@ const schema = z
 
     addresses: z
       .array(
-        z.object({
-          street: z.string().min(1),
-          houseNumber: z.string().min(1),
-          zipCode: z.string().min(1),
-          city: z.string().min(1),
-          state: z.string().optional(),
-          country: z.string().min(1),
-          additionalInfo: z.string().optional(),
-        }),
+        z
+          .object({
+            countryId: z.string().min(1),
+            country: z.string().min(1),
+
+            stateId: z.string().min(1),
+            state: z.string().min(1),
+
+            cityId: z.string().min(1),
+            city: z.string().min(1),
+
+            postalRequired: z.boolean().default(true),
+            postalCodeId: z.string().optional(),
+            postalCode: z.string().optional(),
+
+            street: z.string().min(1),
+            houseNumber: z.string().min(1),
+
+            addressType: z.string().min(1),
+            additionalInfo: z.string().optional(),
+
+            formatted: z.string().optional(),
+            lat: z.number().nullable().optional(),
+            lon: z.number().nullable().optional(),
+          })
+          .superRefine((addr, ctx) => {
+            // Postal code is required only if postal options exist for the current selection.
+            if (!addr.postalRequired) return;
+
+            const ok = Boolean(addr.postalCodeId?.trim());
+            if (!ok) {
+              ctx.addIssue({
+                code: "custom",
+                path: ["postalCodeId"],
+                message: "ZIP is required for this location.",
+              });
+            }
+          }),
       )
       .min(1),
 
@@ -252,13 +282,13 @@ const schema = z
 // Steps config
 // ------------------------------
 const STEPS = [
-  { key: "personal", label: "Personal", fields: ["personalInfo"] as const },
-  {
-    key: "account",
-    label: "Account",
-    fields: ["username", "password", "confirmPassword"] as const,
-  },
-  { key: "phones", label: "Phone", fields: ["phoneNumbers"] as const },
+  // { key: "personal", label: "Personal", fields: ["personalInfo"] as const },
+  // {
+  //   key: "account",
+  //   label: "Account",
+  //   fields: ["username", "password", "confirmPassword"] as const,
+  // },
+  // { key: "phones", label: "Phone", fields: ["phoneNumbers"] as const },
   { key: "addresses", label: "Address", fields: ["addresses"] as const },
   {
     key: "security",
@@ -276,7 +306,7 @@ const STEPS = [
   { key: "finish", label: "Finish", fields: [] as const },
 ] as const;
 
-export default function SignUpWizard() {
+export default function SignUpWizard({ countries, defaultCountry }: SignUpPageProps) {
   const { scheme } = useThemeMode();
   const [activeStep, setActiveStep] = useState(0);
   const [celebrate, setCelebrate] = useState(false);
@@ -309,11 +339,17 @@ export default function SignUpWizard() {
         {
           street: "",
           houseNumber: "",
-          zipCode: "",
+          postalRequired: true,
+          postalCodeId: "",
+          postalCode: "",
+          cityId: "",
           city: "",
+          stateId: "",
           state: "",
-          country: "Germany",
+          countryId: "",
+          country: defaultCountry ?? "",
           additionalInfo: "",
+          addressType: "",
         },
       ],
       phoneNumbers: [],
@@ -415,7 +451,11 @@ useEffect(() => {
       case "personal":
         return <PersonalInfoStep />;
       case "addresses":
-        return <AddressesStep />;
+        return (
+          <AddressesStep
+            defaultCountry={defaultCountry}
+          />
+        );
       case "phones":
         return <PhoneNumbersStep />;
       case "security":
@@ -436,14 +476,32 @@ useEffect(() => {
   };
 
   const showNav = STEPS[activeStep].key !== "finish";
-const isCurrentStepValid =
-  currentStep.key === "summary"
-    ? true
-    : currentStep.fields.every((field) => {
-        const state = getFieldState(field as any, formState);
-        return !state.invalid;
-      });
 
+const isCurrentStepValid = (() => {
+  if (currentStep.key === "summary") return true;
+
+if (currentStep.key === "addresses") {
+  const addresses = methods.getValues("addresses");
+
+  return addresses.every((addr: any) => {
+    const needsPostal = addr.postalRequired !== false; // default true
+    const hasPostal = Boolean(addr.postalCodeId?.trim?.());
+
+    return (
+      addr.countryId &&
+      addr.stateId &&
+      addr.cityId &&
+      (!needsPostal || hasPostal) &&
+      addr.street &&
+      addr.houseNumber
+    );
+  });
+}
+  return currentStep.fields.every((field) => {
+    const state = getFieldState(field as any, formState);
+    return !state.invalid;
+  });
+})();
 
   return (
     <FormProvider {...methods}>
