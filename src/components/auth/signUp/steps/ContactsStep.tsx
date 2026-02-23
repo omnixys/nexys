@@ -1,5 +1,7 @@
 "use client";
 
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
   Box,
   Button,
@@ -10,9 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { RelationshipType } from "../../../../types/user/user-enum-type";
 
 export default function ContactsStep() {
@@ -41,10 +41,10 @@ export default function ContactsStep() {
             append({
               contactId: "",
               relationship: RelationshipType.OTHER,
-              withdrawalLimit: null,
+              withdrawalLimit: 0,
               emergency: false,
-              startDate: null,
-              endDate: null,
+              startDate: "",
+              endDate: "",
             })
           }
         >
@@ -83,7 +83,7 @@ export default function ContactsStep() {
             </IconButton>
 
             <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.contactId`}
                   control={control}
@@ -102,7 +102,7 @@ export default function ContactsStep() {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.relationship`}
                   control={control}
@@ -118,7 +118,7 @@ export default function ContactsStep() {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.withdrawalLimit`}
                   control={control}
@@ -138,7 +138,7 @@ export default function ContactsStep() {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.emergency`}
                   control={control}

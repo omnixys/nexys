@@ -1,21 +1,21 @@
 "use client";
 
+import { useLazyQuery } from "@apollo/client/react";
+import { Check, Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-  Stack,
-  TextField,
-  Typography,
+  Box,
+  CircularProgress,
   IconButton,
   InputAdornment,
   LinearProgress,
-  Box,
-  CircularProgress,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { Check, Close, Visibility, VisibilityOff } from "@mui/icons-material";
-import { useFormContext } from "react-hook-form";
 import { useEffect, useMemo, useState } from "react";
-import type { SignUpFormValues } from "../SignUpWizard";
-import { useLazyQuery } from "@apollo/client/react";
-import { CHECK_USERNAME } from "../../../../graphql/user/user-register.graphql";
+import { useFormContext } from "react-hook-form";
+import { CHECK_USERNAME } from "@/graphql/user/user-register.graphql";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function AccountStep() {
   const {
@@ -27,7 +27,9 @@ export default function AccountStep() {
   } = useFormContext<SignUpFormValues>();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [checkUsername] = useLazyQuery<{ checkUsername: boolean }>(CHECK_USERNAME);
+  const [checkUsername] = useLazyQuery<{ checkUsername: boolean }>(
+    CHECK_USERNAME,
+  );
   const [usernameStatus, setUsernameStatus] = useState<
     "idle" | "checking" | "available" | "taken"
   >("idle");
@@ -73,7 +75,6 @@ export default function AccountStep() {
 
     return () => clearTimeout(timeout);
   }, [username]);
-
 
   return (
     <>

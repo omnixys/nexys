@@ -1,22 +1,19 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { Box, Button, Typography } from "@mui/material";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
-import AddressCard from "../../../../components/country/AddressCard";
-import { useCountries } from "../../../../hooks/useCountries";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { Country } from "@/types/address/address.type";
+import AddressCard from "../address/AddressCard";
 
 type Props = {
+  countries: Country[];
   defaultCountry?: string;
 };
 
-export default function AddressesStep({ defaultCountry }: Props) {
+export default function AddressesStep({ countries, defaultCountry }: Props) {
   const { control } = useFormContext<SignUpFormValues>();
-
-  const { data, loading, error } = useCountries();
-  const countries = data?.getAllCountries ?? [];
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: "addresses",
@@ -30,6 +27,7 @@ export default function AddressesStep({ defaultCountry }: Props) {
       state: "",
       cityId: "",
       city: "",
+      postalCodeRequired: true,
       postalCodeId: "",
       postalCode: "",
 
@@ -43,14 +41,6 @@ export default function AddressesStep({ defaultCountry }: Props) {
       lon: null,
     });
   };
-
-  if (loading) {
-    return <Typography>Loading countries...</Typography>;
-  }
-
-  if (error) {
-    return <Typography color="error">Failed to load countries.</Typography>;
-  }
 
   return (
     <>

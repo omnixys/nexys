@@ -1,32 +1,30 @@
 "use client";
 
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
   Box,
   Button,
-  Grid,
-  IconButton,
-  MenuItem,
-  TextField,
-  Typography,
   Checkbox,
   FormControlLabel,
+  IconButton,
+  MenuItem,
   Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { PhoneNumberType } from "../../../../types/user/user-enum-type";
+import { Country } from "../../../../types/address/address.type";
+import { SignUpFormValues } from "../../../../schemas/sign-up.schema";
+import Image from "next/image";
 
-const COUNTRY_CODES = [
-  { code: "+49", label: "Germany (+49)" },
-  { code: "+43", label: "Austria (+43)" },
-  { code: "+41", label: "Switzerland (+41)" },
-  { code: "+1", label: "USA (+1)" },
-  { code: "+44", label: "UK (+44)" },
-];
+type Props = {
+  countries: Country[];
+  defaultCountry?: string;
+};
 
-export default function PhoneNumbersStep() {
+export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
   const { control } = useFormContext<SignUpFormValues>();
 
   const { fields, append, remove } = useFieldArray({
@@ -116,9 +114,21 @@ export default function PhoneNumbersStep() {
                 defaultValue="+49"
                 render={({ field }) => (
                   <TextField {...field} select fullWidth label="Vorwahl">
-                    {COUNTRY_CODES.map((c) => (
-                      <MenuItem key={c.code} value={c.code}>
-                        {c.label}
+                    {countries.map((c) => (
+                      <MenuItem key={c.iso2} value={c?.callingCode?.code}>
+                        <Stack direction="row" spacing={2}>
+                          <Image
+                            src={c.flagSvg}
+                            width={25}
+                            height={25}
+                            alt={`Flag of ${c.name}`}
+                          />
+                          <Typography>
+                            {c.name} {"("}
+                            {c?.callingCode?.code}
+                            {")"}
+                          </Typography>
+                        </Stack>
                       </MenuItem>
                     ))}
                   </TextField>

@@ -13,10 +13,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         minHeight: "100vh",
         background: `linear-gradient(
           135deg,
+           ${theme.palette.background.default},
           ${theme.palette.background.default},
           ${theme.palette.background.default},
           ${theme.palette.primary.main},
           ${theme.palette.secondary.main},
+          ${theme.palette.primary.main},
+          ${theme.palette.background.default},
+          ${theme.palette.background.default},
           ${theme.palette.background.default}
         )`,
         display: "flex",
@@ -33,7 +37,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           gap: 4,
-          zIndex:1300,
+          zIndex: 1300,
         }}
       >
         {children}

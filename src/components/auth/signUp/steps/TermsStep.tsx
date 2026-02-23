@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function TermsStep() {
   const { control } = useFormContext<SignUpFormValues>();

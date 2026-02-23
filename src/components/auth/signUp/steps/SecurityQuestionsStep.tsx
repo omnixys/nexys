@@ -1,18 +1,18 @@
 "use client";
 
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
   Box,
   Button,
   IconButton,
   MenuItem,
+  Stack,
   TextField,
   Typography,
-  Stack,
 } from "@mui/material";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 const SUGGESTED_QUESTIONS = [
   "Wie hieß Ihr erstes Haustier?",

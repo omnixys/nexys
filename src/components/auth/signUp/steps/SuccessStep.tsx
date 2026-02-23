@@ -5,13 +5,13 @@
  * @description Premium success screen with animated check + dynamic username.
  */
 
-import { useEffect, useState } from "react";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import type { SignUpFormValues } from "../SignUpWizard";
+import { useFormContext } from "react-hook-form";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function SuccessStep() {
   const theme = useTheme();

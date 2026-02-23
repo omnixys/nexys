@@ -3,7 +3,7 @@
 import { Box, Container, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import SignUpWizard from "./SignUpWizard";
-import { Country } from '../../../lib/getCountries';
+import { Country } from "@/types/address/address.type";
 
 export interface SignUpPageProps {
   countries: Country[];

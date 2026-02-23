@@ -7,6 +7,10 @@ export const GET_ALL_COUNTRIES = gql`
       name
       flagSvg
       flagPng
+      callingCode {
+        id
+        code
+      }
     }
   }
 `;

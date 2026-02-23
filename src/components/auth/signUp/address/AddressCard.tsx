@@ -1,26 +1,23 @@
 "use client";
 
-import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
-import CountryAutocomplete from "./CountryAutocomplete";
-import StateAutocomplete from "./StateAutocomplete";
-import CityPostalAutocomplete from "./CityPostalAutocomplete";
-import StreetAutocomplete from "./StreetAutocomplete";
-import { useQuery } from "@apollo/client/react";
-import { useEffect, useMemo } from "react";
-import { GET_CITIES_BY_STATE } from "../../graphql/address/city.queries";
-import { GET_POSTAL_BY_STATE, GET_POSTAL_BY_CITY } from "../../graphql/address/postal.queries";
-import { GET_STATES_BY_COUNTRY } from "../../graphql/address/state.queries";
-import UniversalAutocomplete, { UniversalOption } from "../ui/UniversalAutocomplete";
+import { useEffect } from "react";
 
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
+
 import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
-import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import EditLocationRoundedIcon from "@mui/icons-material/EditLocationRounded";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
+import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
+import { useCity } from "@/hooks/useCities";
+import { usePostalCode } from "@/hooks/usePostalCodes";
+import { useState } from "@/hooks/useStates";
+import UniversalAutocomplete from "../../../ui/UniversalAutocomplete";
+import StreetAutocomplete from "./StreetAutocomplete";
 
 const ADDRESS_TYPES = [
   { id: "home", label: "Home" },
@@ -94,92 +91,31 @@ export default function AddressCard({
     control,
     name: `addresses.${idx}.addressType`,
   }) as string;
-  
 
-  // -----------------------------
-  // Queries
-  // -----------------------------
+  const { stateOptions, loading: loadingStates } = useState(countryId);
+  const { cityOptions } = useCity(stateId);
+  const { postalCodeOptions } = usePostalCode({ stateId, cityId });
 
-    const { data: statesData, loading } = useQuery(GET_STATES_BY_COUNTRY, {
-            variables: { countryId },
-            skip: !countryId,
-        });
+  const title = addressType?.trim()
+    ? addressType.trim()
+    : idx === 0
+      ? "Primary Address"
+      : `Address #${idx + 1}`;
 
-  const { data: citiesData } = useQuery(GET_CITIES_BY_STATE, {
-    variables: { stateId },
-    skip: !stateId,
-  });
-
-  const { data: postalStateData } = useQuery(GET_POSTAL_BY_STATE, {
-    variables: { stateId },
-    skip: !stateId,
-  });
-
-  const { data: postalCityData } = useQuery(GET_POSTAL_BY_CITY, {
-    variables: { cityId },
-    skip: !cityId,
-  });
-
-
-  // -----------------------------
-  // Options
-  // -----------------------------
-
-  const stateOptions: UniversalOption[] = useMemo(() => {
-    return (
-      statesData?.getStatesByCountry?.map((s: any) => ({
-        id: s.id,
-        label: s.name,
-        category: s.name[0].toUpperCase(),
-      })) ?? []
-    );
-}, [statesData])
-
-  const cityOptions: UniversalOption[] = useMemo(() => {
-    return (
-      citiesData?.getCitiesByState?.map((c: any) => ({
-        id: c.id,
-        label: c.name,
-        category: c.name[0].toUpperCase(),
-      })) ?? []
-    );
-  }, [citiesData]);
-
-  const postalOptions: UniversalOption[] = useMemo(() => {
-    const source =
-      cityId && postalCityData?.getPostalCodesByCity
-        ? postalCityData.getPostalCodesByCity
-        : (postalStateData?.getPostalCodesByState ?? []);
-
-    return source.map((p: any) => ({
-      id: p.id,
-      label: p.zip,
-    }));
-  }, [postalStateData, postalCityData, cityId]);
-  ;
-
-const title = addressType?.trim()
-  ? addressType.trim()
-  : idx === 0
-    ? "Primary Address"
-    : `Address #${idx + 1}`;
-
-const postalRequired = postalOptions.length > 0;
+  const postalCodeRequired = postalCodeOptions.length > 0;
   useEffect(() => {
-    // Sync postalRequired with available postal options for the current selection.
-    setValue(`addresses.${idx}.postalRequired`, postalRequired, {
+    // Sync postalCodeRequired with available postalCode options for the current selection.
+    setValue(`addresses.${idx}.postalCodeRequired`, postalCodeRequired, {
       shouldValidate: true,
       shouldDirty: false,
     });
 
-    if (!postalRequired) {
-      //Clear postal fields when postal codes are not used for this selection.
-      setValue(`addresses.${idx}.postalCodeId`, "", { shouldValidate: true });
-      setValue(`addresses.${idx}.postalCode`, "", { shouldValidate: true });
+    if (!postalCodeRequired) {
+      //Clear postalCode fields when postalCode codes are not used for this selection.
+      setValue(`addresses.${idx}.postalCodeCodeId`, "", { shouldValidate: true });
+      setValue(`addresses.${idx}.postalCodeCode`, "", { shouldValidate: true });
     }
-  }, [idx, postalRequired, setValue]);
-  
-  
+  }, [idx, postalCodeRequired, setValue]);
 
   return (
     <Box
@@ -276,7 +212,7 @@ const postalRequired = postalOptions.length > 0;
                     label="State"
                     options={stateOptions}
                     valueId={stateId}
-                    loading={loading}
+                    loading={loadingStates}
                     onChange={(val) => {
                       setValue(`addresses.${idx}.stateId`, val?.id ?? "");
                       setValue(`addresses.${idx}.state`, val?.label ?? "");
@@ -301,7 +237,7 @@ const postalRequired = postalOptions.length > 0;
           <Box sx={{ width: "40%" }}>
             {/* POSTAL CODE */}
             <AnimatePresence>
-              {!!cityId && postalRequired && (
+              {!!cityId && postalCodeRequired && (
                 <motion.div
                   variants={revealVariant}
                   initial="hidden"
@@ -310,7 +246,7 @@ const postalRequired = postalOptions.length > 0;
                 >
                   <UniversalAutocomplete
                     label="ZIP"
-                    options={postalOptions}
+                    options={postalCodeOptions}
                     valueId={postalCodeId}
                     filterMode="startsWith"
                     onChange={(val) => {

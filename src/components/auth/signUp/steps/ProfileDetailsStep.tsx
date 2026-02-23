@@ -12,16 +12,13 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
-import { Controller, useFormContext } from "react-hook-form";
 import { motion } from "framer-motion";
-import type { SignUpFormValues } from "../SignUpWizard";
+import { Controller, useFormContext } from "react-hook-form";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import {
   ContactOptionsType,
   InterestType,
 } from "../../../../types/user/user-enum-type";
-import { useLazyQuery } from "@apollo/client/react";
-import { CHECK_EMAIL } from "../../../../graphql/user/user-register.graphql";
-import { useEffect, useState } from "react";
 
 const MotionChip = motion(Chip);
 
@@ -57,13 +54,7 @@ const contactLabels: Record<ContactOptionsType, string> = {
 // ----------------------------------
 
 export default function ProfileDetailsStep() {
-  const {
-    control,
-  } = useFormContext<SignUpFormValues>();
-
-
-  
-
+  const { control } = useFormContext<SignUpFormValues>();
 
   return (
     <>

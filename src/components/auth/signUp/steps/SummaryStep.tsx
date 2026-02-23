@@ -1,8 +1,8 @@
 "use client";
 
-import { Box, Divider, Typography, Chip } from "@mui/material";
+import { Box, Chip, Divider, Typography } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { formatAddressLines } from "../../../../utils/formatAddress";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
@@ -70,18 +70,18 @@ export default function SummaryStep() {
         </Typography>
 
         {(v.addresses ?? []).map((addr, i) => (
-  <Box key={i} mb={2}>
-    <Typography variant="body2" sx={{ fontWeight: 600 }}>
-      Address {i + 1}
-    </Typography>
+          <Box key={i} mb={2}>
+            <Typography variant="body2" sx={{ fontWeight: 600 }}>
+              Address {i + 1}
+            </Typography>
 
-    {formatAddressLines(addr).map((line, idx) => (
-      <Typography key={idx} variant="body2" color="text.secondary">
-        {line}
-      </Typography>
-    ))}
-  </Box>
-))}
+            {formatAddressLines(addr).map((line, idx) => (
+              <Typography key={idx} variant="body2" color="text.secondary">
+                {line}
+              </Typography>
+            ))}
+          </Box>
+        ))}
         <Divider sx={{ my: 2 }} />
 
         {/* PHONE NUMBERS */}

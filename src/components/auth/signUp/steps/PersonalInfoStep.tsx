@@ -5,26 +5,26 @@
  * @description Personal info step (4 structured rows desktop + mobile).
  */
 
+import { useLazyQuery } from "@apollo/client/react";
+import { Check, Close } from "@mui/icons-material";
 import {
   Box,
-  Grid,
-  TextField,
-  MenuItem,
-  Typography,
-  Stack,
-  InputAdornment,
   CircularProgress,
+  Grid,
+  InputAdornment,
+  MenuItem,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { SignUpFormValues } from "../SignUpWizard";
+import { CHECK_EMAIL } from "@/graphql/user/user-register.graphql";
 import {
   GenderType,
   MaritalStatusType,
-} from "../../../../types/user/user-enum-type";
-import { Check, Close, WidthFull } from "@mui/icons-material";
-import { useLazyQuery } from "@apollo/client/react";
-import { useEffect, useState } from "react";
-import { CHECK_EMAIL } from "../../../../graphql/user/user-register.graphql";
+} from "@/types/user/user-enum-type";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function PersonalInfoStep() {
   const {
@@ -35,41 +35,41 @@ export default function PersonalInfoStep() {
     clearErrors,
   } = useFormContext<SignUpFormValues>();
 
-      const [checkEmail] = useLazyQuery<{ checkEmail: boolean }>(CHECK_EMAIL);
-      const [emailStatus, setEmailStatus] = useState<
-        "idle" | "checking" | "available" | "taken"
-        >("idle");
-    
-    const email = watch("personalInfo.email");
-  
-      useEffect(() => {
-        if (!email || email.length < 3) return;
-    
-        const timeout = setTimeout(async () => {
-          setEmailStatus("checking");
-    
-          try {
-            const { data } = await checkEmail({
-              variables: { email },
-            });
-    
-            if (data?.checkEmail) {
-              setEmailStatus("available");
-              clearErrors("personalInfo.email");
-            } else {
-              setEmailStatus("taken");
-              setError("personalInfo.email", {
-                type: "manual",
-                message: "Email ist bereits vergeben.",
-              });
-            }
-          } catch {
-            setEmailStatus("idle");
-          }
-        }, 400);
-    
-        return () => clearTimeout(timeout);
-      }, [email]);
+  const [checkEmail] = useLazyQuery<{ checkEmail: boolean }>(CHECK_EMAIL);
+  const [emailStatus, setEmailStatus] = useState<
+    "idle" | "checking" | "available" | "taken"
+  >("idle");
+
+  const email = watch("personalInfo.email");
+
+  useEffect(() => {
+    if (!email || email.length < 3) return;
+
+    const timeout = setTimeout(async () => {
+      setEmailStatus("checking");
+
+      try {
+        const { data } = await checkEmail({
+          variables: { email },
+        });
+
+        if (data?.checkEmail) {
+          setEmailStatus("available");
+          clearErrors("personalInfo.email");
+        } else {
+          setEmailStatus("taken");
+          setError("personalInfo.email", {
+            type: "manual",
+            message: "Email ist bereits vergeben.",
+          });
+        }
+      } catch {
+        setEmailStatus("idle");
+      }
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [email]);
 
   return (
     <>
