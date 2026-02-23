@@ -1,46 +1,14 @@
-import { Metadata } from "next";
-import SignUpPage from "../../../components/auth/signUp/SignUpPage";
+import { Box, Container, useTheme } from "@mui/material";
+import { getCountries } from "../../../lib/getCountries";
+import { headers } from "next/headers";
+import SignUpPage from "./SignUpPage";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Sign Up · Nexys",
-    template: "%s · Nexys",
-  },
-  description:
-    "Create your Nexys account by Omnixys. Get secure access to a modular, event-driven platform for scalable, enterprise-grade applications.",
+export default async function Page() {
 
-  applicationName: "Nexys",
-  generator: "Next.js",
-  authors: [{ name: "Omnixys" }],
-  creator: "Omnixys",
-  publisher: "Omnixys",
+      const countries = await getCountries();
 
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-  },
-
-  openGraph: {
-    type: "website",
-    title: "Sign Up · Nexys",
-    description:
-      "Create your Nexys account — secure access to the modular platform by Omnixys.",
-    siteName: "Nexys",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Sign Up · Nexys",
-    description:
-      "Create your Nexys account — secure access to the modular platform by Omnixys.",
-  },
-
-  category: "technology",
-};
-
-export default function SignPage(): React.JSX.Element {
-  return (
-    <SignUpPage />
-  );
+      const headerList = await headers();
+      const geoCountry = headerList.get("x-vercel-ip-country") || "DE";
+  
+  return <SignUpPage countries={countries} defaultCountry={geoCountry} />;
 }

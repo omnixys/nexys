@@ -44,6 +44,7 @@ import { OMNIXYS_LOGOS } from "../../../utils/omnixysBranding";
 import { useThemeMode } from "../../../providers/ThemeModeProvider";
 import { REGISTER_CUSTOMER } from "../../../graphql/user/user-register.graphql";
 import { SignUpPageProps } from "./SignUpPage";
+import { useRouter } from "next/navigation";
 
 // ------------------------------
 // Types
@@ -282,13 +283,13 @@ const schema = z
 // Steps config
 // ------------------------------
 const STEPS = [
-  // { key: "personal", label: "Personal", fields: ["personalInfo"] as const },
-  // {
-  //   key: "account",
-  //   label: "Account",
-  //   fields: ["username", "password", "confirmPassword"] as const,
-  // },
-  // { key: "phones", label: "Phone", fields: ["phoneNumbers"] as const },
+  { key: "personal", label: "Personal", fields: ["personalInfo"] as const },
+  {
+    key: "account",
+    label: "Account",
+    fields: ["username", "password", "confirmPassword"] as const,
+  },
+  { key: "phones", label: "Phone", fields: ["phoneNumbers"] as const },
   { key: "addresses", label: "Address", fields: ["addresses"] as const },
   {
     key: "security",
@@ -307,6 +308,8 @@ const STEPS = [
 ] as const;
 
 export default function SignUpWizard({ countries, defaultCountry }: SignUpPageProps) {
+  const router = useRouter();
+  
   const { scheme } = useThemeMode();
   const [activeStep, setActiveStep] = useState(0);
   const [celebrate, setCelebrate] = useState(false);
@@ -607,6 +610,20 @@ if (currentStep.key === "addresses") {
                 <Button onClick={back} disabled={activeStep === 0}>
                   Back
                 </Button>
+
+                <Typography
+                  variant="body2"
+                  sx={{
+                    mt: 1,
+                    cursor: "pointer",
+                    fontWeight: 600,
+                    color: "primary.main",
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                  onClick={() => router.replace("/login")}
+                >
+                  Already have an account? Log in
+                </Typography>
 
                 <Button
                   // disabled={!isValid}
