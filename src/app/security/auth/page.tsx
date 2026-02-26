@@ -6,9 +6,10 @@
 "use client";
 
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
+import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
+import AuthenticationPanel from "../../../components/settings/panels/AuthenticationPanel";
 import { useAuth } from "../../../providers/AuthProvider";
-import AuthenticationPanel from "../../settings/_components/panels/AuthenticationPanel";
+
 
 export default function AuthPage() {
   const { user, loading } = useAuth();

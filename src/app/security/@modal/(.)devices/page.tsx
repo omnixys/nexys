@@ -3,8 +3,10 @@
  * @description Devices modal
  */
 
-import ActiveDevicesPanel from "../../../settings/_components/panels/ActiveDevicesPanel";
-import SecurityModal from "../../_components/modal/SecurityModal";
+import SecurityModal from "../../../../components/security/modal/SecurityModal";
+import ActiveDevicesPanel from "../../../../components/security/panels/ActiveDevicesPanel";
+
+
 
 export default function DevicesModalPage() {
   return (

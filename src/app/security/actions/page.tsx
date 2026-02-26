@@ -6,9 +6,10 @@
 "use client";
 
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
+import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
+import QuickActionsPanel from "../../../components/settings/panels/QuickActionsPanel";
 import { useAuth } from "../../../providers/AuthProvider";
-import QuickActionsPanel from "../../settings/_components/panels/QuickActionsPanel";
+
 
 export default function ActionsPage() {
   const { user, loading } = useAuth();

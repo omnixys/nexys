@@ -7,7 +7,8 @@
 
 import { Box, Divider, Stack, Typography, Chip, Button } from "@mui/material";
 import DevicesIcon from "@mui/icons-material/Devices";
-import { useSecurity } from "../../../security/_components/SecurityContext";
+import { useSecurity } from "../../security/SecurityContext";
+
 
 export default function ActiveDevicesPanel() {
   const { state, setState } = useSecurity();

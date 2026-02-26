@@ -6,9 +6,9 @@
 "use client";
 
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
+import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
+import SecurityScorePanel from "../../../components/settings/panels/SecurityScorePanel";
 import { useAuth } from "../../../providers/AuthProvider";
-import SecurityScorePanel from "../../settings/_components/panels/SecurityScorePanel";
 
 export default function ScorePage() {
   const { user, loading } = useAuth();

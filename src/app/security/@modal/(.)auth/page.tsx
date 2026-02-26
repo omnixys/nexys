@@ -3,8 +3,10 @@
  * @description Authentication methods modal
  */
 
-import AuthenticationPanel from "../../../settings/_components/panels/AuthenticationPanel";
-import SecurityModal from "../../_components/modal/SecurityModal";
+import SecurityModal from "../../../../components/security/modal/SecurityModal";
+import AuthenticationPanel from "../../../../components/settings/panels/AuthenticationPanel";
+
+
 
 export default function AuthModalPage() {
   return (

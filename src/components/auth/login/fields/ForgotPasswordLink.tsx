@@ -13,7 +13,7 @@ export default function ForgotPasswordLink() {
 
   return (
     <Link
-      href="/"
+      href="/forgot-password"
       style={{
         textDecoration: "none",
         color: theme.palette.secondary.main,

@@ -9,7 +9,8 @@ import { Box, Divider, Stack, Typography, Chip } from "@mui/material";
 import HistoryIcon from "@mui/icons-material/History";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import WarningIcon from "@mui/icons-material/Warning";
-import { useSecurity } from "../../../security/_components/SecurityContext";
+import { useSecurity } from "../../security/SecurityContext";
+
 
 export default function LoginHistoryPanel() {
   const { state } = useSecurity();

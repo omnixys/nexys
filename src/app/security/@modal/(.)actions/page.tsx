@@ -3,8 +3,10 @@
  * @description Quick actions modal
  */
 
-import QuickActionsPanel from "../../../settings/_components/panels/QuickActionsPanel";
-import SecurityModal from "../../_components/modal/SecurityModal";
+import SecurityModal from "../../../../components/security/modal/SecurityModal";
+import QuickActionsPanel from "../../../../components/settings/panels/QuickActionsPanel";
+
+
 
 export default function ActionsModalPage() {
   return (

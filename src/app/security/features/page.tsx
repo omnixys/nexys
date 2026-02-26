@@ -6,9 +6,10 @@
 "use client";
 
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
+import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
+import SecurityFeaturesPanel from "../../../components/settings/panels/SecurityFeaturesPanel";
 import { useAuth } from "../../../providers/AuthProvider";
-import SecurityFeaturesPanel from "../../settings/_components/panels/SecurityFeaturesPanel";
+
 
 export default function FeaturesPage() {
   const { user, loading } = useAuth();

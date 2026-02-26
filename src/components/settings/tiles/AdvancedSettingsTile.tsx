@@ -9,6 +9,7 @@ import { Box, Typography } from "@mui/material";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import AppsIcon from "@mui/icons-material/Apps";
 import SettingsIcon from "@mui/icons-material/Settings";
+import DevicesIcon from "@mui/icons-material/Devices";
 import StorageIcon from "@mui/icons-material/Storage";
 import { useRouter } from "next/navigation";
 
@@ -72,11 +73,18 @@ export default function AdvancedSettingsTile({
             enabled
           />
           <ActionCard
-            title="API Access"
-            description="Developer settings"
+            title="Multi-Factor Authentication"
+            description="TOTP, Passkeys, Backup Codes"
             color="#9C27B0"
             icon={<SettingsIcon />}
             enabled={false}
+          />
+          <ActionCard
+            title="Devices"
+            description="Trusted & remembered devices"
+            color="#00BCD4"
+            icon={<DevicesIcon />}
+            enabled
           />
           <ActionCard
             title="Cache"

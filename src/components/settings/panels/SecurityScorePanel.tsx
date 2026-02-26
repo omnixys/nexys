@@ -16,7 +16,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { useSecurity } from "../../../security/_components/SecurityContext";
+import { useSecurity } from "../../security/SecurityContext";
 
 const securityData = [
   { month: "Jan", score: 75, threats: 3 },

@@ -3,8 +3,10 @@
  * @description Login history modal
  */
 
-import LoginHistoryPanel from "../../../settings/_components/panels/LoginHistoryPanel";
-import SecurityModal from "../../_components/modal/SecurityModal";
+import SecurityModal from "../../../../components/security/modal/SecurityModal";
+import LoginHistoryPanel from "../../../../components/settings/panels/LoginHistoryPanel";
+
+
 
 export default function HistoryModalPage() {
   return (

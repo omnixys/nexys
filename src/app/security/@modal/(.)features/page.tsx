@@ -3,8 +3,10 @@
  * @description Security features modal
  */
 
-import SecurityFeaturesPanel from "../../../settings/_components/panels/SecurityFeaturesPanel";
-import SecurityModal from "../../_components/modal/SecurityModal";
+import SecurityModal from "@/components/security/modal/SecurityModal";
+import SecurityFeaturesPanel from "@/components/settings/panels/SecurityFeaturesPanel";
+
+
 
 export default function FeaturesModalPage() {
   return (

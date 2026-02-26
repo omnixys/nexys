@@ -6,9 +6,9 @@
 "use client";
 
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
+import AdvancedPanel from "../../../components/settings/panels/AdvancedPanel";
+import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
 import { useAuth } from "../../../providers/AuthProvider";
-import AdvancedPanel from "../_components/panels/AdvancedPanel";
 
 export default function AdvancedPage() {
   const { user, loading } = useAuth();

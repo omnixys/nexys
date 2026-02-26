@@ -3,8 +3,9 @@
  * @description Intercepted route rendered into @modal slot while staying on /security
  */
 
-import SecurityScorePanel from "../../../settings/_components/panels/SecurityScorePanel";
-import SecurityModal from "../../_components/modal/SecurityModal";
+import SecurityModal from "../../../../components/security/modal/SecurityModal";
+import SecurityScorePanel from "../../../../components/settings/panels/SecurityScorePanel";
+
 
 export default function ScoreModalPage() {
   return (

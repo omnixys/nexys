@@ -6,9 +6,10 @@
 "use client";
 
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
+import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
+import LoginHistoryPanel from "../../../components/settings/panels/LoginHistoryPanel";
 import { useAuth } from "../../../providers/AuthProvider";
-import LoginHistoryPanel from "../../settings/_components/panels/LoginHistoryPanel";
+
 
 export default function HistoryPage() {
   const { user, loading } = useAuth();

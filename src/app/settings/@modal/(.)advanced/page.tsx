@@ -3,8 +3,10 @@
  * @description Advanced settings modal
  */
 
-import SettingsModal from "../../_components/modal/SettingsModal";
-import AdvancedPanel from "../../_components/panels/AdvancedPanel";
+import SettingsModal from "../../../../components/settings/modal/SettingsModal";
+import AdvancedPanel from "../../../../components/settings/panels/AdvancedPanel";
+
+
 
 export default function AdvancedModalPage() {
   return (

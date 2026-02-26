@@ -17,7 +17,7 @@ import {
 import SecurityIcon from "@mui/icons-material/Security";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { useSecurity } from "../../../security/_components/SecurityContext";
+import { useSecurity } from "../../security/SecurityContext";
 
 export default function SecurityFeaturesPanel() {
   const { state, setFeatureEnabled } = useSecurity();
