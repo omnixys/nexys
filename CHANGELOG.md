@@ -3,6 +3,16 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.0.2](https://github.com/omnixys/nexys/compare/v1.0.1...v1.0.2) (2026-03-02)
+
+### Other
+
+* **Other:** Merge branch 'main' of https://github.com/omnixys/nexys ([](https://github.com/omnixys/nexys/commit/31f10b75e405d6172c52dafed991a0c8a81d3588))
+
+### Package.json
+
+* **Package.json:** update package.json ([](https://github.com/omnixys/nexys/commit/f410e2d9f3dcf405056da4762b4a3e35be24adba))
+
 ## [1.0.1](https://github.com/omnixys/nexys/compare/v1.0.0...v1.0.1) (2026-03-02)
 
 ### Other
