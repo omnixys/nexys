@@ -3,6 +3,16 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.1.0](https://github.com/omnixys/nexys/compare/v1.0.3...v1.1.0) (2026-03-02)
+
+### Other
+
+* **Other:** Merge branch 'main' of https://github.com/omnixys/nexys ([](https://github.com/omnixys/nexys/commit/1480a2ebfd4ca178c83c925806229ae2be9fa170))
+
+### Path
+
+* **Path:** add auth paths ([](https://github.com/omnixys/nexys/commit/bfda9c1ce005b2ef50464112343c081f9f369542))
+
 ## [1.0.3](https://github.com/omnixys/nexys/compare/v1.0.2...v1.0.3) (2026-03-02)
 
 ### Package.json
