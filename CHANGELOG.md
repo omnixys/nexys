@@ -3,6 +3,12 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.1.2](https://github.com/omnixys/nexys/compare/v1.1.1...v1.1.2) (2026-03-02)
+
+### Package.json
+
+* **Package.json:** update package.json ([](https://github.com/omnixys/nexys/commit/61e694b673524015e4d61d7d6def480a3128765c))
+
 ## [1.1.1](https://github.com/omnixys/nexys/compare/v1.1.0...v1.1.1) (2026-03-02)
 
 ### Other
