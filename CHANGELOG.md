@@ -3,6 +3,16 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.0.1](https://github.com/omnixys/nexys/compare/v1.0.0...v1.0.1) (2026-03-02)
+
+### Other
+
+* **Other:** Merge branch 'main' of https://github.com/omnixys/nexys ([](https://github.com/omnixys/nexys/commit/955fc26d068ed6cf7d9ed09cc65d221ea7f73400))
+
+### Release
+
+* **Release:** fix release ci job ([](https://github.com/omnixys/nexys/commit/464490b31c0ff91c59799cd0e4762086616ff1d7))
+
 ## 1.0.0 (2026-03-02)
 
 ### /profile
