@@ -15,8 +15,8 @@ import {
   Chip,
 } from "@mui/material";
 import { useState } from "react";
-import LayoutShell from "@/components/home/layout/LayoutShell";
 import { useAuth } from "@/providers/AuthProvider";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 
 const severities = [
   { key: "low", label: "Low", color: "default" },

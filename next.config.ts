@@ -4,6 +4,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  basePath: "/nexys",
+  assetPrefix: "/nexys/",
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

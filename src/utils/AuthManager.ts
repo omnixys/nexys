@@ -1,5 +1,6 @@
 "use client";
-import { ApolloClient } from "@apollo/client";
+
+import { ApolloClient, gql } from "@apollo/client";
 import {
   LOGIN,
   LOGOUT,
@@ -17,6 +18,57 @@ import {
   LoginInput,
   UserSignUpInput,
 } from "@/types/authentication/auth-input.type";
+import { startAuthentication } from "@simplewebauthn/browser";
+
+const CONFIRM_TOTP = gql`
+  mutation LoginTotp($username: String!, $code: String!) {
+    loginTotp(input: { username: $username, code: $code }) {
+      accessToken
+      expiresIn
+      refreshToken
+      refreshExpiresIn
+    }
+  }
+`;
+
+const GENERATE_AUTH_OPTIONS = gql`
+  mutation GenerateWebAuthnAuthOptions {
+    generateWebAuthnAuthOptions
+  }
+`;
+
+const VERIFY_AUTH = gql`
+  mutation VerifyAuth($response: JSON!) {
+    verifyWebAuthnAuthentication(response: $response) {
+      accessToken
+      expiresIn
+      refreshToken
+      refreshExpiresIn
+    }
+  }
+`;
+
+const SEND_MAGIC_LINK = gql`
+  mutation RequestMagicLink($email: String!) {
+    requestMagicLink(email: $email)
+  }
+`;
+
+const VERIFY_MAGIC_LINK = gql`
+  mutation VerifyMagicLink($token: String!) {
+    verifyMagicLink(token: $token) {
+      accessToken
+      expiresIn
+      refreshToken
+      refreshExpiresIn
+      scope
+    }
+  }
+`;
+
+type OAuthProvider = "github" | "google";
+
+
 
 /* --------------------------------------------------------------
  * Browser Cookie Helper
@@ -60,17 +112,16 @@ class AuthManagerClass {
   init(apollo: ApolloClient) {
     this.apollo = apollo;
 
-    // Start lightweight ticker
     if (!this.intervalId) {
       this.intervalId = window.setInterval(() => {
         this.checkRefresh();
-      }, 5_000); // alle 5s prüfen (unproblematisch)
+      }, 5_000);
     }
   }
 
-  /* --------------------------------------------------------------
-   * Core Refresh Check (QR-Counter-Pattern)
-   * -------------------------------------------------------------- */
+  /* =========================================================
+     INTERNAL REFRESH CHECK
+  ========================================================= */
   private async checkRefresh() {
     if (this.isRefreshing) return;
 
@@ -86,70 +137,154 @@ class AuthManagerClass {
         await this.forceRefresh();
       } finally {
         this.isRefreshing = false;
-        return remainingMs;
       }
     }
   }
 
-  /* --------------------------------------------------------------
-   * LOGIN
-   * -------------------------------------------------------------- */
+  /* =========================================================
+     CREDENTIALS LOGIN
+  ========================================================= */
   async login(input: LoginInput): Promise<void> {
-    if (!this.apollo) throw new Error("Auth not initialized");
+    this.assertApollo();
 
-    const res = await this.apollo.mutate<LoginResult, LoginRequest>({
+    const res = await this.apollo!.mutate<LoginResult, LoginRequest>({
       mutation: LOGIN,
       variables: { input },
       fetchPolicy: "no-cache",
+      context: { fetchOptions: { credentials: "include" } },
     });
 
-    if (!res.data?.login) throw new Error("Missing login payload");
+    if (!res.data?.login) {
+      throw new Error("Missing login payload");
+    }
+
     AuthEventsBus.emit("login");
   }
 
-  /* --------------------------------------------------------------
-   * REFRESH
-   * -------------------------------------------------------------- */
+  /* =========================================================
+     TOTP LOGIN
+  ========================================================= */
+  async loginWithTotp(username: string, code: string): Promise<void> {
+    this.assertApollo();
+
+    await this.apollo!.mutate({
+      mutation: CONFIRM_TOTP,
+      variables: { username, code },
+      context: { fetchOptions: { credentials: "include" } },
+      fetchPolicy: "no-cache",
+    });
+
+    await new Promise((r) => setTimeout(r, 50));
+    AuthEventsBus.emit("login");
+  }
+
+  /* =========================================================
+     WEBAUTHN LOGIN (DISCOVERABLE)
+  ========================================================= */
+  async loginWithWebAuthn(): Promise<void> {
+    this.assertApollo();
+
+    const { data } = await this.apollo!.mutate({
+      mutation: GENERATE_AUTH_OPTIONS,
+      context: { fetchOptions: { credentials: "include" } },
+      fetchPolicy: "no-cache",
+    });
+
+    const raw = data.generateWebAuthnAuthOptions;
+    const options = typeof raw === "string" ? JSON.parse(raw) : raw;
+
+    const authResp = await startAuthentication(options);
+
+    await this.apollo!.mutate({
+      mutation: VERIFY_AUTH,
+      variables: { response: authResp },
+      context: { fetchOptions: { credentials: "include" } },
+      fetchPolicy: "no-cache",
+    });
+
+    AuthEventsBus.emit("login");
+  }
+
+  /* =========================================================
+     MAGIC LINK VERIFY
+  ========================================================= */
+  async verifyMagicLink(token: string): Promise<void> {
+    this.assertApollo();
+
+    await this.apollo!.mutate({
+      mutation: VERIFY_MAGIC_LINK,
+      variables: { token },
+      context: { fetchOptions: { credentials: "include" } },
+      fetchPolicy: "no-cache",
+    });
+
+    AuthEventsBus.emit("login");
+  }
+
+  async requestMagicLink(email: string): Promise<void> {
+    this.assertApollo();
+
+    await this.apollo!.mutate({
+      mutation: SEND_MAGIC_LINK,
+      variables: { email },
+      context: { fetchOptions: { credentials: "include" } },
+      fetchPolicy: "no-cache",
+    });
+  }
+
+  loginWithProvider(provider: OAuthProvider): void {
+    // const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
+    const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "http://localhost:7501";
+    if (!base) throw new Error("NEXT_PUBLIC_AUTH_API_BASE_URL missing");
+
+    const url = `${base}/auth/oauth/${provider}`;
+
+    window.location.assign(url);
+  }
+
+  /* =========================================================
+     REFRESH
+  ========================================================= */
   async forceRefresh(): Promise<void> {
+    this.assertApollo();
+
     const res = await this.apollo!.mutate<RefreshResult>({
       mutation: REFRESH,
       fetchPolicy: "no-cache",
+      context: { fetchOptions: { credentials: "include" } },
     });
 
-    if (!res.data?.refresh) throw new Error("Missing refresh payload");
+    if (!res.data?.refresh) {
+      throw new Error("Missing refresh payload");
+    }
+
     AuthEventsBus.emit("refresh");
   }
 
-  /* --------------------------------------------------------------
-   * SIGNUP
-   * -------------------------------------------------------------- */
-  async signup(input: UserSignUpInput): Promise<void> {
-    if (!this.apollo) throw new Error("Auth not initialized");
-
-    const res = await this.apollo.mutate<UserSignUpResult, UserSignUpRequest>({
-      mutation: USER_SIGN_UP,
-      variables: { input },
-    });
-
-    AuthEventsBus.emit("signup");
-  }
-
-  /* --------------------------------------------------------------
-   * LOGOUT
-   * -------------------------------------------------------------- */
+  /* =========================================================
+     LOGOUT
+  ========================================================= */
   async logout(): Promise<void> {
-    if (!this.apollo) throw new Error("Auth not initialized");
+    this.assertApollo();
 
-    await this.apollo.mutate({
+    await this.apollo!.mutate({
       mutation: LOGOUT,
       fetchPolicy: "no-cache",
+      context: { fetchOptions: { credentials: "include" } },
     });
 
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
+
     AuthEventsBus.emit("logout");
+  }
+
+  private assertApollo() {
+    if (!this.apollo) {
+      throw new Error("AuthManager not initialized");
+    }
   }
 }
 

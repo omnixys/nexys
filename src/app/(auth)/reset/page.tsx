@@ -164,7 +164,7 @@ export default function ResetPage() {
       sx={{
         maxWidth: 520,
         mx: "auto",
-        mt: 10,
+        mt: 30,
         borderRadius: 4,
         backdropFilter: "blur(30px)",
         border: `1px solid ${theme.palette.divider}`,

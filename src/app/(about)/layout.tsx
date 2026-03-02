@@ -20,7 +20,7 @@ export default function RootLayout({
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: "#030014",
+        backgroundColor: "#26252b",
         position: "relative",
       }}
     >

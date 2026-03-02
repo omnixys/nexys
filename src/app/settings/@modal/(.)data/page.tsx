@@ -3,8 +3,9 @@
  * @description Data management modal
  */
 
-import SettingsModal from "../../_components/modal/SettingsModal";
-import DataPanel from "../../_components/panels/DataPanel";
+import SettingsModal from "@/components/settings/modal/SettingsModal";
+import DataPanel from "@/components/settings/panels/DataPanel";
+
 
 export default function DataModalPage() {
   return (

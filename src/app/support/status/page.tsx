@@ -6,7 +6,7 @@
 "use client";
 
 import { Box, Container, Typography, Chip, Stack } from "@mui/material";
-import LayoutShell from "@/components/home/layout/LayoutShell";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 import { useAuth } from "@/providers/AuthProvider";
 
 const services = [

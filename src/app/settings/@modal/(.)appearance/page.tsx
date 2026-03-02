@@ -3,8 +3,9 @@
  * @description Intercepted route rendered into @modal slot while staying on /settings
  */
 
-import SettingsModal from "../../_components/modal/SettingsModal";
-import AppearancePanel from "../../_components/panels/AppearancePanel";
+import SettingsModal from "@/components/settings/modal/SettingsModal";
+import AppearancePanel from "@/components/settings/panels/AppearancePanel";
+
 
 export default function AppearanceModalPage() {
   return (

@@ -5,10 +5,10 @@
 
 "use client";
 
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
+import NotificationsPanel from "@/components/settings/panels/NotificationsPanel";
+import { useAuth } from "@/providers/AuthProvider";
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
-import { useAuth } from "../../../providers/AuthProvider";
-import NotificationsPanel from "../_components/panels/NotificationsPanel";
 
 export default function NotificationsPage() {
   const { user, loading } = useAuth();

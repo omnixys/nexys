@@ -3,8 +3,9 @@
  * @description Language modal
  */
 
-import SettingsModal from "../../_components/modal/SettingsModal";
-import LanguagePanel from "../../_components/panels/LanguagePanel";
+import SettingsModal from "@/components/settings/modal/SettingsModal";
+import LanguagePanel from "@/components/settings/panels/LanguagePanel";
+
 
 export default function LanguageModalPage() {
   return (

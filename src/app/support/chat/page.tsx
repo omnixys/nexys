@@ -13,8 +13,8 @@ import {
   IconButton,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import LayoutShell from "@/components/home/layout/LayoutShell";
 import { useAuth } from "@/providers/AuthProvider";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 
 export default function SupportChatPage() {
   const { user, loading } = useAuth();

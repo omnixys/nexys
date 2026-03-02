@@ -5,10 +5,10 @@
 
 "use client";
 
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
+import AppearancePanel from "@/components/settings/panels/AppearancePanel";
+import { useAuth } from "@/providers/AuthProvider";
 import { Container } from "@mui/material";
-import LayoutShell from "../../../components/home/layout/LayoutShell";
-import { useAuth } from "../../../providers/AuthProvider";
-import AppearancePanel from "../_components/panels/AppearancePanel";
 
 export default function AppearancePage() {
   const { user, loading } = useAuth();

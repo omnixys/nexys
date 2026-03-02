@@ -3,8 +3,9 @@
  * @description Notifications modal
  */
 
-import SettingsModal from "../../_components/modal/SettingsModal";
-import NotificationsPanel from "../../_components/panels/NotificationsPanel";
+import SettingsModal from "@/components/settings/modal/SettingsModal";
+import NotificationsPanel from "@/components/settings/panels/NotificationsPanel";
+
 
 export default function NotificationsModalPage() {
   return (

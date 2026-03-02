@@ -2,9 +2,8 @@ import { Box, createTheme, CssBaseline } from "@mui/material";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import React from "react";
-import StarsCanvas from "@/components/landing/StarBackground";
 import RootProviders from "@/providers/RootProvider";
-import Footer from "@/components/home/Footer";
+import StarsCanvas from "@/components/background/StarBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 

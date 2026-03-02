@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import DepthBlurLayer from "../../components/home/DepthBlurLayer";
-import LayoutShell from "../../components/home/layout/LayoutShell";
 import BentoTile from "../../components/home/BentoTile";
 import { useAuth } from "../../providers/AuthProvider";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
@@ -29,6 +28,7 @@ import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SearchIcon from '@mui/icons-material/Search';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 
 /* =====================================================
    STAGGER CONFIG
