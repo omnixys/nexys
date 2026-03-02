@@ -3,6 +3,12 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.0.3](https://github.com/omnixys/nexys/compare/v1.0.2...v1.0.3) (2026-03-02)
+
+### Package.json
+
+* **Package.json:** Remove the 'private' field from the package.json ([](https://github.com/omnixys/nexys/commit/440713dcf96b671403e7fbc99034690d0a21624b))
+
 ## [1.0.2](https://github.com/omnixys/nexys/compare/v1.0.1...v1.0.2) (2026-03-02)
 
 ### Other
