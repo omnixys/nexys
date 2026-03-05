@@ -20,5 +20,77 @@
     "PRIVATE": "Privat",
     "WHATSAPP": "WhatsApp",
     "OTHER": "Andere"
+  },
+
+  "addressType": {
+    "HOME": "Zuhause",
+    "WORK": "Arbeit",
+    "BILLING": "Rechnung",
+    "SHIPPING": "Lieferadresse"
+  },
+
+  "securityQuestion": {
+    "FIRST_PET": "Wie hieß Ihr erstes Haustier?",
+    "BIRTH_CITY": "In welcher Stadt wurden Sie geboren?",
+    "MOTHER_MAIDEN_NAME": "Wie lautet der Mädchenname Ihrer Mutter?",
+    "FAVORITE_SCHOOL_SUBJECT": "Was war Ihr Lieblingsfach in der Schule?",
+    "CHILDHOOD_BEST_FRIEND": "Wie hieß Ihr bester Freund in der Kindheit?",
+    "FAVOURITE_COMPANY": "Was ist Ihr Lieblingsunternehmen?",
+    "BIRTH_DATE": "An welchem Datum wurden Sie geboren?"
+  },
+
+  "interest": {
+    "BANK_PRODUCTS_AND_SERVICES": "Bankprodukte & Services",
+    "TECHNOLOGY_AND_INNOVATION": "Technologie & Innovation",
+    "FINANCIAL_EDUCATION_AND_COUNSELING": "Finanzbildung & Beratung",
+    "SUSTAINABLE_FINANCE": "Nachhaltige Finanzen",
+    "INVESTMENTS": "Investments",
+    "SAVING_AND_FINANCE": "Sparen & Finanzen",
+    "CREDIT_AND_DEBT": "Kredite & Schulden",
+    "REAL_ESTATE": "Immobilien",
+    "INSURANCE": "Versicherungen",
+
+    "TRAVEL": "Reisen",
+
+    "CLASSIC": "Klassik",
+    "ROCK": "Rock",
+    "HIPHOP": "Hip-Hop",
+    "RAP": "Rap",
+
+    "FOOTBALL": "Football",
+    "SOCCER": "Fußball",
+    "RUGBY": "Rugby",
+    "BASKETBALL": "Basketball"
+  },
+
+  "interestCategory": {
+    "SPORTS": "Sport",
+    "MUSIC": "Musik",
+    "FINANCE": "Finanzen",
+    "REAL_ASSETS": "Sachwerte",
+    "TECHNOLOGY": "Technologie",
+    "LIFESTYLE": "Lifestyle"
+  },
+
+  "contactOption": {
+    "EMAIL": "📧 E-Mail",
+    "PHONE": "📞 Telefon",
+    "SMS": "💬 SMS",
+    "WHATSAPP": "📱 WhatsApp",
+    "LETTER": "✉️ Brief"
+  },
+
+  "relationshipType": {
+    "FAMILY": "Familie",
+    "FRIEND": "Freund",
+    "PARTNER": "Partner",
+    "COLLEAGUE": "Kollege",
+    "OTHER": "Andere",
+    "BUSINESS_PARTNER": "Geschäftspartner",
+    "RELATIVE": "Verwandter",
+    "PARENT": "Elternteil",
+    "SIBLING": "Geschwister",
+    "CHILD": "Kind",
+    "COUSIN": "Cousin"
   }
 }

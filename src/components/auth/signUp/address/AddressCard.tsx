@@ -1,46 +1,28 @@
 "use client";
 
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
-import { AnimatePresence, motion } from "framer-motion";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-
-import { useEffect } from "react";
-
-
 import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
 import EditLocationRoundedIcon from "@mui/icons-material/EditLocationRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
+
+import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
+
+import { useEffect, useMemo } from "react";
+
 import { useCity } from "@/hooks/useCities";
 import { usePostalCode } from "@/hooks/usePostalCodes";
 import { useState } from "@/hooks/useStates";
+
 import UniversalAutocomplete from "../../../ui/UniversalAutocomplete";
 import StreetAutocomplete from "./StreetAutocomplete";
+
 import { Country } from "@/graphql/graphql.type";
-
-const ADDRESS_TYPES = [
-  { id: "home", label: "Home" },
-  { id: "work", label: "Work" },
-  { id: "billing", label: "Billing" },
-  { id: "shipping", label: "Shipping" },
-];
-
-const getAddressIcon = (type?: string) => {
-  switch (type?.toLowerCase()) {
-    case "home":
-      return <HomeRoundedIcon />;
-    case "work":
-      return <WorkRoundedIcon />;
-    case "billing":
-      return <CreditCardRoundedIcon />;
-    case "shipping":
-      return <LocalShippingRoundedIcon />;
-    default:
-      return <EditLocationRoundedIcon />;
-  }
-};
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Props = {
   idx: number;
@@ -62,6 +44,9 @@ export default function AddressCard({
   onRemove,
 }: Props) {
   const { setValue, control } = useFormContext();
+
+  const t = useTypedTranslations("signup.address");
+  const enumT = useTypedTranslations("enums");
 
   const countryId = useWatch({
     control,
@@ -92,26 +77,59 @@ export default function AddressCard({
   const { cityOptions } = useCity(stateId);
   const { postalCodeOptions } = usePostalCode({ stateId, cityId });
 
-  const title = addressType?.trim()
-    ? addressType.trim()
-    : idx === 0
-      ? "Primary Address"
-      : `Address #${idx + 1}`;
-
   const postalCodeRequired = postalCodeOptions.length > 0;
+
   useEffect(() => {
-    // Sync postalCodeRequired with available postalCode options for the current selection.
     setValue(`addresses.${idx}.postalCodeRequired`, postalCodeRequired, {
       shouldValidate: true,
       shouldDirty: false,
     });
 
     if (!postalCodeRequired) {
-      //Clear postalCode fields when postalCode codes are not used for this selection.
-      setValue(`addresses.${idx}.postalCodeCodeId`, "", { shouldValidate: true });
-      setValue(`addresses.${idx}.postalCodeCode`, "", { shouldValidate: true });
+      setValue(`addresses.${idx}.postalCodeId`, "", { shouldValidate: true });
+      setValue(`addresses.${idx}.postalCode`, "", { shouldValidate: true });
     }
   }, [idx, postalCodeRequired, setValue]);
+
+  /**
+   * Address Types with icon
+   */
+  const ADDRESS_TYPES = useMemo(
+    () => [
+      {
+        id: "home",
+        label: enumT("addressType.HOME"),
+        icon: "house",
+      },
+      {
+        id: "work",
+        label: enumT("addressType.WORK"),
+        icon: "building",
+      },
+      {
+        id: "billing",
+        label: enumT("addressType.BILLING"),
+        icon: 'credit-card',
+      },
+      {
+        id: "shipping",
+        label: enumT("addressType.SHIPPING"),
+        icon: 'truck',
+      },
+    ],
+    [enumT],
+  );
+
+  const getAddressIcon = (type?: string) => {
+    const found = ADDRESS_TYPES.find((a) => a.id === type);
+    return found?.icon ?? <EditLocationRoundedIcon />;
+  };
+
+  const title = addressType?.trim()
+    ? addressType.trim()
+    : idx === 0
+      ? t("primary")
+      : `${t("address")} #${idx + 1}`;
 
   return (
     <Box
@@ -154,7 +172,6 @@ export default function AddressCard({
         {/* COUNTRY + STATE */}
         <Stack direction="row" spacing={3}>
           <Box sx={{ width: "60%" }}>
-            {/* COUNTRY */}
             <AnimatePresence>
               {!!addressType?.trim() && (
                 <motion.div
@@ -164,7 +181,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label="Country"
+                    label={t("fields.country")}
                     options={countries.map((c) => ({
                       id: c.id,
                       label: c.name,
@@ -177,7 +194,6 @@ export default function AddressCard({
                       setValue(`addresses.${idx}.countryId`, val?.id ?? "");
                       setValue(`addresses.${idx}.country`, val?.label ?? "");
 
-                      // Reset downstream
                       setValue(`addresses.${idx}.stateId`, "");
                       setValue(`addresses.${idx}.cityId`, "");
                       setValue(`addresses.${idx}.postalCodeId`, "");
@@ -185,9 +201,9 @@ export default function AddressCard({
                       setValue(`addresses.${idx}.street`, "");
                       setValue(`addresses.${idx}.houseNumber`, "");
                     }}
-                    includeInputInList={true}
-                    withCategory={true}
-                    sort={true}
+                    includeInputInList
+                    withCategory
+                    sort
                   />
                 </motion.div>
               )}
@@ -195,7 +211,6 @@ export default function AddressCard({
           </Box>
 
           <Box sx={{ width: "40%" }}>
-            {/* STATE */}
             <AnimatePresence>
               {!!countryId && (
                 <motion.div
@@ -205,7 +220,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label="State"
+                    label={t("fields.state")}
                     options={stateOptions}
                     valueId={stateId}
                     loading={loadingStates}
@@ -213,7 +228,6 @@ export default function AddressCard({
                       setValue(`addresses.${idx}.stateId`, val?.id ?? "");
                       setValue(`addresses.${idx}.state`, val?.label ?? "");
 
-                      // Reset downstream
                       setValue(`addresses.${idx}.cityId`, "");
                       setValue(`addresses.${idx}.city`, "");
                       setValue(`addresses.${idx}.postalCodeId`, "");
@@ -221,7 +235,7 @@ export default function AddressCard({
                       setValue(`addresses.${idx}.street`, "");
                       setValue(`addresses.${idx}.houseNumber`, "");
                     }}
-                    withCategory={true}
+                    withCategory
                   />
                 </motion.div>
               )}
@@ -229,9 +243,9 @@ export default function AddressCard({
           </Box>
         </Stack>
 
+        {/* POSTAL CODE + CITY */}
         <Stack direction="row" spacing={3}>
           <Box sx={{ width: "40%" }}>
-            {/* POSTAL CODE */}
             <AnimatePresence>
               {!!cityId && postalCodeRequired && (
                 <motion.div
@@ -241,7 +255,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label="ZIP"
+                    label={t("fields.postalCode")}
                     options={postalCodeOptions}
                     valueId={postalCodeId}
                     filterMode="startsWith"
@@ -257,7 +271,6 @@ export default function AddressCard({
           </Box>
 
           <Box sx={{ width: "60%" }}>
-            {/* CITY */}
             <AnimatePresence>
               {!!stateId && (
                 <motion.div
@@ -267,7 +280,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label="City"
+                    label={t("fields.city")}
                     options={cityOptions}
                     valueId={cityId}
                     onChange={(val) => {
@@ -275,7 +288,7 @@ export default function AddressCard({
                       setValue(`addresses.${idx}.city`, val?.label ?? "");
                       setValue(`addresses.${idx}.postalCodeId`, "");
                     }}
-                    withCategory={true}
+                    withCategory
                   />
                 </motion.div>
               )}
@@ -297,8 +310,7 @@ export default function AddressCard({
           )}
         </AnimatePresence>
 
-        <Typography>{addressType}</Typography>
-
+        {/* ADDRESS TYPE + ADDITIONAL INFO */}
         <Stack direction="row" spacing={3}>
           <Box sx={{ width: "20%" }}>
             <Controller
@@ -306,32 +318,18 @@ export default function AddressCard({
               control={control}
               render={({ field }) => (
                 <UniversalAutocomplete
-                  label="Address Type"
+                  label={t("fields.addressType")}
                   options={ADDRESS_TYPES}
                   freeSolo
                   includeInputInList
-                  valueText={field.value ?? ""} // ✅ controlled text
-                  onInputTextChange={(t) => field.onChange(t)} // ✅ typing updates RHF
+                  valueText={field.value ?? ""}
+                  onInputTextChange={(text) => field.onChange(text)}
                   onChange={(val) => {
                     if (!val) {
                       field.onChange("");
-
-                      // Reset downstream if you want
-                      setValue(`addresses.${idx}.countryId`, "");
-                      setValue(`addresses.${idx}.country`, "");
-                      setValue(`addresses.${idx}.stateId`, "");
-                      setValue(`addresses.${idx}.state`, "");
-                      setValue(`addresses.${idx}.cityId`, "");
-                      setValue(`addresses.${idx}.city`, "");
-                      setValue(`addresses.${idx}.postalCodeId`, "");
-                      setValue(`addresses.${idx}.postalCode`, "");
-                      setValue(`addresses.${idx}.street`, "");
-                      setValue(`addresses.${idx}.houseNumber`, "");
                       return;
                     }
-
-                    // selecting an option sets the label text
-                    field.onChange(val.label);
+                    field.onChange(val.id);
                   }}
                 />
               )}
@@ -346,7 +344,7 @@ export default function AddressCard({
                 <TextField
                   {...field}
                   fullWidth
-                  label="Additional info (optional)"
+                  label={t("fields.additionalInfo")}
                 />
               )}
             />

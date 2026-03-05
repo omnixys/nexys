@@ -1,13 +1,23 @@
 "use client";
 
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
+
 import { Box, Chip, Divider, Typography } from "@mui/material";
+
 import { useFormContext } from "react-hook-form";
-import { formatAddressLines } from "../../../../utils/formatAddress";
 import { useMemo } from "react";
-import { GetAllInterestCategoriesDocument, GetAllInterestCategoriesQuery, GetAllInterestCategoriesQueryVariables } from "@/generated/graphql";
+
+import { formatAddressLines } from "../../../../utils/formatAddress";
+
+import {
+  GetAllInterestCategoriesDocument,
+  GetAllInterestCategoriesQuery,
+  GetAllInterestCategoriesQueryVariables,
+} from "@/generated/graphql";
+
 import { useQuery } from "@apollo/client/react";
 
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -15,6 +25,7 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
       <Typography variant="body2" color="text.secondary">
         {label}
       </Typography>
+
       <Typography variant="body2" sx={{ fontWeight: 600, textAlign: "right" }}>
         {value || "—"}
       </Typography>
@@ -26,18 +37,26 @@ export default function SummaryStep() {
   const { getValues } = useFormContext<SignUpFormValues>();
   const v = getValues();
 
-      const { data } = useQuery<
-        GetAllInterestCategoriesQuery,
-        GetAllInterestCategoriesQueryVariables
-      >(GetAllInterestCategoriesDocument, { fetchPolicy: "cache-first" });
+  const t = useTypedTranslations("signup.summary");
+  const enumT = useTypedTranslations("enums");
 
+  const { data } = useQuery<
+    GetAllInterestCategoriesQuery,
+    GetAllInterestCategoriesQueryVariables
+  >(GetAllInterestCategoriesDocument, {
+    fetchPolicy: "cache-first",
+  });
+
+  // ---------------------------
+  // Interest Map
+  // ---------------------------
 
   const interestMap = useMemo(() => {
     const map = new Map<string, string>();
 
     data?.getAllInterestCategories?.forEach((cat) => {
       cat.interests?.forEach((i) => {
-        map.set(i.id, i.key);
+        map.set(i.id, enumT(`interest.${i.key}`));
       });
     });
 
@@ -46,12 +65,14 @@ export default function SummaryStep() {
 
   return (
     <>
+      {/* TITLE */}
+
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        Summary
+        {t("title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={3}>
-        Please review your information before creating your account.
+        {t("description")}
       </Typography>
 
       <Box
@@ -63,38 +84,52 @@ export default function SummaryStep() {
         }}
       >
         {/* ACCOUNT */}
+
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          Account
+          {t("sections.account")}
         </Typography>
-        <Row label="Username" value={v.username} />
+
+        <Row label={t("fields.username")} value={v.username} />
 
         <Divider sx={{ my: 2 }} />
 
         {/* PERSONAL */}
+
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          Personal Information
+          {t("sections.personal")}
         </Typography>
 
         <Row
-          label="Name"
+          label={t("fields.name")}
           value={`${v.personalInfo.firstName} ${v.personalInfo.lastName}`}
         />
-        <Row label="Email" value={v.personalInfo.email} />
-        <Row label="Birth Date" value={v.personalInfo.birthDate} />
-        <Row label="Gender" value={v.personalInfo.gender} />
-        <Row label="Marital Status" value={v.personalInfo.maritalStatus} />
+
+        <Row label={t("fields.email")} value={v.personalInfo.email} />
+
+        <Row label={t("fields.birthDate")} value={v.personalInfo.birthDate} />
+
+        <Row
+          label={t("fields.gender")}
+          value={enumT(`gender.${v.personalInfo.gender}`)}
+        />
+
+        <Row
+          label={t("fields.maritalStatus")}
+          value={enumT(`maritalStatus.${v.personalInfo.maritalStatus}`)}
+        />
 
         <Divider sx={{ my: 2 }} />
 
         {/* ADDRESSES */}
+
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          Addresses
+          {t("sections.addresses")}
         </Typography>
 
         {(v.addresses ?? []).map((addr, i) => (
           <Box key={i} mb={2}>
             <Typography variant="body2" sx={{ fontWeight: 600 }}>
-              Address {i + 1}
+              {t("fields.address")} {i + 1}
             </Typography>
 
             {formatAddressLines(addr).map((line, idx) => (
@@ -104,11 +139,13 @@ export default function SummaryStep() {
             ))}
           </Box>
         ))}
+
         <Divider sx={{ my: 2 }} />
 
         {/* PHONE NUMBERS */}
+
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          Phone Numbers
+          {t("sections.phoneNumbers")}
         </Typography>
 
         {(v.phoneNumbers ?? []).length === 0 && (
@@ -122,7 +159,7 @@ export default function SummaryStep() {
             <Typography variant="body2">
               {p.countryCode} {p.number}
               {p.label ? ` (${p.label})` : ""}
-              {p.isPrimary && " • Primary"}
+              {p.isPrimary && ` • ${t("primary")}`}
             </Typography>
           </Box>
         ))}
@@ -130,27 +167,34 @@ export default function SummaryStep() {
         <Divider sx={{ my: 2 }} />
 
         {/* SECURITY QUESTIONS */}
+
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          Security Questions
+          {t("sections.securityQuestions")}
         </Typography>
 
         {(v.securityQuestions ?? []).map((q, i) => (
           <Box key={i} mb={1}>
-            <Typography variant="body2">{q.question}</Typography>
+            <Typography variant="body2">
+              {enumT(`securityQuestion.${q.questionKey}`)}
+            </Typography>
           </Box>
         ))}
 
         <Divider sx={{ my: 2 }} />
 
         {/* PREFERENCES */}
+
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          Preferences
+          {t("sections.preferences")}
         </Typography>
+
+        {/* INTERESTS */}
 
         <Box mb={1}>
           <Typography variant="body2" color="text.secondary">
-            Interests
+            {t("fields.interests")}
           </Typography>
+
           <Box display="flex" flexWrap="wrap" gap={1} mt={0.5}>
             {(v.customer?.interestIds ?? []).map((id) => (
               <Chip key={id} label={interestMap.get(id) ?? id} size="small" />
@@ -158,25 +202,37 @@ export default function SummaryStep() {
           </Box>
         </Box>
 
+        {/* CONTACT OPTIONS */}
+
         <Box mb={1}>
           <Typography variant="body2" color="text.secondary">
-            Contact Options
+            {t("fields.contactOptions")}
           </Typography>
+
           <Box display="flex" flexWrap="wrap" gap={1} mt={0.5}>
             {(v.customer?.contactOptions ?? []).map((c) => (
-              <Chip key={c} label={c} size="small" />
+              <Chip key={c} label={enumT(`contactOptions.${c}`)} size="small" />
             ))}
           </Box>
         </Box>
 
         <Row
-          label="Newsletter"
-          value={v.customer?.subscribed ? "Subscribed" : "Not subscribed"}
+          label={t("fields.newsletter")}
+          value={
+            v.customer?.subscribed
+              ? t("values.subscribed")
+              : t("values.notSubscribed")
+          }
         />
 
         <Divider sx={{ my: 2 }} />
 
-        <Row label="Terms accepted" value={v.acceptedTerms ? "Yes" : "No"} />
+        <Row
+          label={t("fields.terms")}
+          value={
+            v.acceptedTerms ? t("values.accepted") : t("values.notAccepted")
+          }
+        />
       </Box>
     </>
   );

@@ -1,3 +1,14 @@
  mutation VerifySignUp($token: String!) {
-   verifySignUp(token: $token)
+   verifySignUp(token: $token) {
+     token {
+       accessToken
+       expiresIn
+       refreshToken
+       refreshExpiresIn
+       idToken
+       scope
+     }
+     message
+     username
+   }
  }

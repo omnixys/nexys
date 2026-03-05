@@ -1,169 +1,253 @@
 "use client";
 
 /**
- * @file SuccessStep.tsx
- * @description Premium success screen with animated check + dynamic username.
+ * @file VerifyEmailStep.tsx
+ * @description Email verification screen with countdown, mail provider shortcuts
+ * and automatic verification polling.
  */
 
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
+import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Confetti from "react-confetti";
 import { useFormContext } from "react-hook-form";
+
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 import { useRouter } from "next/navigation";
 
-export default function SuccessStep() {
+const EXPIRATION_SECONDS = 15 * 60; // 15 min
+
+type MailLink = {
+  label: string;
+  url: string;
+  domains?: string[];
+};
+
+const LINKS: MailLink[] = [
+  {
+    label: "Open Mail App",
+    url: "mailto:",
+  },
+  {
+    label: "Open Gmail",
+    url: "https://mail.google.com",
+    domains: ["gmail"],
+  },
+  {
+    label: "Open Outlook",
+    url: "https://outlook.live.com/mail",
+    domains: ["outlook", "hotmail", "live"],
+  },
+  {
+    label: "Open iCloud Mail",
+    url: "https://www.icloud.com/mail",
+    domains: ["icloud", "me.com", "mac.com"],
+  },
+];
+
+export default function VerifyEmailStep() {
   const theme = useTheme();
   const router = useRouter();
+
+  const t = useTypedTranslations("signup.verifyEmail");
+
   const { getValues } = useFormContext<SignUpFormValues>();
+  const email = getValues("personalInfo.email");
 
-  const username = getValues("username");
+  const [timeLeft, setTimeLeft] = useState(EXPIRATION_SECONDS);
+  const [verified, setVerified] = useState(false);
 
-  const [dimensions, setDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
+  // ----------------------------
+  // Countdown
+  // ----------------------------
 
-  const [showConfetti, setShowConfetti] = useState(true);
+useEffect(() => {
+  if (timeLeft === 0) return;
 
-  useEffect(() => {
-    const update = () =>
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
+  const interval = setInterval(() => {
+    setTimeLeft((t) => Math.max(0, t - 1));
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [timeLeft]);
+
+  // ----------------------------
+  // Polling verification
+  // ----------------------------
+
+useEffect(() => {
+  if (verified) return;
+
+  const interval = setInterval(async () => {
+    try {
+      const res = await fetch("/api/auth/verify-status", {
+        credentials: "include",
       });
 
-    update();
-    window.addEventListener("resize", update);
+      const data = await res.json();
 
-    const timer = setTimeout(() => {
-      setShowConfetti(false);
-    }, 6000);
+      if (data.verified) {
+        setVerified(true);
+        router.push("/home");
+      }
+    } catch {}
+  }, 5000);
 
-    return () => {
-      window.removeEventListener("resize", update);
-      clearTimeout(timer);
-    };
-  }, []);
+  return () => clearInterval(interval);
+}, [router, verified]);
+
+  // ----------------------------
+  // Time format
+  // ----------------------------
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  const formatted = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
+  // ----------------------------
+  // Mail provider detection
+  // ----------------------------
+
+const getMailLinks = () => {
+  const domain = email?.split("@")[1]?.toLowerCase();
+
+  if (!domain) return LINKS;
+
+  return LINKS.filter((link) => {
+    if (!link.domains) return true;
+
+    return link.domains.some((d) => domain.includes(d));
+  });
+};
+  const mailLinks = getMailLinks();
 
   return (
-    <>
-      {showConfetti && (
-        <Confetti
-          width={dimensions.width}
-          height={dimensions.height}
-          recycle={false}
-          numberOfPieces={320}
-          colors={[
-            theme.palette.primary.main,
-            theme.palette.secondary.main,
-            theme.palette.primary.main,
-          ]}
-          //colors={[theme.palette.primary.main, "#FFD700", "#F5D76E", "#FFFFFF"]}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            zIndex: 1200,
-          }}
-        />
-      )}
+    <Box
+      textAlign="center"
+      py={6}
+      sx={{
+        maxWidth: 600,
+        mx: "auto",
+      }}
+    >
+      {/* Animated Icon */}
 
-      <Box
-        textAlign="center"
-        py={6}
-        sx={{
-          maxWidth: 600,
-          mx: "auto",
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 220,
+          damping: 14,
+          delay: 0.2,
         }}
       >
-        {/* Animated Circle Check */}
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 220,
-            damping: 14,
-            delay: 0.2,
+        <Box
+          sx={{
+            width: 96,
+            height: 96,
+            borderRadius: "50%",
+            mx: "auto",
+            mb: 4,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: `linear-gradient(135deg, ${theme.palette.primary.main}, #FFD700)`,
+            boxShadow: `0 0 40px ${theme.palette.primary.main}55`,
           }}
         >
-          <Box
+          <MailOutlineRoundedIcon
             sx={{
-              width: 96,
-              height: 96,
-              borderRadius: "50%",
-              mx: "auto",
-              mb: 4,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: `linear-gradient(135deg, ${theme.palette.primary.main}, #FFD700)`,
-              boxShadow: `0 0 40px ${theme.palette.primary.main}55`,
+              fontSize: 48,
+              color: "#fff",
             }}
-          >
-            <CheckCircleRoundedIcon
-              sx={{
-                fontSize: 48,
-                color: "#fff",
-              }}
-            />
-          </Box>
-        </motion.div>
+          />
+        </Box>
+      </motion.div>
 
-        {/* Text Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+      {/* Content */}
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: 800 }} gutterBottom>
+          {t("title")}
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          {t("description")}
+        </Typography>
+
+        <Typography
+          variant="body2"
+          sx={{
+            mb: 3,
+            fontWeight: 600,
+            color: "primary.main",
+          }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 800 }} gutterBottom>
-            Willkommen bei Omnixys!
-          </Typography>
+          {email}
+        </Typography>
 
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-            Ihr Konto wurde erfolgreich erstellt.
-          </Typography>
+        {/* Countdown */}
 
-          <Typography
-            variant="body2"
+        <Typography
+          variant="body2"
+          sx={{
+            mb: 4,
+            fontWeight: 500,
+          }}
+        >
+          {t("expires")}{" "}
+          <Box
+            component="span"
             sx={{
-              mb: 4,
-              fontWeight: 500,
+              fontWeight: 700,
+              color: timeLeft < 60 ? "error.main" : "text.primary",
             }}
           >
-            Willkommen,{" "}
-            <Box
-              component="span"
-              sx={{
-                color: "primary.main",
-                fontWeight: 700,
-              }}
-            >
-              {username}
-            </Box>
-            ! Ihr Premium-Erlebnis beginnt jetzt.
-          </Typography>
+            {formatted}
+          </Box>
+        </Typography>
 
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              px: 6,
-              py: 1.6,
-              fontWeight: 600,
-            }}
-            onClick={() => {
-            router.push("/home")
-              console.log("Go to dashboard");
-            }}
-          >
-            Zum Dashboard
-          </Button>
-        </motion.div>
-      </Box>
-    </>
+        {/* Mail provider links */}
+
+        {mailLinks.length > 0 && (
+          <Stack spacing={1} mb={4}>
+            {mailLinks.map((l) => (
+              <Button
+                key={l.url}
+                variant="outlined"
+                component="a"
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {l.label}
+              </Button>
+            ))}
+          </Stack>
+        )}
+
+        {/* Resend */}
+
+        <Button
+          variant="outlined"
+          size="large"
+          disabled={timeLeft > 0}
+          sx={{
+            px: 5,
+            py: 1.5,
+          }}
+        >
+          {t("resend")}
+        </Button>
+      </motion.div>
+    </Box>
   );
 }

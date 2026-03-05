@@ -9,9 +9,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { useEffect, useMemo, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
+
 import { useAddressAutocomplete } from "@/hooks/useAddressAutocomplete";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Suggestion = {
   formatted: string;
@@ -43,6 +46,8 @@ function useDebouncedValue<T>(value: T, delayMs: number) {
 export default function StreetAutocomplete({ idx }: Props) {
   const { setValue, control } = useFormContext();
 
+  const t = useTypedTranslations("signup.address.street");
+
   const street = useWatch({
     control,
     name: `addresses.${idx}.street`,
@@ -60,9 +65,10 @@ export default function StreetAutocomplete({ idx }: Props) {
 
   const [load, { data, loading }] = useAddressAutocomplete();
 
-  const options: Suggestion[] = useMemo(() => {
-    return data?.addressAutocomplete ?? [];
-  }, [data]);
+  const options: Suggestion[] = useMemo(
+    () => data?.addressAutocomplete ?? [],
+    [data],
+  );
 
   useEffect(() => {
     if (!debounced || debounced.length < 3) return;
@@ -72,19 +78,24 @@ export default function StreetAutocomplete({ idx }: Props) {
     });
   }, [debounced, load]);
 
-  // ---------------------------------------------------
-  // 🔒 FINAL MODE (Street + HouseNumber fixed)
-  // ---------------------------------------------------
-
+  /**
+   * FINAL MODE
+   * Street + HouseNumber locked
+   */
   if (isFinal) {
     return (
       <Box>
         <Stack direction="row" spacing={2} alignItems="center">
-          <TextField value={street} label="Street" fullWidth disabled />
+          <TextField
+            value={street}
+            label={t("fields.street")}
+            fullWidth
+            disabled
+          />
 
           <TextField
             value={houseNumber}
-            label="House Number"
+            label={t("fields.houseNumber")}
             sx={{ width: 140 }}
             disabled
           />
@@ -102,17 +113,16 @@ export default function StreetAutocomplete({ idx }: Props) {
               setInputValue("");
             }}
           >
-            Adresse ändern
+            {t("change")}
           </Button>
         </Box>
       </Box>
     );
   }
 
-  // ---------------------------------------------------
-  // 🔎 AUTOCOMPLETE MODE
-  // ---------------------------------------------------
-
+  /**
+   * AUTOCOMPLETE MODE
+   */
   return (
     <Autocomplete
       options={options}
@@ -145,7 +155,7 @@ export default function StreetAutocomplete({ idx }: Props) {
 
             {option.confidence != null && (
               <Typography variant="caption" color="text.secondary">
-                Confidence: {Math.round(option.confidence * 100)}%
+                {t("confidence")} {Math.round(option.confidence * 100)}%
               </Typography>
             )}
           </Stack>
@@ -154,9 +164,9 @@ export default function StreetAutocomplete({ idx }: Props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Street & House Number"
-          placeholder="Start typing..."
-          helperText="Select a valid address"
+          label={t("fields.streetHouse")}
+          placeholder={t("placeholder")}
+          helperText={t("helper")}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

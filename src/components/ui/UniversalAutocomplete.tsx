@@ -12,6 +12,7 @@ import { ReactNode, useMemo } from "react";
 import { GroupHeader, GroupItems } from "./styles/GroupStyles";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
+import { DynamicIcon } from "@/components/ui/DynamicIcon";
 
 export type UniversalOption = {
   id: string;
@@ -19,6 +20,7 @@ export type UniversalOption = {
   secondLabel?: string;
   flagSrc?: string | null;
   category?: string;
+  icon?: string
 };
 
 type FilterMode = "contains" | "startsWith";
@@ -223,6 +225,14 @@ export default function UniversalAutocomplete({
                     borderRadius: "2px",
                   }}
                 />
+              )}
+
+              {option.icon && (
+                   <DynamicIcon
+                                        name={option.icon}
+                                        size={18}
+                                        strokeWidth={1.8}
+                                      />
               )}
 
               <Box>

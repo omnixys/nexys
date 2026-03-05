@@ -89,11 +89,12 @@ export const schema = z
     securityQuestions: z
       .array(
         z.object({
-          question: z.string().min(3),
+          questionId: z.string().min(3),
+          questionKey: z.string().min(3),
           answer: z.string().min(2),
         }),
       )
-      .min(1),
+      .min(3),
 
     customer: z
       .object({

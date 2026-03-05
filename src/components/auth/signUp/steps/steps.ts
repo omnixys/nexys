@@ -10,7 +10,7 @@ export const STEPS = [
   {
     key: "security",
     label: "Security",
-    fields: ["securityQuestions"] as const,
+    fields: ["questionId", 'questionKey', 'answer'] as const,
   },
   {
     key: "details",

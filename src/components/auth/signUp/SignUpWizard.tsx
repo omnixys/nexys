@@ -96,12 +96,12 @@ export default function SignUpWizard({
           state: "",
           countryId: "",
           country: defaultCountry ?? "",
-          additionalInfo: "",
+          additionalInfo: undefined,
           addressType: "",
         },
       ],
       phoneNumbers: [],
-      securityQuestions: [{ question: "", answer: "" }],
+      securityQuestions: [{ questionId: "", answer: "", questionKey: '' }],
       customer: {
         subscribed: true,
         state: "ACTIVE",
@@ -250,6 +250,7 @@ export default function SignUpWizard({
         );
       });
     }
+
     return currentStep.fields.every((field) => {
       const state = getFieldState(field as any, formState);
       return !state.invalid;
@@ -428,7 +429,7 @@ function mapFormToCreateUserInput(
     // Security Questions
     // -----------------------------
     securityQuestions: securityQuestions.map((q) => ({
-      questionId: q.question,
+      questionId: q.questionId,
       answer: q.answer,
     })),
 

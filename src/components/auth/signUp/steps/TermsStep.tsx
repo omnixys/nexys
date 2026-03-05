@@ -2,7 +2,7 @@
 
 /**
  * @file TermsStep.tsx
- * @description Terms & Conditions step with scrollable AGB container.
+ * @description Terms & Conditions step with scrollable legal container and i18n support.
  */
 
 import {
@@ -12,82 +12,73 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+
 import { Controller, useFormContext } from "react-hook-form";
+
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 export default function TermsStep() {
   const { control } = useFormContext<SignUpFormValues>();
 
+  const t = useTypedTranslations("terms");
+
+  const sections = [
+    "scope",
+    "account",
+    "usage",
+    "data",
+    "liability",
+    "termination",
+    "intellectual",
+    "law",
+  ] as const;
+
   return (
     <>
+      {/* ================= TITLE ================= */}
+
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={1}>
-        Allgemeine Geschäftsbedingungen
+        {t("title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={3}>
-        Bitte lesen und akzeptieren Sie unsere AGB.
+        {t("intro")}
       </Typography>
 
-      {/* ================= Scrollable AGB Box ================= */}
+      {/* ================= SCROLLABLE TERMS ================= */}
 
       <Paper
         variant="outlined"
         sx={{
-          p: 5,
-          maxHeight: 260,
+          p: 4,
+          maxHeight: 320,
           overflowY: "auto",
           borderRadius: 3,
           backgroundColor: "background.paper",
           mb: 3,
         }}
       >
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
-          1. Geltungsbereich
-        </Typography>
-        <Typography variant="body2" paragraph>
-          Diese Allgemeinen Geschäftsbedingungen gelten für alle Leistungen und
-          Dienste, die von Omnixys Technologies angeboten werden. Mit der
-          Registrierung erkennen Sie diese Bedingungen an.
-        </Typography>
+        {sections.map((section) => (
+          <Box key={section} mb={3}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: 600,
+                mb: 0.5,
+              }}
+            >
+              {t(`sections.${section}.title`)}
+            </Typography>
 
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
-          2. Datenschutz
-        </Typography>
-        <Typography variant="body2" paragraph>
-          Ihre personenbezogenen Daten werden gemäß unserer Datenschutzerklärung
-          und den geltenden Datenschutzgesetzen (DSGVO) verarbeitet und
-          geschützt.
-        </Typography>
-
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
-          3. Nutzungsrechte
-        </Typography>
-        <Typography variant="body2" paragraph>
-          Mit der Registrierung erhalten Sie ein persönliches, nicht
-          übertragbares Recht zur Nutzung der Omnixys-Plattform gemäß Ihrem
-          gewählten Kontotyp.
-        </Typography>
-
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
-          4. Haftung
-        </Typography>
-        <Typography variant="body2" paragraph>
-          Omnixys Technologies haftet nur im Rahmen der gesetzlichen
-          Bestimmungen. Eine Haftung für indirekte Schäden oder entgangenen
-          Gewinn ist ausgeschlossen.
-        </Typography>
-
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
-          5. Kündigung
-        </Typography>
-        <Typography variant="body2">
-          Sie können Ihr Konto jederzeit über die Kontoeinstellungen kündigen.
-          Omnixys behält sich das Recht vor, Konten bei Verstößen gegen diese
-          AGB zu sperren.
-        </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t(`sections.${section}.text`)}
+            </Typography>
+          </Box>
+        ))}
       </Paper>
 
-      {/* ================= Checkbox ================= */}
+      {/* ================= ACCEPT CHECKBOX ================= */}
 
       <Controller
         name="acceptedTerms"
@@ -103,15 +94,15 @@ export default function TermsStep() {
               }
               label={
                 <Typography variant="body2">
-                  Ich habe die{" "}
+                  {t("accept.prefix")}{" "}
                   <Box component="span" sx={{ fontWeight: 600 }}>
-                    AGB
+                    {t("accept.terms")}
                   </Box>{" "}
-                  und die{" "}
+                  {t("accept.and")}{" "}
                   <Box component="span" sx={{ fontWeight: 600 }}>
-                    Datenschutzerklärung
+                    {t("accept.privacy")}
                   </Box>{" "}
-                  gelesen und akzeptiere diese.
+                  {t("accept.suffix")}
                 </Typography>
               }
             />

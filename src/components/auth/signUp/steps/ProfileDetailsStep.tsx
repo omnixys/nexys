@@ -9,8 +9,10 @@ import {
   InputBase,
   Typography,
 } from "@mui/material";
+
 import SearchIcon from "@mui/icons-material/Search";
 import { motion } from "framer-motion";
+
 import { Controller, useFormContext } from "react-hook-form";
 import { useQuery } from "@apollo/client/react";
 import { useMemo, useState } from "react";
@@ -24,29 +26,19 @@ import {
 
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { InterestCategory } from "@/graphql/graphql.type";
+
 import { DynamicIcon } from "@/components/ui/DynamicIcon";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 const MotionChip = motion(Chip);
 const MotionBox = motion(Box);
 
-// ----------------------------------
-// Contact Labels
-// ----------------------------------
-
-const contactLabels: Record<ContactOptionsType, string> = {
-  EMAIL: "📧 E-Mail",
-  PHONE: "📞 Telefon",
-  SMS: "💬 SMS",
-  WHATSAPP: "📱 WhatsApp",
-  LETTER: "✉️ Brief",
-};
-
-// ----------------------------------
-// Component
-// ----------------------------------
-
 export default function ProfileDetailsStep() {
   const { control } = useFormContext<SignUpFormValues>();
+
+  const t = useTypedTranslations("signup.profile");
+  const enumT = useTypedTranslations("enums");
+
   const [search, setSearch] = useState("");
 
   const { data } = useQuery<
@@ -63,37 +55,38 @@ export default function ProfileDetailsStep() {
 
   const categories: InterestCategory[] = data?.getAllInterestCategories ?? [];
 
-  // ----------------------------------
-  // Filtered Categories
-  // ----------------------------------
+  /**
+   * Filtered categories
+   * uses translated labels instead of raw keys
+   */
+  const filteredCategories = useMemo(() => {
+    const normalized = categories.map((cat) => ({
+      ...cat,
+      interests: (cat.interests ?? []).filter(Boolean),
+    }));
 
-const filteredCategories = useMemo(() => {
-  const normalized = categories.map((cat) => ({
-    ...cat,
-    interests: (cat.interests ?? []).filter(Boolean),
-  }));
+    if (!search.trim()) return normalized;
 
-  if (!search.trim()) return normalized;
+    const lower = search.toLowerCase();
 
-  const lower = search.toLowerCase();
+    return normalized
+      .map((cat) => {
+        const interests = cat.interests.filter((i) => {
+          const label = enumT(`interest.${i.key}`).toLowerCase();
+          return label.includes(lower);
+        });
 
-  return normalized
-    .map((cat) => {
-      const interests = cat.interests.filter((i) =>
-        i.key.toLowerCase().includes(lower),
-      );
+        if (!interests.length) return null;
 
-      if (!interests.length) return null;
-
-      return { ...cat, interests };
-    })
-    .filter(Boolean);
-}, [categories, search]);
+        return { ...cat, interests };
+      })
+      .filter(Boolean) as InterestCategory[];
+  }, [categories, search, enumT]);
 
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        Interessen & Kontakt
+        {t("title")}
       </Typography>
 
       {/* ========================= */}
@@ -112,8 +105,9 @@ const filteredCategories = useMemo(() => {
         }}
       >
         <SearchIcon sx={{ mr: 1, opacity: 0.6 }} />
+
         <InputBase
-          placeholder="Interessen durchsuchen..."
+          placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           fullWidth
@@ -121,7 +115,7 @@ const filteredCategories = useMemo(() => {
       </Box>
 
       {/* ========================= */}
-      {/* Interests Grouped */}
+      {/* Interests */}
       {/* ========================= */}
 
       <Controller
@@ -132,6 +126,7 @@ const filteredCategories = useMemo(() => {
 
           const toggle = (key: string) => {
             const exists = selected.includes(key);
+
             field.onChange(
               exists ? selected.filter((v) => v !== key) : [...selected, key],
             );
@@ -141,13 +136,14 @@ const filteredCategories = useMemo(() => {
             <>
               {filteredCategories.map((category) => (
                 <MotionBox
-                  key={category?.id}
+                  key={category.id}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.25 }}
                   mb={4}
                 >
                   {/* Category Header */}
+
                   <Box
                     sx={{
                       display: "flex",
@@ -156,7 +152,7 @@ const filteredCategories = useMemo(() => {
                       mb: 1.5,
                     }}
                   >
-                    {category?.icon && (
+                    {category.icon && (
                       <DynamicIcon
                         name={category.icon}
                         size={18}
@@ -165,13 +161,14 @@ const filteredCategories = useMemo(() => {
                     )}
 
                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                      {category?.key}
+                      {enumT(`interestCategory.${category.key}`)}
                     </Typography>
                   </Box>
 
                   <Divider sx={{ mb: 2, opacity: 0.2 }} />
 
                   {/* Interests */}
+
                   <Box
                     sx={{
                       display: "flex",
@@ -179,7 +176,7 @@ const filteredCategories = useMemo(() => {
                       gap: 1.2,
                     }}
                   >
-                    {category?.interests.map((interest) => {
+                    {category.interests.map((interest) => {
                       const isSelected = selected.includes(interest.id);
 
                       return (
@@ -195,7 +192,7 @@ const filteredCategories = useMemo(() => {
                               />
                             ) : undefined
                           }
-                          label={interest.key}
+                          label={enumT(`interest.${interest.key}`)}
                           clickable
                           onClick={() => toggle(interest.id)}
                           variant={isSelected ? "filled" : "outlined"}
@@ -227,6 +224,7 @@ const filteredCategories = useMemo(() => {
 
           const toggle = (val: ContactOptionsType) => {
             const exists = selected.includes(val);
+
             field.onChange(
               exists ? selected.filter((v) => v !== val) : [...selected, val],
             );
@@ -235,21 +233,20 @@ const filteredCategories = useMemo(() => {
           return (
             <Box mt={4}>
               <Typography variant="subtitle2" mb={1}>
-                Bevorzugte Kontaktwege *
+                {t("contactOptions")}
               </Typography>
 
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.2 }}>
-                {Object.entries(contactLabels).map(([key, label]) => {
-                  const typedKey = key as ContactOptionsType;
-                  const isSelected = selected.includes(typedKey);
+                {Object.values(ContactOptionsType).map((val) => {
+                  const isSelected = selected.includes(val);
 
                   return (
                     <MotionChip
-                      key={key}
+                      key={val}
                       whileTap={{ scale: 0.94 }}
-                      label={label}
+                      label={enumT(`contactOption.${val}`)}
                       clickable
-                      onClick={() => toggle(typedKey)}
+                      onClick={() => toggle(val)}
                       variant={isSelected ? "filled" : "outlined"}
                       color={isSelected ? "primary" : "default"}
                       sx={{
@@ -280,7 +277,7 @@ const filteredCategories = useMemo(() => {
                 onChange={(e) => field.onChange(e.target.checked)}
               />
             }
-            label="Newsletter abonnieren"
+            label={t("newsletter")}
           />
         )}
       />

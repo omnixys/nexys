@@ -24,6 +24,7 @@ export default getRequestConfig(async () => {
     common: (await import(`../../messages/${locale}/common.json`)).default,
     enums: (await import(`../../messages/${locale}/enums.json`)).default,
     signup: (await import(`../../messages/${locale}/signup.json`)).default,
+    terms: (await import(`../../messages/${locale}/terms.json`)).default,
     // dashboard: (await import(`../messages/${locale}/dashboard.json`)).default,
     // security: (await import(`../messages/${locale}/security.json`)).default,
   };

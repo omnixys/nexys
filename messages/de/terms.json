@@ -1,0 +1,54 @@
+{
+  "title": "Allgemeine Geschäftsbedingungen",
+  "intro": "Bitte lesen Sie die folgenden Nutzungsbedingungen sorgfältig durch.",
+
+  "sections": {
+    "scope": {
+      "title": "1. Geltungsbereich",
+      "text": "Diese Allgemeinen Geschäftsbedingungen gelten für alle Leistungen und Dienste, die von Omnixys Technologies bereitgestellt werden. Mit der Registrierung und Nutzung der Plattform akzeptieren Sie diese Bedingungen."
+    },
+
+    "account": {
+      "title": "2. Registrierung und Konto",
+      "text": "Zur Nutzung bestimmter Dienste ist eine Registrierung erforderlich. Sie verpflichten sich, korrekte und vollständige Angaben zu machen und Ihre Zugangsdaten sicher aufzubewahren."
+    },
+
+    "usage": {
+      "title": "3. Nutzung der Plattform",
+      "text": "Die Nutzung der Plattform darf nur im Rahmen der geltenden Gesetze erfolgen. Missbrauch, Manipulation oder rechtswidrige Aktivitäten sind untersagt."
+    },
+
+    "data": {
+      "title": "4. Datenschutz",
+      "text": "Ihre personenbezogenen Daten werden gemäß unserer Datenschutzerklärung und den geltenden Datenschutzgesetzen verarbeitet. Für Nutzer innerhalb der Europäischen Union gilt insbesondere die Datenschutz-Grundverordnung (DSGVO)."
+    },
+
+    "liability": {
+      "title": "5. Haftung",
+      "text": "Omnixys Technologies haftet nur im Rahmen der gesetzlichen Bestimmungen. Eine Haftung für indirekte Schäden, Folgeschäden oder entgangenen Gewinn ist ausgeschlossen, soweit gesetzlich zulässig."
+    },
+
+    "termination": {
+      "title": "6. Kündigung und Sperrung",
+      "text": "Sie können Ihr Konto jederzeit über die Kontoeinstellungen kündigen. Omnixys Technologies behält sich das Recht vor, Konten bei Verstößen gegen diese Bedingungen oder bei Missbrauch der Plattform zu sperren."
+    },
+
+    "intellectual": {
+      "title": "7. Geistiges Eigentum",
+      "text": "Alle Inhalte, Marken, Logos und Technologien auf der Plattform sind Eigentum von Omnixys Technologies oder deren Lizenzgebern und dürfen ohne ausdrückliche Zustimmung nicht verwendet werden."
+    },
+
+    "law": {
+      "title": "8. Anwendbares Recht",
+      "text": "Es gilt das Recht der jeweils anwendbaren Gerichtsbarkeit des Nutzers. Für Nutzer innerhalb der Europäischen Union gelten zusätzlich die einschlägigen Verbraucherrechte."
+    }
+  },
+
+  "accept": {
+    "prefix": "Ich habe die",
+    "terms": "Allgemeinen Geschäftsbedingungen",
+    "and": "und die",
+    "privacy": "Datenschutzerklärung",
+    "suffix": "gelesen und akzeptiere diese."
+  }
+}

@@ -18,7 +18,7 @@
     }
   },
 
-    "account": {
+  "account": {
     "title": "Create account",
 
     "fields": {
@@ -34,7 +34,7 @@
     }
   },
 
-    "phoneNumbers": {
+  "phoneNumbers": {
     "title": "Phone numbers",
     "description": "Optional, but recommended for security and verification.",
 
@@ -49,16 +49,150 @@
     "add": "Add another number"
   },
 
-  "security": {
-    "title": "Sicherheit",
-    "description": "Schützen Sie Ihr Konto mit zusätzlichen Sicherheitsfragen."
-  },
-
   "address": {
-    "title": "Adresse"
+    "title": "Addresses",
+    "add": "Add address",
+
+    "primary": "Primary address",
+    "address": "Address",
+
+    "fields": {
+      "country": "Country",
+      "state": "State",
+      "city": "City",
+      "postalCode": "Postal code",
+      "addressType": "Address type",
+      "additionalInfo": "Additional information",
+      "houseNumber": "House number",
+      "streetHouse": "Street & house number"
+    },
+
+    "street": {
+      "fields": {
+        "street": "Street",
+        "houseNumber": "House number",
+        "streetHouse": "Street & house number"
+      },
+
+      "placeholder": "Start typing...",
+      "helper": "Select a valid address",
+      "change": "Change address",
+      "confidence": "Confidence:"
+    }
   },
 
   "contact": {
     "title": "Kontaktinformationen"
+  },
+
+  "security": {
+    "title": "Security questions",
+    "description": "These serve as the final recovery option for your account.",
+
+    "fields": {
+      "question": "Question",
+      "answer": "Answer"
+    },
+
+    "select": "Please select",
+    "add": "Add another question"
+  },
+
+  "profile": {
+    "title": "Interests & contact",
+    "searchPlaceholder": "Search interests...",
+    "contactOptions": "Preferred contact methods *",
+    "newsletter": "Subscribe to newsletter"
+  },
+
+  "contacts": {
+    "title": "Trusted contacts (optional)",
+    "add": "Add contact",
+    "description": "Add trusted contacts for emergency handling or authorization policies.",
+    "empty": "No contacts added.",
+
+    "fields": {
+      "contactId": "Contact user ID",
+      "relationship": "Relationship",
+      "withdrawalLimit": "Withdrawal limit (optional)",
+      "emergency": "Emergency"
+    },
+
+    "helpers": {
+      "contactId": "Existing userId / personId"
+    },
+
+    "yes": "Yes",
+    "no": "No"
+  },
+
+  "terms": {
+    "title": "Terms & Conditions",
+    "description": "Please read and accept our terms of service.",
+    "acceptPrefix": "I have read the",
+    "terms": "terms of service",
+    "privacy": "privacy policy",
+    "and": "and the",
+    "acceptSuffix": "and accept them."
+  },
+
+  "summary": {
+    "title": "Summary",
+    "description": "Please review your information before creating your account.",
+
+    "sections": {
+      "account": "Account",
+      "personal": "Personal information",
+      "addresses": "Addresses",
+      "phoneNumbers": "Phone numbers",
+      "securityQuestions": "Security questions",
+      "preferences": "Preferences"
+    },
+
+    "fields": {
+      "username": "Username",
+      "name": "Name",
+      "email": "Email",
+      "birthDate": "Birth date",
+      "gender": "Gender",
+      "maritalStatus": "Marital status",
+      "address": "Address",
+      "interests": "Interests",
+      "contactOptions": "Contact options",
+      "newsletter": "Newsletter",
+      "terms": "Terms accepted"
+    },
+
+    "values": {
+      "subscribed": "Subscribed",
+      "notSubscribed": "Not subscribed",
+      "accepted": "Yes",
+      "notAccepted": "No"
+    },
+
+    "primary": "Primary"
+  },
+
+  "verifyPage": {
+    "title": "Account Verification",
+    "loading": "Verifying your account...",
+    "successTitle": "Welcome, {username}!",
+    "successDescription": "Your account has been successfully verified. Redirecting to your dashboard...",
+    "errorTitle": "Verification failed",
+    "back": "Back to Registration",
+    "errors": {
+      "missingToken": "Missing verification token.",
+      "unexpected": "Unexpected verification error.",
+      "alreadyRegistered": "This account has already been verified. Please log in.",
+      "expired": "The verification link is invalid or expired. Please request a new one.",
+      "failed": "Verification failed."
+    }
+  },
+
+  "verifyEmail": {
+    "title": "Verify your email",
+    "description": "We sent a verification link to your email address. Please check your inbox and confirm your account.",
+    "expires": "This link expires in",
+    "resend": "Resend verification email"
   }
 }

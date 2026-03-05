@@ -2,6 +2,7 @@
 
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+
 import {
   Box,
   Button,
@@ -11,12 +12,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { RelationshipType } from "@/generated/graphql";
 
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+
 export default function ContactsStep() {
   const { control } = useFormContext<SignUpFormValues>();
+
+  const t = useTypedTranslations("signup.contacts");
+  const enumT = useTypedTranslations("enums");
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "contacts",
@@ -31,7 +40,7 @@ export default function ContactsStep() {
         mb={2}
       >
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
-          Trusted Contacts (optional)
+          {t("title")}
         </Typography>
 
         <Button
@@ -41,24 +50,24 @@ export default function ContactsStep() {
             append({
               contactId: "",
               relationship: RelationshipType.Other,
-              withdrawalLimit: 0,
+              withdrawalLimit: null,
               emergency: false,
               startDate: "",
               endDate: "",
             })
           }
         >
-          Add contact
+          {t("add")}
         </Button>
       </Box>
 
       <Typography variant="body2" color="text.secondary" mb={3}>
-        Add trusted contacts for emergency handling or authorization policies.
+        {t("description")}
       </Typography>
 
       {fields.length === 0 ? (
         <Typography variant="body2" color="text.secondary">
-          No contacts added.
+          {t("empty")}
         </Typography>
       ) : (
         fields.map((f, idx) => (
@@ -83,7 +92,9 @@ export default function ContactsStep() {
             </IconButton>
 
             <Grid container spacing={2}>
-              <Grid sx={{ xs: 12, md: 6 }}>
+              {/* CONTACT ID */}
+
+              <Grid item xs={12} md={6}>
                 <Controller
                   name={`contacts.${idx}.contactId`}
                   control={control}
@@ -91,26 +102,32 @@ export default function ContactsStep() {
                     <TextField
                       {...field}
                       fullWidth
-                      label="Contact User ID"
+                      label={t("fields.contactId")}
                       error={!!fieldState.error}
                       helperText={
-                        fieldState.error?.message ??
-                        "Existing userId / personId"
+                        fieldState.error?.message ?? t("helpers.contactId")
                       }
                     />
                   )}
                 />
               </Grid>
 
-              <Grid sx={{ xs: 12, md: 6 }}>
+              {/* RELATIONSHIP */}
+
+              <Grid item xs={12} md={6}>
                 <Controller
                   name={`contacts.${idx}.relationship`}
                   control={control}
                   render={({ field }) => (
-                    <TextField {...field} select fullWidth label="Relationship">
+                    <TextField
+                      {...field}
+                      select
+                      fullWidth
+                      label={t("fields.relationship")}
+                    >
                       {Object.values(RelationshipType).map((r) => (
                         <MenuItem key={r} value={r}>
-                          {r}
+                          {enumT(`relationshipType.${r}`)}
                         </MenuItem>
                       ))}
                     </TextField>
@@ -118,7 +135,9 @@ export default function ContactsStep() {
                 />
               </Grid>
 
-              <Grid sx={{ xs: 12, md: 6 }}>
+              {/* WITHDRAWAL LIMIT */}
+
+              <Grid item xs={12} md={6}>
                 <Controller
                   name={`contacts.${idx}.withdrawalLimit`}
                   control={control}
@@ -127,7 +146,7 @@ export default function ContactsStep() {
                       {...field}
                       type="number"
                       fullWidth
-                      label="Withdrawal limit (optional)"
+                      label={t("fields.withdrawalLimit")}
                       onChange={(e) =>
                         field.onChange(
                           e.target.value ? Number(e.target.value) : null,
@@ -138,23 +157,25 @@ export default function ContactsStep() {
                 />
               </Grid>
 
-              <Grid sx={{ xs: 12, md: 6 }}>
+              {/* EMERGENCY */}
+
+              <Grid item xs={12} md={6}>
                 <Controller
                   name={`contacts.${idx}.emergency`}
                   control={control}
                   render={({ field }) => (
                     <TextField
-                      {...field}
                       select
                       fullWidth
-                      label="Emergency"
+                      label={t("fields.emergency")}
                       value={String(!!field.value)}
                       onChange={(e) =>
                         field.onChange(e.target.value === "true")
                       }
                     >
-                      <MenuItem value="false">No</MenuItem>
-                      <MenuItem value="true">Yes</MenuItem>
+                      <MenuItem value="false">{t("no")}</MenuItem>
+
+                      <MenuItem value="true">{t("yes")}</MenuItem>
                     </TextField>
                   )}
                 />

@@ -18,7 +18,7 @@
     }
   },
 
-    "account": {
+  "account": {
     "title": "Account erstellen",
 
     "fields": {
@@ -34,7 +34,7 @@
     }
   },
 
-    "phoneNumbers": {
+  "phoneNumbers": {
     "title": "Telefonnummern",
     "description": "Optional, aber empfohlen für Sicherheit und Verifizierung.",
 
@@ -50,15 +50,154 @@
   },
 
   "security": {
-    "title": "Sicherheit",
-    "description": "Schützen Sie Ihr Konto mit zusätzlichen Sicherheitsfragen."
+    "title": "Sicherheitsfragen",
+    "description": "Diese dienen als letzte Wiederherstellungsoption für Ihr Konto.",
+
+    "fields": {
+      "question": "Frage",
+      "answer": "Antwort"
+    },
+
+    "select": "Bitte wählen",
+    "add": "Weitere Frage hinzufügen"
   },
 
   "address": {
-    "title": "Adresse"
+    "title": "Adressen",
+    "add": "Adresse hinzufügen",
+
+    "primary": "Primäre Adresse",
+    "address": "Adresse",
+
+    "fields": {
+      "country": "Land",
+      "state": "Bundesland",
+      "city": "Stadt",
+      "postalCode": "Postleitzahl",
+      "addressType": "Adressart",
+      "additionalInfo": "Zusätzliche Informationen"
+    },
+
+    "street": {
+      "fields": {
+        "street": "Straße",
+        "houseNumber": "Hausnummer",
+        "streetHouse": "Straße & Hausnummer"
+      },
+
+      "placeholder": "Adresse eingeben...",
+      "helper": "Bitte wählen Sie eine gültige Adresse",
+      "change": "Adresse ändern",
+      "confidence": "Übereinstimmung:"
+    }
   },
 
   "contact": {
     "title": "Kontaktinformationen"
+  },
+
+  "profile": {
+    "title": "Interessen & Kontakt",
+    "searchPlaceholder": "Interessen durchsuchen...",
+    "contactOptions": "Bevorzugte Kontaktwege *",
+    "newsletter": "Newsletter abonnieren"
+  },
+
+  "contacts": {
+    "title": "Vertrauenspersonen (optional)",
+    "add": "Kontakt hinzufügen",
+    "description": "Fügen Sie Vertrauenspersonen für Notfälle oder Autorisierungen hinzu.",
+    "empty": "Keine Kontakte hinzugefügt.",
+
+    "fields": {
+      "contactId": "Kontakt Benutzer-ID",
+      "relationship": "Beziehung",
+      "withdrawalLimit": "Auszahlungslimit (optional)",
+      "emergency": "Notfallkontakt"
+    },
+
+    "helpers": {
+      "contactId": "Bestehende userId / personId"
+    },
+
+    "yes": "Ja",
+    "no": "Nein"
+  },
+
+  "terms": {
+    "title": "Allgemeine Geschäftsbedingungen",
+    "description": "Bitte lesen und akzeptieren Sie unsere Nutzungsbedingungen.",
+    "acceptPrefix": "Ich habe die",
+    "terms": "AGB",
+    "privacy": "Datenschutzerklärung",
+    "and": "und die",
+    "acceptSuffix": "gelesen und akzeptiere diese."
+  },
+
+  "summary": {
+    "title": "Zusammenfassung",
+    "description": "Bitte prüfen Sie Ihre Angaben, bevor Sie Ihr Konto erstellen.",
+
+    "sections": {
+      "account": "Konto",
+      "personal": "Persönliche Daten",
+      "addresses": "Adressen",
+      "phoneNumbers": "Telefonnummern",
+      "securityQuestions": "Sicherheitsfragen",
+      "preferences": "Präferenzen"
+    },
+
+    "fields": {
+      "username": "Benutzername",
+      "name": "Name",
+      "email": "E-Mail",
+      "birthDate": "Geburtsdatum",
+      "gender": "Geschlecht",
+      "maritalStatus": "Familienstand",
+      "address": "Adresse",
+      "interests": "Interessen",
+      "contactOptions": "Kontaktwege",
+      "newsletter": "Newsletter",
+      "terms": "AGB akzeptiert"
+    },
+
+    "values": {
+      "subscribed": "Abonniert",
+      "notSubscribed": "Nicht abonniert",
+      "accepted": "Ja",
+      "notAccepted": "Nein"
+    },
+
+    "primary": "Primär"
+  },
+
+  "success": {
+    "title": "Willkommen bei Omnixys!",
+    "description": "Ihr Konto wurde erfolgreich erstellt.",
+    "welcome": "Willkommen",
+    "dashboard": "Zum Dashboard"
+  },
+
+  "verifyEmail": {
+    "title": "E-Mail bestätigen",
+    "description": "Wir haben Ihnen einen Bestätigungslink gesendet. Bitte überprüfen Sie Ihr Postfach und bestätigen Sie Ihr Konto.",
+    "expires": "Dieser Link läuft ab in",
+    "resend": "Bestätigungs-Mail erneut senden"
+  },
+
+  "verifyPage": {
+    "title": "Konto-Verifizierung",
+    "loading": "Ihr Konto wird überprüft...",
+    "successTitle": "Willkommen, {username}!",
+    "successDescription": "Ihr Konto wurde erfolgreich bestätigt. Weiterleitung zum Dashboard...",
+    "errorTitle": "Verifizierung fehlgeschlagen",
+    "back": "Zur Registrierung",
+    "errors": {
+      "missingToken": "Verifizierungs-Token fehlt.",
+      "unexpected": "Unerwarteter Fehler bei der Verifizierung.",
+      "alreadyRegistered": "Dieses Konto wurde bereits bestätigt. Bitte melden Sie sich an.",
+      "expired": "Der Verifizierungslink ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.",
+      "failed": "Verifizierung fehlgeschlagen."
+    }
   }
 }

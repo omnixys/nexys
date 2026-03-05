@@ -20,5 +20,77 @@
     "PRIVATE": "Private",
     "WHATSAPP": "WhatsApp",
     "OTHER": "Other"
+  },
+
+  "addressType": {
+    "HOME": "Home",
+    "WORK": "Work",
+    "BILLING": "Billing",
+    "SHIPPING": "Shipping"
+  },
+
+  "securityQuestion": {
+    "FIRST_PET": "What was the name of your first pet?",
+    "BIRTH_CITY": "In which city were you born?",
+    "MOTHER_MAIDEN_NAME": "What is your mother's maiden name?",
+    "FAVORITE_SCHOOL_SUBJECT": "What was your favorite subject in school?",
+    "CHILDHOOD_BEST_FRIEND": "What was the name of your childhood best friend?",
+    "FAVOURITE_COMPANY": "What is your favourite company?",
+    "BIRTH_DATE": "What is your birth date?"
+  },
+
+  "interest": {
+    "BANK_PRODUCTS_AND_SERVICES": "Bank products & services",
+    "TECHNOLOGY_AND_INNOVATION": "Technology & innovation",
+    "FINANCIAL_EDUCATION_AND_COUNSELING": "Financial education & counseling",
+    "SUSTAINABLE_FINANCE": "Sustainable finance",
+    "INVESTMENTS": "Investments",
+    "SAVING_AND_FINANCE": "Saving & personal finance",
+    "CREDIT_AND_DEBT": "Credit & debt",
+    "REAL_ESTATE": "Real estate",
+    "INSURANCE": "Insurance",
+
+    "TRAVEL": "Travel",
+
+    "CLASSIC": "Classical",
+    "ROCK": "Rock",
+    "HIPHOP": "Hip-hop",
+    "RAP": "Rap",
+
+    "FOOTBALL": "Football",
+    "SOCCER": "Soccer",
+    "RUGBY": "Rugby",
+    "BASKETBALL": "Basketball"
+  },
+
+  "interestCategory": {
+    "SPORTS": "Sports",
+    "MUSIC": "Music",
+    "FINANCE": "Finance",
+    "REAL_ASSETS": "Real assets",
+    "TECHNOLOGY": "Technology",
+    "LIFESTYLE": "Lifestyle"
+  },
+
+  "contactOption": {
+    "EMAIL": "📧 Email",
+    "PHONE": "📞 Phone",
+    "SMS": "💬 SMS",
+    "WHATSAPP": "📱 WhatsApp",
+    "LETTER": "✉️ Letter"
+  },
+
+  "relationshipType": {
+    "FAMILY": "Family",
+    "FRIEND": "Friend",
+    "PARTNER": "Partner",
+    "COLLEAGUE": "Colleague",
+    "OTHER": "Other",
+    "BUSINESS_PARTNER": "Business partner",
+    "RELATIVE": "Relative",
+    "PARENT": "Parent",
+    "SIBLING": "Sibling",
+    "CHILD": "Child",
+    "COUSIN": "Cousin"
   }
 }

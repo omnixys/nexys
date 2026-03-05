@@ -1,0 +1,54 @@
+{
+  "title": "Terms and Conditions",
+  "intro": "Please read the following terms of service carefully.",
+
+  "sections": {
+    "scope": {
+      "title": "1. Scope",
+      "text": "These Terms and Conditions govern the use of services provided by Omnixys Technologies. By registering and using the platform you agree to these terms."
+    },
+
+    "account": {
+      "title": "2. Account Registration",
+      "text": "Certain services require account registration. You agree to provide accurate information and to keep your account credentials secure."
+    },
+
+    "usage": {
+      "title": "3. Platform Usage",
+      "text": "The platform may only be used in accordance with applicable laws. Misuse, manipulation, or illegal activities are strictly prohibited."
+    },
+
+    "data": {
+      "title": "4. Data Protection",
+      "text": "Your personal data is processed according to our Privacy Policy and applicable data protection laws. Users within the European Union are additionally protected under the GDPR."
+    },
+
+    "liability": {
+      "title": "5. Liability",
+      "text": "Omnixys Technologies shall only be liable within the limits permitted by applicable law. Liability for indirect damages or loss of profit is excluded where legally permissible."
+    },
+
+    "termination": {
+      "title": "6. Termination",
+      "text": "Users may terminate their account at any time through account settings. Omnixys Technologies reserves the right to suspend accounts that violate these terms."
+    },
+
+    "intellectual": {
+      "title": "7. Intellectual Property",
+      "text": "All platform content, trademarks and technologies are the property of Omnixys Technologies or its licensors and may not be used without permission."
+    },
+
+    "law": {
+      "title": "8. Governing Law",
+      "text": "These terms are governed by the applicable laws of the user's jurisdiction. Additional consumer protection laws may apply depending on the user's location."
+    }
+  },
+
+  "accept": {
+    "prefix": "I have read the",
+    "terms": "Terms and Conditions",
+    "and": "and the",
+    "privacy": "Privacy Policy",
+    "suffix": "and accept them."
+  }
+}

@@ -2,6 +2,7 @@
 
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+
 import {
   Box,
   Button,
@@ -11,6 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useQuery } from "@apollo/client/react";
 
@@ -21,8 +23,13 @@ import {
   GetSecurityQuestionsQuery,
 } from "@/generated/graphql";
 
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+
 export default function SecurityQuestionsStep() {
-  const { control, watch } = useFormContext<SignUpFormValues>();
+  const { control, watch, setValue } = useFormContext<SignUpFormValues>();
+
+  const t = useTypedTranslations("signup.security");
+  const enumT = useTypedTranslations("enums");
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -43,16 +50,18 @@ export default function SecurityQuestionsStep() {
 
   const questions = data?.getSecurityQuestions ?? [];
 
-  const selectedQuestions = watch("securityQuestions")?.map((q) => q.question);
+  const selectedQuestions = new Set(
+    watch("securityQuestions")?.map((q) => q.questionId) ?? [],
+  );
 
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        Sicherheitsfragen
+        {t("title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={4}>
-        Diese dienen als letzte Wiederherstellungsoption für Ihr Konto.
+        {t("description")}
       </Typography>
 
       {fields.map((f, idx) => (
@@ -78,37 +87,48 @@ export default function SecurityQuestionsStep() {
           )}
 
           <Stack spacing={3}>
-            {/* Question */}
+            {/* QUESTION */}
             <Controller
-              name={`securityQuestions.${idx}.question`}
+              name={`securityQuestions.${idx}.questionId`}
               control={control}
               render={({ field, fieldState }) => (
                 <TextField
-                  {...field}
+                  value={field.value ?? ""}
                   select
                   fullWidth
-                  label="Frage"
+                  label={t("fields.question")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message ?? " "}
+                  onChange={(e) => {
+                    const id = e.target.value;
+
+                    const selected = questions.find((q) => q.id === id);
+
+                    field.onChange(id);
+
+                    setValue(
+                      `securityQuestions.${idx}.questionKey`,
+                      selected?.key ?? "",
+                    );
+                  }}
                 >
-                  <MenuItem value="">Bitte wählen</MenuItem>
+                  <MenuItem value="">{t("select")}</MenuItem>
 
                   {questions
                     .filter(
                       (q) =>
-                        !selectedQuestions?.includes(q.id) ||
-                        field.value === q.id,
+                        !selectedQuestions.has(q.id) || field.value === q.id,
                     )
                     .map((q) => (
                       <MenuItem key={q.id} value={q.id}>
-                        {q.question}
+                        {enumT(`securityQuestion.${q.key}`)}
                       </MenuItem>
                     ))}
                 </TextField>
               )}
             />
 
-            {/* Answer */}
+            {/* ANSWER */}
             <Controller
               name={`securityQuestions.${idx}.answer`}
               control={control}
@@ -116,7 +136,7 @@ export default function SecurityQuestionsStep() {
                 <TextField
                   {...field}
                   fullWidth
-                  label="Antwort"
+                  label={t("fields.answer")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message ?? " "}
                 />
@@ -130,14 +150,20 @@ export default function SecurityQuestionsStep() {
         fullWidth
         variant="outlined"
         startIcon={<AddRoundedIcon />}
-        onClick={() => append({ question: "", answer: "" })}
+        onClick={() =>
+          append({
+            questionId: "",
+            questionKey: "",
+            answer: "",
+          })
+        }
         disabled={loading || fields.length >= questions.length}
         sx={{
           py: 1.5,
           borderStyle: "dashed",
         }}
       >
-        Weitere Frage hinzufügen
+        {t("add")}
       </Button>
     </>
   );
