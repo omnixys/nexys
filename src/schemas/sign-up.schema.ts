@@ -1,4 +1,4 @@
-import { ContactOptionsType, GenderType, InterestType, MaritalStatusType, RelationshipType, UserType } from "../types/user/user-enum-type";
+import { ContactOptionsType, GenderType, MaritalStatusType, PhoneNumberType, RelationshipType, UserType } from "@/generated/graphql";
 import { z } from "zod";
 
 export type SignUpFormValues = z.infer<typeof schema>;
@@ -77,7 +77,7 @@ export const schema = z
     phoneNumbers: z
       .array(
         z.object({
-          type: z.string().min(1),
+          type: z.nativeEnum(PhoneNumberType),
           number: z.string().min(6),
           label: z.string().optional(),
           isPrimary: z.boolean().optional(),
@@ -97,10 +97,9 @@ export const schema = z
 
     customer: z
       .object({
-        tierLevel: z.number().int().min(0),
         subscribed: z.boolean(),
         state: z.string().optional(),
-        interests: z.array(z.nativeEnum(InterestType)),
+        interestIds: z.array(z.string()),
         contactOptions: z.array(z.nativeEnum(ContactOptionsType)).min(1),
       })
       .optional(),
@@ -129,9 +128,10 @@ export const schema = z
       )
       .optional(),
 
-    termsAccepted: z.boolean().refine((v) => v === true, {
+    acceptedTerms: z.boolean().refine((v) => v === true, {
       message: "You must accept the terms to continue.",
     }),
+    acceptedTermsAt: z.string(),
   })
   .superRefine((val, ctx) => {
     if (val.password !== val.confirmPassword) {
@@ -143,14 +143,14 @@ export const schema = z
     }
 
     // Conditional: require customer for CUSTOMER
-    if (val.userType === UserType.CUSTOMER && !val.customer) {
+    if (val.userType === UserType.Customer && !val.customer) {
       ctx.addIssue({
         code: "custom",
         path: ["customer"],
         message: "Customer profile is required for CUSTOMER accounts.",
       });
     }
-    if (val.userType === UserType.EMPLOYEE && !val.employee) {
+    if (val.userType === UserType.Employee && !val.employee) {
       ctx.addIssue({
         code: "custom",
         path: ["employee"],

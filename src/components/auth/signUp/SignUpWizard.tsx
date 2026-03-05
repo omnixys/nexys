@@ -19,25 +19,32 @@ import { FormProvider, useForm } from "react-hook-form";
 import Confetti from "react-confetti";
 
 // Steps
+import {
+  CreateSignupVerificationDocument,
+  CreateSignupVerificationMutation,
+  CreateSignupVerificationMutationVariables,
+  StatusType,
+  UserType,
+} from "@/generated/graphql";
 import { useMutation } from "@apollo/client/react";
 import { useRouter } from "next/navigation";
-import ContactsStep from "./steps/ContactsStep";
-import ProfileDetailsStep from "./steps/ProfileDetailsStep";
-import SuccessStep from "./steps/SuccessStep";
-import SummaryStep from "./steps/SummaryStep";
-import TermsStep from "./steps/TermsStep";
-import { REGISTER_CUSTOMER } from "../../../graphql/user/user-register.graphql";
 import { useThemeMode } from "../../../providers/ThemeModeProvider";
 import { schema, SignUpFormValues } from "../../../schemas/sign-up.schema";
-import { UserType } from "../../../types/user/user-enum-type";
 import { OMNIXYS_LOGOS } from "../../../utils/omnixysBranding";
 import { SignUpPageProps } from "./SignUpPage";
 import AccountStep from "./steps/AccountStep";
 import AddressesStep from "./steps/AddressesStep";
+import ContactsStep from "./steps/ContactsStep";
 import PersonalInfoStep from "./steps/PersonalInfoStep";
 import PhoneNumbersStep from "./steps/PhoneNumbersStep";
+import ProfileDetailsStep from "./steps/ProfileDetailsStep";
 import SecurityQuestionsStep from "./steps/SecurityQuestionsStep";
 import { STEPS } from "./steps/steps";
+import SuccessStep from "./steps/SuccessStep";
+import SummaryStep from "./steps/SummaryStep";
+import TermsStep from "./steps/TermsStep";
+import { Country } from '../../../generated/graphql';
+import { CreateSignupVerificationRequest } from "@/graphql/graphql.type";
 
 export default function SignUpWizard({
   countries,
@@ -48,7 +55,10 @@ export default function SignUpWizard({
   const { scheme } = useThemeMode();
   const [activeStep, setActiveStep] = useState(0);
   const [celebrate, setCelebrate] = useState(false);
-  const [mutate, { loading, error }] = useMutation(REGISTER_CUSTOMER, {
+  const [mutate, { data, loading, error }] = useMutation<
+    CreateSignupVerificationMutation,
+    CreateSignupVerificationMutationVariables
+  >(CreateSignupVerificationDocument, {
     context: {
       fetchOptions: {
         credentials: "include",
@@ -62,7 +72,7 @@ export default function SignUpWizard({
     reValidateMode: "onChange",
     defaultValues: {
       username: "",
-      userType: UserType.CUSTOMER,
+      userType: UserType.Customer,
       password: "",
       confirmPassword: "",
       personalInfo: {
@@ -93,10 +103,9 @@ export default function SignUpWizard({
       phoneNumbers: [],
       securityQuestions: [{ question: "", answer: "" }],
       customer: {
-        tierLevel: 1,
         subscribed: true,
         state: "ACTIVE",
-        interests: [],
+        interestIds: [],
         contactOptions: [],
       },
       employee: {
@@ -108,7 +117,8 @@ export default function SignUpWizard({
         isExternal: false,
       },
       contacts: [],
-      termsAccepted: false,
+      acceptedTerms: false,
+      acceptedTermsAt: new Date().toISOString(),
     },
   });
   const { formState, getFieldState, watch } = methods;
@@ -172,9 +182,9 @@ export default function SignUpWizard({
 
     // Ensure conditional data is present before leaving "details"
     if (step.key === "details") {
-      if (userType === UserType.CUSTOMER && !methods.getValues("customer"))
+      if (userType === UserType.Customer && !methods.getValues("customer"))
         return;
-      if (userType === UserType.EMPLOYEE && !methods.getValues("employee"))
+      if (userType === UserType.Employee && !methods.getValues("employee"))
         return;
     }
 
@@ -190,14 +200,14 @@ export default function SignUpWizard({
       case "addresses":
         return (
           <AddressesStep
-            countries={countries}
+            countries={countries ?? []}
             defaultCountry={defaultCountry}
           />
         );
       case "phones":
         return (
           <PhoneNumbersStep
-            countries={countries}
+            countries={countries ?? []}
             defaultCountry={defaultCountry}
           />
         );
@@ -386,10 +396,56 @@ export default function SignUpWizard({
   );
 }
 
-function mapFormToCreateUserInput(values: SignUpFormValues) {
-  const { confirmPassword, termsAccepted, ...rest } = values;
+function mapFormToCreateUserInput(
+  values: SignUpFormValues,
+): CreateSignupVerificationRequest {
+  const { confirmPassword, addresses, customer, securityQuestions, ...rest } =
+    values;
 
-  return rest;
+  return {
+    ...rest,
+
+    acceptedTerms: values.acceptedTerms,
+    acceptedTermsAt: values.acceptedTermsAt,
+
+    // -----------------------------
+    // Addresses (UI → API DTO)
+    // -----------------------------
+    addresses: addresses.map((addr) => {
+      return {
+        countryId: addr.countryId,
+        stateId: addr.stateId,
+        cityId: addr.cityId,
+        postalCodeId: addr.postalCodeId ?? "",
+        street: addr.street,
+        houseNumber: addr.houseNumber,
+        addressType: addr.addressType,
+        additionalInfo: addr.additionalInfo,
+      };
+    }),
+
+    // -----------------------------
+    // Security Questions
+    // -----------------------------
+    securityQuestions: securityQuestions.map((q) => ({
+      questionId: q.question,
+      answer: q.answer,
+    })),
+
+    // -----------------------------
+    // Customer (UI → API DTO)
+    // -----------------------------
+    customer: customer
+      ? {
+          subscribed: customer.subscribed,
+          state: StatusType.Active,
+          interestIds: customer.interestIds,
+          contactOptions: customer.contactOptions,
+        }
+      : undefined,
+
+    // employee & contacts passen strukturell bereits
+  };
 }
 
 function generateUsername(firstName?: string, lastName?: string) {

@@ -1,16 +1,15 @@
 'use server'
 
 import { headers } from "next/headers";
-import { GET_ALL_COUNTRIES } from "../../../graphql/address/country.queries";
 import SignUpPage from "../../../components/auth/signUp/SignUpPage";
 import { createCombinedApolloClient } from "../../../lib/client/combined-client";
-import { GetAllCountriesResult } from "../../../types/address/address-graphql.type";
+import { GetAllCountriesDocument, GetAllCountriesQuery, GetAllCountriesQueryVariables } from "@/generated/graphql";
 
 export default async function Page() {
     const client = createCombinedApolloClient();
   
-      const res = await client.query<GetAllCountriesResult>({
-        query: GET_ALL_COUNTRIES,
+      const res = await client.query<GetAllCountriesQuery, GetAllCountriesQueryVariables>({
+        query: GetAllCountriesDocument,
         fetchPolicy: "no-cache",
       });
   

@@ -1,0 +1,9 @@
+mutation VerifyMagicLink($token: String!) {
+  verifyMagicLink(token: $token) {
+    accessToken
+    expiresIn
+    refreshToken
+    refreshExpiresIn
+    scope
+  }
+}

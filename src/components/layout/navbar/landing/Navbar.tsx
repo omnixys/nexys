@@ -10,6 +10,7 @@ import { NavbarLinks } from "./NavbarLinks";
 import { NavbarSocials } from "./NavbarSocials";
 import { NavbarMobileDrawer } from "./NavbarMobileDrawer";
 import { NavItem } from "./navbar.types";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 const ITEMS: NavItem[] = [
   { label: "About me", href: "/about/me" },
@@ -67,6 +68,7 @@ export default function Navbar() {
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <LanguageSwitcher />
               <NavbarSocials />
               <IconButton
                 onClick={() => setOpen(true)}

@@ -1,0 +1,24 @@
+{
+  "gender": {
+    "MALE": "Männlich",
+    "FEMALE": "Weiblich",
+    "DIVERSE": "Divers",
+    "UNKNOWN": "Keine Angabe"
+  },
+
+  "maritalStatus": {
+    "SINGLE": "Ledig",
+    "MARRIED": "Verheiratet",
+    "DIVORCED": "Geschieden",
+    "WIDOWED": "Verwitwet"
+  },
+
+  "phoneNumberType": {
+    "MOBILE": "Mobil",
+    "HOME": "Festnetz",
+    "WORK": "Geschäftlich",
+    "PRIVATE": "Privat",
+    "WHATSAPP": "WhatsApp",
+    "OTHER": "Andere"
+  }
+}

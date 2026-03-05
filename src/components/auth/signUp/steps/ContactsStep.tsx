@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
-import { RelationshipType } from "../../../../types/user/user-enum-type";
+import { RelationshipType } from "@/generated/graphql";
 
 export default function ContactsStep() {
   const { control } = useFormContext<SignUpFormValues>();
@@ -40,7 +40,7 @@ export default function ContactsStep() {
           onClick={() =>
             append({
               contactId: "",
-              relationship: RelationshipType.OTHER,
+              relationship: RelationshipType.Other,
               withdrawalLimit: 0,
               emergency: false,
               startDate: "",

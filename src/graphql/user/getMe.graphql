@@ -1,0 +1,61 @@
+query GetMe {
+  me {
+    id
+    username
+    userType
+    status
+    createdAt
+    updatedAt
+    role
+    personalInfo {
+      id
+      email
+      firstName
+      lastName
+      birthDate
+      gender
+      maritalStatus
+      phoneNumbers {
+        id
+        number
+        type
+        infoId
+        label
+        isPrimary
+        countryCode
+      }
+    }
+    contacts {
+      id
+      userId
+      contactId
+      relationship
+      withdrawalLimit
+      emergency
+      startDate
+      endDate
+    }
+    customer {
+      id
+      subscribed
+      state
+      contactOptions
+      customerInterest {
+        id
+        isPrimary
+        interest {
+          key
+        }
+      }
+    }
+    employee {
+      id
+      department
+      position
+      role
+      salary
+      hireDate
+      isExternal
+    }
+  }
+}

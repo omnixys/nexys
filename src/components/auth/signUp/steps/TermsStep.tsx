@@ -90,7 +90,7 @@ export default function TermsStep() {
       {/* ================= Checkbox ================= */}
 
       <Controller
-        name="termsAccepted"
+        name="acceptedTerms"
         control={control}
         render={({ field, fieldState }) => (
           <>

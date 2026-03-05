@@ -19,14 +19,24 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { CHECK_EMAIL } from "@/graphql/user/user-register.graphql";
+
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import {
+  CheckEmailDocument,
+  CheckEmailQuery,
+  CheckEmailQueryVariables,
   GenderType,
   MaritalStatusType,
-} from "@/types/user/user-enum-type";
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
+} from "@/generated/graphql";
+
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+
+type EmailStatus = "idle" | "checking" | "available" | "taken";
 
 export default function PersonalInfoStep() {
+  const t = useTypedTranslations("signup.personal");
+  const enumT = useTypedTranslations("enums");
+
   const {
     control,
     formState: { errors },
@@ -35,15 +45,22 @@ export default function PersonalInfoStep() {
     clearErrors,
   } = useFormContext<SignUpFormValues>();
 
-  const [checkEmail] = useLazyQuery<{ checkEmail: boolean }>(CHECK_EMAIL);
-  const [emailStatus, setEmailStatus] = useState<
-    "idle" | "checking" | "available" | "taken"
-  >("idle");
+  const [checkEmail] = useLazyQuery<CheckEmailQuery, CheckEmailQueryVariables>(
+    CheckEmailDocument,
+  );
+
+  const [emailStatus, setEmailStatus] = useState<EmailStatus>("idle");
 
   const email = watch("personalInfo.email");
 
+  /**
+   * Email availability check (debounced)
+   */
   useEffect(() => {
-    if (!email || email.length < 3) return;
+    if (!email || email.length < 3) {
+      setEmailStatus("idle");
+      return;
+    }
 
     const timeout = setTimeout(async () => {
       setEmailStatus("checking");
@@ -58,9 +75,10 @@ export default function PersonalInfoStep() {
           clearErrors("personalInfo.email");
         } else {
           setEmailStatus("taken");
+
           setError("personalInfo.email", {
             type: "manual",
-            message: "Email ist bereits vergeben.",
+            message: t("email.taken"),
           });
         }
       } catch {
@@ -69,19 +87,26 @@ export default function PersonalInfoStep() {
     }, 400);
 
     return () => clearTimeout(timeout);
-  }, [email]);
+  }, [email, checkEmail, setError, clearErrors, t]);
+
+  const emailHelperText =
+    errors.personalInfo?.email?.message ??
+    (emailStatus === "checking"
+      ? t("email.checking")
+      : emailStatus === "available"
+        ? t("email.available")
+        : " ");
 
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={4}>
-        Persönliche Daten
+        {t("title")}
       </Typography>
-
-      {/* =========================
-          ROW 1 → FIRST + LAST
-         ========================= */}
+      {/* ================================
+          FIRST + LAST NAME
+      ================================= */}
       <Box mb={3}>
-        <Grid container spacing={5}>
+        <Grid container spacing={3}>
           <Grid sx={{ xs: 12, md: 6, width: "47%" }}>
             <Controller
               name="personalInfo.firstName"
@@ -90,8 +115,7 @@ export default function PersonalInfoStep() {
                 <TextField
                   {...field}
                   fullWidth
-                  label="Vorname"
-                  value={field.value ?? ""}
+                  label={t("fields.firstName")}
                   error={!!errors.personalInfo?.firstName}
                   helperText={errors.personalInfo?.firstName?.message ?? " "}
                 />
@@ -107,8 +131,7 @@ export default function PersonalInfoStep() {
                 <TextField
                   {...field}
                   fullWidth
-                  label="Nachname"
-                  value={field.value ?? ""}
+                  label={t("fields.lastName")}
                   error={!!errors.personalInfo?.lastName}
                   helperText={errors.personalInfo?.lastName?.message ?? " "}
                 />
@@ -118,9 +141,9 @@ export default function PersonalInfoStep() {
         </Grid>
       </Box>
 
-      {/* =========================
-          ROW 2 → EMAIL
-         ========================= */}
+      {/* ================================
+          EMAIL
+      ================================= */}
       <Box mb={3}>
         <Controller
           name="personalInfo.email"
@@ -130,24 +153,18 @@ export default function PersonalInfoStep() {
               {...field}
               type="email"
               fullWidth
-              label="E-Mail"
-              value={field.value ?? ""}
+              label={t("fields.email")}
               error={!!errors.personalInfo?.email}
-              helperText={
-                errors.personalInfo?.email?.message ??
-                (emailStatus === "checking"
-                  ? "Überprüfung..."
-                  : emailStatus === "available"
-                    ? "✓ Verfügbar"
-                    : " ")
-              }
+              helperText={emailHelperText}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     {emailStatus === "checking" && (
                       <CircularProgress size={18} />
                     )}
+
                     {emailStatus === "available" && <Check color="success" />}
+
                     {emailStatus === "taken" && <Close color="error" />}
                   </InputAdornment>
                 ),
@@ -157,11 +174,11 @@ export default function PersonalInfoStep() {
         />
       </Box>
 
-      {/* =========================
-          ROW 2 → Email + Birthdate
-         ========================= */}
+      {/* ================================
+          BIRTHDATE + ENUMS
+      ================================= */}
       <Box>
-        <Stack direction={"row"} spacing={3}>
+        <Stack direction="row" spacing={3}>
           <Controller
             name="personalInfo.birthDate"
             control={control}
@@ -170,9 +187,8 @@ export default function PersonalInfoStep() {
                 {...field}
                 type="date"
                 fullWidth
-                label="Geburtsdatum"
+                label={t("fields.birthDate")}
                 InputLabelProps={{ shrink: true }}
-                value={field.value ?? ""}
                 error={!!errors.personalInfo?.birthDate}
                 helperText={errors.personalInfo?.birthDate?.message ?? " "}
               />
@@ -187,14 +203,13 @@ export default function PersonalInfoStep() {
                 {...field}
                 select
                 fullWidth
-                label="Geschlecht"
-                value={field.value ?? ""}
+                label={t("fields.gender")}
                 error={!!errors.personalInfo?.gender}
                 helperText={errors.personalInfo?.gender?.message ?? " "}
               >
                 {Object.values(GenderType).map((g) => (
                   <MenuItem key={g} value={g}>
-                    {g}
+                    {enumT(`gender.${g}`)}
                   </MenuItem>
                 ))}
               </TextField>
@@ -209,14 +224,13 @@ export default function PersonalInfoStep() {
                 {...field}
                 select
                 fullWidth
-                label="Familienstand"
-                value={field.value ?? ""}
+                label={t("fields.maritalStatus")}
                 error={!!errors.personalInfo?.maritalStatus}
                 helperText={errors.personalInfo?.maritalStatus?.message ?? " "}
               >
                 {Object.values(MaritalStatusType).map((m) => (
                   <MenuItem key={m} value={m}>
-                    {m}
+                    {enumT(`maritalStatus.${m}`)}
                   </MenuItem>
                 ))}
               </TextField>

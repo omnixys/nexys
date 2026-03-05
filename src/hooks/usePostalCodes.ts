@@ -1,16 +1,7 @@
-import {
-  GET_POSTAL_BY_CITY,
-  GET_POSTAL_BY_STATE,
-} from "@/graphql/address/postal.queries";
 import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
 import { UniversalOption } from "../components/ui/UniversalAutocomplete";
-import {
-  GetPostalCodeByCityRequest,
-  GetPostalCodeByCityResult,
-  GetPostalCodeByStateRequest,
-  GetPostalCodeByStateResult,
-} from "../types/address/address-graphql.type";
+import { GetPostalCodesByCityDocument, GetPostalCodesByCityQuery, GetPostalCodesByCityQueryVariables, GetPostalCodesByStateDocument, GetPostalCodesByStateQuery, GetPostalCodesByStateQueryVariables } from "@/generated/graphql";
 
 export function usePostalCode({
   cityId,
@@ -23,8 +14,8 @@ export function usePostalCode({
     data: postalCodeStateData,
     loading: postalCodeStateLoading,
     error: postalCodeStateError,
-  } = useQuery<GetPostalCodeByStateResult, GetPostalCodeByStateRequest>(
-    GET_POSTAL_BY_STATE,
+  } = useQuery<GetPostalCodesByStateQuery, GetPostalCodesByStateQueryVariables>(
+    GetPostalCodesByStateDocument,
     {
       variables: { stateId },
       skip: !stateId,
@@ -35,8 +26,8 @@ export function usePostalCode({
     data: postalCodeCityData,
     loading: postalCodeCityLoading,
     error: postalCodeCityError,
-  } = useQuery<GetPostalCodeByCityResult, GetPostalCodeByCityRequest>(
-    GET_POSTAL_BY_CITY,
+  } = useQuery<GetPostalCodesByCityQuery, GetPostalCodesByCityQueryVariables>(
+    GetPostalCodesByCityDocument,
     {
       variables: { cityId },
       skip: !cityId,

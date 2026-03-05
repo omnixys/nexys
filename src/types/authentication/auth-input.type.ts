@@ -16,10 +16,6 @@ export type GuestSignUpInput = {
   guestProfileId: string;
 };
 
-export type LoginInput = {
-  username: string;
-  password: string;
-};
 
 export type ChangeMyPasswordInput = {
   oldPassword: string;

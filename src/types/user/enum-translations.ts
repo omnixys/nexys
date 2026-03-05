@@ -12,6 +12,7 @@ import {
 } from "@/types/user/user-enum-type";
 import { KcRole } from "../authentication/auth-enum.type";
 import { InterestCategory } from "./user.type";
+import { RealmRole } from "@/generated/graphql";
 
 export const USER_TYPE_I18N = {
   CUSTOMER: "type.customer",
@@ -31,7 +32,7 @@ export const USER_CUSTOMER_TIER_I18N = {
   ELITE: "customer.tiers.elite",
   BASIC: "customer.tiers.basic",
   ADMIN: "employee.values.admin",
-} satisfies Record<KcRole, UserTranslationKey>;
+} satisfies Record<RealmRole, UserTranslationKey>;
 
 export const USER_STATUS_I18N = {
   ACTIVE: "status.active",

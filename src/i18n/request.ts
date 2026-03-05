@@ -20,8 +20,16 @@ export default getRequestConfig(async () => {
     ? (cookieLocale as Locale)
     : headerLocale;
 
+  const messages = {
+    common: (await import(`../../messages/${locale}/common.json`)).default,
+    enums: (await import(`../../messages/${locale}/enums.json`)).default,
+    signup: (await import(`../../messages/${locale}/signup.json`)).default,
+    // dashboard: (await import(`../messages/${locale}/dashboard.json`)).default,
+    // security: (await import(`../messages/${locale}/security.json`)).default,
+  };
+
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    messages,
   };
 });

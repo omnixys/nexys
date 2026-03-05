@@ -1,4 +1,3 @@
-import { UserStatusType } from "../../types/user/user-enum-type";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
@@ -6,24 +5,25 @@ import PauseCircleOutlineOutlinedIcon from "@mui/icons-material/PauseCircleOutli
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { formatEnum } from "../format-enum";
 import { USER_STATUS_I18N } from "../../types/user/enum-translations";
+import { StatusType } from "@/generated/graphql";
 
 
 export function formatUserStatus(
-  v?: UserStatusType | null,
+  v?: StatusType | null,
   tUser?: any,
 ): string {
   if (!v) return "—";
   if (tUser) return formatEnum(tUser, USER_STATUS_I18N, v);
   return String(v);
 }
-export function getStatusIcon(status: UserStatusType | null | undefined, theme: any) {
+export function getStatusIcon(status: StatusType | null | undefined, theme: any) {
   // good
-  if (status === UserStatusType.ACTIVE) {
+  if (status === StatusType.Active) {
     return <CheckCircleOutlineIcon sx={{ color: theme.palette.success.main }} />;
   }
 
   // warning-ish
-  if (status === UserStatusType.INACTIVE) {
+  if (status === StatusType.Inactive) {
     return (
       <PauseCircleOutlineOutlinedIcon
         sx={{ color: theme.palette.warning.main }}
@@ -32,12 +32,12 @@ export function getStatusIcon(status: UserStatusType | null | undefined, theme: 
   }
 
   // bad
-  if (status === UserStatusType.BLOCKED || status === UserStatusType.DISABLED) {
+  if (status === StatusType.Blocked || status === StatusType.Disabled) {
     return <BlockOutlinedIcon sx={{ color: theme.palette.error.main }} />;
   }
 
   // terminal
-  if (status === UserStatusType.DELETED || status === UserStatusType.CLOSED) {
+  if ( status === StatusType.Closed) {
     return (
       <DeleteOutlineOutlinedIcon sx={{ color: theme.palette.text.secondary }} />
     );
@@ -46,10 +46,10 @@ export function getStatusIcon(status: UserStatusType | null | undefined, theme: 
   return <BadgeOutlinedIcon sx={{ color: theme.palette.text.secondary }} />;
 }
 
-export function getStatusValueColor(status: UserStatusType | null | undefined, theme: any) {
-  if (status === UserStatusType.ACTIVE) return theme.palette.success.main;
-  if (status === UserStatusType.INACTIVE) return theme.palette.warning.main;
-  if (status === UserStatusType.BLOCKED || status === UserStatusType.DISABLED)
+export function getStatusValueColor(status: StatusType | null | undefined, theme: any) {
+  if (status === StatusType.Active) return theme.palette.success.main;
+  if (status === StatusType.Inactive) return theme.palette.warning.main;
+  if (status === StatusType.Blocked || status === StatusType.Disabled)
     return theme.palette.error.main;
   return theme.palette.text.primary;
 }

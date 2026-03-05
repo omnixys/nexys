@@ -1,9 +1,13 @@
 "use client";
 
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { Box, Chip, Divider, Typography } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { formatAddressLines } from "../../../../utils/formatAddress";
+import { useMemo } from "react";
+import { GetAllInterestCategoriesDocument, GetAllInterestCategoriesQuery, GetAllInterestCategoriesQueryVariables } from "@/generated/graphql";
+import { useQuery } from "@apollo/client/react";
+
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -21,6 +25,24 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 export default function SummaryStep() {
   const { getValues } = useFormContext<SignUpFormValues>();
   const v = getValues();
+
+      const { data } = useQuery<
+        GetAllInterestCategoriesQuery,
+        GetAllInterestCategoriesQueryVariables
+      >(GetAllInterestCategoriesDocument, { fetchPolicy: "cache-first" });
+
+
+  const interestMap = useMemo(() => {
+    const map = new Map<string, string>();
+
+    data?.getAllInterestCategories?.forEach((cat) => {
+      cat.interests?.forEach((i) => {
+        map.set(i.id, i.key);
+      });
+    });
+
+    return map;
+  }, [data]);
 
   return (
     <>
@@ -130,8 +152,8 @@ export default function SummaryStep() {
             Interests
           </Typography>
           <Box display="flex" flexWrap="wrap" gap={1} mt={0.5}>
-            {(v.customer?.interests ?? []).map((i) => (
-              <Chip key={i} label={i} size="small" />
+            {(v.customer?.interestIds ?? []).map((id) => (
+              <Chip key={id} label={interestMap.get(id) ?? id} size="small" />
             ))}
           </Box>
         </Box>
@@ -154,7 +176,7 @@ export default function SummaryStep() {
 
         <Divider sx={{ my: 2 }} />
 
-        <Row label="Terms accepted" value={v.termsAccepted ? "Yes" : "No"} />
+        <Row label="Terms accepted" value={v.acceptedTerms ? "Yes" : "No"} />
       </Box>
     </>
   );

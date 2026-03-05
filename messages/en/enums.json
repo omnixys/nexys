@@ -1,0 +1,24 @@
+{
+  "gender": {
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "DIVERSE": "Diverse",
+    "UNKNOWN": "Prefer not to say"
+  },
+
+  "maritalStatus": {
+    "SINGLE": "Single",
+    "MARRIED": "Married",
+    "DIVORCED": "Divorced",
+    "WIDOWED": "Widowed"
+  },
+
+  "phoneNumberType": {
+    "MOBILE": "Mobile",
+    "HOME": "Home",
+    "WORK": "Work",
+    "PRIVATE": "Private",
+    "WHATSAPP": "WhatsApp",
+    "OTHER": "Other"
+  }
+}

@@ -1,0 +1,8 @@
+mutation LoginTotp($username: String!, $code: String!) {
+  loginTotp(input: { username: $username, code: $code }) {
+    accessToken
+    expiresIn
+    refreshToken
+    refreshExpiresIn
+  }
+}

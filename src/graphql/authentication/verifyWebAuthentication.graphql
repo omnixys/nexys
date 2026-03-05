@@ -1,0 +1,8 @@
+mutation VerifyWebAuthnAuthentication($response: JSON!) {
+  verifyWebAuthnAuthentication(response: $response) {
+    accessToken
+    expiresIn
+    refreshToken
+    refreshExpiresIn
+  }
+}

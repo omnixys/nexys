@@ -2,9 +2,6 @@ import { GatewayGraphQLError } from "@/utils/graphqlHandler.error";
 import {
   ChangeMyPasswordInput,
   GuestSignUpInput,
-  LoginInput,
-  UpdateMyProfileInput,
-  UserSignUpInput,
 } from "./auth-input.type";
 import { GuestSigupPayload } from "./auth-payload.type";
 import { AuthToken } from "./auth.type";
@@ -25,15 +22,6 @@ export type GuestSignUpResult = {
 
 export type GuestSignInRequest = {
   input: GuestSignUpInput;
-};
-
-export type LoginResult = {
-  login: AuthToken;
-  error?: GatewayGraphQLError;
-};
-
-export type LoginRequest = {
-  input: LoginInput;
 };
 
 export type RefreshResult = {

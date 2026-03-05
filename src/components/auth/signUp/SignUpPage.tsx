@@ -3,10 +3,12 @@
 import { Box, Container, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import SignUpWizard from "./SignUpWizard";
-import { Country } from "@/types/address/address.type";
+import { Country } from "@/graphql/graphql.type";
+
+
 
 export interface SignUpPageProps {
-  countries: Country[];
+  countries?: Country[];
   defaultCountry: string;
 }
 

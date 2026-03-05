@@ -1,0 +1,13 @@
+query GetAllInterestCategories {
+  getAllInterestCategories {
+    id
+    key
+    icon
+    description
+    interests {
+      id
+      key
+      icon
+    }
+  }
+}

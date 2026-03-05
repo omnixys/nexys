@@ -1,7 +1,13 @@
 "use client";
 
+/**
+ * @file PhoneNumbersStep.tsx
+ * @description Phone numbers step
+ */
+
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+
 import {
   Box,
   Button,
@@ -13,18 +19,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { PhoneNumberType } from "../../../../types/user/user-enum-type";
-import { Country } from "../../../../types/address/address.type";
-import { SignUpFormValues } from "../../../../schemas/sign-up.schema";
 import Image from "next/image";
+
+import { Country } from "@/graphql/graphql.type";
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { PhoneNumberType } from "@/generated/graphql";
+
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Props = {
   countries: Country[];
   defaultCountry?: string;
 };
 
-export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
+export default function PhoneNumbersStep({
+  countries,
+  defaultCountry = "+49",
+}: Props) {
+  const t = useTypedTranslations("signup.phoneNumbers");
+  const enumT = useTypedTranslations("enums");
+
   const { control } = useFormContext<SignUpFormValues>();
 
   const { fields, append, remove } = useFieldArray({
@@ -35,11 +51,11 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        Telefonnummern
+        {t("title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={4}>
-        Optional, aber empfohlen für Sicherheit & Verifizierung.
+        {t("description")}
       </Typography>
 
       {fields.map((f, idx) => (
@@ -63,15 +79,23 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
           </IconButton>
 
           <Stack spacing={3}>
-            <Stack direction={"row"} spacing={3}>
+            {/* =========================
+                TYPE / LABEL / PRIMARY
+            ========================= */}
+            <Stack direction="row" spacing={3}>
               <Controller
                 name={`phoneNumbers.${idx}.type`}
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} select fullWidth label="Typ">
-                    {Object.values(PhoneNumberType).map((t) => (
-                      <MenuItem key={t} value={t}>
-                        {t}
+                  <TextField
+                    {...field}
+                    select
+                    fullWidth
+                    label={t("fields.type")}
+                  >
+                    {Object.values(PhoneNumberType).map((type) => (
+                      <MenuItem key={type} value={type}>
+                        {enumT(`phoneNumberType.${type}`)}
                       </MenuItem>
                     ))}
                   </TextField>
@@ -82,11 +106,7 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
                 name={`phoneNumbers.${idx}.label`}
                 control={control}
                 render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    label="Bezeichnung (optional)"
-                  />
+                  <TextField {...field} fullWidth label={t("fields.label")} />
                 )}
               />
 
@@ -101,32 +121,40 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Primäre Nummer"
+                    label={t("fields.primary")}
                   />
                 )}
               />
             </Stack>
 
-            <Stack direction={"row"} spacing={3}>
+            {/* =========================
+                COUNTRY + NUMBER
+            ========================= */}
+            <Stack direction="row" spacing={3}>
               <Controller
                 name={`phoneNumbers.${idx}.countryCode`}
                 control={control}
-                defaultValue="+49"
                 render={({ field }) => (
-                  <TextField {...field} select fullWidth label="Vorwahl">
+                  <TextField
+                    {...field}
+                    select
+                    fullWidth
+                    label={t("fields.countryCode")}
+                  >
                     {countries.map((c) => (
                       <MenuItem key={c.iso2} value={c?.callingCode?.code}>
                         <Stack direction="row" spacing={2}>
-                          <Image
-                            src={c.flagSvg}
-                            width={25}
-                            height={25}
-                            alt={`Flag of ${c.name}`}
-                          />
+                          {c.flagSvg && (
+                            <Image
+                              src={c.flagSvg}
+                              width={24}
+                              height={24}
+                              alt={`Flag of ${c.name}`}
+                            />
+                          )}
+
                           <Typography>
-                            {c.name} {"("}
-                            {c?.callingCode?.code}
-                            {")"}
+                            {c.name} ({c?.callingCode?.code})
                           </Typography>
                         </Stack>
                       </MenuItem>
@@ -142,7 +170,7 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
                   <TextField
                     {...field}
                     fullWidth
-                    label="Nummer"
+                    label={t("fields.number")}
                     placeholder="17612345678"
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message ?? " "}
@@ -154,7 +182,9 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
         </Box>
       ))}
 
-      {/* ================= ADD BUTTON ================= */}
+      {/* =========================
+          ADD PHONE NUMBER
+      ========================= */}
       <Box>
         <Button
           fullWidth
@@ -162,10 +192,10 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
           startIcon={<AddRoundedIcon />}
           onClick={() =>
             append({
-              type: PhoneNumberType.MOBILE,
+              type: PhoneNumberType.Mobile,
               number: "",
               label: "",
-              countryCode: "+49",
+              countryCode: defaultCountry,
               isPrimary: fields.length === 0,
             })
           }
@@ -174,7 +204,7 @@ export default function PhoneNumbersStep({ countries, defaultCountry }: Props) {
             borderStyle: "dashed",
           }}
         >
-          Weitere Nummer hinzufügen
+          {t("add")}
         </Button>
       </Box>
     </>

@@ -40,7 +40,10 @@
     ".extras/inspiration/profile/PeekPill.tsx",
     ".extras/inspiration/profile/ProfileCompletenessCard.tsx",
     ".extras/inspiration/profile/ProfileCompletenessSection.tsx",
-    ".extras/inspiration/profile/ProfileKpiCard.tsx"
-, ".extras/inspiration/profile/ProfileIdentityHeader.tsx", ".extras/inspiration/profile/RoleSection.tsx", ".extras/inspiration/profile/RotatingProfileHeadline1.tsx"  ],
+    ".extras/inspiration/profile/ProfileKpiCard.tsx", 
+    ".extras/inspiration/profile/ProfileIdentityHeader.tsx", 
+    ".extras/inspiration/profile/RoleSection.tsx", 
+    ".extras/inspiration/profile/RotatingProfileHeadline1.tsx"  
+  ],
   "exclude": ["node_modules"]
 }

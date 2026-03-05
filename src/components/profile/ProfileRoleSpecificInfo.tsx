@@ -8,10 +8,8 @@
 import React from "react";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
-
-import { User } from "@/types/user/user.type";
-import { UserType } from "@/types/user/user-enum-type";
 import CustomerInterestSpectrum from "../profile/SpectrumRow";
+import { User } from "@/graphql/graphql.type";
 
 type Props = {
   user: User;

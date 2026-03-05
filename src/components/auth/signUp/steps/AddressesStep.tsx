@@ -4,8 +4,8 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { Box, Button, Typography } from "@mui/material";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
-import { Country } from "@/types/address/address.type";
 import AddressCard from "../address/AddressCard";
+import { Country } from "@/graphql/graphql.type";
 
 type Props = {
   countries: Country[];

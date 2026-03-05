@@ -12,9 +12,11 @@ import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { useFormContext } from "react-hook-form";
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { useRouter } from "next/navigation";
 
 export default function SuccessStep() {
   const theme = useTheme();
+  const router = useRouter();
   const { getValues } = useFormContext<SignUpFormValues>();
 
   const username = getValues("username");
@@ -154,7 +156,7 @@ export default function SuccessStep() {
               fontWeight: 600,
             }}
             onClick={() => {
-              // später z.B. router.push("/dashboard")
+            router.push("/home")
               console.log("Go to dashboard");
             }}
           >

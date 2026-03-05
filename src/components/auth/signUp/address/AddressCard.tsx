@@ -18,6 +18,7 @@ import { usePostalCode } from "@/hooks/usePostalCodes";
 import { useState } from "@/hooks/useStates";
 import UniversalAutocomplete from "../../../ui/UniversalAutocomplete";
 import StreetAutocomplete from "./StreetAutocomplete";
+import { Country } from "@/graphql/graphql.type";
 
 const ADDRESS_TYPES = [
   { id: "home", label: "Home" },
@@ -43,12 +44,7 @@ const getAddressIcon = (type?: string) => {
 
 type Props = {
   idx: number;
-  countries: Array<{
-    id: string;
-    name: string;
-    flagSvg?: string;
-    flagPng?: string;
-  }>;
+  countries: Country[];
   canRemove: boolean;
   onRemove: (idx: number) => void;
 };

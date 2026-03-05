@@ -12,23 +12,38 @@ import {
   Typography,
 } from "@mui/material";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { useQuery } from "@apollo/client/react";
+
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
 
-const SUGGESTED_QUESTIONS = [
-  "Wie hieß Ihr erstes Haustier?",
-  "In welcher Stadt wurden Sie geboren?",
-  "Wie lautet der Mädchenname Ihrer Mutter?",
-  "Was war Ihr Lieblingsfach in der Schule?",
-  "Wie hieß Ihr bester Freund in der Kindheit?",
-];
+import {
+  GetSecurityQuestionsDocument,
+  GetSecurityQuestionsQuery,
+} from "@/generated/graphql";
 
 export default function SecurityQuestionsStep() {
-  const { control } = useFormContext<SignUpFormValues>();
+  const { control, watch } = useFormContext<SignUpFormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "securityQuestions",
   });
+
+  const { data, loading } = useQuery<GetSecurityQuestionsQuery>(
+    GetSecurityQuestionsDocument,
+    {
+      fetchPolicy: "cache-first",
+      context: {
+        fetchOptions: {
+          credentials: "include",
+        },
+      },
+    },
+  );
+
+  const questions = data?.getSecurityQuestions ?? [];
+
+  const selectedQuestions = watch("securityQuestions")?.map((q) => q.question);
 
   return (
     <>
@@ -57,14 +72,13 @@ export default function SecurityQuestionsStep() {
               onClick={() => remove(idx)}
               size="small"
               sx={{ position: "absolute", top: 10, right: 10 }}
-              aria-label="remove question"
             >
               <CloseRoundedIcon fontSize="small" />
             </IconButton>
           )}
 
           <Stack spacing={3}>
-            {/* ===== Question Select ===== */}
+            {/* Question */}
             <Controller
               name={`securityQuestions.${idx}.question`}
               control={control}
@@ -79,16 +93,22 @@ export default function SecurityQuestionsStep() {
                 >
                   <MenuItem value="">Bitte wählen</MenuItem>
 
-                  {SUGGESTED_QUESTIONS.map((q) => (
-                    <MenuItem key={q} value={q}>
-                      {q}
-                    </MenuItem>
-                  ))}
+                  {questions
+                    .filter(
+                      (q) =>
+                        !selectedQuestions?.includes(q.id) ||
+                        field.value === q.id,
+                    )
+                    .map((q) => (
+                      <MenuItem key={q.id} value={q.id}>
+                        {q.question}
+                      </MenuItem>
+                    ))}
                 </TextField>
               )}
             />
 
-            {/* ===== Answer ===== */}
+            {/* Answer */}
             <Controller
               name={`securityQuestions.${idx}.answer`}
               control={control}
@@ -106,12 +126,12 @@ export default function SecurityQuestionsStep() {
         </Box>
       ))}
 
-      {/* ===== Add Button Below ===== */}
       <Button
         fullWidth
         variant="outlined"
         startIcon={<AddRoundedIcon />}
         onClick={() => append({ question: "", answer: "" })}
+        disabled={loading || fields.length >= questions.length}
         sx={{
           py: 1.5,
           borderStyle: "dashed",

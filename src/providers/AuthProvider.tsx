@@ -9,12 +9,12 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-import { ME } from "@/graphql/user/user-query.graphql";
 import { createCombinedApolloClient } from "@/lib/client/combined-client";
 import type { MeResult } from "@/types/user/user-graphql.type";
-import { User } from "@/types/user/user.type";
 import { AuthEventsBus, AuthManager } from "@/utils/AuthManager";
 import { KcRole } from '../types/authentication/auth-enum.type';
+import { GetMeDocument, GetMeQuery, GetMeQueryVariables, RealmRole } from "@/generated/graphql";
+import { User } from '@/graphql/graphql.type'
 
 export interface AuthContextType {
   user?: User;
@@ -33,14 +33,19 @@ export function AuthProvider({
   children: React.ReactNode;
 }): JSX.Element {
   const client = useMemo(() => createCombinedApolloClient(), []);
-  const { data, loading, refetch } = useQuery<MeResult>(ME, {
-    client,
-    fetchPolicy: "cache-and-network",
-    context: { fetchOptions: { credentials: "include" } },
+  const { data, loading, refetch } = useQuery<GetMeQuery, GetMeQueryVariables>(
+    GetMeDocument, {
+      client,
+      fetchPolicy: "cache-and-network",
+      context: {
+        fetchOptions: {
+          credentials: "include"
+        }
+      },
   });
 
   const user = data?.me;
-  const isAdmin = user?.role == KcRole.ADMIN;
+  const isAdmin = user?.role == RealmRole.Admin;
   const isAuthenticated = !!user;
 
   /* Initialize AuthManager */

@@ -16,11 +16,11 @@ import {
   USER_CUSTOMER_CONTACT_OPTION_I18N,
   USER_CUSTOMER_TIER_I18N,
 } from "@/types/user/enum-translations";
-import { UserType } from "@/types/user/user-enum-type";
-import { User } from "@/types/user/user.type";
 import { formatEnum } from "@/utils/format-enum";
 import { useRotatingValue } from "../../hooks/useRotatingValue";
 import { IconLabelValueRow } from "../ui/value/IconLabelValueRow";
+import { UserType } from "@/generated/graphql";
+import { User } from "@/graphql/graphql.type";
 
 type Props = {
   user: User;
@@ -47,11 +47,11 @@ export default function ProfileRoleData({ user, isAdmin }: Props) {
         {useTranslations("sections")("roleData")}
       </Typography>
 
-      {type === UserType.GUEST && <GuestBlock tUser={tUser} />}
-      {type === UserType.CUSTOMER && (
+      {type === UserType.Guest && <GuestBlock tUser={tUser} />}
+      {type === UserType.Customer && (
         <CustomerBlock user={user} tUser={tUser} theme={theme} />
       )}
-      {type === UserType.EMPLOYEE && (
+      {type === UserType.Employee && (
         <EmployeeBlock
           user={user}
           tUser={tUser}
@@ -93,7 +93,7 @@ function CustomerBlock({
         rootSx={{ gap: 0 }}
       >
         <Chip
-          label={formatEnum(tUser, USER_CUSTOMER_TIER_I18N, user?.role)}
+          label={formatEnum(tUser, USER_CUSTOMER_TIER_I18N, user?.role ?? '')}
           size="small"
           sx={{
             bgcolor: theme.palette.secondary.main + "22",

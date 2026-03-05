@@ -17,7 +17,7 @@ export type UniversalOption = {
   id: string;
   label: string;
   secondLabel?: string;
-  flagSrc?: string;
+  flagSrc?: string | null;
   category?: string;
 };
 

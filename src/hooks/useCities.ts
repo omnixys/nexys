@@ -1,18 +1,14 @@
-import { GET_CITIES_BY_STATE } from "@/graphql/address/city.queries";
 import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
 import { UniversalOption } from "../components/ui/UniversalAutocomplete";
-import {
-  GetCitiesByRequest,
-  GetCitiesByStateResult,
-} from "../types/address/address-graphql.type";
+import { GetCitiesByStateDocument, GetCitiesByStateQuery, GetCitiesByStateQueryVariables } from "@/generated/graphql";
 
 export function useCity(stateId?: string) {
   const { data, error, loading } = useQuery<
-    GetCitiesByStateResult,
-    GetCitiesByRequest
-  >(GET_CITIES_BY_STATE, {
-    variables: { stateId },
+    GetCitiesByStateQuery,
+    GetCitiesByStateQueryVariables
+  >(GetCitiesByStateDocument, {
+    variables: { stateId: stateId! },
     skip: !stateId,
   });
 

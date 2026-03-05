@@ -1,45 +1,37 @@
 "use client";
 
-/**
- * @file ProfileDetailsStep.tsx
- * @description Interests & contact preferences using MUI Chip selector (RHF controlled).
- */
-
 import {
   Box,
   Checkbox,
   Chip,
+  Divider,
   FormControlLabel,
+  InputBase,
   Typography,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { motion } from "framer-motion";
 import { Controller, useFormContext } from "react-hook-form";
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { useQuery } from "@apollo/client/react";
+import { useMemo, useState } from "react";
+
 import {
+  GetAllInterestCategoriesDocument,
+  GetAllInterestCategoriesQuery,
   ContactOptionsType,
-  InterestType,
-} from "../../../../types/user/user-enum-type";
+  GetAllInterestCategoriesQueryVariables,
+} from "@/generated/graphql";
+
+import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { InterestCategory } from "@/graphql/graphql.type";
+import { DynamicIcon } from "@/components/ui/DynamicIcon";
 
 const MotionChip = motion(Chip);
+const MotionBox = motion(Box);
 
 // ----------------------------------
-// Labels
+// Contact Labels
 // ----------------------------------
-
-const interestLabels: Record<InterestType, string> = {
-  SPORTS: "🏅 Sport",
-  MUSIC: "🎵 Musik",
-  TRAVEL: "✈️ Reisen",
-  TECHNOLOGY: "💻 Technologie",
-  INVESTMENTS: "📈 Investments",
-  SAVING_AND_FINANCE: "💰 Sparen & Finanzen",
-  CREDIT_AND_DEBT: "💳 Kredit",
-  REAL_ESTATE: "🏠 Immobilien",
-  INSURANCE: "🛡️ Versicherung",
-  SUSTAINABLE_FINANCE: "🌱 Nachhaltige Finanzen",
-  TECHNOLOGY_AND_INNOVATION: "🚀 Tech & Innovation",
-  BANK_PRODUCTS_AND_SERVICES: "🏦 Bankprodukte",
-};
 
 const contactLabels: Record<ContactOptionsType, string> = {
   EMAIL: "📧 E-Mail",
@@ -55,6 +47,48 @@ const contactLabels: Record<ContactOptionsType, string> = {
 
 export default function ProfileDetailsStep() {
   const { control } = useFormContext<SignUpFormValues>();
+  const [search, setSearch] = useState("");
+
+  const { data } = useQuery<
+    GetAllInterestCategoriesQuery,
+    GetAllInterestCategoriesQueryVariables
+  >(GetAllInterestCategoriesDocument, {
+    fetchPolicy: "cache-first",
+    context: {
+      fetchOptions: {
+        credentials: "include",
+      },
+    },
+  });
+
+  const categories: InterestCategory[] = data?.getAllInterestCategories ?? [];
+
+  // ----------------------------------
+  // Filtered Categories
+  // ----------------------------------
+
+const filteredCategories = useMemo(() => {
+  const normalized = categories.map((cat) => ({
+    ...cat,
+    interests: (cat.interests ?? []).filter(Boolean),
+  }));
+
+  if (!search.trim()) return normalized;
+
+  const lower = search.toLowerCase();
+
+  return normalized
+    .map((cat) => {
+      const interests = cat.interests.filter((i) =>
+        i.key.toLowerCase().includes(lower),
+      );
+
+      if (!interests.length) return null;
+
+      return { ...cat, interests };
+    })
+    .filter(Boolean);
+}, [categories, search]);
 
   return (
     <>
@@ -62,56 +96,121 @@ export default function ProfileDetailsStep() {
         Interessen & Kontakt
       </Typography>
 
-      <Typography variant="body2" color="text.secondary" mb={4}>
-        Personalisieren Sie Ihr Erlebnis.
-      </Typography>
+      {/* ========================= */}
+      {/* Search */}
+      {/* ========================= */}
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          py: 1,
+          mb: 3,
+          borderRadius: 3,
+          background: "rgba(255,255,255,0.04)",
+        }}
+      >
+        <SearchIcon sx={{ mr: 1, opacity: 0.6 }} />
+        <InputBase
+          placeholder="Interessen durchsuchen..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          fullWidth
+        />
+      </Box>
 
       {/* ========================= */}
-      {/* Interests */}
+      {/* Interests Grouped */}
       {/* ========================= */}
+
       <Controller
-        name="customer.interests"
+        name="customer.interestIds"
         control={control}
         render={({ field }) => {
-          const selected = field.value ?? [];
+          const selected: string[] = field.value ?? [];
 
-          const toggle = (val: InterestType) => {
-            const exists = selected.includes(val);
-            const next = exists
-              ? selected.filter((v: InterestType) => v !== val)
-              : [...selected, val];
-
-            field.onChange(next);
+          const toggle = (key: string) => {
+            const exists = selected.includes(key);
+            field.onChange(
+              exists ? selected.filter((v) => v !== key) : [...selected, key],
+            );
           };
 
           return (
-            <Box mb={4}>
-              <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                Interessen *
-              </Typography>
+            <>
+              {filteredCategories.map((category) => (
+                <MotionBox
+                  key={category?.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  mb={4}
+                >
+                  {/* Category Header */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.2,
+                      mb: 1.5,
+                    }}
+                  >
+                    {category?.icon && (
+                      <DynamicIcon
+                        name={category.icon}
+                        size={18}
+                        strokeWidth={1.8}
+                      />
+                    )}
 
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.2 }}>
-                {Object.entries(interestLabels).map(([key, label]) => {
-                  const isSelected = selected.includes(key as InterestType);
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                      {category?.key}
+                    </Typography>
+                  </Box>
 
-                  return (
-                    <MotionChip
-                      key={key}
-                      whileTap={{ scale: 0.94 }}
-                      label={label}
-                      clickable
-                      onClick={() => toggle(key as InterestType)}
-                      variant={isSelected ? "filled" : "outlined"}
-                      color={isSelected ? "primary" : "default"}
-                      sx={{
-                        borderRadius: "999px",
-                        fontWeight: 500,
-                      }}
-                    />
-                  );
-                })}
-              </Box>
-            </Box>
+                  <Divider sx={{ mb: 2, opacity: 0.2 }} />
+
+                  {/* Interests */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1.2,
+                    }}
+                  >
+                    {category?.interests.map((interest) => {
+                      const isSelected = selected.includes(interest.id);
+
+                      return (
+                        <MotionChip
+                          key={interest.id}
+                          whileTap={{ scale: 0.94 }}
+                          icon={
+                            interest.icon ? (
+                              <DynamicIcon
+                                name={interest.icon}
+                                size={16}
+                                strokeWidth={1.8}
+                              />
+                            ) : undefined
+                          }
+                          label={interest.key}
+                          clickable
+                          onClick={() => toggle(interest.id)}
+                          variant={isSelected ? "filled" : "outlined"}
+                          color={isSelected ? "primary" : "default"}
+                          sx={{
+                            borderRadius: "999px",
+                            fontWeight: 500,
+                          }}
+                        />
+                      );
+                    })}
+                  </Box>
+                </MotionBox>
+              ))}
+            </>
           );
         }}
       />
@@ -119,6 +218,7 @@ export default function ProfileDetailsStep() {
       {/* ========================= */}
       {/* Contact Options */}
       {/* ========================= */}
+
       <Controller
         name="customer.contactOptions"
         control={control}
@@ -127,24 +227,21 @@ export default function ProfileDetailsStep() {
 
           const toggle = (val: ContactOptionsType) => {
             const exists = selected.includes(val);
-            const next = exists
-              ? selected.filter((v: ContactOptionsType) => v !== val)
-              : [...selected, val];
-
-            field.onChange(next);
+            field.onChange(
+              exists ? selected.filter((v) => v !== val) : [...selected, val],
+            );
           };
 
           return (
-            <Box mb={4}>
-              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+            <Box mt={4}>
+              <Typography variant="subtitle2" mb={1}>
                 Bevorzugte Kontaktwege *
               </Typography>
 
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.2 }}>
                 {Object.entries(contactLabels).map(([key, label]) => {
-                  const isSelected = selected.includes(
-                    key as ContactOptionsType,
-                  );
+                  const typedKey = key as ContactOptionsType;
+                  const isSelected = selected.includes(typedKey);
 
                   return (
                     <MotionChip
@@ -152,7 +249,7 @@ export default function ProfileDetailsStep() {
                       whileTap={{ scale: 0.94 }}
                       label={label}
                       clickable
-                      onClick={() => toggle(key as ContactOptionsType)}
+                      onClick={() => toggle(typedKey)}
                       variant={isSelected ? "filled" : "outlined"}
                       color={isSelected ? "primary" : "default"}
                       sx={{
@@ -169,8 +266,9 @@ export default function ProfileDetailsStep() {
       />
 
       {/* ========================= */}
-      {/* Newsletter Checkbox */}
+      {/* Newsletter */}
       {/* ========================= */}
+
       <Controller
         name="customer.subscribed"
         control={control}

@@ -1,0 +1,64 @@
+{
+  "personal": {
+    "title": "Personal Information",
+
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "birthDate": "Date of birth",
+      "gender": "Gender",
+      "maritalStatus": "Marital status"
+    },
+
+    "email": {
+      "checking": "Checking...",
+      "available": "✓ Available",
+      "emailTaken": "Email is already in use."
+    }
+  },
+
+    "account": {
+    "title": "Create account",
+
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+
+    "username": {
+      "checking": "Checking...",
+      "available": "✓ Available",
+      "taken": "Username is already taken."
+    }
+  },
+
+    "phoneNumbers": {
+    "title": "Phone numbers",
+    "description": "Optional, but recommended for security and verification.",
+
+    "fields": {
+      "type": "Type",
+      "label": "Label (optional)",
+      "primary": "Primary number",
+      "countryCode": "Country code",
+      "number": "Number"
+    },
+
+    "add": "Add another number"
+  },
+
+  "security": {
+    "title": "Sicherheit",
+    "description": "Schützen Sie Ihr Konto mit zusätzlichen Sicherheitsfragen."
+  },
+
+  "address": {
+    "title": "Adresse"
+  },
+
+  "contact": {
+    "title": "Kontaktinformationen"
+  }
+}

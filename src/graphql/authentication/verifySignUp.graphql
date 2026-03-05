@@ -1,0 +1,3 @@
+ mutation VerifySignUp($token: String!) {
+   verifySignUp(token: $token)
+ }
