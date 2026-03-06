@@ -8,7 +8,7 @@ import { OMNIXYS_LOGOS } from "../../../utils/omnixysBranding";
 export default function BrandingHeader() {
   const theme = useTheme();
   const { scheme } = useThemeMode();
-  const t = useTypedTranslations("branding");
+  const t = useTypedTranslations("login");
 
   const logoSrc = OMNIXYS_LOGOS[scheme];
 
@@ -42,7 +42,7 @@ export default function BrandingHeader() {
           letterSpacing: "-0.02em",
         }}
       >
-        {t("title")}
+        {t("credentials.branding.title")}
       </Typography>
 
       <Typography
@@ -52,7 +52,7 @@ export default function BrandingHeader() {
           color: theme.palette.text.secondary,
         }}
       >
-        {t("tagline")}
+        {t("credentials.branding.tagline")}
       </Typography>
     </Box>
   );

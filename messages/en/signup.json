@@ -14,7 +14,7 @@
     "email": {
       "checking": "Checking...",
       "available": "✓ Available",
-      "emailTaken": "Email is already in use."
+      "taken": "Email is already in use."
     }
   },
 
@@ -194,5 +194,28 @@
     "description": "We sent a verification link to your email address. Please check your inbox and confirm your account.",
     "expires": "This link expires in",
     "resend": "Resend verification email"
+  },
+
+  "wizard": {
+    "brand": "Omnixys",
+    "subtitle": "Create your Omnixys account in just a few secure steps."
+  },
+  "steps": {
+    "account": "Account",
+    "personal": "Personal Information",
+    "addresses": "Addresses",
+    "phones": "Phone Numbers",
+    "security": "Security Questions",
+    "details": "Interests & Preferences",
+    "contacts": "Trusted Contacts",
+    "terms": "Terms & Conditions",
+    "summary": "Summary",
+    "finish": "Completed"
+  },
+  "actions": {
+    "back": "Back",
+    "next": "Next",
+    "confirm": "Confirm & Create",
+    "haveAccount": "Already have an account? Log in"
   }
 }

@@ -16,7 +16,7 @@ interface SubmitButtonProps {
  */
 export default function SubmitButton({ loading = false }: SubmitButtonProps) {
   const theme = useTheme();
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   return (
     <Button
@@ -44,10 +44,10 @@ export default function SubmitButton({ loading = false }: SubmitButtonProps) {
             color="inherit"
             sx={{ mr: 1 }}
           />
-          {t("submit.loading")}
+          {t("credentials.submit.loading")}
         </>
       ) : (
-        t("submit.login")
+        t("credentials.submit.login")
       )}
     </Button>
   );

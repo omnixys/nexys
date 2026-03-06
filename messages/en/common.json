@@ -76,45 +76,7 @@
     }
   },
 
-  "branding": {
-    "title": "Nexys",
-    "tagline": "Build. Connect. Evolve."
-  },
 
-  "auth": {
-    "username": {
-      "label": "Username"
-    },
-    "password": {
-      "label": "Password",
-      "toggleVisibility": "Toggle password visibility",
-      "placeholder": "Enter your password",
-      "required": "Password is required",
-      "minLength": "Password must be at least 8 characters"
-    },
-    "terms": {
-      "label": "I agree with the Terms & Conditions",
-      "required": "You must accept the Terms & Conditions"
-    },
-    "submit": {
-      "login": "Log in",
-      "loading": "Signing in…",
-      "register": "Create account",
-      "loading2": "Please wait…"
-    },
-    "links": {
-      "signup": "Sign up",
-      "forgotPassword": "Forgot password?"
-    },
-    "provider": {
-      "title": "Sign in with"
-    },
-    "errors": {
-      "termsRequired": "Please accept the Terms and Conditions first",
-      "missingCredentials": "Username or password is missing",
-      "loginFailed": "Login failed. Please try again."
-    }
-  },
 
   "sections": {
     "roleData": "Role data",

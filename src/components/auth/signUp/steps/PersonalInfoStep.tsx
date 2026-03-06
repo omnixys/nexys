@@ -34,7 +34,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 type EmailStatus = "idle" | "checking" | "available" | "taken";
 
 export default function PersonalInfoStep() {
-  const t = useTypedTranslations("signup.personal");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const {
@@ -78,7 +78,7 @@ export default function PersonalInfoStep() {
 
           setError("personalInfo.email", {
             type: "manual",
-            message: t("email.taken"),
+            message: t("personal.email.taken"),
           });
         }
       } catch {
@@ -92,15 +92,15 @@ export default function PersonalInfoStep() {
   const emailHelperText =
     errors.personalInfo?.email?.message ??
     (emailStatus === "checking"
-      ? t("email.checking")
+      ? t("personal.email.checking")
       : emailStatus === "available"
-        ? t("email.available")
+        ? t("personal.email.available")
         : " ");
 
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={4}>
-        {t("title")}
+        {t("personal.title")}
       </Typography>
       {/* ================================
           FIRST + LAST NAME
@@ -115,7 +115,7 @@ export default function PersonalInfoStep() {
                 <TextField
                   {...field}
                   fullWidth
-                  label={t("fields.firstName")}
+                  label={t("personal.fields.firstName")}
                   error={!!errors.personalInfo?.firstName}
                   helperText={errors.personalInfo?.firstName?.message ?? " "}
                 />
@@ -131,7 +131,7 @@ export default function PersonalInfoStep() {
                 <TextField
                   {...field}
                   fullWidth
-                  label={t("fields.lastName")}
+                  label={t("personal.fields.lastName")}
                   error={!!errors.personalInfo?.lastName}
                   helperText={errors.personalInfo?.lastName?.message ?? " "}
                 />
@@ -153,7 +153,7 @@ export default function PersonalInfoStep() {
               {...field}
               type="email"
               fullWidth
-              label={t("fields.email")}
+              label={t("personal.fields.email")}
               error={!!errors.personalInfo?.email}
               helperText={emailHelperText}
               InputProps={{
@@ -187,7 +187,7 @@ export default function PersonalInfoStep() {
                 {...field}
                 type="date"
                 fullWidth
-                label={t("fields.birthDate")}
+                label={t("personal.fields.birthDate")}
                 InputLabelProps={{ shrink: true }}
                 error={!!errors.personalInfo?.birthDate}
                 helperText={errors.personalInfo?.birthDate?.message ?? " "}
@@ -203,7 +203,7 @@ export default function PersonalInfoStep() {
                 {...field}
                 select
                 fullWidth
-                label={t("fields.gender")}
+                label={t("personal.fields.gender")}
                 error={!!errors.personalInfo?.gender}
                 helperText={errors.personalInfo?.gender?.message ?? " "}
               >
@@ -224,7 +224,7 @@ export default function PersonalInfoStep() {
                 {...field}
                 select
                 fullWidth
-                label={t("fields.maritalStatus")}
+                label={t("personal.fields.maritalStatus")}
                 error={!!errors.personalInfo?.maritalStatus}
                 helperText={errors.personalInfo?.maritalStatus?.message ?? " "}
               >

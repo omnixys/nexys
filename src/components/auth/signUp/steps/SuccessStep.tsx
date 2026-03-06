@@ -51,7 +51,7 @@ export default function VerifyEmailStep() {
   const theme = useTheme();
   const router = useRouter();
 
-  const t = useTypedTranslations("signup.verifyEmail");
+  const t = useTypedTranslations("signup");
 
   const { getValues } = useFormContext<SignUpFormValues>();
   const email = getValues("personalInfo.email");
@@ -176,11 +176,11 @@ const getMailLinks = () => {
         transition={{ delay: 0.5 }}
       >
         <Typography variant="h4" sx={{ fontWeight: 800 }} gutterBottom>
-          {t("title")}
+          {t("verifyEmail.title")}
         </Typography>
 
         <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-          {t("description")}
+          {t("verifyEmail.description")}
         </Typography>
 
         <Typography
@@ -203,7 +203,7 @@ const getMailLinks = () => {
             fontWeight: 500,
           }}
         >
-          {t("expires")}{" "}
+          {t("verifyEmail.expires")}{" "}
           <Box
             component="span"
             sx={{
@@ -245,7 +245,7 @@ const getMailLinks = () => {
             py: 1.5,
           }}
         >
-          {t("resend")}
+          {t("verifyEmail.resend")}
         </Button>
       </motion.div>
     </Box>

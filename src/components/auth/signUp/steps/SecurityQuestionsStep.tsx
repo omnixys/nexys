@@ -28,7 +28,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 export default function SecurityQuestionsStep() {
   const { control, watch, setValue } = useFormContext<SignUpFormValues>();
 
-  const t = useTypedTranslations("signup.security");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const { fields, append, remove } = useFieldArray({
@@ -57,11 +57,11 @@ export default function SecurityQuestionsStep() {
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        {t("title")}
+        {t("security.title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={4}>
-        {t("description")}
+        {t("security.description")}
       </Typography>
 
       {fields.map((f, idx) => (
@@ -96,7 +96,7 @@ export default function SecurityQuestionsStep() {
                   value={field.value ?? ""}
                   select
                   fullWidth
-                  label={t("fields.question")}
+                  label={t("security.fields.question")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message ?? " "}
                   onChange={(e) => {
@@ -112,7 +112,7 @@ export default function SecurityQuestionsStep() {
                     );
                   }}
                 >
-                  <MenuItem value="">{t("select")}</MenuItem>
+                  <MenuItem value="">{t("security.select")}</MenuItem>
 
                   {questions
                     .filter(
@@ -136,7 +136,7 @@ export default function SecurityQuestionsStep() {
                 <TextField
                   {...field}
                   fullWidth
-                  label={t("fields.answer")}
+                  label={t("security.fields.answer")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message ?? " "}
                 />
@@ -163,7 +163,7 @@ export default function SecurityQuestionsStep() {
           borderStyle: "dashed",
         }}
       >
-        {t("add")}
+        {t("security.add")}
       </Button>
     </>
   );

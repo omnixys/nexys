@@ -15,7 +15,7 @@ export default function TotpLoginCard({
   loading = false,
   errorText,
 }: TotpLoginCardProps) {
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
 async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault();

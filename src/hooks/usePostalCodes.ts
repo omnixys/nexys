@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
 import { UniversalOption } from "../components/ui/UniversalAutocomplete";
 import { GetPostalCodesByCityDocument, GetPostalCodesByCityQuery, GetPostalCodesByCityQueryVariables, GetPostalCodesByStateDocument, GetPostalCodesByStateQuery, GetPostalCodesByStateQueryVariables } from "@/generated/graphql";
+import {PostalCode} from '@/graphql/graphql.type'
 
 export function usePostalCode({
   cityId,
@@ -40,9 +41,9 @@ export function usePostalCode({
         ? postalCodeCityData.getPostalCodesByCity
         : (postalCodeStateData?.getPostalCodesByState ?? []);
 
-    return source.map((p: any) => ({
+    return source.map((p: PostalCode) => ({
       id: p.id,
-      label: p.zip,
+      label: p.code,
     }));
   }, [postalCodeStateData, postalCodeCityData, cityId]);
 

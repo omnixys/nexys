@@ -25,7 +25,7 @@ export default function ProviderLoginCard({
   selected,
   onSelect,
 }: ProviderLoginCardProps) {
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
   const [tab, setTab] = useState<"providers" | "auth">("auth");
 
   const oauthProviders = providers.filter((p) =>
@@ -55,7 +55,7 @@ export default function ProviderLoginCard({
     >
       <Box textAlign="center" mb={2}>
         <Typography variant="h5">
-          {tab === "providers" ? t("provider.title") : t("auth.title")}
+          {tab === "providers" ? t("title.provider") : t("title.auth")}
         </Typography>
       </Box>
 
@@ -75,7 +75,7 @@ export default function ProviderLoginCard({
                 startIcon={provider.icon}
                 fullWidth
                 onClick={() => {
-                                          onSelect(provider.id as AuthMethod);
+                  onSelect(provider.id as AuthMethod);
                   if (provider.id === "github") {
                     AuthManager.loginWithProvider("github");
                     return;
@@ -84,8 +84,6 @@ export default function ProviderLoginCard({
                     AuthManager.loginWithProvider("google");
                     return;
                   }
-
-
 
                   // andere Provider später
                 }}

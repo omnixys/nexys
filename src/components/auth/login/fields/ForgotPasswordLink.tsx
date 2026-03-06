@@ -9,7 +9,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function ForgotPasswordLink() {
   const theme = useTheme();
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   return (
     <Link
@@ -20,7 +20,7 @@ export default function ForgotPasswordLink() {
         fontWeight: "bold",
       }}
     >
-      {t("links.forgotPassword")}
+      {t("credentials.links.forgotPassword")}
     </Link>
   );
 }

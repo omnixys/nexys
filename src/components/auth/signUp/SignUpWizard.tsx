@@ -20,6 +20,7 @@ import Confetti from "react-confetti";
 
 // Steps
 import {
+  AddressType,
   CreateSignupVerificationDocument,
   CreateSignupVerificationMutation,
   CreateSignupVerificationMutationVariables,
@@ -45,12 +46,15 @@ import SummaryStep from "./steps/SummaryStep";
 import TermsStep from "./steps/TermsStep";
 import { Country } from '../../../generated/graphql';
 import { CreateSignupVerificationRequest } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 export default function SignUpWizard({
   countries,
   defaultCountry,
 }: SignUpPageProps) {
   const router = useRouter();
+
+  const t = useTypedTranslations("signup");
 
   const { scheme } = useThemeMode();
   const [activeStep, setActiveStep] = useState(0);
@@ -97,7 +101,7 @@ export default function SignUpWizard({
           countryId: "",
           country: defaultCountry ?? "",
           additionalInfo: undefined,
-          addressType: "",
+          addressType: AddressType.Home,
         },
       ],
       phoneNumbers: [],
@@ -277,17 +281,18 @@ export default function SignUpWizard({
           priority
         />
         <Typography variant="h4" sx={{ fontWeight: 700 }}>
-          Omnixys
+          {t("wizard.brand")}
         </Typography>
+
         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-          Premium onboarding — secure, structured, and human-first.
+          {t("wizard.subtitle")}
         </Typography>
       </Box>
 
       <Stepper activeStep={activeStep} alternativeLabel sx={{ mb: 4 }}>
         {STEPS.map((s) => (
           <Step key={s.key}>
-            <StepLabel>{s.label}</StepLabel>
+            <StepLabel>{t(`steps.${s.key}`)}</StepLabel>
           </Step>
         ))}
       </Stepper>
@@ -359,7 +364,7 @@ export default function SignUpWizard({
             {showNav && (
               <Box mt={4} display="flex" justifyContent="space-between" gap={2}>
                 <Button onClick={back} disabled={activeStep === 0}>
-                  Back
+                  {t("actions.back")}
                 </Button>
 
                 <Typography
@@ -373,7 +378,7 @@ export default function SignUpWizard({
                   }}
                   onClick={() => router.replace("/login")}
                 >
-                  Already have an account? Log in
+                  {t("actions.haveAccount")}
                 </Typography>
 
                 <Button
@@ -383,8 +388,8 @@ export default function SignUpWizard({
                   disabled={!isCurrentStepValid || loading}
                 >
                   {STEPS[activeStep].key === "summary"
-                    ? "Confirm & Create"
-                    : "Next"}
+                    ? t("actions.confirm")
+                    : t("actions.next")}
                 </Button>
               </Box>
             )}

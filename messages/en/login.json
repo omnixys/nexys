@@ -1,0 +1,73 @@
+{
+  "title": {
+    "auth": "Log In",
+  "provider": "Continue with"
+  },
+
+  "credentials": {
+    "errors": {
+      "termsRequired": "Please accept the Terms and Conditions first",
+      "missingCredentials": "Username or password is missing",
+      "loginFailed": "Login failed. Please try again."
+    },
+
+    "branding": {
+      "title": "Nexys",
+      "tagline": "Build. Connect. Evolve."
+    },
+
+    "username": {
+      "label": "Username"
+    },
+
+    "password": {
+      "label": "Password",
+      "toggleVisibility": "Toggle password visibility",
+      "placeholder": "Enter your password",
+      "required": "Password is required",
+      "minLength": "Password must be at least 8 characters"
+    },
+
+    "terms": {
+      "label": "I agree with the Terms & Conditions",
+      "required": "You must accept the Terms & Conditions"
+    },
+
+    "submit": {
+      "login": "Log in",
+      "loading": "Signing in…",
+      "register": "Create account",
+      "loading2": "Please wait…"
+    },
+
+    "links": {
+      "signup": "Sign up",
+      "forgotPassword": "Forgot password?"
+    },
+
+    "provider": {
+      "title": "Sign in with"
+    }
+  },
+
+  "totp": {
+    "title": "Authenticator App",
+    "subtitle": "Enter the 6-digit code from your authenticator app.",
+    "usernameLabel": "Username",
+    "codeLabel": "Authentication Code",
+    "verify": "Verify Code"
+  },
+
+  "webauthn": {
+    "title": "Passkey / WebAuthn",
+    "subtitle": "Use Face ID, Touch ID, or your security key.",
+    "start": "Continue with Passkey"
+  },
+
+  "magicLink": {
+    "title": "Magic Link",
+    "subtitle": "We’ll send you a secure sign-in link via email.",
+    "emailLabel": "Email Address",
+    "send": "Send Login Link"
+  }
+}

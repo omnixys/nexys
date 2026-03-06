@@ -9,7 +9,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function SignUpLink() {
   const theme = useTheme();
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   return (
     <Link
@@ -20,7 +20,7 @@ export default function SignUpLink() {
         fontWeight: "bold",
       }}
     >
-      {t("links.signup")}
+      {t("credentials.links.signup")}
     </Link>
   );
 }

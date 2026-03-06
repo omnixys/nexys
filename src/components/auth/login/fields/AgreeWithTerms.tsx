@@ -9,7 +9,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function AgreeWithTerms() {
   const theme = useTheme();
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   return (
     <FormControlLabel
@@ -37,7 +37,7 @@ export default function AgreeWithTerms() {
           }}
         />
       }
-      label={t("terms.label")}
+      label={t("credentials.terms.label")}
       componentsProps={{
         typography: {
           variant: "body2",

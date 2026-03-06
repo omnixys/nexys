@@ -23,7 +23,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 export default function ContactsStep() {
   const { control } = useFormContext<SignUpFormValues>();
 
-  const t = useTypedTranslations("signup.contacts");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const { fields, append, remove } = useFieldArray({
@@ -40,7 +40,7 @@ export default function ContactsStep() {
         mb={2}
       >
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
-          {t("title")}
+          {t("contacts.title")}
         </Typography>
 
         <Button
@@ -50,24 +50,24 @@ export default function ContactsStep() {
             append({
               contactId: "",
               relationship: RelationshipType.Other,
-              withdrawalLimit: null,
+              withdrawalLimit: 0,
               emergency: false,
               startDate: "",
               endDate: "",
             })
           }
         >
-          {t("add")}
+          {t("contacts.add")}
         </Button>
       </Box>
 
       <Typography variant="body2" color="text.secondary" mb={3}>
-        {t("description")}
+        {t("contacts.description")}
       </Typography>
 
       {fields.length === 0 ? (
         <Typography variant="body2" color="text.secondary">
-          {t("empty")}
+          {t("contacts.empty")}
         </Typography>
       ) : (
         fields.map((f, idx) => (
@@ -94,7 +94,7 @@ export default function ContactsStep() {
             <Grid container spacing={2}>
               {/* CONTACT ID */}
 
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.contactId`}
                   control={control}
@@ -102,10 +102,11 @@ export default function ContactsStep() {
                     <TextField
                       {...field}
                       fullWidth
-                      label={t("fields.contactId")}
+                      label={t("contacts.fields.contactId")}
                       error={!!fieldState.error}
                       helperText={
-                        fieldState.error?.message ?? t("helpers.contactId")
+                        fieldState.error?.message ??
+                        t("contacts.helpers.contactId")
                       }
                     />
                   )}
@@ -113,8 +114,7 @@ export default function ContactsStep() {
               </Grid>
 
               {/* RELATIONSHIP */}
-
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.relationship`}
                   control={control}
@@ -123,7 +123,7 @@ export default function ContactsStep() {
                       {...field}
                       select
                       fullWidth
-                      label={t("fields.relationship")}
+                      label={t("contacts.fields.relationship")}
                     >
                       {Object.values(RelationshipType).map((r) => (
                         <MenuItem key={r} value={r}>
@@ -136,8 +136,7 @@ export default function ContactsStep() {
               </Grid>
 
               {/* WITHDRAWAL LIMIT */}
-
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.withdrawalLimit`}
                   control={control}
@@ -146,7 +145,7 @@ export default function ContactsStep() {
                       {...field}
                       type="number"
                       fullWidth
-                      label={t("fields.withdrawalLimit")}
+                      label={t("contacts.fields.withdrawalLimit")}
                       onChange={(e) =>
                         field.onChange(
                           e.target.value ? Number(e.target.value) : null,
@@ -159,7 +158,7 @@ export default function ContactsStep() {
 
               {/* EMERGENCY */}
 
-              <Grid item xs={12} md={6}>
+              <Grid sx={{ xs: 12, md: 6 }}>
                 <Controller
                   name={`contacts.${idx}.emergency`}
                   control={control}
@@ -167,15 +166,15 @@ export default function ContactsStep() {
                     <TextField
                       select
                       fullWidth
-                      label={t("fields.emergency")}
+                      label={t("contacts.fields.emergency")}
                       value={String(!!field.value)}
                       onChange={(e) =>
                         field.onChange(e.target.value === "true")
                       }
                     >
-                      <MenuItem value="false">{t("no")}</MenuItem>
+                      <MenuItem value="false">{t("contacts.no")}</MenuItem>
 
-                      <MenuItem value="true">{t("yes")}</MenuItem>
+                      <MenuItem value="true">{t("contacts.yes")}</MenuItem>
                     </TextField>
                   )}
                 />

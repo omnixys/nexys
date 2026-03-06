@@ -17,7 +17,7 @@ export default function MagicLinkLoginCard({
   infoText,
   errorText,
 }: MagicLinkLoginCardProps) {
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

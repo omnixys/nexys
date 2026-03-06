@@ -32,7 +32,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 type UsernameStatus = "idle" | "checking" | "available" | "taken";
 
 export default function AccountStep() {
-  const t = useTypedTranslations("signup.account");
+  const t = useTypedTranslations("signup");
 
   const {
     register,
@@ -94,7 +94,7 @@ export default function AccountStep() {
 
           setError("username", {
             type: "manual",
-            message: t("username.taken"),
+            message: t("account.username.taken"),
           });
         }
       } catch {
@@ -108,15 +108,15 @@ export default function AccountStep() {
   const usernameHelperText =
     errors.username?.message ??
     (usernameStatus === "checking"
-      ? t("username.checking")
+      ? t("account.username.checking")
       : usernameStatus === "available"
-        ? t("username.available")
+        ? t("account.username.available")
         : " ");
 
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={4}>
-        {t("title")}
+        {t("account.title")}
       </Typography>
 
       <Stack spacing={3}>
@@ -126,7 +126,7 @@ export default function AccountStep() {
         <TextField
           {...register("username")}
           fullWidth
-          label={t("fields.username")}
+          label={t("account.fields.username")}
           autoComplete="username"
           error={!!errors.username}
           helperText={usernameHelperText}
@@ -153,7 +153,7 @@ export default function AccountStep() {
             {...register("password")}
             type={showPassword ? "text" : "password"}
             fullWidth
-            label={t("fields.password")}
+            label={t("account.fields.password")}
             autoComplete="new-password"
             error={!!errors.password}
             helperText={errors.password?.message ?? " "}
@@ -189,7 +189,7 @@ export default function AccountStep() {
           {...register("confirmPassword")}
           type="password"
           fullWidth
-          label={t("fields.confirmPassword")}
+          label={t("account.fields.confirmPassword")}
           autoComplete="new-password"
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword?.message ?? " "}

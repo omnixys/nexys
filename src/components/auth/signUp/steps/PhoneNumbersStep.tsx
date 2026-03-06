@@ -38,7 +38,7 @@ export default function PhoneNumbersStep({
   countries,
   defaultCountry = "+49",
 }: Props) {
-  const t = useTypedTranslations("signup.phoneNumbers");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const { control } = useFormContext<SignUpFormValues>();
@@ -51,11 +51,11 @@ export default function PhoneNumbersStep({
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        {t("title")}
+        {t("phoneNumbers.title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={4}>
-        {t("description")}
+        {t("phoneNumbers.description")}
       </Typography>
 
       {fields.map((f, idx) => (
@@ -91,7 +91,7 @@ export default function PhoneNumbersStep({
                     {...field}
                     select
                     fullWidth
-                    label={t("fields.type")}
+                    label={t("phoneNumbers.fields.type")}
                   >
                     {Object.values(PhoneNumberType).map((type) => (
                       <MenuItem key={type} value={type}>
@@ -106,7 +106,7 @@ export default function PhoneNumbersStep({
                 name={`phoneNumbers.${idx}.label`}
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} fullWidth label={t("fields.label")} />
+                  <TextField {...field} fullWidth label={t("phoneNumbers.fields.label")} />
                 )}
               />
 
@@ -121,7 +121,7 @@ export default function PhoneNumbersStep({
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label={t("fields.primary")}
+                    label={t("phoneNumbers.fields.primary")}
                   />
                 )}
               />
@@ -139,7 +139,7 @@ export default function PhoneNumbersStep({
                     {...field}
                     select
                     fullWidth
-                    label={t("fields.countryCode")}
+                    label={t("phoneNumbers.fields.countryCode")}
                   >
                     {countries.map((c) => (
                       <MenuItem key={c.iso2} value={c?.callingCode?.code}>
@@ -170,7 +170,7 @@ export default function PhoneNumbersStep({
                   <TextField
                     {...field}
                     fullWidth
-                    label={t("fields.number")}
+                    label={t("phoneNumbers.fields.number")}
                     placeholder="17612345678"
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message ?? " "}
@@ -204,7 +204,7 @@ export default function PhoneNumbersStep({
             borderStyle: "dashed",
           }}
         >
-          {t("add")}
+          {t("phoneNumbers.add")}
         </Button>
       </Box>
     </>

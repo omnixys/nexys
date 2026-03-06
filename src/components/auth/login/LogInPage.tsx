@@ -8,7 +8,6 @@ import AuthLayout from "@/components/auth/login/AuthLayout";
 import CredentialsLoginCard from "@/components/auth/login/CredentialsLoginCard";
 import ProviderLoginCard from "@/components/auth/login/ProviderLoginCard";
 
-import { LoginInput } from "@/types/authentication/auth-input.type";
 import { AuthManager } from "@/utils/AuthManager";
 import { AuthErrorKey } from "@/types/authentication/auth.type";
 import AuthTabs from "@/components/auth/login/AuthTabs";
@@ -62,7 +61,7 @@ export default function LogInPage() {
         return;
       }
 
-      const input: LoginInput = {
+      const input = {
         username: String(username),
         password: String(password),
       };

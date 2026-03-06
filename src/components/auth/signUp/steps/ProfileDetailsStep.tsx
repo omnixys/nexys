@@ -22,6 +22,7 @@ import {
   GetAllInterestCategoriesQuery,
   ContactOptionsType,
   GetAllInterestCategoriesQueryVariables,
+  InterestEnum,
 } from "@/generated/graphql";
 
 import { SignUpFormValues } from "@/schemas/sign-up.schema";
@@ -36,7 +37,7 @@ const MotionBox = motion(Box);
 export default function ProfileDetailsStep() {
   const { control } = useFormContext<SignUpFormValues>();
 
-  const t = useTypedTranslations("signup.profile");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const [search, setSearch] = useState("");
@@ -86,7 +87,7 @@ export default function ProfileDetailsStep() {
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        {t("title")}
+        {t("profile.title")}
       </Typography>
 
       {/* ========================= */}
@@ -107,7 +108,7 @@ export default function ProfileDetailsStep() {
         <SearchIcon sx={{ mr: 1, opacity: 0.6 }} />
 
         <InputBase
-          placeholder={t("searchPlaceholder")}
+          placeholder={t("profile.searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           fullWidth
@@ -124,11 +125,11 @@ export default function ProfileDetailsStep() {
         render={({ field }) => {
           const selected: string[] = field.value ?? [];
 
-          const toggle = (key: string) => {
-            const exists = selected.includes(key);
+          const toggle = (id: string) => {
+            const exists = selected.includes(id);
 
             field.onChange(
-              exists ? selected.filter((v) => v !== key) : [...selected, key],
+              exists ? selected.filter((v) => v !== id) : [...selected, id],
             );
           };
 
@@ -176,7 +177,7 @@ export default function ProfileDetailsStep() {
                       gap: 1.2,
                     }}
                   >
-                    {category.interests.map((interest) => {
+                    {category?.interests?.map((interest) => {
                       const isSelected = selected.includes(interest.id);
 
                       return (
@@ -233,7 +234,7 @@ export default function ProfileDetailsStep() {
           return (
             <Box mt={4}>
               <Typography variant="subtitle2" mb={1}>
-                {t("contactOptions")}
+                {t("profile.contactOptions")}
               </Typography>
 
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.2 }}>
@@ -277,7 +278,7 @@ export default function ProfileDetailsStep() {
                 onChange={(e) => field.onChange(e.target.checked)}
               />
             }
-            label={t("newsletter")}
+            label={t("profile.newsletter")}
           />
         )}
       />

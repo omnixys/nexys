@@ -199,5 +199,28 @@
       "expired": "Der Verifizierungslink ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.",
       "failed": "Verifizierung fehlgeschlagen."
     }
+  },
+
+  "wizard": {
+    "brand": "Omnixys",
+    "subtitle": "Erstellen Sie Ihr Omnixys-Konto in wenigen sicheren Schritten."
+  },
+  "steps": {
+    "account": "Konto",
+    "personal": "Persönliche Daten",
+    "addresses": "Adressen",
+    "phones": "Telefonnummern",
+    "security": "Sicherheitsfragen",
+    "details": "Interessen & Präferenzen",
+    "contacts": "Vertrauenspersonen",
+    "terms": "AGB",
+    "summary": "Zusammenfassung",
+    "finish": "Fertig"
+  },
+  "actions": {
+    "back": "Zurück",
+    "next": "Weiter",
+    "confirm": "Bestätigen & Konto erstellen",
+    "haveAccount": "Bereits ein Konto? Anmelden"
   }
 }

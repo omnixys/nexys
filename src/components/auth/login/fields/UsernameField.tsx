@@ -10,12 +10,12 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function UsernameField() {
   const theme = useTheme();
-   const t = useTypedTranslations("auth");
+   const t = useTypedTranslations("login");
   
   return (
     <TextField
       id="input-with-icon-textfield"
-      label={t("username.label")}
+      label={t("credentials.username.label")}
       name="username"
       type="input"
       size="small"

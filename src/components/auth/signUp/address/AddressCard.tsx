@@ -1,11 +1,7 @@
 "use client";
 
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
 import EditLocationRoundedIcon from "@mui/icons-material/EditLocationRounded";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
-import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
 
 import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
 
@@ -23,6 +19,7 @@ import StreetAutocomplete from "./StreetAutocomplete";
 
 import { Country } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { AddressType } from "@/generated/graphql";
 
 type Props = {
   idx: number;
@@ -45,7 +42,7 @@ export default function AddressCard({
 }: Props) {
   const { setValue, control } = useFormContext();
 
-  const t = useTypedTranslations("signup.address");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const countryId = useWatch({
@@ -97,22 +94,22 @@ export default function AddressCard({
   const ADDRESS_TYPES = useMemo(
     () => [
       {
-        id: "home",
+        id: AddressType.Home,
         label: enumT("addressType.HOME"),
         icon: "house",
       },
       {
-        id: "work",
+        id: AddressType.Work,
         label: enumT("addressType.WORK"),
         icon: "building",
       },
       {
-        id: "billing",
+        id: AddressType.Billing,
         label: enumT("addressType.BILLING"),
         icon: 'credit-card',
       },
       {
-        id: "shipping",
+        id: AddressType.Shipping,
         label: enumT("addressType.SHIPPING"),
         icon: 'truck',
       },
@@ -128,8 +125,8 @@ export default function AddressCard({
   const title = addressType?.trim()
     ? addressType.trim()
     : idx === 0
-      ? t("primary")
-      : `${t("address")} #${idx + 1}`;
+      ? t("address.primary")
+      : `${t("address.address")} #${idx + 1}`;
 
   return (
     <Box
@@ -181,7 +178,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label={t("fields.country")}
+                    label={t("address.fields.country")}
                     options={countries.map((c) => ({
                       id: c.id,
                       label: c.name,
@@ -220,7 +217,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label={t("fields.state")}
+                    label={t("address.fields.state")}
                     options={stateOptions}
                     valueId={stateId}
                     loading={loadingStates}
@@ -255,7 +252,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label={t("fields.postalCode")}
+                    label={t("address.fields.postalCode")}
                     options={postalCodeOptions}
                     valueId={postalCodeId}
                     filterMode="startsWith"
@@ -280,7 +277,7 @@ export default function AddressCard({
                   exit="exit"
                 >
                   <UniversalAutocomplete
-                    label={t("fields.city")}
+                    label={t("address.fields.city")}
                     options={cityOptions}
                     valueId={cityId}
                     onChange={(val) => {
@@ -318,7 +315,7 @@ export default function AddressCard({
               control={control}
               render={({ field }) => (
                 <UniversalAutocomplete
-                  label={t("fields.addressType")}
+                  label={t("address.fields.addressType")}
                   options={ADDRESS_TYPES}
                   freeSolo
                   includeInputInList
@@ -344,7 +341,7 @@ export default function AddressCard({
                 <TextField
                   {...field}
                   fullWidth
-                  label={t("fields.additionalInfo")}
+                  label={t("address.fields.additionalInfo")}
                 />
               )}
             />

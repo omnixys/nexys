@@ -19,7 +19,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function PasswordField() {
   const theme = useTheme();
-    const t = useTypedTranslations("auth");
+    const t = useTypedTranslations("login");
   const [showPassword, setShowPassword] = React.useState(false);
 
   /**
@@ -39,14 +39,14 @@ export default function PasswordField() {
   return (
     <FormControl sx={{ my: 1 }} fullWidth variant="outlined">
       <InputLabel size="small" htmlFor="outlined-adornment-password">
-        {t("password.label")}
+        {t("credentials.password.label")}
       </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         type={showPassword ? "text" : "password"}
         name="password"
         size="small"
-        label={t("password.label")}
+        label={t("credentials.password.label")}
         sx={{
           ...glassInputSx(theme),
 
@@ -66,7 +66,7 @@ export default function PasswordField() {
         endAdornment={
           <InputAdornment position="end">
             <IconButton
-              aria-label={t("password.toggleVisibility")}
+              aria-label={t("credentials.password.toggleVisibility")}
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}
               edge="end"

@@ -37,7 +37,7 @@ export default function SummaryStep() {
   const { getValues } = useFormContext<SignUpFormValues>();
   const v = getValues();
 
-  const t = useTypedTranslations("signup.summary");
+  const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
   const { data } = useQuery<
@@ -68,11 +68,11 @@ export default function SummaryStep() {
       {/* TITLE */}
 
       <Typography variant="h5" sx={{ fontWeight: 700 }} mb={2}>
-        {t("title")}
+        {t("summary.title")}
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mb={3}>
-        {t("description")}
+        {t("summary.description")}
       </Typography>
 
       <Box
@@ -86,35 +86,35 @@ export default function SummaryStep() {
         {/* ACCOUNT */}
 
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          {t("sections.account")}
+          {t("summary.sections.account")}
         </Typography>
 
-        <Row label={t("fields.username")} value={v.username} />
+        <Row label={t("summary.fields.username")} value={v.username} />
 
         <Divider sx={{ my: 2 }} />
 
         {/* PERSONAL */}
 
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          {t("sections.personal")}
+          {t("summary.sections.personal")}
         </Typography>
 
         <Row
-          label={t("fields.name")}
+          label={t("summary.fields.name")}
           value={`${v.personalInfo.firstName} ${v.personalInfo.lastName}`}
         />
 
-        <Row label={t("fields.email")} value={v.personalInfo.email} />
+        <Row label={t("summary.fields.email")} value={v.personalInfo.email} />
 
-        <Row label={t("fields.birthDate")} value={v.personalInfo.birthDate} />
+        <Row label={t("summary.fields.birthDate")} value={v.personalInfo.birthDate} />
 
         <Row
-          label={t("fields.gender")}
+          label={t("summary.fields.gender")}
           value={enumT(`gender.${v.personalInfo.gender}`)}
         />
 
         <Row
-          label={t("fields.maritalStatus")}
+          label={t("summary.fields.maritalStatus")}
           value={enumT(`maritalStatus.${v.personalInfo.maritalStatus}`)}
         />
 
@@ -123,13 +123,13 @@ export default function SummaryStep() {
         {/* ADDRESSES */}
 
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          {t("sections.addresses")}
+          {t("summary.sections.addresses")}
         </Typography>
 
         {(v.addresses ?? []).map((addr, i) => (
           <Box key={i} mb={2}>
             <Typography variant="body2" sx={{ fontWeight: 600 }}>
-              {t("fields.address")} {i + 1}
+              {t("summary.fields.address")} {i + 1}
             </Typography>
 
             {formatAddressLines(addr).map((line, idx) => (
@@ -145,7 +145,7 @@ export default function SummaryStep() {
         {/* PHONE NUMBERS */}
 
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          {t("sections.phoneNumbers")}
+          {t("summary.sections.phoneNumbers")}
         </Typography>
 
         {(v.phoneNumbers ?? []).length === 0 && (
@@ -159,7 +159,7 @@ export default function SummaryStep() {
             <Typography variant="body2">
               {p.countryCode} {p.number}
               {p.label ? ` (${p.label})` : ""}
-              {p.isPrimary && ` • ${t("primary")}`}
+              {p.isPrimary && ` • ${t("summary.primary")}`}
             </Typography>
           </Box>
         ))}
@@ -169,7 +169,7 @@ export default function SummaryStep() {
         {/* SECURITY QUESTIONS */}
 
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          {t("sections.securityQuestions")}
+          {t("summary.sections.securityQuestions")}
         </Typography>
 
         {(v.securityQuestions ?? []).map((q, i) => (
@@ -185,14 +185,14 @@ export default function SummaryStep() {
         {/* PREFERENCES */}
 
         <Typography variant="h6" sx={{ fontWeight: 700 }} mb={1.5}>
-          {t("sections.preferences")}
+          {t("summary.sections.preferences")}
         </Typography>
 
         {/* INTERESTS */}
 
         <Box mb={1}>
           <Typography variant="body2" color="text.secondary">
-            {t("fields.interests")}
+            {t("summary.fields.interests")}
           </Typography>
 
           <Box display="flex" flexWrap="wrap" gap={1} mt={0.5}>
@@ -206,7 +206,7 @@ export default function SummaryStep() {
 
         <Box mb={1}>
           <Typography variant="body2" color="text.secondary">
-            {t("fields.contactOptions")}
+            {t("summary.fields.contactOptions")}
           </Typography>
 
           <Box display="flex" flexWrap="wrap" gap={1} mt={0.5}>
@@ -217,20 +217,20 @@ export default function SummaryStep() {
         </Box>
 
         <Row
-          label={t("fields.newsletter")}
+          label={t("summary.fields.newsletter")}
           value={
             v.customer?.subscribed
-              ? t("values.subscribed")
-              : t("values.notSubscribed")
+              ? t("summary.values.subscribed")
+              : t("summary.values.notSubscribed")
           }
         />
 
         <Divider sx={{ my: 2 }} />
 
         <Row
-          label={t("fields.terms")}
+          label={t("summary.fields.terms")}
           value={
-            v.acceptedTerms ? t("values.accepted") : t("values.notAccepted")
+            v.acceptedTerms ? t("summary.values.accepted") : t("summary.values.notAccepted")
           }
         />
       </Box>

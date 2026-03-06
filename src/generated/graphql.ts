@@ -41,6 +41,13 @@ export type AddressAutocompletePayload = {
   street?: Maybe<Scalars['String']['output']>;
 };
 
+export enum AddressType {
+  Billing = 'BILLING',
+  Home = 'HOME',
+  Shipping = 'SHIPPING',
+  Work = 'WORK'
+}
+
 export type AddressValidationInput = {
   city: Scalars['String']['input'];
   country: Scalars['String']['input'];
@@ -237,6 +244,18 @@ export type CreateTemplateInput = {
   variables: Array<Scalars['String']['input']>;
 };
 
+export type CreateUserAddressInput = {
+  additionalInfo?: InputMaybe<Scalars['String']['input']>;
+  addressType: AddressType;
+  cityId?: InputMaybe<Scalars['ID']['input']>;
+  countryId?: InputMaybe<Scalars['ID']['input']>;
+  houseNumberId?: InputMaybe<Scalars['ID']['input']>;
+  postalCodeId?: InputMaybe<Scalars['ID']['input']>;
+  stateId?: InputMaybe<Scalars['ID']['input']>;
+  streetId?: InputMaybe<Scalars['ID']['input']>;
+  userId: Scalars['ID']['input'];
+};
+
 export type CreateUserInput = {
   acceptedTerms: Scalars['Boolean']['input'];
   acceptedTermsAt: Scalars['DateTime']['input'];
@@ -331,6 +350,21 @@ export type GeoPoint = {
   longitude?: Maybe<Scalars['Float']['output']>;
 };
 
+export type HouseNumber = {
+  __typename?: 'HouseNumber';
+  id: Scalars['ID']['output'];
+  number: Scalars['String']['output'];
+};
+
+export enum InterestCategoryEnum {
+  Finance = 'FINANCE',
+  Lifestyle = 'LIFESTYLE',
+  Music = 'MUSIC',
+  RealAssets = 'REAL_ASSETS',
+  Sports = 'SPORTS',
+  Technology = 'TECHNOLOGY'
+}
+
 export type InterestCategoryPayload = {
   __typename?: 'InterestCategoryPayload';
   createdAt: Scalars['DateTime']['output'];
@@ -338,10 +372,31 @@ export type InterestCategoryPayload = {
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   interests?: Maybe<Array<InterestPayload>>;
-  key: Scalars['String']['output'];
+  key: InterestCategoryEnum;
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
+
+export enum InterestEnum {
+  BankProductsAndServices = 'BANK_PRODUCTS_AND_SERVICES',
+  Basketball = 'BASKETBALL',
+  Classic = 'CLASSIC',
+  CreditAndDebt = 'CREDIT_AND_DEBT',
+  FinancialEducationAndCounseling = 'FINANCIAL_EDUCATION_AND_COUNSELING',
+  Football = 'FOOTBALL',
+  Hiphop = 'HIPHOP',
+  Insurance = 'INSURANCE',
+  Investments = 'INVESTMENTS',
+  Rap = 'RAP',
+  RealEstate = 'REAL_ESTATE',
+  Rock = 'ROCK',
+  Rugby = 'RUGBY',
+  SavingAndFinance = 'SAVING_AND_FINANCE',
+  Soccer = 'SOCCER',
+  SustainableFinance = 'SUSTAINABLE_FINANCE',
+  TechnologyAndInnovation = 'TECHNOLOGY_AND_INNOVATION',
+  Travel = 'TRAVEL'
+}
 
 export type InterestPayload = {
   __typename?: 'InterestPayload';
@@ -349,7 +404,7 @@ export type InterestPayload = {
   createdAt: Scalars['DateTime']['output'];
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  key: Scalars['String']['output'];
+  key: InterestEnum;
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -418,10 +473,12 @@ export type Mutation = {
   createSignupVerification: Scalars['Boolean']['output'];
   createTemplate: TemplatePayload;
   createUser: UserPayload;
+  createUserAddress: UserAddress;
   credentialsLogin: TokenPayload;
   deleteKcUser: Scalars['Boolean']['output'];
   deleteNotification: Scalars['Boolean']['output'];
   deleteUser: Scalars['Boolean']['output'];
+  deleteUserAddressByUserId: Scalars['Boolean']['output'];
   enableTotp: TotpSetupPayload;
   generatePasswordlessOptions: Scalars['JSON']['output'];
   generateWebAuthnAuthOptions: Scalars['JSON']['output'];
@@ -446,6 +503,7 @@ export type Mutation = {
   updateMyProfile: SuccessPayload;
   updateTemplate: TemplatePayload;
   updateUser: UserPayload;
+  updateUserAddress: UserAddress;
   userSignUp: TokenPayload;
   verifyMagicLink: TokenPayload;
   verifyPasswordResetStepUp: Scalars['Boolean']['output'];
@@ -545,6 +603,11 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationCreateUserAddressArgs = {
+  input: CreateUserAddressInput;
+};
+
+
 export type MutationCredentialsLoginArgs = {
   input: LogInInput;
 };
@@ -562,6 +625,11 @@ export type MutationDeleteNotificationArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteUserAddressByUserIdArgs = {
+  userId: Scalars['ID']['input'];
 };
 
 
@@ -649,6 +717,11 @@ export type MutationUpdateTemplateArgs = {
 
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput;
+};
+
+
+export type MutationUpdateUserAddressArgs = {
+  input: UpdateUserAddressInput;
 };
 
 
@@ -811,18 +884,18 @@ export type PostalCode = {
   __typename?: 'PostalCode';
   accuracy?: Maybe<Scalars['Int']['output']>;
   city: City;
+  code: Scalars['String']['output'];
   country: Country;
   createdAt: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   location?: Maybe<GeoPoint>;
   updatedAt: Scalars['String']['output'];
-  zip: Scalars['String']['output'];
 };
 
 export type PostalCodeFilterInput = {
   cityId?: InputMaybe<Scalars['ID']['input']>;
+  code?: InputMaybe<Scalars['String']['input']>;
   countryId?: InputMaybe<Scalars['ID']['input']>;
-  zip?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum Priority {
@@ -845,10 +918,17 @@ export type Query = {
   getByUsername: KcUser;
   getCitiesByPostalCode: City;
   getCitiesByState?: Maybe<Array<City>>;
+  getCityByNameAndState?: Maybe<City>;
+  getCountryByName?: Maybe<Country>;
+  getHouseNumberByName?: Maybe<HouseNumber>;
+  getPostalCodeByNameAndCity?: Maybe<PostalCode>;
   getPostalCodesByCity?: Maybe<Array<PostalCode>>;
   getPostalCodesByState?: Maybe<Array<PostalCode>>;
   getSecurityQuestions: Array<SecurityQuestionPayload>;
+  getStateByName?: Maybe<State>;
   getStatesByCountry: Array<State>;
+  getStreetByName?: Maybe<Street>;
+  getUserAddressesByUserId: Array<UserAddressPayload>;
   getUserList: Array<UserPayload>;
   kc_users: Array<KcUser>;
   listWebAuthnDevices: Array<WebAuthnDevicePayload>;
@@ -860,6 +940,8 @@ export type Query = {
   notifications: Array<NotificationPayload>;
   templates: Array<TemplatePayload>;
   user: UserPayload;
+  userAddressById?: Maybe<UserAddress>;
+  userAddresses: Array<UserAddress>;
   users: Array<UserPayload>;
   validateAddress: AddressValidationPayload;
 };
@@ -909,6 +991,28 @@ export type QueryGetCitiesByStateArgs = {
 };
 
 
+export type QueryGetCityByNameAndStateArgs = {
+  name: Scalars['String']['input'];
+  stateId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetCountryByNameArgs = {
+  name: Scalars['String']['input'];
+};
+
+
+export type QueryGetHouseNumberByNameArgs = {
+  name: Scalars['String']['input'];
+};
+
+
+export type QueryGetPostalCodeByNameAndCityArgs = {
+  cityId: Scalars['ID']['input'];
+  code: Scalars['String']['input'];
+};
+
+
 export type QueryGetPostalCodesByCityArgs = {
   cityId: Scalars['ID']['input'];
 };
@@ -919,8 +1023,23 @@ export type QueryGetPostalCodesByStateArgs = {
 };
 
 
+export type QueryGetStateByNameArgs = {
+  name: Scalars['String']['input'];
+};
+
+
 export type QueryGetStatesByCountryArgs = {
   countryId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetStreetByNameArgs = {
+  name: Scalars['String']['input'];
+};
+
+
+export type QueryGetUserAddressesByUserIdArgs = {
+  userId: Scalars['ID']['input'];
 };
 
 
@@ -954,6 +1073,16 @@ export type QueryTemplatesArgs = {
 
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryUserAddressByIdArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryUserAddressesArgs = {
+  filter?: InputMaybe<UserAddressFilter>;
 };
 
 
@@ -1094,6 +1223,12 @@ export type StepUpVerificationInputGql = {
   token: Scalars['String']['input'];
 };
 
+export type Street = {
+  __typename?: 'Street';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type Subregion = {
   __typename?: 'Subregion';
   continent: Continent;
@@ -1182,6 +1317,12 @@ export type UpdateTemplateInput = {
   variables?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+export type UpdateUserAddressInput = {
+  additionalInfo?: InputMaybe<Scalars['String']['input']>;
+  addressType?: InputMaybe<AddressType>;
+  id: Scalars['ID']['input'];
+};
+
 export type UpdateUserInput = {
   id: Scalars['ID']['input'];
   status?: InputMaybe<PersonStatus>;
@@ -1193,6 +1334,30 @@ export type UpdateUserPasswordInput = {
   newPassword?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UserAddress = {
+  __typename?: 'UserAddress';
+  additionalInfo?: Maybe<Scalars['String']['output']>;
+  addressType: AddressType;
+  cityId?: Maybe<Scalars['String']['output']>;
+  countryId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['String']['output'];
+  houseNumberId?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  postalCodeId?: Maybe<Scalars['String']['output']>;
+  stateId?: Maybe<Scalars['String']['output']>;
+  streetId?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['String']['output'];
+  userId: Scalars['ID']['output'];
+};
+
+export type UserAddressFilter = {
+  addressType?: InputMaybe<AddressType>;
+  cityId?: InputMaybe<Scalars['ID']['input']>;
+  countryId?: InputMaybe<Scalars['ID']['input']>;
+  postalCodeId?: InputMaybe<Scalars['ID']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type UserAddressInput = {
   additionalInfo?: InputMaybe<Scalars['String']['input']>;
   addressType: Scalars['String']['input'];
@@ -1202,6 +1367,20 @@ export type UserAddressInput = {
   postalCodeId?: InputMaybe<Scalars['ID']['input']>;
   stateId?: InputMaybe<Scalars['ID']['input']>;
   street?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UserAddressPayload = {
+  __typename?: 'UserAddressPayload';
+  additionalInfo?: Maybe<Scalars['String']['output']>;
+  addressType: AddressType;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  houseNumber?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  postalCode?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  street?: Maybe<Scalars['String']['output']>;
+  userId: Scalars['ID']['output'];
 };
 
 export type UserPayload = {
@@ -1277,14 +1456,14 @@ export type GetPostalCodesByCityQueryVariables = Exact<{
 }>;
 
 
-export type GetPostalCodesByCityQuery = { __typename?: 'Query', getPostalCodesByCity?: Array<{ __typename?: 'PostalCode', id: string, zip: string }> | null };
+export type GetPostalCodesByCityQuery = { __typename?: 'Query', getPostalCodesByCity?: Array<{ __typename?: 'PostalCode', id: string, code: string }> | null };
 
 export type GetPostalCodesByStateQueryVariables = Exact<{
   stateId: Scalars['ID']['input'];
 }>;
 
 
-export type GetPostalCodesByStateQuery = { __typename?: 'Query', getPostalCodesByState?: Array<{ __typename?: 'PostalCode', id: string, zip: string }> | null };
+export type GetPostalCodesByStateQuery = { __typename?: 'Query', getPostalCodesByState?: Array<{ __typename?: 'PostalCode', id: string, code: string }> | null };
 
 export type GetStatesByCountryQueryVariables = Exact<{
   countryId: Scalars['ID']['input'];
@@ -1415,25 +1594,25 @@ export type CheckUsernameQuery = { __typename?: 'Query', checkUsername: boolean 
 export type GetAllInterestCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllInterestCategoriesQuery = { __typename?: 'Query', getAllInterestCategories: Array<{ __typename?: 'InterestCategoryPayload', id: string, key: string, icon?: string | null, description?: string | null, interests?: Array<{ __typename?: 'InterestPayload', id: string, key: string, icon?: string | null }> | null }> };
+export type GetAllInterestCategoriesQuery = { __typename?: 'Query', getAllInterestCategories: Array<{ __typename?: 'InterestCategoryPayload', id: string, key: InterestCategoryEnum, icon?: string | null, description?: string | null, interests?: Array<{ __typename?: 'InterestPayload', id: string, key: InterestEnum, icon?: string | null }> | null }> };
 
 export type GetAllInterestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllInterestsQuery = { __typename?: 'Query', getAllInterests: Array<{ __typename?: 'InterestPayload', id: string, key: string, icon?: string | null }> };
+export type GetAllInterestsQuery = { __typename?: 'Query', getAllInterests: Array<{ __typename?: 'InterestPayload', id: string, key: InterestEnum, icon?: string | null }> };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'UserPayload', id: string, username: string, userType: UserType, status: PersonStatus, createdAt: any, updatedAt: any, role?: RealmRole | null, personalInfo?: { __typename?: 'PersonalInfoPayload', id: string, email: string, firstName: string, lastName: string, birthDate?: any | null, gender?: GenderType | null, maritalStatus?: MaritalStatusType | null, phoneNumbers?: Array<{ __typename?: 'PhoneNumberPayload', id: string, number: string, type: PhoneNumberType, infoId: string, label?: string | null, isPrimary?: boolean | null, countryCode: string }> | null } | null, contacts?: Array<{ __typename?: 'ContactPayload', id: string, userId: string, contactId: string, relationship: RelationshipType, withdrawalLimit: number, emergency: boolean, startDate?: any | null, endDate?: any | null }> | null, customer?: { __typename?: 'CustomerPayload', id: string, subscribed: boolean, state: StatusType, contactOptions: Array<ContactOptionsType>, customerInterest?: Array<{ __typename?: 'CustomerInterestPayload', id: string, isPrimary?: boolean | null, interest?: { __typename?: 'InterestPayload', key: string } | null }> | null } | null, employee?: { __typename?: 'EmployeePayload', id: string, department?: string | null, position?: string | null, role?: string | null, salary?: number | null, hireDate?: any | null, isExternal: boolean } | null } };
+export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'UserPayload', id: string, username: string, userType: UserType, status: PersonStatus, createdAt: any, updatedAt: any, role?: RealmRole | null, personalInfo?: { __typename?: 'PersonalInfoPayload', id: string, email: string, firstName: string, lastName: string, birthDate?: any | null, gender?: GenderType | null, maritalStatus?: MaritalStatusType | null, phoneNumbers?: Array<{ __typename?: 'PhoneNumberPayload', id: string, number: string, type: PhoneNumberType, infoId: string, label?: string | null, isPrimary?: boolean | null, countryCode: string }> | null } | null, contacts?: Array<{ __typename?: 'ContactPayload', id: string, userId: string, contactId: string, relationship: RelationshipType, withdrawalLimit: number, emergency: boolean, startDate?: any | null, endDate?: any | null }> | null, customer?: { __typename?: 'CustomerPayload', id: string, subscribed: boolean, state: StatusType, contactOptions: Array<ContactOptionsType>, customerInterest?: Array<{ __typename?: 'CustomerInterestPayload', id: string, isPrimary?: boolean | null, interest?: { __typename?: 'InterestPayload', key: InterestEnum } | null }> | null } | null, employee?: { __typename?: 'EmployeePayload', id: string, department?: string | null, position?: string | null, role?: string | null, salary?: number | null, hireDate?: any | null, isExternal: boolean } | null } };
 
 
 export const AutocompleteAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AutocompleteAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"text"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addressAutocomplete"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"text"},"value":{"kind":"Variable","name":{"kind":"Name","value":"text"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formatted"}},{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"houseNumber"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"confidence"}},{"kind":"Field","name":{"kind":"Name","value":"lat"}},{"kind":"Field","name":{"kind":"Name","value":"lon"}}]}}]}}]} as unknown as DocumentNode<AutocompleteAddressQuery, AutocompleteAddressQueryVariables>;
 export const GetAllCountriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"flagSvg"}},{"kind":"Field","name":{"kind":"Name","value":"flagPng"}},{"kind":"Field","name":{"kind":"Name","value":"iso2"}},{"kind":"Field","name":{"kind":"Name","value":"callingCode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllCountriesQuery, GetAllCountriesQueryVariables>;
 export const GetCitiesByPostalCodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCitiesByPostalCode"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postalCodeId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getCitiesByPostalCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"postalCodeId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postalCodeId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetCitiesByPostalCodeQuery, GetCitiesByPostalCodeQueryVariables>;
 export const GetCitiesByStateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCitiesByState"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stateId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getCitiesByState"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stateId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stateId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetCitiesByStateQuery, GetCitiesByStateQueryVariables>;
-export const GetPostalCodesByCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPostalCodesByCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPostalCodesByCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"cityId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cityId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}}]}}]} as unknown as DocumentNode<GetPostalCodesByCityQuery, GetPostalCodesByCityQueryVariables>;
-export const GetPostalCodesByStateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPostalCodesByState"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stateId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPostalCodesByState"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stateId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stateId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}}]}}]} as unknown as DocumentNode<GetPostalCodesByStateQuery, GetPostalCodesByStateQueryVariables>;
+export const GetPostalCodesByCityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPostalCodesByCity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPostalCodesByCity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"cityId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cityId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<GetPostalCodesByCityQuery, GetPostalCodesByCityQueryVariables>;
+export const GetPostalCodesByStateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPostalCodesByState"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stateId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPostalCodesByState"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"stateId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stateId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<GetPostalCodesByStateQuery, GetPostalCodesByStateQueryVariables>;
 export const GetStatesByCountryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetStatesByCountry"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"countryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getStatesByCountry"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"countryId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"countryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetStatesByCountryQuery, GetStatesByCountryQueryVariables>;
 export const ValidateAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ValidateAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddressValidationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validateAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valid"}},{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"confidence"}},{"kind":"Field","name":{"kind":"Name","value":"formatted"}},{"kind":"Field","name":{"kind":"Name","value":"lon"}},{"kind":"Field","name":{"kind":"Name","value":"lat"}}]}}]}}]} as unknown as DocumentNode<ValidateAddressQuery, ValidateAddressQueryVariables>;
 export const CompletePasswordResetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CompletePasswordReset"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CompleteResetInputGql"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"completePasswordReset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<CompletePasswordResetMutation, CompletePasswordResetMutationVariables>;

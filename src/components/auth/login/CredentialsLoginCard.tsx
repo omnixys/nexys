@@ -23,7 +23,7 @@ export default function CredentialsLoginCard({
   loading = false,
   error,
 }: CredentialsLoginCardProps) {
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   return (
     <Paper
@@ -53,7 +53,7 @@ export default function CredentialsLoginCard({
 
       {error && (
         <Typography color="error" mt={1}>
-          {t(`errors.${error}`)}
+          {t(`credentials.errors.${error}`)}
         </Typography>
       )}
 

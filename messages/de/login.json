@@ -1,0 +1,60 @@
+{
+  "title":{
+    "auth": "Anmelden",
+    "provider": "Weiter mit"
+  },
+  
+
+  "credentials": {
+    "username": {
+      "label": "Benutzername"
+    },
+    "password": {
+      "label": "Passwort",
+      "toggleVisibility": "Passwort anzeigen oder verbergen"
+    },
+    "terms": {
+      "label": "Ich stimme den Nutzungsbedingungen zu"
+    },
+    "submit": {
+      "login": "Anmelden",
+      "loading": "Anmeldung läuft…"
+    },
+    "links": {
+      "signup": "Registrieren",
+      "forgotPassword": "Passwort vergessen?"
+    },
+
+    "errors": {
+      "termsRequired": "Bitte akzeptiere zuerst die Nutzungsbedingungen",
+      "missingCredentials": "Benutzername oder Passwort fehlt",
+      "loginFailed": "Anmeldung fehlgeschlagen. Bitte erneut versuchen."
+    },
+
+    "branding": {
+      "title": "Nexys",
+      "tagline": "Bauen. Verbinden. Weiterentwickeln."
+    }
+  },
+
+  "totp": {
+    "title": "Authenticator-App",
+    "subtitle": "Gib den 6-stelligen Code aus deiner Authenticator-App ein.",
+    "usernameLabel": "Benutzername",
+    "codeLabel": "Authentifizierungscode",
+    "verify": "Code bestätigen"
+  },
+
+  "webauthn": {
+    "title": "Passkey / WebAuthn",
+    "subtitle": "Nutze FaceID/TouchID oder deinen Sicherheitsschlüssel.",
+    "start": "Mit Passkey fortfahren"
+  },
+
+  "magicLink": {
+    "title": "Magic Link",
+    "subtitle": "Wir senden dir einen Login-Link per Email.",
+    "emailLabel": "E-Mail",
+    "send": "Link senden"
+  }
+}

@@ -1,11 +1,11 @@
-import { ContactOptionsType, GenderType, MaritalStatusType, PhoneNumberType, RelationshipType, UserType } from "@/generated/graphql";
+import { AddressType, ContactOptionsType, GenderType, MaritalStatusType, PhoneNumberType, RelationshipType, UserType } from "@/generated/graphql";
 import { z } from "zod";
 
 export type SignUpFormValues = z.infer<typeof schema>;
 export const schema = z
   .object({
     username: z.string().min(3).max(32),
-    userType: z.nativeEnum(UserType),
+    userType: z.enum(UserType),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
 
@@ -51,7 +51,7 @@ export const schema = z
             street: z.string().min(1),
             houseNumber: z.string().min(1),
 
-            addressType: z.string().min(1),
+            addressType: z.enum(AddressType),
             additionalInfo: z.string().optional(),
 
             formatted: z.string().optional(),
@@ -77,7 +77,7 @@ export const schema = z
     phoneNumbers: z
       .array(
         z.object({
-          type: z.nativeEnum(PhoneNumberType),
+          type: z.enum(PhoneNumberType),
           number: z.string().min(6),
           label: z.string().optional(),
           isPrimary: z.boolean().optional(),
@@ -101,7 +101,7 @@ export const schema = z
         subscribed: z.boolean(),
         state: z.string().optional(),
         interestIds: z.array(z.string()),
-        contactOptions: z.array(z.nativeEnum(ContactOptionsType)).min(1),
+        contactOptions: z.array(z.enum(ContactOptionsType)).min(1),
       })
       .optional(),
 
@@ -120,7 +120,7 @@ export const schema = z
       .array(
         z.object({
           contactId: z.string().min(1),
-          relationship: z.nativeEnum(RelationshipType),
+          relationship: z.enum(RelationshipType),
           withdrawalLimit: z.number().optional(),
           emergency: z.boolean().optional(),
           startDate: z.string().optional(),

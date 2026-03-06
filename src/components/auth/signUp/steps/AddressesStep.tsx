@@ -8,6 +8,7 @@ import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import AddressCard from "../address/AddressCard";
 import { Country } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { AddressType } from "@/generated/graphql";
 
 type Props = {
   countries: Country[];
@@ -15,7 +16,7 @@ type Props = {
 };
 
 export default function AddressesStep({ countries, defaultCountry }: Props) {
-  const t = useTypedTranslations("signup.address");
+  const t = useTypedTranslations("signup");
 
   const { control } = useFormContext<SignUpFormValues>();
 
@@ -37,7 +38,7 @@ export default function AddressesStep({ countries, defaultCountry }: Props) {
       postalCode: "",
       street: "",
       houseNumber: "",
-      addressType: "",
+      addressType: AddressType.Home,
       additionalInfo: "",
       formatted: "",
       lat: null,
@@ -54,7 +55,7 @@ export default function AddressesStep({ countries, defaultCountry }: Props) {
         mb={3}
       >
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
-          {t("title")}
+          {t("address.title")}
         </Typography>
 
         <Button
@@ -62,7 +63,7 @@ export default function AddressesStep({ countries, defaultCountry }: Props) {
           startIcon={<AddRoundedIcon />}
           onClick={handleAddAddress}
         >
-          {t("add")}
+          {t("address.add")}
         </Button>
       </Box>
 

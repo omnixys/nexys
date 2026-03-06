@@ -15,7 +15,7 @@ export default function WebAuthnLoginCard({
   loading = false,
   errorText,
 }: WebAuthnLoginCardProps) {
-  const t = useTypedTranslations("auth");
+  const t = useTypedTranslations("login");
 
   return (
     <Paper
