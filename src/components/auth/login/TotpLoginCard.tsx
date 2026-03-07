@@ -3,6 +3,8 @@
 import { Paper, Typography, Box, TextField, Button } from "@mui/material";
 import BrandingHeader from "./BrandingHeader";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import SignUpLink from "@/components/auth/login/fields/SignUpLink";
+import ForgotPasswordLink from "@/components/auth/login/fields/ForgotPasswordLink";
 
 type TotpLoginCardProps = {
   onVerify: (code: string, username: string) => Promise<void> | void;
@@ -82,6 +84,11 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
           {t("totp.verify")}
         </Button>
       </form>
+
+            <Box display="flex" justifyContent="space-between" mt={2}>
+              <SignUpLink />
+              <ForgotPasswordLink />
+            </Box>
 
       {errorText && (
         <Typography color="error" mt={1}>

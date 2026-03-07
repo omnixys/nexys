@@ -10,27 +10,52 @@ import {
   useTheme,
   Alert,
   Fade,
+  Stack,
 } from "@mui/material";
+
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
+
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useState } from "react";
+
+import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
+
 import { useMutation } from "@apollo/client/react";
-import { REQUEST_PASSWORD_RESET } from "../../../graphql/authentication/reset.authentication";
 
-const schema = z.object({
-  email: z.string().email("Bitte eine gültige E-Mail eingeben."),
-});
+import {
+  RequestPasswordResetDocument,
+  RequestPasswordResetMutation,
+  RequestPasswordResetMutationVariables,
+} from "@/generated/graphql";
 
-type FormInput = z.infer<typeof schema>;
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+
+type FormInput = {
+  email: string;
+};
+
+const RESEND_SECONDS = 60;
 
 export default function ForgotPasswordForm() {
   const theme = useTheme();
+  const t = useTypedTranslations("recovery");
+
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [resendTimer, setResendTimer] = useState(RESEND_SECONDS);
+  const [emailSent, setEmailSent] = useState<string | null>(null);
 
-  const [requestReset] = useMutation(REQUEST_PASSWORD_RESET);
+  const schema = z.object({
+    email: z.string().email(t("forgotPassword.validation.email")),
+  });
+
+  const [requestReset] = useMutation<
+    RequestPasswordResetMutation,
+    RequestPasswordResetMutationVariables
+  >(RequestPasswordResetDocument);
 
   const {
     register,
@@ -42,22 +67,44 @@ export default function ForgotPasswordForm() {
     defaultValues: { email: "" },
   });
 
+  useEffect(() => {
+    if (!submitted) return;
+
+    const interval = setInterval(() => {
+      setResendTimer((t) => Math.max(0, t - 1));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [submitted]);
+
   const onSubmit = async (data: FormInput) => {
     setServerError(null);
 
     try {
-      await requestReset({
-        variables: { email: data.email },
-      });
-
-      // Always show neutral success (anti-enumeration)
+      await requestReset({ variables: { email: data.email } });
+      setEmailSent(data.email);
       setSubmitted(true);
     } catch {
-      // Still show neutral success to avoid leaking existence
+      setEmailSent(data.email);
       setSubmitted(true);
     }
   };
 
+const resend = async () => {
+  if (!emailSent) return;
+
+  try {
+    await requestReset({
+      variables: {
+        email: emailSent,
+      },
+    });
+
+    setResendTimer(RESEND_SECONDS);
+  } catch {
+    // ignore errors (anti-enumeration)
+  }
+};
   const cardSx = useMemo(
     () => ({
       width: "100%",
@@ -76,23 +123,63 @@ export default function ForgotPasswordForm() {
       <Fade in>
         <Card sx={cardSx}>
           <CardContent sx={{ p: 4, textAlign: "center" }}>
-            <Typography variant="h5" fontWeight={700} gutterBottom>
-              Prüfe deine E-Mails
-            </Typography>
-
-            <Typography variant="body2" color="text.secondary">
-              Wenn ein Konto zu dieser E-Mail existiert, erhältst du in Kürze
-              eine Nachricht mit einem Reset-Link.
-            </Typography>
-
-            <Button
-              component={Link}
-              href="/login"
-              variant="text"
-              sx={{ mt: 3, borderRadius: 3 }}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 220, damping: 16 }}
             >
-              Zurück zum Login
-            </Button>
+              <Box
+                sx={{
+                  width: 88,
+                  height: 88,
+                  borderRadius: "50%",
+                  mx: "auto",
+                  mb: 3,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, #FFD700)`,
+                  boxShadow: `0 0 30px ${theme.palette.primary.main}55`,
+                }}
+              >
+                <MailOutlineRoundedIcon sx={{ fontSize: 44, color: "#fff" }} />
+              </Box>
+            </motion.div>
+
+            <Typography variant="h5" fontWeight={700}>
+              {t("forgotPassword.successTitle")}
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary" mt={1}>
+              {t("forgotPassword.successDescription")}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              sx={{
+                mt: 1,
+                fontWeight: 600,
+                color: "primary.main",
+              }}
+            >
+              {emailSent}
+            </Typography>
+
+            <Stack spacing={2} mt={3}>
+              <Button
+                variant="outlined"
+                disabled={resendTimer > 0}
+                onClick={resend}
+              >
+                {resendTimer > 0
+                  ? `${t("forgotPassword.resend")} (${resendTimer}s)`
+                  : t("forgotPassword.resend")}
+              </Button>
+
+              <Button component={Link} href="/login" variant="text">
+                {t("forgotPassword.backToLogin")}
+              </Button>
+            </Stack>
           </CardContent>
         </Card>
       </Fade>
@@ -103,12 +190,11 @@ export default function ForgotPasswordForm() {
     <Card sx={cardSx}>
       <CardContent sx={{ p: 4 }}>
         <Typography variant="h4" fontWeight={800} gutterBottom>
-          Passwort vergessen?
+          {t("forgotPassword.title")}
         </Typography>
 
         <Typography variant="body2" color="text.secondary" mb={3}>
-          Gib deine E-Mail ein. Wenn ein Konto existiert, senden wir dir einen
-          Reset-Link.
+          {t("forgotPassword.description")}
         </Typography>
 
         {serverError && (
@@ -120,7 +206,7 @@ export default function ForgotPasswordForm() {
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <TextField
             fullWidth
-            label="E-Mail"
+            label={t("forgotPassword.email")}
             type="email"
             margin="normal"
             {...register("email")}
@@ -136,7 +222,9 @@ export default function ForgotPasswordForm() {
             sx={{ mt: 3, borderRadius: 3 }}
             disabled={isSubmitting || !isValid}
           >
-            {isSubmitting ? "Senden..." : "Reset-Link senden"}
+            {isSubmitting
+              ? t("forgotPassword.sending")
+              : t("forgotPassword.sendLink")}
           </Button>
 
           <Button
@@ -144,9 +232,9 @@ export default function ForgotPasswordForm() {
             href="/login"
             fullWidth
             variant="text"
-            sx={{ mt: 1.5, borderRadius: 3 }}
+            sx={{ mt: 1.5 }}
           >
-            Abbrechen
+            {t("forgotPassword.cancel")}
           </Button>
         </Box>
       </CardContent>

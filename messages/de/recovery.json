@@ -1,0 +1,47 @@
+{
+  "forgotPassword": {
+    "title": "Passwort vergessen?",
+    "description": "Gib deine E-Mail-Adresse ein. Wenn ein Konto existiert, senden wir dir einen Reset-Link.",
+    "email": "E-Mail-Adresse",
+    "sendLink": "Reset-Link senden",
+    "sending": "Senden...",
+    "cancel": "Abbrechen",
+    "backToLogin": "Zurück zum Login",
+    "successTitle": "Prüfe deine E-Mails",
+    "successDescription": "Wenn ein Konto zu dieser E-Mail existiert, erhältst du in Kürze einen Reset-Link.",
+    "resend": "E-Mail erneut senden",
+    "validation": {
+      "email": "Bitte eine gültige E-Mail-Adresse eingeben."
+    }
+  },
+  "resetPassword": {
+    "title": "Passwort zurücksetzen",
+    "verifyToken": "Token prüfen",
+    "verify": "Verifizieren",
+    "totp": "TOTP Code",
+    "backupCode": "Backup Code",
+    "newPassword": "Neues Passwort",
+    "setPassword": "Passwort setzen",
+    "securityHint": "Verwenden Sie mindestens 12 Zeichen mit Zahlen oder Sonderzeichen.",
+    "successTitle": "Passwort geändert",
+    "successDescription": "Ihr Passwort wurde erfolgreich aktualisiert.",
+    "steps": {
+      "verify": "Token prüfen",
+      "mfa": "Verifikation",
+      "password": "Neues Passwort"
+    },
+    "errors": {
+      "invalidToken": "Token ungültig oder abgelaufen.",
+      "verificationFailed": "Verifikation fehlgeschlagen.",
+      "resetFailed": "Passwort konnte nicht gesetzt werden."
+    },
+
+    "strength": {
+      "veryWeak": "Sehr schwach",
+      "weak": "Schwach",
+      "medium": "Mittel",
+      "strong": "Stark",
+      "veryStrong": "Sehr stark"
+    }
+  }
+}

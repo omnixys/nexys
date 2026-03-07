@@ -55,6 +55,13 @@
     "title": "Magic Link",
     "subtitle": "Wir senden dir einen Login-Link per Email.",
     "emailLabel": "E-Mail",
-    "send": "Link senden"
+    "send": "Link senden",
+
+    "verifying": "Anmeldung wird geprüft...",
+    "successTitle": "Willkommen zurück",
+    "successDescription": "Sie wurden erfolgreich angemeldet.",
+    "errorTitle": "Link ungültig oder abgelaufen",
+    "errorDescription": "Dieser Login-Link ist nicht mehr gültig.",
+    "backToLogin": "Zurück zum Login"
   }
 }

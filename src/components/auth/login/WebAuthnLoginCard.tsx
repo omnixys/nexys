@@ -3,6 +3,8 @@
 import { Paper, Typography, Box, Button } from "@mui/material";
 import BrandingHeader from "./BrandingHeader";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import SignUpLink from "@/components/auth/login/fields/SignUpLink";
+import ForgotPasswordLink from "@/components/auth/login/fields/ForgotPasswordLink";
 
 type WebAuthnLoginCardProps = {
   onStart: () => Promise<void> | void;
@@ -51,6 +53,11 @@ export default function WebAuthnLoginCard({
       >
         {t("webauthn.start")}
       </Button>
+
+            <Box display="flex" justifyContent="space-between" mt={2}>
+              <SignUpLink />
+              <ForgotPasswordLink />
+            </Box>
 
       {errorText && (
         <Typography color="error" mt={1}>

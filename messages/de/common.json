@@ -1,73 +1,8 @@
 {
 
   
-  "home": {
-    "welcome": "Willkommen, {name}",
-    "news": "Neues",
-    "notes": "Notizen",
-    "recommendation": "Empfehlung"
-  },
 
-  "inbox": {
-    "title": "Posteingang",
-    "from": "Von",
-    "subject": "Betreff",
-    "empty": "Keine Nachrichten",
-    "ago": "{time} her",
-    "status": {
-      "read": "Gelesen",
-      "unread": "Ungelesen"
-    }
-  },
 
-  "weather": {
-    "title": "Wetter",
-    "conditions": {
-      "cloudy": "Bewölkt",
-      "sunny": "Sonnig",
-      "rain": "Regen"
-    }
-  },
-
-  "calendar": {
-    "title": "Kalender",
-    "events": {
-      "dailyStandup": "Tägliches Standup",
-      "productReview": "Produkt-Review"
-    }
-  },
-
-  "products": {
-    "title": "Produkte",
-    "choose": "Produkt auswählen",
-    "cancel": "Abbrechen",
-    "open": "{name} öffnen",
-    "checkpoint": {
-      "name": "Checkpoint",
-      "subtitle": "Events & Tickets",
-      "description": "Events · Tickets · Sicherheit"
-    },
-    "nexys": {
-      "name": "Nexys",
-      "subtitle": "Nexys",
-      "description": "Nexys"
-    },
-    "finyx": {
-      "name": "Finyx",
-      "subtitle": "Banking",
-      "description": "Banking · Konten · Analysen"
-    },
-    "profile": {
-      "name": "Profil-Service",
-      "subtitle": "Identität",
-      "description": "Identität · Persönliche Daten"
-    },
-    "notifications": {
-      "name": "Benachrichtigungen",
-      "subtitle": "Nachrichten",
-      "description": "Nachrichten · Vorlagen · Events"
-    }
-  },
 
 
 
@@ -91,25 +26,6 @@
       "values": {
         "bornOn": "Geboren am {date}",
         "bornOnWithAge": "Geboren am {date} ({age} Jahre alt)"
-      },
-      "gender": {
-        "male": "Männlich",
-        "female": "Weiblich",
-        "other": "Divers"
-      },
-      "maritalStatus": {
-        "single": "Ledig",
-        "married": "Verheiratet",
-        "divorced": "Geschieden",
-        "widowed": "Verwitwet"
-      },
-      "phoneType": {
-        "whatsapp": "WhatsApp",
-        "mobile": "Mobil",
-        "private": "Privat",
-        "work": "Arbeit",
-        "home": "Zuhause",
-        "other": "Sonstiges"
       }
     },
     "type": {

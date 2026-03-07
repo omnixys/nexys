@@ -5,10 +5,11 @@ import { useState } from "react";
 import ProductShelf from "./ProductShelf";
 import ProductZoomOverlay from "./ProductZoomOverlay";
 import { useTranslations } from "next-intl";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 export default function ProductsTile({ isFocused }: { isFocused: boolean }) {
   const theme = useTheme();
-    const t = useTranslations("products");
+    const t = useTypedTranslations("home");;
   
   return (
     <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -17,7 +18,7 @@ export default function ProductsTile({ isFocused }: { isFocused: boolean }) {
         variant="h6"
         sx={{ mb: 1.5, ml: 40 }}
       >
-        {t("title")}
+        {t("products.title")}
       </Typography>
 
       <ProductShelf isFocused={isFocused} />

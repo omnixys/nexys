@@ -11,13 +11,14 @@ import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { JSX, useEffect, useState } from "react";
 import TileSkeleton from "./TileSkeleton";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 function toFahrenheit(c: number) {
   return Math.round((c * 9) / 5 + 32);
 }
 
 export default function WeatherTile(): JSX.Element {
-  const t = useTranslations("weather");
+  const t = useTypedTranslations("home");
   const locale = useLocale();
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +42,7 @@ export default function WeatherTile(): JSX.Element {
         variant="subtitle2"
         sx={{ opacity: 0.8, color: "text.primary" }}
       >
-        {t("title")}
+        {t("weather.title")}
       </Typography>
 
       <Stack spacing={0.5} mt={1}>
@@ -66,7 +67,7 @@ export default function WeatherTile(): JSX.Element {
           variant="body2"
           sx={{ opacity: 0.7, color: "text.primary" }}
         >
-          {t(`conditions.${WEATHER.condition}`)}
+          {t(`weather.conditions.${WEATHER.condition}`)}
         </Typography>
 
         {/* LOCATION */}

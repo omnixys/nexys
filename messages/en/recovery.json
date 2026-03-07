@@ -1,0 +1,47 @@
+{
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "description": "Enter your email address. If an account exists, we will send you a reset link.",
+    "email": "Email address",
+    "sendLink": "Send reset link",
+    "sending": "Sending...",
+    "cancel": "Cancel",
+    "backToLogin": "Back to login",
+    "successTitle": "Check your email",
+    "successDescription": "If an account exists for this email, you will receive a reset link shortly.",
+    "resend": "Resend email",
+    "validation": {
+      "email": "Please enter a valid email address."
+    }
+  },
+  "resetPassword": {
+    "title": "Reset your password",
+    "verifyToken": "Verify reset token",
+    "verify": "Verify",
+    "totp": "TOTP code",
+    "backupCode": "Backup code",
+    "newPassword": "New password",
+    "setPassword": "Set new password",
+    "securityHint": "Use at least 12 characters including numbers and symbols.",
+    "successTitle": "Password updated",
+    "successDescription": "Your password has been successfully changed.",
+    "steps": {
+      "verify": "Verify",
+      "mfa": "Verification",
+      "password": "New password"
+    },
+    "errors": {
+      "invalidToken": "Token invalid or expired.",
+      "verificationFailed": "Verification failed.",
+      "resetFailed": "Password could not be reset."
+    },
+
+    "strength": {
+      "veryWeak": "Very weak",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong",
+      "veryStrong": "Very strong"
+    }
+  }
+}

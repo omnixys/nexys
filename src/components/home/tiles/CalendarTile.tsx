@@ -8,12 +8,13 @@
 import { CALENDAR } from "@/mocks/liveData";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter } from "next-intl";
 import { JSX, useEffect, useState } from "react";
 import TileSkeleton from "./TileSkeleton";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 export default function CalendarTile(): JSX.Element {
-  const t = useTranslations("calendar");
+  const t = useTypedTranslations("home");
   const format = useFormatter();
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +33,7 @@ export default function CalendarTile(): JSX.Element {
         variant="subtitle2"
         sx={{ opacity: 0.8, color: "text.primary" }}
       >
-        {t("title")}
+        {t("calendar.title")}
       </Typography>
 
       <Stack spacing={1.2} mt={1.5}>
@@ -74,7 +75,7 @@ export default function CalendarTile(): JSX.Element {
                 variant="body2"
                 sx={{ color: "text.primary" }}
               >
-                {t(`events.${item.titleKey}`)}
+                {t(`calendar.events.${item.titleKey}`)}
               </Typography>
 
               <Divider sx={{ mt: 1, opacity: 0.1 }} />

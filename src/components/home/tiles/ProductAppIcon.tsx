@@ -17,7 +17,7 @@ export default function ProductAppIcon({
 }) {
   const theme = useTheme();
   const { scheme } = useThemeMode();
-  const t = useTypedTranslations("products");
+  const t = useTypedTranslations("home");
 
   const logoSrc = OMNIXYS_LOGOS[scheme];
   const name = t(product.nameKey);
@@ -28,7 +28,7 @@ export default function ProductAppIcon({
       component={motion.div}
       tabIndex={0}
       role="button"
-      aria-label={t("open", { name })}
+      aria-label={t("products.open", { name })}
       onClick={() => onOpen(product)}
       onKeyDown={(e) => {
         if (e.key === "Enter") onOpen(product);

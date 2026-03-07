@@ -8,13 +8,13 @@
 import { INBOX } from "@/mocks/liveData";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { JSX, useEffect, useState } from "react";
 import TileSkeleton from "./TileSkeleton";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 export default function InboxTile(): JSX.Element {
   const theme = useTheme();
-  const t = useTranslations("inbox");
+  const t = useTypedTranslations("home");
 
   const [loading, setLoading] = useState(true);
 
@@ -32,17 +32,17 @@ export default function InboxTile(): JSX.Element {
         variant="subtitle2"
         sx={{ opacity: 0.8 }}
       >
-        {t("title")}
+        {t("inbox.title")}
       </Typography>
 
       {/* EMPTY STATE */}
-      {INBOX.length === 0 && (
+      {INBOX.length > 0 && (
         <Typography
           component="div"
           variant="body2"
           sx={{ mt: 1.5, opacity: 0.6, fontStyle: "italic" }}
         >
-          {t("empty")}
+          {t("inbox.empty")}
         </Typography>
       )}
 

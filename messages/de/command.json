@@ -1,0 +1,17 @@
+{
+  "searchPlaceholder": "Befehle suchen...",
+  "empty": "Keine Ergebnisse gefunden.",
+  "groups": {
+    "navigation": "Navigation",
+    "workspace": "Arbeitsbereich",
+    "account": "Konto"
+  },
+  "commands": {
+    "home": "Startseite",
+    "inbox": "Posteingang",
+    "calendar": "Kalender",
+    "products": "Produkte",
+    "accountSettings": "Kontoeinstellungen",
+    "securitySettings": "Sicherheitseinstellungen"
+  }
+}

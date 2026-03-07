@@ -19,9 +19,9 @@ import WeatherTile from "./tiles/WeatherTile";
 import StaticTile from "./tiles/StaticTile";
 import TypingHeadline from "./TypingHeadline";
 import ProductsTile from "./tiles/ProductsTile";
-import { User } from "../../../types/user/user.type";
-import { useTranslations } from "next-intl";
 import { useDevice } from "../../providers/DeviceProvider";
+import { User } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 /* =====================================================
    STAGGER CONFIG
@@ -38,7 +38,7 @@ const gridVariants = {
 };
 
 export default function BentoGrid({ user }: { user?: User }): JSX.Element {
-  const t = useTranslations("home");
+    const t = useTypedTranslations("home");
   const pathname = usePathname();
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
@@ -58,7 +58,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
   return (
     <>
       <TypingHeadline
-        text={t("welcome", { name })}
+        text={t("dashboard.welcome", { name })}
         variant="h3"
         speed={55}
         delay={250}
@@ -90,7 +90,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
         }}
       >
         <BentoTile index={0} focused={focused} setFocused={setFocused}>
-          <StaticTile title={t("news")} />
+          <StaticTile title={t("dashboard.news")} />
         </BentoTile>
 
         <BentoTile index={1} focused={focused} setFocused={setFocused}>
@@ -114,7 +114,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
         )}
 
         <BentoTile index={4} focused={focused} setFocused={setFocused}>
-          <StaticTile title={t("notes")} />
+          <StaticTile title={t("dashboard.notes")} />
         </BentoTile>
 
         <BentoTile
@@ -133,7 +133,7 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
           focused={focused}
           setFocused={setFocused}
         >
-          <StaticTile title={t("recommendation")} />
+          <StaticTile title={t("dashboard.recommendation")} />
         </BentoTile>
       </Box>
     </>

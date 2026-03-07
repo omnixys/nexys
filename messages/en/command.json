@@ -1,0 +1,17 @@
+{
+  "searchPlaceholder": "Search commands...",
+  "empty": "No results found.",
+  "groups": {
+    "navigation": "Navigation",
+    "workspace": "Workspace",
+    "account": "Account"
+  },
+  "commands": {
+    "home": "Home",
+    "inbox": "Inbox",
+    "calendar": "Calendar",
+    "products": "Products",
+    "accountSettings": "Account Settings",
+    "securitySettings": "Security Settings"
+  }
+}

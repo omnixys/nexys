@@ -68,6 +68,13 @@
     "title": "Magic Link",
     "subtitle": "We’ll send you a secure sign-in link via email.",
     "emailLabel": "Email Address",
-    "send": "Send Login Link"
+    "send": "Send Login Link",
+
+    "verifying": "Signing you in...",
+    "successTitle": "Welcome back",
+    "successDescription": "You have been successfully signed in.",
+    "errorTitle": "Invalid or expired link",
+    "errorDescription": "This login link is no longer valid.",
+    "backToLogin": "Back to login"
   }
 }

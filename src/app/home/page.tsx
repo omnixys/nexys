@@ -7,10 +7,11 @@
 
 import { Box, CssBaseline } from "@mui/material";
 import { JSX } from "react";
-import CommandPalette from "@/components/home/CommandPalette";
 import BentoGrid from "@/components/home/BentoGrid";
 import { useAuth } from "@/providers/AuthProvider";
 import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
+// import CommandPalette from "@/components/home/CommandPalette";
+import CommandPalette from "@/components/commands/CommandPalette";
 
 export default function NexysHomePage(): JSX.Element {
   const { user, loading } = useAuth()
