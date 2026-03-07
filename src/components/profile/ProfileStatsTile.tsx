@@ -5,11 +5,11 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, useAnimationFrame } from "framer-motion";
 import { useDevice } from "@/providers/DeviceProvider";
-
-import type { User } from "@/types/user/user.type";
+import { User } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 export default function ProfileStatsTile({ user }: { user: User }) {
-  const t = useTranslations("profile.stats");
+  const t = useTypedTranslations("profile");
   const locale = useLocale();
   const { isMobile } = useDevice();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ export default function ProfileStatsTile({ user }: { user: User }) {
     return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(dt);
   }, [user?.createdAt, locale]);
 
-  const lastUpdatedLabel = t("values.today");
+  const lastUpdatedLabel = t("value.today");
 
   /* =========================================
      AUTO LOOP SCROLL (ONLY MOBILE)
@@ -49,18 +49,18 @@ export default function ProfileStatsTile({ user }: { user: User }) {
       }}
     >
       <StatItem
-        label={t("labels.profileCompleteness")}
+        label={t("label.profileCompleteness")}
         value="92%"
         color="#4CAF50"
       />
       <StatItem
-        label={t("labels.securityScore")}
+        label={t("label.securityScore")}
         value="98/100"
         color="#2196F3"
       />
-      <StatItem label={t("labels.dataPoints")} value="247" color="#9C27B0" />
+      <StatItem label={t("label.dataPoints")} value="247" color="#9C27B0" />
       <StatItem
-        label={t("labels.lastUpdated")}
+        label={t("label.lastUpdated")}
         value={lastUpdatedLabel}
         color="#FF9800"
       />
@@ -101,11 +101,11 @@ export default function ProfileStatsTile({ user }: { user: User }) {
       {!isMobile && (
         <Stack sx={{ textAlign: "right" }}>
           <Typography variant="caption" color="text.secondary">
-            {t("labels.profileId")}: {user?.id?.slice(0, 8)?.toUpperCase()}
+            {t("label.profileId")}: {user?.id?.slice(0, 8)?.toUpperCase()}
           </Typography>
 
           <Typography variant="caption" color="text.secondary">
-            {t("labels.since")} {createdDate}
+            {t("label.since")} {createdDate}
           </Typography>
         </Stack>
       )}

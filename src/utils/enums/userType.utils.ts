@@ -1,9 +1,10 @@
-import { USER_TYPE_I18N } from "../../types/user/enum-translations";
-import { UserType } from "../../types/user/user-enum-type";
-import { formatEnum } from "../format-enum";
+import { UserType } from "@/generated/graphql";
+import { formatEnum } from "@/i18n/format-enum";
 
-export function formatUserType(v?: UserType | null, tUser?: any): string {
-  if (!v) return "—";
-  if (tUser) return formatEnum(tUser, USER_TYPE_I18N, v);
-  return String(v);
+
+export function formatUserType<T extends (key: any) => string>(
+  type: UserType | null | undefined,
+  t: T,
+) {
+  return formatEnum(t, "userType", type);
 }

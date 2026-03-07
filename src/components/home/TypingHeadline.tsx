@@ -15,12 +15,12 @@ export default function TypingHeadline({
   delay = 300,
 }: {
   text?: string;
-  variant?: "h1" | "h2" | "h3" | "h4";
+  variant?: "h1" | "h2" | "h3" | "h4" | "body1";
   speed?: number; // ms per character
   delay?: number; // initial delay
-  }): JSX.Element {
-      const theme = useTheme();
-  
+}): JSX.Element {
+  const theme = useTheme();
+
   const [visibleText, setVisibleText] = useState("");
   const [started, setStarted] = useState(false);
 

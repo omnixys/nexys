@@ -20,15 +20,6 @@ export function formatEnum2<
 }
 
 
-// utils/formatEnum.ts
-export function formatEnum(
-  t: (key: string) => string,
-  map: Record<string, string>,
-  value?: string
-) {
-  if (!value) return "—";
-  return t(map[value] ?? value);
-}
 
 /**
  * @description Enum label helper for strictly typed translators

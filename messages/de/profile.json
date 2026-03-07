@@ -1,1 +1,169 @@
-{}
+{
+  "label": {
+    "department": "Abteilung",
+    "position": "Position",
+    "employment": "Anstellung",
+    "internal": "Intern",
+    "external": "Extern",
+    "hireDate": "Eintrittsdatum",
+    "role": "Funktion",
+    "isExternal": "Extern",
+    "access": "Berechtigung",
+
+    "profile-score": "Profile-Score",
+
+    "addresses": "Standorte",
+    "contacts": "Kontakte",
+    "status": "Kontostatus",
+    "type": "Kontoart",
+
+    "postalCode": "PLZ",
+    "city": "Stadt",
+
+    "tier": "Stufe",
+    "contactOptions": "Kontaktoptionen",
+    "subscription": "Abo",
+    "interests": "Interessen",
+    "noInterests": "Noch keine Interessen hinterlegt.",
+    "moreInterests": "weitere Interessen",
+
+    "profileCompleteness": "Profil-Score",
+    "securityScore": "Schutzlevel",
+    "dataPoints": "Datenpunkte",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "profileId": "Profil-ID",
+    "since": "Seit",
+
+
+    "limit": "Limit",
+    "start": "Start",
+    "end": "Ende",
+
+    "securityLevel": "Schutzlevel",
+
+    "title": "Persönliches Profil",
+    "contact": "Kontakt",
+
+    "actionRequired": "Aktion nötig"
+  },
+
+  "value": {
+    "secure": "Sicher",
+    "subscribed": "Abonniert",
+    "notSubscribed": "Nicht abonniert",
+
+    "noResultsTitle": "Keine Ergebnisse",
+    "noResultsSubtitle": "Keine Kontakte passen zum ausgewählten Beziehungsfilter.",
+    "resetFilter": "Filter zurücksetzen",
+
+    "today": "Heute"
+  },
+
+  "employee": {
+    "admin": "Administrator",
+    "standard": "Standardzugriff",
+    "external": "Extern",
+    "internal": "Intern",
+    "notAvailable": "—"
+  },
+
+  "personal": {
+    "bornOn": "Geboren am {date}",
+    "bornOnWithAge": "Geboren am {date} ({age} Jahre alt)"
+  },
+
+  "contact": {
+    "title": "Vertrauensnetzwerk",
+    "emptyTitle": "Noch keine Kontakte",
+    "emptySubtitle": "Füge vertrauenswürdige Kontakte hinzu, um Limits, Notfall-Markierungen und geteilten Zugriff zu aktivieren.",
+    "count": "{count} Kontakte",
+    "totalLimit": "Gesamtes Limit",
+    "filtered": "Gefiltert",
+    "emergency": "Notfall",
+    "filters": {
+      "all": "Alle Beziehungen"
+    }
+  },
+
+  "section": {
+    "roleData": "Rollendaten",
+    "interests": "Interessen"
+  },
+
+  "address": {
+    "title": "Standorte",
+    "emptyTitle": "Noch keine Standorte",
+    "emptySubtitle": "Füge deinen ersten Standort hinzu, um loszulegen.",
+    "counter": "{current}/{total}",
+    "favorited": "{count} favorisiert",
+    "hint": "Nutze ← / → zum Navigieren • Drücke P für Autoplay • Klicke eine Karte für Details",
+    "openHint": "Klicken für Details",
+    "noAdditionalInfo": "Keine zusätzlichen Hinweise",
+    "actions": {
+      "play": "Abspielen",
+      "pause": "Pausieren",
+      "prev": "Zurück",
+      "next": "Weiter",
+      "favorite": "Als Favorit markieren",
+      "unfavorite": "Favorit entfernen"
+    }
+  },
+
+  "profile": {
+    "role": {
+      "titles": {
+        "employee": "Beschäftigungsdetails",
+        "customer": "Kundendetails",
+        "guest": "Gastzugang",
+        "default": "Rolleninformationen"
+      }
+    }
+  },
+
+  "user": {
+    "role": {
+      "supreme": "Supreme",
+      "admin": "Administrator",
+      "security": "Sicherheit",
+      "user": "Benutzer",
+      "guest": "Gast"
+    }
+  },
+
+  "customer": {
+    "tiers": {
+      "basic": "Basic",
+      "elite": "Elite",
+      "supreme": "Supreme"
+    }
+  },
+
+  "guest": {
+    "messages": {
+      "guestRoleDataUnavailable": "Dieser Bereich ist für Gäste nicht verfügbar. Lege einen Account an, um Tier, Abo und weitere Account-Details zu sehen.",
+      "note": "Dies ist ein Gastkonto mit eingeschränktem, temporärem Zugriff."
+    },
+    "actions": {
+      "createAccount": "Account anlegen"
+    }
+  },
+
+  "profileHeadline": {
+    "1": {
+      "title": "Dein Profil ist fast vollständig, {name}",
+      "subtitle": "Passe deine Identität, Sicherheit und Einstellungen an."
+    },
+    "2": {
+      "title": "Das ist deine Identität innerhalb von Omnixys",
+      "subtitle": "Ein Profil für Nexys, Finanxys und mehr."
+    },
+    "3": {
+      "title": "Alles um dich herum aufgebaut, {name}",
+      "subtitle": "Alles, was Omnixys über dich weiß — unter deiner Kontrolle."
+    },
+    "4": {
+      "title": "Dein digitales Vertrauen beginnt hier",
+      "subtitle": "Verwalte, wie Systeme und Menschen dich sehen."
+    }
+  }
+}

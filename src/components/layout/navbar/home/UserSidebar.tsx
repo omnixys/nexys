@@ -19,7 +19,7 @@ export default function UserSidebar({
   sx?: SxProps<Theme>;
 }): JSX.Element {
   const theme = useTheme();
-  const t = useTranslations("sidebar");
+  const t = useTranslations("layout");
 
   return (
     <Drawer
@@ -38,23 +38,29 @@ export default function UserSidebar({
         },
       }}
     >
-      <SidebarLink href="/home" label={t("home")} sx={sx} />
-      <SidebarLink href="/profile" label={t("profile")} sx={sx} />
+      <SidebarLink href="/home" label={t("sidebar.home")} sx={sx} />
+      <SidebarLink href="/profile" label={t("sidebar.profile")} sx={sx} />
 
       {/* SETTINGS GROUP */}
       <SidebarGroup
         sx={sx}
         href="/settings"
-        label={t("settings")}
+        label={t("sidebar.settings")}
         childrenLinks={[
-          { href: "/settings/appearance", label: t("settings_appearance") },
-          { href: "/settings/language", label: t("settings_language") },
+          {
+            href: "/settings/appearance",
+            label: t("sidebar.settings_appearance"),
+          },
+          {
+            href: "/settings/language",
+            label: t("sidebar.settings_language")
+          },
           {
             href: "/settings/notifications",
-            label: t("settings_notifications"),
+            label: t("sidebar.settings_notifications"),
           },
-          { href: "/settings/data", label: t("settings_data") },
-          { href: "/settings/advanced", label: t("settings_advanced") },
+          { href: "/settings/data", label: t("sidebar.settings_data") },
+          { href: "/settings/advanced", label: t("sidebar.settings_advanced") },
         ]}
       />
 
@@ -62,22 +68,20 @@ export default function UserSidebar({
       <SidebarGroup
         sx={sx}
         href="/security"
-        label={t("security")}
+        label={t("sidebar.security")}
         childrenLinks={[
-          { href: "/security/score", label: t("security_score") },
-          { href: "/security/features", label: t("security_features") },
-          { href: "/security/devices", label: t("security_devices") },
-          { href: "/security/history", label: t("security_history") },
-          { href: "/security/auth", label: t("security_auth") },
-          { href: "/security/actions", label: t("security_actions") },
+          { href: "/security/score", label: t("sidebar.security_score") },
+          { href: "/security/features", label: t("sidebar.security_features") },
+          { href: "/security/devices", label: t("sidebar.security_devices") },
+          { href: "/security/history", label: t("sidebar.security_history") },
+          { href: "/security/auth", label: t("sidebar.security_auth") },
+          { href: "/security/actions", label: t("sidebar.security_actions") },
         ]}
       />
-
-      <SidebarLink href="/billing" label={t("billing")} sx={sx} />
-
+      
+      <SidebarLink href="/billing" label={t("sidebar.billing")} sx={sx} />
       <Divider sx={{ my: 2, borderColor: theme.palette.divider }} />
-
-      <SidebarLink href="/support" label={t("support")} sx={sx} />
+      <SidebarLink href="/support" label={t("sidebar.support")} sx={sx} />
     </Drawer>
   );
 }

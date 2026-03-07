@@ -9,14 +9,16 @@ import React from "react";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
 
-import { User } from "@/types/user/user.type";
-import { formatEnum } from "@/utils/format-enum";
 import {
   GENDER_I18N,
   MARITAL_STATUS_I18N,
   PHONE_NUMBER_TYPE_I18N,
 } from "@/types/user/enum-translations";
 import { getAgeYears } from "../../utils/enums/date.utils";
+import { User } from "@/graphql/graphql.type";
+import { formatEnum } from "@/i18n/format-enum";
+import { GenderType } from "@/generated/graphql";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Props = {
   user: User;
@@ -27,7 +29,8 @@ export default function ProfilePersonalInfo({ user, isAdmin }: Props) {
   const theme = useTheme();
 
   const tCommon = useTranslations("common");
-  const tUser = useTranslations("user");
+  const tUser = useTypedTranslations("profile");
+  const tEnum = useTypedTranslations('enums');
   const locale = useLocale();
 
   const info = user?.personalInfo;
@@ -46,29 +49,29 @@ const birthDate = birthDateObj
   
   const bornPart =
     birthDate && ageYears !== null
-      ? tUser("personal.values.bornOnWithAge", {
+      ? tUser("personal.bornOnWithAge", {
           date: birthDate,
           age: ageYears,
         })
       : birthDate
-        ? tUser("personal.values.bornOn", { date: birthDate })
+        ? tUser("personal.bornOn", { date: birthDate })
         : null;
 
 
 
   // Translated gender / maritalStatus (fallback to "—" if missing)
   const genderLabel = info?.gender
-    ? formatEnum(tUser, GENDER_I18N, info.gender)
+    ? formatEnum(tEnum, 'gender', info.gender)
     : tCommon("values.notAvailable");
 
   const maritalLabel = info?.maritalStatus
-    ? formatEnum(tUser, MARITAL_STATUS_I18N, info.maritalStatus)
+    ? formatEnum(tEnum,'maritalStatus', info.maritalStatus)
     : tCommon("values.notAvailable");
 
   // Access label (admin vs standard)
   const accessLabel = isAdmin
-    ? tUser("employee.values.admin")
-    : tUser("employee.values.standard");
+    ? tUser("employee.admin")
+    : tUser("employee.standard");
   
     const headlineParts = [
       bornPart,
@@ -94,7 +97,7 @@ const birthDate = birthDateObj
         color="text.secondary"
         sx={{ mb: 1, letterSpacing: 0.6 }}
       >
-        {tUser("personal.labels.title")}
+        {tUser("user.personal.labels.title")}
       </Typography> */}
 
       {/* Identity */}
@@ -144,20 +147,20 @@ const birthDate = birthDateObj
       </Stack>
 
       {/* Contact */}
-      {info?.phoneNumbers?.length > 0 && (
+      {info?.phoneNumbers?.length && info?.phoneNumbers?.length > 0 && (
         <Box sx={{ mt: 4 }}>
           <Typography
             variant="caption"
             color="text.secondary"
             sx={{ mb: 1, display: "block", letterSpacing: 0.6 }}
           >
-            {tUser("personal.titles.contact")}
+            {tUser("label.contact")}
           </Typography>
 
           <Stack spacing={0.75}>
-            {info.phoneNumbers.map((phone) => {
+            {info?.phoneNumbers?.map((phone) => {
               const phoneTypeLabel = phone.type
-                ? formatEnum(tUser, PHONE_NUMBER_TYPE_I18N, phone.type)
+                ? formatEnum(tEnum, "phoneType", phone.type)
                 : null;
 
               return (

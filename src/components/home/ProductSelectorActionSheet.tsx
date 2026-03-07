@@ -13,7 +13,7 @@ interface Props {
 
 export default function ProductSelectorActionSheet({ open, onClose }: Props) {
   const router = useRouter();
-  const t = useTypedTranslations("products");
+  const t = useTypedTranslations("home");
 
   const spring = useSpring({
     from: { y: 300, opacity: 0.8 },
@@ -71,7 +71,7 @@ export default function ProductSelectorActionSheet({ open, onClose }: Props) {
               mb: 2,
             }}
           >
-            {t("choose")}
+            {t("products.choose")}
           </Typography>
 
           {PRODUCTS.map((p) => (
@@ -105,7 +105,7 @@ export default function ProductSelectorActionSheet({ open, onClose }: Props) {
               cursor: "pointer",
             }}
           >
-            {t("cancel")}
+            {t("products.cancel")}
           </Box>
         </Box>
       </animated.div>

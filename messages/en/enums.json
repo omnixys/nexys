@@ -92,5 +92,28 @@
     "SIBLING": "Sibling",
     "CHILD": "Child",
     "COUSIN": "Cousin"
+  },
+
+  "userStatus": {
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "BLOCKED": "Blocked",
+    "DISABLED": "Disabled",
+    "CLOSED": "Closed"
+  },
+  "userType": {
+    "CUSTOMER": "Customer",
+    "EMPLOYEE": "Employee",
+    "ADMIN": "Administrator",
+    "USER": "User"
+  },
+
+  "phoneType": {
+    "WHATSAPP": "WhatsApp",
+    "MOBILE": "Mobile",
+    "PRIVATE": "Private",
+    "WORK": "Work",
+    "HOME": "Home",
+    "OTHER": "Other"
   }
 }

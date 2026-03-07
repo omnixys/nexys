@@ -17,38 +17,17 @@ import {
 import TextTransition, { presets } from "react-text-transition";
 import { useTranslations } from "next-intl";
 
-import { InterestType } from "@/types/user/user-enum-type";
-import type { InterestCategory } from "@/types/user/user.type";
 import {
   CATEGORY_I18N_KEY,
   INTEREST_I18N_KEY,
 } from "@/types/user/enum-translations";
-import { formatEnum } from "@/utils/format-enum";
+import { formatEnum } from "@/i18n/format-enum";
+import { InterestCategoryEnum, InterestEnum } from "@/generated/graphql";
 
-/* ------------------------------------------------------------ */
-/* Category mapping (InterestType -> InterestCategory)           */
-/* ------------------------------------------------------------ */
 
-const INTEREST_CATEGORY_MAP: Partial<Record<InterestType, InterestCategory>> = {
-  CREDIT_AND_DEBT: "banking",
-  SAVING_AND_FINANCE: "banking",
-  BANK_PRODUCTS_AND_SERVICES: "banking",
-
-  TECHNOLOGY: "technology",
-  TECHNOLOGY_AND_INNOVATION: "technology",
-
-  REAL_ESTATE: "realEstate",
-  INSURANCE: "insurance",
-  INVESTMENTS: "investments",
-
-  SPORTS: "lifestyle",
-  MUSIC: "lifestyle",
-  TRAVEL: "lifestyle",
-  SUSTAINABLE_FINANCE: "banking",
-};
 
 type Props = {
-  interests: InterestType[];
+  interests: InterestEnum[];
 };
 
 export default function CustomerInterestSpectrum({ interests }: Props) {
@@ -70,14 +49,14 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
   /* ---------------------- normalize & categorize */
 
   const categorized = useMemo(() => {
-    return (interests ?? []).reduce<Record<InterestCategory, InterestType[]>>(
+    return (interests ?? []).reduce<Record<InterestCategoryEnum, InterestEnum[]>>(
       (acc, interest) => {
         const cat = INTEREST_CATEGORY_MAP[interest] ?? "lifestyle";
         acc[cat] ??= [];
         acc[cat].push(interest);
         return acc;
       },
-      {} as Record<InterestCategory, InterestType[]>,
+      {} as Record<InterestCategoryEnum, InterestEnum[]>,
     );
   }, [interests]);
 
@@ -122,7 +101,7 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
 
   // Use formatEnum() for translation
   const currentLabel = current
-    ? formatEnum(tUser, INTEREST_I18N_KEY, current)
+    ? formatEnum(tEnum, 'interest', current)
     : "—";
 
   return (

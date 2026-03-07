@@ -2,7 +2,6 @@
 
 import { Box, Button, Chip, Stack, Typography, useTheme } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 
 import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
@@ -11,16 +10,12 @@ import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsAc
 import NotificationsOffOutlinedIcon from "@mui/icons-material/NotificationsOffOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
-
-import {
-  USER_CUSTOMER_CONTACT_OPTION_I18N,
-  USER_CUSTOMER_TIER_I18N,
-} from "@/types/user/enum-translations";
-import { formatEnum } from "@/utils/format-enum";
 import { useRotatingValue } from "../../hooks/useRotatingValue";
 import { IconLabelValueRow } from "../ui/value/IconLabelValueRow";
 import { UserType } from "@/generated/graphql";
 import { User } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { formatEnum } from "@/i18n/format-enum";
 
 type Props = {
   user: User;
@@ -31,7 +26,8 @@ const MotionSpan = motion.span;
 
 export default function ProfileRoleData({ user, isAdmin }: Props) {
   const theme = useTheme();
-  const tUser = useTranslations("user");
+  const t = useTypedTranslations("profile");
+  const tEnum = useTypedTranslations("enums");
 
   const type = user?.userType;
 
@@ -44,17 +40,18 @@ export default function ProfileRoleData({ user, isAdmin }: Props) {
       }}
     >
       <Typography fontWeight={700} sx={{ mb: 2 }}>
-        {useTranslations("sections")("roleData")}
+        {useTypedTranslations("profile")("section.roleData")}
       </Typography>
 
-      {type === UserType.Guest && <GuestBlock tUser={tUser} />}
+      {type === UserType.Guest && <GuestBlock tUser={t} />}
       {type === UserType.Customer && (
-        <CustomerBlock user={user} tUser={tUser} theme={theme} />
+        <CustomerBlock user={user} tUser={t} tEnum={tEnum} theme={theme} />
       )}
       {type === UserType.Employee && (
         <EmployeeBlock
           user={user}
-          tUser={tUser}
+          tUser={t}
+          tEnum={tEnum}
           theme={theme}
           isAdmin={isAdmin}
         />
@@ -70,10 +67,12 @@ export default function ProfileRoleData({ user, isAdmin }: Props) {
 function CustomerBlock({
   user,
   tUser,
+  tEnum,
   theme,
 }: {
   user: User;
-  tUser: ReturnType<typeof useTranslations>;
+  tUser: ReturnType<typeof useTypedTranslations>;
+  tEnum: ReturnType<typeof useTypedTranslations>;
   theme: any;
 }) {
   const subscribed = !!user?.customer?.subscribed;
@@ -89,11 +88,11 @@ function CustomerBlock({
         icon={
           <WorkspacePremiumOutlinedIcon fontSize="small" color="disabled" />
         }
-        label={tUser("customer.labels.tier")}
+        label={tUser("label.tier")}
         rootSx={{ gap: 0 }}
       >
         <Chip
-          label={formatEnum(tUser, USER_CUSTOMER_TIER_I18N, user?.role ?? '')}
+          label={formatEnum(tEnum, "userType", user?.role ?? "")}
           size="small"
           sx={{
             bgcolor: theme.palette.secondary.main + "22",
@@ -115,14 +114,14 @@ function CustomerBlock({
             <NotificationsOffOutlinedIcon fontSize="small" color="disabled" />
           )
         }
-        label={tUser("customer.labels.subscription")}
+        label={tUser("label.subscription")}
         rootSx={{ gap: 0 }}
       >
         <Chip
           label={
             subscribed
-              ? tUser("customer.values.subscribed")
-              : tUser("customer.values.notSubscribed")
+              ? tUser("value.subscribed")
+              : tUser("value.notSubscribed")
           }
           size="small"
           sx={{
@@ -140,7 +139,7 @@ function CustomerBlock({
       {/* Contact Options (rotating fade) */}
       <IconLabelValueRow
         icon={<AlternateEmailOutlinedIcon fontSize="small" color="disabled" />}
-        label={tUser("customer.labels.contactOptions")}
+        label={tUser("label.contactOptions")}
         rootSx={{ gap: 0 }}
       >
         {contactOptions.length === 0 ? (
@@ -158,10 +157,9 @@ function CustomerBlock({
                 transition={{ duration: 0.25 }}
               >
                 <Chip
-                  // label={formatContactOption(rotatingContact, tUser)}
                   label={formatEnum(
-                    tUser,
-                    USER_CUSTOMER_CONTACT_OPTION_I18N,
+                    tEnum,
+                    "contactOption",
                     rotatingContact?.toString(),
                   )}
                   size="small"
@@ -187,11 +185,15 @@ function CustomerBlock({
 function EmployeeBlock({
   user,
   tUser,
+  tEnum,
   theme,
+  isAdmin
 }: {
   user: User;
-  tUser: ReturnType<typeof useTranslations>;
-  theme: any;
+  tUser: ReturnType<typeof useTypedTranslations>;
+  tEnum: ReturnType<typeof useTypedTranslations>;
+    theme: any;
+    isAdmin: boolean;
 }) {
   const emp = user?.employee;
 
@@ -199,7 +201,7 @@ function EmployeeBlock({
     <Stack spacing={1}>
       <IconLabelValueRow
         icon={<BusinessOutlinedIcon fontSize="small" color="disabled" />}
-        label={tUser("employee.labels.department")}
+        label={tUser("label.department")}
         labelWidth={100}
       >
         <Typography variant="body2" fontWeight={600}>
@@ -209,7 +211,7 @@ function EmployeeBlock({
 
       <IconLabelValueRow
         icon={<WorkOutlineOutlinedIcon fontSize="small" color="disabled" />}
-        label={tUser("employee.labels.position")}
+        label={tUser("label.position")}
         labelWidth={100}
       >
         <Typography variant="body2" fontWeight={600}>
@@ -220,24 +222,24 @@ function EmployeeBlock({
       {/* Job role/function */}
       <IconLabelValueRow
         icon={<BadgeOutlinedIcon fontSize="small" color="disabled" />}
-        label={tUser("employee.labels.role")}
+        label={tUser('label.role')}
         labelWidth={100}
       >
         <Typography variant="body2" fontWeight={600}>
-          {emp?.role ?? tUser("employee.values.notAvailable")}
+          {emp?.role ?? tUser("employee.notAvailable")}
         </Typography>
       </IconLabelValueRow>
 
       <IconLabelValueRow
         icon={<BadgeOutlinedIcon fontSize="small" color="disabled" />}
-        label={tUser("employee.labels.isExternal")}
+        label={tUser("label.isExternal")}
         labelWidth={100}
       >
         <Chip
           label={
             emp?.isExternal
-              ? tUser("employee.values.external")
-              : tUser("employee.values.internal")
+              ? tUser("employee.external")
+              : tUser("employee.internal")
           }
           size="small"
           sx={{
@@ -255,7 +257,7 @@ function EmployeeBlock({
   );
 }
 
-function GuestBlock({ tUser }: { tUser: ReturnType<typeof useTranslations> }) {
+function GuestBlock({ tUser }: { tUser: ReturnType<typeof useTypedTranslations> }) {
   return (
     <Stack spacing={2}>
       <Typography variant="body2" color="text.secondary">

@@ -1,50 +1,50 @@
-/**
- * @file RotatingProfileHeadline.tsx
- * @description Creative profile headline – rotates per page visit
- */
-
 "use client";
 
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { usePathname } from "next/navigation";
 
-import { User } from "@/types/user/user.type";
 import TypingHeadline from "../home/TypingHeadline";
+import { User } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 const MotionBox = motion(Box);
 
 export default function RotatingProfileHeadline({ user }: { user?: User }) {
   const pathname = usePathname();
+  const t = useTypedTranslations("profile");
+
   const firstName = user?.personalInfo?.firstName ?? "there";
 
-  const messages = [
-    {
-      title: `Your profile is almost complete, ${firstName}`,
-      subtitle: "Fine-tune your identity, security and preferences.",
-    },
-    {
-      title: "This is your identity within Omnixys",
-      subtitle: "One profile shared across Nexys, Finanxys and beyond.",
-    },
-    {
-      title: `Built around you, ${firstName}`,
-      subtitle: "Everything Omnixys knows — under your control.",
-    },
-    {
-      title: "Your digital trust starts here",
-      subtitle: "Manage how systems and people see you.",
-    },
-  ];
+  const messages = useMemo(
+    () => [
+      {
+        title: t("profileHeadline.1.title", { name: firstName }),
+        subtitle: t("profileHeadline.1.subtitle"),
+      },
+      {
+        title: t("profileHeadline.2.title"),
+        subtitle: t("profileHeadline.2.subtitle"),
+      },
+      {
+        title: t("profileHeadline.3.title", { name: firstName }),
+        subtitle: t("profileHeadline.3.subtitle"),
+      },
+      {
+        title: t("profileHeadline.4.title"),
+        subtitle: t("profileHeadline.4.subtitle"),
+      },
+    ],
+    [t, firstName],
+  );
 
   const [index, setIndex] = useState(0);
 
-  /* ---------------------------------------------
-     Pick a new headline on each page visit
-  ---------------------------------------------- */
   useEffect(() => {
-    const next = Math.floor(Math.random() * messages.length);
+    const next =
+      (index + 1 + Math.floor(Math.random() * (messages.length - 1))) %
+      messages.length;
     setIndex(next);
   }, [pathname, messages.length]);
 

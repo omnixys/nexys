@@ -21,8 +21,6 @@ import {
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
-import type { User } from "@/types/user/user.type";
-import { RelationshipType } from "@/types/user/user-enum-type";
 
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
@@ -30,14 +28,16 @@ import BoltRoundedIcon from "@mui/icons-material/BoltRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import PaymentsRoundedIcon from "@mui/icons-material/PaymentsRounded";
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
-import { INTEREST_I18N_KEY, RELATIONSHIP_I18N_KEY } from "../../types/user/enum-translations";
-import { formatEnum } from "../../utils/format-enum";
+import { RelationshipType } from "@/generated/graphql";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { formatEnum } from "@/i18n/format-enum";
+import { User } from "@/graphql/graphql.type";
 
 type Props = {
   user: User;
 };
 
-type Contact = User["contacts"][number];
+type Contact = NonNullable<User["contacts"]>[number];
 
 const CARD_W = 320;
 const CARD_GAP = 14;
@@ -46,7 +46,8 @@ type FilterKey = "ALL" | RelationshipType;
 
 export default function ProfileContactsCarousel({ user }: Props) {
   const theme = useTheme();
-  const tUser = useTranslations('user');
+  const tUser = useTypedTranslations('profile');
+  const tEnum = useTypedTranslations('enums');
 
   const contacts: Contact[] = user?.contacts ?? [];
 
@@ -137,10 +138,10 @@ export default function ProfileContactsCarousel({ user }: Props) {
       >
         <Stack spacing={1.2} alignItems="center">
           <Typography fontWeight={800}>
-            {tUser("customer.contacts.emptyTitle")}
+            {tUser("contact.emptyTitle")}
           </Typography>
           <Typography variant="body2" color="text.secondary" textAlign="center">
-            {tUser("customer.contacts.emptySubtitle")}
+            {tUser("contact.emptySubtitle")}
           </Typography>
         </Stack>
       </Box>
@@ -174,7 +175,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
       >
         <Box>
           <Typography variant="h6" fontWeight={800}>
-            {tUser("labels.contacts")}
+            {tUser("label.contacts")}
           </Typography>
 
           <Stack
@@ -184,7 +185,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
             flexWrap="wrap"
           >
             <Typography variant="caption" color="text.secondary">
-              {tUser("customer.contacts.count", {
+              {tUser("contact.count", {
                 count: filteredContacts.length,
               })}
             </Typography>
@@ -192,15 +193,14 @@ export default function ProfileContactsCarousel({ user }: Props) {
               •
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              {tUser("customer.contacts.totalLimit")}{" "}
-              {formatterEUR.format(totalLimit)}
+              {tUser("contact.totalLimit")} {formatterEUR.format(totalLimit)}
             </Typography>
 
             {hasFiltered && (
               <Chip
                 size="small"
                 icon={<FilterAltRoundedIcon />}
-                label={tUser("customer.contacts.filtered")}
+                label={tUser("contact.filtered")}
                 sx={{
                   ml: 0.5,
                   bgcolor: alpha(theme.palette.primary.main, 0.12),
@@ -228,8 +228,8 @@ export default function ProfileContactsCarousel({ user }: Props) {
             {availableFilters.map((f) => (
               <MenuItem key={String(f)} value={f}>
                 {f === "ALL"
-                  ? tUser("customer.contacts.filters.all")
-                  : formatEnum(tUser, RELATIONSHIP_I18N_KEY, f)}
+                  ? tUser("contact.filters.all")
+                  : formatEnum(tEnum, "relationshipType", f)}
               </MenuItem>
             ))}
           </Select>
@@ -258,18 +258,18 @@ export default function ProfileContactsCarousel({ user }: Props) {
         >
           <Stack spacing={0.75} alignItems="center">
             <Typography fontWeight={800}>
-              {tUser("customer.contacts.noResultsTitle")}
+              {tUser("value.noResultsTitle")}
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
               textAlign="center"
             >
-              {tUser("customer.contacts.noResultsSubtitle")}
+              {tUser("value.noResultsSubtitle")}
             </Typography>
             <Chip
               size="small"
-              label={tUser("customer.contacts.resetFilter")}
+              label={tUser("value.resetFilter")}
               onClick={() => setFilter("ALL")}
               sx={{
                 mt: 0.5,
@@ -369,8 +369,8 @@ export default function ProfileContactsCarousel({ user }: Props) {
                           <Chip
                             size="small"
                             label={formatEnum(
-                              tUser,
-                           RELATIONSHIP_I18N_KEY,
+                              tEnum,
+                              "relationshipType",
                               c.relationship,
                             )}
                             sx={{
@@ -384,7 +384,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
                             <Chip
                               size="small"
                               icon={<BoltRoundedIcon />}
-                              label={tUser("customer.contacts.emergency")}
+                              label={tUser("contact.emergency")}
                               sx={{
                                 bgcolor: alpha(theme.palette.error.main, 0.14),
                                 color: theme.palette.error.main,
@@ -403,7 +403,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
                               color="disabled"
                             />
                           }
-                          label={tUser("customer.contacts.labels.limit")}
+                          label={tUser("label.limit")}
                           value={formatterEUR.format(
                             Number(c.withdrawalLimit ?? 0),
                           )}
@@ -416,8 +416,8 @@ export default function ProfileContactsCarousel({ user }: Props) {
                               color="disabled"
                             />
                           }
-                          label={tUser("customer.contacts.labels.start")}
-                          value={formatMonthYear(c.startDate)}
+                          label={tUser("label.start")}
+                          value={formatMonthYear(c.startDate) ?? ""}
                         />
 
                         <RowStat
@@ -427,7 +427,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
                               color="disabled"
                             />
                           }
-                          label={tUser("customer.contacts.labels.end")}
+                          label={tUser("label.end")}
                           value={formatMonthYear(c.endDate) ?? "—"}
                           valueTone={c.endDate ? "default" : "muted"}
                         />

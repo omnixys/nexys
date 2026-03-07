@@ -15,16 +15,13 @@ import ProfileAddressStack from "@/components/profile/ProfileAddressStack";
 import ProfileContactsCarousel from "@/components/profile/ProfileContactsCarousel";
 import ProfileRoleData from "@/components/profile/ProfileRoleData";
 import ProfileStatusStrip from "@/components/profile/ProfileStatusStrip";
-import { User } from "@/types/user/user.type";
 import RotatingProfileHeadline from "@/components/profile/RotatingProfileHeadline";
 import BentoTile from "@/components/home/BentoTile";
 import ProfileRoleSpecificInfo from "@/components/profile/ProfileRoleSpecificInfo";
 import ProfileStatsTile from "@/components/profile/ProfileStatsTile";
 import { useDevice } from "@/providers/DeviceProvider";
+import { User } from "@/graphql/graphql.type";
 
-/* =====================================================
-   STAGGER CONFIG
-===================================================== */
 
 const gridVariants = {
   hidden: {},
@@ -40,9 +37,8 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
   const pathname = usePathname();
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
-    const { isMobile, isDesktop } = useDevice();
+  const { isMobile, isDesktop } = useDevice();
   
-
   useEffect(() => {
     setAnimationKey((k) => k + 1);
     setFocused(null);
@@ -86,7 +82,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         }}
       >
         {/* ==================================== */}
-        {/* TOP BAR – STATUS STRIP (Span 12)     */}
+        {/*                TOP BAR               */}
         {/* ==================================== */}
         <BentoTile
           index={0}
@@ -108,7 +104,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         </BentoTile>
 
         {/* ==================================== */}
-        {/* ROLE DATA (Span 3)                  */}
+        {/*              ROLE DATA               */}
         {/* ==================================== */}
         <BentoTile
           index={2}
@@ -127,7 +123,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         </BentoTile>
 
         {/* ==================================== */}
-        {/* PERSONAL INFO (Span 6) - Doppelt breit */}
+        {/*             PERSONAL INFO            */}
         {/* ==================================== */}
         <BentoTile
           index={3}
@@ -148,7 +144,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         </BentoTile>
 
         {/* ==================================== */}
-        {/* CUSTOMER DETAILS (Span 9) - Großes Main Tile */}
+        {/*           CUSTOMER DETAILS          */}
         {/* ==================================== */}
         {user?.customer && (
           <BentoTile
@@ -177,7 +173,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         )}
 
         {/* ==================================== */}
-        {/* ADDRESSES (Span 3) - Rechte Spalte oben */}
+        {/*             ADDRESSES                */}
         {/* ==================================== */}
         {isDesktop && (
           <BentoTile
@@ -198,7 +194,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         )}
 
         {/* ==================================== */}
-        {/* CONTACTS (Span 3) - Rechte Spalte unten */}
+        {/*              CONTACTS                */}
         {/* ==================================== */}
         {isDesktop && (
           <BentoTile
@@ -219,7 +215,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
         )}
 
         {/* ==================================== */}
-        {/* FOOTER STATS (Span 12) - Unten */}
+        {/*           FOOTER STATS               */}
         {/* ==================================== */}
         <BentoTile
           index={7}

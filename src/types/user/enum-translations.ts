@@ -34,14 +34,6 @@ export const USER_CUSTOMER_TIER_I18N = {
   ADMIN: "employee.values.admin",
 } satisfies Record<RealmRole, UserTranslationKey>;
 
-export const USER_STATUS_I18N = {
-  ACTIVE: "status.active",
-  DISABLED: "status.disabled",
-  DELETED: "status.deleted",
-  INACTIVE: "status.inactive",
-  BLOCKED: "status.blocked",
-  CLOSED: "status.closed",
-} satisfies Record<UserStatusType, UserTranslationKey>;
 
 export const USER_CUSTOMER_CONTACT_OPTION_I18N = {
   EMAIL: "customer.contactOption.email",

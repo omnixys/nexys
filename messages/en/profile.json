@@ -1,1 +1,166 @@
-{}
+{
+  "label": {
+    "department": "Department",
+    "position": "Position",
+    "role": "Job role",
+    "isExternal": "External",
+    "access": "Access",
+    "hireDate": "Hire date",
+
+    "personal": "Personal profile",
+    "contact": "Contact",
+
+    "profile-score": "Profile-Score",
+    "addresses": "Locations",
+    "contacts": "Contacts",
+    "status": "Account status",
+    "type": "Account type",
+
+    "tier": "Tier",
+    "subscription": "Subscription",
+    "contactOptions": "Contact options",
+    "interests": "Interests",
+    "noInterests": "No interests specified",
+
+    "limit": "Limit",
+    "start": "Start",
+    "end": "End",
+
+    "securityLevel": "Protection level",
+
+    "profileCompleteness": "Profile completeness",
+    "securityScore": "Security score",
+    "dataPoints": "Data points",
+    "lastUpdated": "Last updated",
+    "profileId": "Profile ID",
+    "since": "Since"
+  },
+
+  "value": {
+    "secure": "Secure",
+    "actionRequired": "Action required",
+
+    "subscribed": "Subscribed",
+    "notSubscribed": "Not subscribed",
+
+    "noResultsTitle": "No results",
+    "noResultsSubtitle": "No contacts match the selected relationship filter.",
+    "resetFilter": "Reset filter",
+
+    "interestsOnlyForCustomers": "",
+    "noInterests": "",
+
+    "today": "Today"
+  },
+
+  "employee": {
+    "admin": "Administrator",
+    "standard": "Standard access",
+    "external": "External",
+    "internal": "Internal",
+    "notAvailable": "—"
+  },
+
+  "personal": {
+    "bornOn": "Born on {date}",
+    "bornOnWithAge": "Born on {date} ({age} years old)"
+  },
+
+  "contact": {
+    "title": "Trust Network",
+    "emptyTitle": "No contacts yet",
+    "emptySubtitle": "Add trusted contacts to enable limits, emergency flags and shared access.",
+    "count": "{count} contacts",
+    "totalLimit": "Total limit",
+    "filtered": "Filtered",
+    "emergency": "Emergency",
+    "filters": {
+      "all": "All relationships"
+    },
+
+    "customer": {
+      "tiers": {
+        "basic": "Basic",
+        "elite": "Elite",
+        "supreme": "Supreme"
+      }
+    }
+  },
+
+  "address": {
+    "title": "Locations",
+    "emptyTitle": "No locations yet",
+    "emptySubtitle": "Add your first location to get started.",
+    "counter": "{current}/{total}",
+    "favorited": "{count} favorited",
+    "hint": "Use ← / → to navigate • Press P to toggle autoplay • Click a card for details",
+    "openHint": "Click to view details",
+    "noAdditionalInfo": "No additional notes",
+    "labels": {
+      "postalCode": "Postal code",
+      "city": "City"
+    },
+    "actions": {
+      "play": "Play",
+      "pause": "Pause",
+      "prev": "Previous",
+      "next": "Next",
+      "favorite": "Add to favorites",
+      "unfavorite": "Remove from favorites"
+    }
+  },
+
+  "section": {
+    "roleData": "Role data",
+    "interests": "Interests"
+  },
+
+  "profile": {
+    "role": {
+      "titles": {
+        "employee": "Employment details",
+        "customer": "Customer details",
+        "guest": "Guest access",
+        "default": "Role details"
+      }
+    }
+  },
+
+  "user": {
+    "role": {
+      "admin": "Administrator",
+      "security": "Security",
+      "user": "User",
+      "guest": "Guest"
+    }
+  },
+
+  "guest": {
+    "messages": {
+      "guestRoleDataUnavailable": "This section is not available for guests. Create an account to view tier, subscription, and more account details.",
+      "note": "This is a guest account with limited, temporary access."
+    },
+    "actions": {
+      "createAccount": "Create account"
+    }
+  },
+
+  "profileHeadline": {
+    "1": {
+      "title": "Your profile is almost complete, {name}",
+      "subtitle": "Fine-tune your identity, security and preferences."
+    },
+    "2": {
+      "title": "This is your identity within Omnixys",
+      "subtitle": "One profile shared across Nexys, Finanxys and beyond."
+    },
+    "3": {
+      "title": "Built around you, {name}",
+      "subtitle": "Everything Omnixys knows — under your control."
+    },
+    "4": {
+      "title": "Your digital trust starts here",
+      "subtitle": "Manage how systems and people see you."
+    }
+  }
+}

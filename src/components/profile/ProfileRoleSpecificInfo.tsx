@@ -7,9 +7,10 @@
 
 import React from "react";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { useTranslations } from "next-intl";
 import CustomerInterestSpectrum from "../profile/SpectrumRow";
 import { User } from "@/graphql/graphql.type";
+import { UserType } from "@/generated/graphql";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Props = {
   user: User;
@@ -17,12 +18,12 @@ type Props = {
 
 export default function ProfileRoleSpecificInfo({ user }: Props) {
   const theme = useTheme();
-  const tProfile = useTranslations("profile");
-      const tSection = useTranslations("sections");
+  const tProfile = useTypedTranslations("profile");
+      const tSection = useTypedTranslations("profile");
 
 
-  const interests = user?.customer?.interests ?? [];
-  const isCustomer = user?.userType === UserType.CUSTOMER;
+  const interests = user?.customer?.customerInterest?? [];
+  const isCustomer = user?.userType === UserType.Customer;
 
   return (
     <Box
@@ -33,32 +34,32 @@ export default function ProfileRoleSpecificInfo({ user }: Props) {
         py: 2,
       }}
     >
-     <Typography
-                   variant="h5"
-                   fontWeight={700}
-                   sx={{
-                     mb: 3,
-                     background:
-                       "linear-gradient(90deg, #2196F3 0%, #00BCD4 100%)",
-                     WebkitBackgroundClip: "text",
-                     WebkitTextFillColor: "transparent",
-                   }}
-                 >
-                   {tSection("interests")}
-                 </Typography>
+      <Typography
+        variant="h5"
+        fontWeight={700}
+        sx={{
+          mb: 3,
+          background: "linear-gradient(90deg, #2196F3 0%, #00BCD4 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        {tSection("section.interests")}
+      </Typography>
 
       {!isCustomer ? (
         <Typography variant="body2" color="text.secondary">
-          {tProfile("messages.interestsOnlyForCustomers")}
+          {tProfile("value.interestsOnlyForCustomers")}
         </Typography>
       ) : interests.length === 0 ? (
         <Typography variant="body2" color="text.secondary">
-          {tProfile("messages.noInterests")}
+          {tProfile("value.noInterests")}
         </Typography>
-      ) : (
-        <Stack spacing={2}>
-          <CustomerInterestSpectrum interests={interests} />
-        </Stack>
+        ) : (
+            <></>
+        // <Stack spacing={2}>
+        //   <CustomerInterestSpectrum interests={interests} />
+        // </Stack>
       )}
     </Box>
   );

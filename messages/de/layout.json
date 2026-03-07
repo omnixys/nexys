@@ -1,4 +1,27 @@
 {
+  "sidebar": {
+    "home": "Startseite",
+    "profile": "Mein Profil",
+    "settings": "Einstellungen",
+    "security": "Sicherheit",
+    "billing": "Abrechnung",
+    "support": "Support",
+
+    "settings_appearance": "Darstellung",
+    "settings_language": "Sprache & Region",
+    "settings_notifications": "Benachrichtigungen",
+    "settings_data": "Daten",
+    "settings_advanced": "Erweitert",
+
+    "security_score": "Security Score",
+    "security_features": "Features",
+    "security_devices": "Geräte",
+    "security_history": "Login-Verlauf",
+    "security_auth": "Authentifizierung",
+    "security_actions": "Aktionen"
+  },
+
+  
   "userMenu": {
     "profile": "Profil & Einstellungen",
     "notifications": "Benachrichtigungen",

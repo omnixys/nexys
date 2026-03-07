@@ -92,5 +92,28 @@
     "SIBLING": "Geschwister",
     "CHILD": "Kind",
     "COUSIN": "Cousin"
+  },
+
+  "userStatus": {
+    "ACTIVE": "Aktiv",
+    "INACTIVE": "Inaktiv",
+    "BLOCKED": "Gesperrt",
+    "DISABLED": "Deaktiviert",
+    "CLOSED": "Geschlossen"
+  },
+  "userType": {
+    "CUSTOMER": "Kunde",
+    "EMPLOYEE": "Mitarbeiter",
+    "ADMIN": "Administrator",
+    "USER": "Benutzer"
+  },
+
+  "phoneType": {
+    "WHATSAPP": "WhatsApp",
+    "MOBILE": "Mobil",
+    "PRIVATE": "Privat",
+    "WORK": "Arbeit",
+    "HOME": "Zuhause",
+    "OTHER": "Sonstiges"
   }
 }

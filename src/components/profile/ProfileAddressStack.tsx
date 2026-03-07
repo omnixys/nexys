@@ -34,6 +34,7 @@ import useEmblaCarousel from "embla-carousel-react";
 
 import type { Address, User } from "@/types/user/user.type";
 import { useTranslations } from "next-intl";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Props = {
   user: User;
@@ -54,7 +55,7 @@ function buildAddressModalUrl(addressId: string): string {
 export default function ProfileAddressStack({ user }: Props) {
   const theme = useTheme();
   const router = useRouter();
-  const t = useTranslations("profile.addresses");
+  const t = useTypedTranslations("profile");
 
   const addresses = user?.addresses ?? [];
 
@@ -175,10 +176,10 @@ export default function ProfileAddressStack({ user }: Props) {
             <LocationOnIcon sx={{ color: theme.palette.primary.main }} />
           </Box>
 
-          <Typography fontWeight={800}>{t("emptyTitle")}</Typography>
+          <Typography fontWeight={800}>{t("address.emptyTitle")}</Typography>
 
           <Typography variant="body2" color="text.secondary" textAlign="center">
-            {t("emptySubtitle")}
+            {t("address.emptySubtitle")}
           </Typography>
         </Stack>
       </Box>
@@ -225,11 +226,11 @@ export default function ProfileAddressStack({ user }: Props) {
       >
         <Box>
           <Typography variant="h6" fontWeight={800}>
-            {t("title")}
+            {t("address.title")}
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            {t("counter", { current: selectedIndex + 1, total: count })} •{" "}
-            {t("favorited", { count: favorites.size })}
+            {t("address.counter", { current: selectedIndex + 1, total: count })}{" "}
+            • {t("address.favorited", { count: favorites.size })}
           </Typography>
         </Box>
 
@@ -279,7 +280,9 @@ export default function ProfileAddressStack({ user }: Props) {
               border: `1px solid ${alpha(theme.palette.divider, 0.75)}`,
               "&:hover": { bgcolor: alpha(theme.palette.text.primary, 0.1) },
             }}
-            aria-label={isPlaying ? t("actions.pause") : t("actions.play")}
+            aria-label={
+              isPlaying ? t("address.actions.pause") : t("address.actions.play")
+            }
           >
             {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
           </IconButton>
@@ -293,7 +296,7 @@ export default function ProfileAddressStack({ user }: Props) {
               border: `1px solid ${alpha(theme.palette.divider, 0.75)}`,
               "&:hover": { bgcolor: alpha(theme.palette.text.primary, 0.1) },
             }}
-            aria-label={t("actions.prev")}
+            aria-label={t("address.actions.prev")}
           >
             <ArrowBackIcon />
           </IconButton>
@@ -307,7 +310,7 @@ export default function ProfileAddressStack({ user }: Props) {
               border: `1px solid ${alpha(theme.palette.divider, 0.75)}`,
               "&:hover": { bgcolor: alpha(theme.palette.text.primary, 0.1) },
             }}
-            aria-label={t("actions.next")}
+            aria-label={t("address.actions.next")}
           >
             <ArrowForwardIcon />
           </IconButton>
@@ -365,7 +368,7 @@ function AddressCard({
   onOpen: () => void;
 }) {
   const theme = useTheme();
-  const t = useTranslations("profile.addresses");
+  const t = useTypedTranslations("profile");
 
   return (
     <Box
@@ -452,7 +455,9 @@ function AddressCard({
                 "&:hover": { bgcolor: alpha(theme.palette.text.primary, 0.1) },
               }}
               aria-label={
-                isFavorite ? t("actions.unfavorite") : t("actions.favorite")
+                isFavorite
+                  ? t("address.actions.unfavorite")
+                  : t("address.actions.favorite")
               }
             >
               {isFavorite ? (
@@ -466,7 +471,7 @@ function AddressCard({
           <Stack direction="row" spacing={1} flexWrap="wrap">
             <Chip
               size="small"
-              label={`${t("labels.postalCode")}: ${address.zipCode}`}
+              label={`${t("address.labels.postalCode")}: ${address.zipCode}`}
               sx={{
                 bgcolor: alpha(theme.palette.text.primary, 0.07),
                 fontWeight: 700,
@@ -474,7 +479,7 @@ function AddressCard({
             />
             <Chip
               size="small"
-              label={`${t("labels.city")}: ${address.city}`}
+              label={`${t("address.labels.city")}: ${address.city}`}
               sx={{
                 bgcolor: alpha(theme.palette.text.primary, 0.07),
                 fontWeight: 700,
@@ -498,7 +503,7 @@ function AddressCard({
             </Typography>
           ) : (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-              {t("noAdditionalInfo")}
+              {t("address.noAdditionalInfo")}
             </Typography>
           )}
 
@@ -507,7 +512,7 @@ function AddressCard({
             color="text.secondary"
             sx={{ mt: "auto" }}
           >
-            {t("openHint")}
+            {t("address.openHint")}
           </Typography>
         </Stack>
       </Box>
