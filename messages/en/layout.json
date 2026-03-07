@@ -1,1 +1,8 @@
-{}
+{
+  "userMenu": {
+    "profile": "Profile & Settings",
+    "notifications": "Notifications",
+    "qr": "My QR / Ticket",
+    "logout": "Logout"
+  }
+}

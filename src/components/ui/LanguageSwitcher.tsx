@@ -4,6 +4,9 @@ import React from "react";
 import { IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { CheckIcon } from "lucide-react";
+
 
 type Locale = "de" | "en";
 
@@ -14,6 +17,8 @@ const LOCALES: { code: Locale; label: string }[] = [
 
 export default function LanguageSwitcher() {
   const router = useRouter();
+  const locale = useLocale();
+
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const open = Boolean(anchorEl);
@@ -23,20 +28,20 @@ export default function LanguageSwitcher() {
 
   const handleClose = () => setAnchorEl(null);
 
-  const switchLocale = (locale: Locale) => {
-    // 🔑 Locale im Cookie setzen (Variante A)
-    document.cookie = `locale=${locale}; path=/; max-age=31536000`;
-
+  const switchLocale = (nextLocale: Locale) => {
+    if (nextLocale === locale) return;
+    document.cookie = `locale=${nextLocale}; path=/; max-age=31536000`;
     handleClose();
-
-    // 🔁 Next.js App Router neu rendern (kein Full Reload)
     router.refresh();
   };
 
   return (
     <>
       <IconButton size="small" onClick={handleOpen}>
-        <LanguageIcon fontSize="large" />
+        <Stack direction="row" spacing={1} alignItems="center">
+          <LanguageIcon fontSize="large" />
+          <Typography fontSize={16}>{locale.toUpperCase()}</Typography>
+        </Stack>
       </IconButton>
 
       <Menu
@@ -48,8 +53,14 @@ export default function LanguageSwitcher() {
       >
         {LOCALES.map((l) => (
           <MenuItem key={l.code} onClick={() => switchLocale(l.code)}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography fontSize={14}>{l.label}</Typography>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+              sx={{ width: "100%", justifyContent: "space-between" }}
+            >
+              <Typography fontSize={14}> {l.label} </Typography>
+              {locale === l.code && <CheckIcon fontSize="small" />}
             </Stack>
           </MenuItem>
         ))}

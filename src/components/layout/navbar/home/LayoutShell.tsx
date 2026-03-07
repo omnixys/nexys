@@ -3,11 +3,11 @@
 import { Box, useMediaQuery, useTheme, IconButton } from "@mui/material";
 import GlobalNavbar from "./GlobalNavbar";
 import { JSX, useState } from "react";
-import { User } from "@/types/user/user.type";
 import MobileSidebarSheet from "./MobileSidebarSheet";
 import MenuIcon from "@mui/icons-material/Menu";
 import UserSidebar from "./UserSidebar";
 import ProductSelectorActionSheet from "../../../home/ProductSelectorActionSheet";
+import { User } from "@/graphql/graphql.type";
 
 const SIDEBAR_WIDTH = 260;
 

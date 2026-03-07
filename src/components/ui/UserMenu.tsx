@@ -14,7 +14,6 @@ import React, { JSX } from "react";
 
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BadgeIcon from "@mui/icons-material/Badge";
-import GroupsIcon from "@mui/icons-material/Groups";
 import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Person from "@mui/icons-material/Person";
@@ -23,14 +22,11 @@ import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import { useAuth } from "@/providers/AuthProvider";
 import { useDevice } from "@/providers/DeviceProvider";
 import { useRouter } from "next/navigation";
-import ColorBubbleSwitcher from "./ColorBubbleSwitcher";
+import { useTranslations } from "next-intl";
 
-/**
- * eventRoles:
- *  - ADMIN
- *  - SECURITY
- *  - GUEST
- */
+import ColorBubbleSwitcher from "./ColorBubbleSwitcher";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+
 type EventRole = "ADMIN" | "SECURITY" | "GUEST";
 
 export default function UserMenu({
@@ -40,8 +36,9 @@ export default function UserMenu({
 }): JSX.Element | null {
   const router = useRouter();
   const { device } = useDevice();
-
   const { user, isAuthenticated, loading, logout } = useAuth();
+
+  const t = useTypedTranslations("layout");
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
@@ -49,8 +46,10 @@ export default function UserMenu({
   if (loading) return null;
   if (!isAuthenticated || !user) return null;
 
+  const role = user?.eventRole as EventRole | undefined;
+
   const displayName =
-    [user?.personalInfo.firstName, user?.personalInfo.lastName]
+    [user?.personalInfo?.firstName, user?.personalInfo?.lastName]
       .filter(Boolean)
       .join(" ") ||
     user.username ||
@@ -64,6 +63,7 @@ export default function UserMenu({
 
   const handleOpen = (e: React.MouseEvent<HTMLElement>) =>
     setAnchorEl(e.currentTarget);
+
   const handleClose = () => setAnchorEl(null);
 
   const go = (href: string) => {
@@ -79,7 +79,6 @@ export default function UserMenu({
 
   return (
     <>
-      {/* Avatar button */}
       <Tooltip title={displayName}>
         <IconButton onClick={handleOpen} size="small" sx={{ ml: 1 }}>
           <Avatar
@@ -96,7 +95,6 @@ export default function UserMenu({
         </IconButton>
       </Tooltip>
 
-      {/* Menu */}
       <Menu
         anchorEl={anchorEl}
         id="user-menu"
@@ -113,7 +111,6 @@ export default function UserMenu({
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {/* Header */}
         <MenuItem disabled>
           <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
             {displayName}
@@ -125,12 +122,13 @@ export default function UserMenu({
             <ColorBubbleSwitcher />
           </MenuItem>
         )}
+
         {/* Profile */}
         <MenuItem onClick={() => go("/checkpoint/me")}>
           <ListItemIcon>
             <Person fontSize="small" />
           </ListItemIcon>
-          Profil & Einstellungen
+          {t("userMenu.profile")}
         </MenuItem>
 
         {/* Notifications */}
@@ -138,16 +136,36 @@ export default function UserMenu({
           <ListItemIcon>
             <NotificationsIcon fontSize="small" />
           </ListItemIcon>
-          Benachrichtigungen
+          {t("userMenu.notifications")}
         </MenuItem>
 
-        {/* My QR */}
+        {/* QR Ticket */}
         <MenuItem onClick={() => go("/checkpoint/my-qr")}>
           <ListItemIcon>
             <BadgeIcon fontSize="small" />
           </ListItemIcon>
-          Mein QR / Ticket
+          {t("userMenu.qr")}
         </MenuItem>
+
+        {/* Security Scanner */}
+        {role === "SECURITY" && (
+          <MenuItem onClick={() => go("/scan")}>
+            <ListItemIcon>
+              <QrCodeScannerIcon fontSize="small" />
+            </ListItemIcon>
+            Scanner
+          </MenuItem>
+        )}
+
+        {/* Admin */}
+        {role === "ADMIN" && (
+          <MenuItem onClick={() => go("/checkpoint/admin")}>
+            <ListItemIcon>
+              <AdminPanelSettingsIcon fontSize="small" />
+            </ListItemIcon>
+            Admin Panel
+          </MenuItem>
+        )}
 
         <Divider />
 
@@ -156,7 +174,7 @@ export default function UserMenu({
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          Abmelden
+          {t("userMenu.logout")}
         </MenuItem>
       </Menu>
     </>
