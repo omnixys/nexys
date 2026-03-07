@@ -3,6 +3,25 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.2.0](https://github.com/omnixys/nexys/compare/v1.1.2...v1.2.0) (2026-03-07)
+
+### I18n
+
+* **I18n:** addes i18N to /home ([](https://github.com/omnixys/nexys/commit/4b635fc9ba210e5937acb0c371451d51f98d0f48))
+
+### I18N
+
+* **I18N:** add i18n for /login ([](https://github.com/omnixys/nexys/commit/04340507addab7d94fdaccccb80302ca1328eff3))
+
+### Proxy
+
+* **Proxy:** add proxy ([](https://github.com/omnixys/nexys/commit/db508dbfe678b531ae5c6e8d7160fa0264008039))
+
+### Signup
+
+* **Signup:** optimize signup flow steps and add full i18n support ([](https://github.com/omnixys/nexys/commit/d72816f1d612c80d9dbdf15a217726a0048b322b))
+* **Signup:** update step 1 & 2 ([](https://github.com/omnixys/nexys/commit/9d6a172a1959b044e2487f0f7290c6aa25eb4733))
+
 ## [1.1.2](https://github.com/omnixys/nexys/compare/v1.1.1...v1.1.2) (2026-03-02)
 
 ### Package.json
