@@ -56,10 +56,9 @@ export default function ProfileRoleSpecificInfo({ user }: Props) {
           {tProfile("value.noInterests")}
         </Typography>
         ) : (
-            <></>
-        // <Stack spacing={2}>
-        //   <CustomerInterestSpectrum interests={interests} />
-        // </Stack>
+        <Stack spacing={2}>
+          <CustomerInterestSpectrum interests={interests} />
+        </Stack>
       )}
     </Box>
   );

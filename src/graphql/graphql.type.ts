@@ -1,9 +1,7 @@
 import { CreateSignupVerificationMutationVariables, GetAllCountriesQuery, GetAllInterestCategoriesQuery, GetMeQuery, GetPostalCodesByCityQuery, GetPostalCodesByStateQuery } from "@/generated/graphql";
 
 export type Country = GetAllCountriesQuery["getAllCountries"][number];
-
 export type User = GetMeQuery["me"]
-
 export type PostalCode = {
   id: string;
   code: string;

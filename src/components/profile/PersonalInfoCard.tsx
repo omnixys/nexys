@@ -87,7 +87,6 @@ const birthDate = birthDateObj
     <Box
       sx={{
         px: isAdmin ? 1 : 5,
-        py: isAdmin ? 4 : 2,
         height: "100%",
       }}
     >
@@ -176,7 +175,7 @@ const birthDate = birthDateObj
                       {" · "}
                     </Typography>
                   )}
-                  {phone.number}
+                  {phone.countryCode} {phone.number}
                 </Typography>
               );
             })}

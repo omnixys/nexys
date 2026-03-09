@@ -18,26 +18,25 @@ import TextTransition, { presets } from "react-text-transition";
 import { useTranslations } from "next-intl";
 
 import {
-  CustomerInterestPayload,
-  InterestCategoryEnum,
-  InterestEnum,
-} from "@/generated/graphql";
-
+  CATEGORY_I18N_KEY,
+  INTEREST_I18N_KEY,
+} from "@/types/user/enum-translations";
 import { formatEnum } from "@/i18n/format-enum";
-import { useInterestCategory } from "@/hooks/useInterest";
+import { CustomerInterestPayload, InterestCategoryEnum, InterestEnum, InterestPayload } from "@/generated/graphql";
+import { User } from "@/graphql/graphql.type";
+
+
 
 type Props = {
-  interests: CustomerInterestPayload[];
+  // interests: InterestEnum[];
+  interests: CustomerInterestPayload[]
 };
 
 export default function CustomerInterestSpectrum({ interests }: Props) {
   const theme = useTheme();
+
+  // Root translator so keys like "interest.sports" work, regardless of namespace file splitting
   const tUser = useTranslations("user");
-  const tEnum = useTranslations("enums");
-
-  const { data } = useInterestCategory();
-
-  const categories = data?.getAllInterestCategories ?? [];
 
   /* ---------------------- guard */
 
@@ -49,59 +48,40 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
     );
   }
 
-  /* ---------------------- normalize interests */
-
-  const userInterestKeys = useMemo(() => {
-    return interests
-      .map((i) => i.interest?.key)
-      .filter(Boolean) as InterestEnum[];
-  }, [interests]);
-
-  /* ---------------------- categorize */
+  /* ---------------------- normalize & categorize */
 
   const categorized = useMemo(() => {
-    const result: Record<InterestCategoryEnum, InterestEnum[]> = {} as Record<
-      InterestCategoryEnum,
-      InterestEnum[]
-    >;
+    return (interests ?? []).reduce<Record<InterestCategoryEnum, InterestEnum[]>>(
+      (acc, interest) => {
+        const cat = INTEREST_CATEGORY_MAP[interest] ?? "lifestyle";
+        acc[cat] ??= [];
+        acc[cat].push(interest);
+        return acc;
+      },
+      {} as Record<InterestCategoryEnum, InterestEnum[]>,
+    );
+  }, [interests]);
 
-    categories.forEach((cat) => {
-      const matches =
-        cat.interests
-          ?.map((i) => i.key)
-          .filter((k) => userInterestKeys.includes(k)) ?? [];
-
-      if (matches.length) {
-        result[cat.key] = matches;
-      }
-    });
-
-    return result;
-  }, [categories, userInterestKeys]);
-
-  const categoryKeys = useMemo(
-    () => Object.keys(categorized) as InterestCategoryEnum[],
+  const categories = useMemo(
+    () => Object.keys(categorized) as InterestCategory[],
     [categorized],
   );
 
-  /* ---------------------- density */
+  /* ---------------------- density (normalized) */
 
-  const maxCount = Math.max(...Object.values(categorized).map((v) => v.length), 1);
-
-  const density = (cat: InterestCategoryEnum) =>
+  const maxCount = Math.max(
+    ...Object.values(categorized).map((v) => v.length),
+    1,
+  );
+  const density = (cat: InterestCategory) =>
     (categorized[cat]?.length ?? 0) / maxCount;
 
   /* ---------------------- state */
 
-  const [category, setCategory] = useState<InterestCategoryEnum | "">("");
-
-  useEffect(() => {
-    if (!category && categoryKeys.length) {
-      setCategory(categoryKeys[0]);
-    }
-  }, [categoryKeys]);
-
-  const list = category ? categorized[category] ?? [] : [];
+  const [category, setCategory] = useState<InterestCategory>(
+    () => categories[0] ?? "lifestyle",
+  );
+  const list = categorized[category] ?? [];
 
   const [index, setIndex] = useState(0);
 
@@ -117,15 +97,14 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
     }, 3200);
 
     return () => window.clearInterval(id);
-  }, [list]);
+  }, [category, list.length]);
 
-  const current = list[index];
+  const current = list[index] ?? null;
 
+  // Use formatEnum() for translation
   const currentLabel = current
-    ? formatEnum(tEnum, "interest", current)
+    ? formatEnum(tEnum, 'interest', current)
     : "—";
-
-  /* ---------------------- render */
 
   return (
     <Stack spacing={2}>
@@ -138,16 +117,14 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
         <Select
           size="small"
           value={category}
-          onChange={(e) =>
-            setCategory(e.target.value as InterestCategoryEnum)
-          }
+          onChange={(e) => setCategory(e.target.value as InterestCategory)}
           sx={{ minWidth: 180, borderRadius: 999 }}
         >
-          {categoryKeys.map((cat) => (
+          {categories.map((cat) => (
             <MenuItem key={cat} value={cat}>
               <Stack spacing={0.5} width="100%">
                 <Typography variant="caption" fontWeight={600}>
-                  {formatEnum(tEnum, "interestCategory", cat)}
+                  {formatEnum(tUser, CATEGORY_I18N_KEY, cat)}
                 </Typography>
 
                 <Box
@@ -171,8 +148,7 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
           ))}
         </Select>
 
-        {/* rotating interest */}
-
+        {/* Focus Wheel (under select) */}
         <Box
           sx={{
             display: "flex",
