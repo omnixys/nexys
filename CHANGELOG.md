@@ -3,6 +3,29 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.3.0](https://github.com/omnixys/nexys/compare/v1.2.0...v1.3.0) (2026-03-09)
+
+### Auth
+
+* **Auth:** Update AuthManager.ts ([](https://github.com/omnixys/nexys/commit/61dae2a1f002ade0c01152eaf67099c943ba76ca))
+
+### I18N
+
+* **I18N:** add profile page ([](https://github.com/omnixys/nexys/commit/f631506a873463fc8c35c95f17502bf10e202518))
+
+### Lint
+
+* **Lint:** lint ([](https://github.com/omnixys/nexys/commit/be55ba8438f7c36cd4165f43246957035adae9c0))
+
+### Other
+
+* **Other:** Merge branch 'main' of https://github.com/omnixys/nexys ([](https://github.com/omnixys/nexys/commit/4f830c4993900123491bf7d2d3cade0a5f73e8c7))
+
+### Profile
+
+* **Profile:** add addressCard to Profile page ([](https://github.com/omnixys/nexys/commit/6ec47dbcfc36cd82a99dc1ff9e88fdb8f75bb1b4))
+* **Profile:** update Profile Page ([](https://github.com/omnixys/nexys/commit/e00fe063ab635463752737f149a3a168ad7aa74e))
+
 ## [1.2.0](https://github.com/omnixys/nexys/compare/v1.1.2...v1.2.0) (2026-03-07)
 
 ### I18n
