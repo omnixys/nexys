@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function SocialLink({ href, label }: { href: string; label: string }) {
   return (

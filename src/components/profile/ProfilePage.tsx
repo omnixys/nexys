@@ -8,20 +8,19 @@
 import { Box, Container } from "@mui/material";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
+import BentoTile from "@/components/home/BentoTile";
 import DepthBlurLayer from "@/components/home/DepthBlurLayer";
 import ProfilePersonalInfo from "@/components/profile/PersonalInfoCard";
 import ProfileAddressStack from "@/components/profile/ProfileAddressStack";
 import ProfileContactsCarousel from "@/components/profile/ProfileContactsCarousel";
 import ProfileRoleData from "@/components/profile/ProfileRoleData";
-import ProfileStatusStrip from "@/components/profile/ProfileStatusStrip";
-import RotatingProfileHeadline from "@/components/profile/RotatingProfileHeadline";
-import BentoTile from "@/components/home/BentoTile";
 import ProfileRoleSpecificInfo from "@/components/profile/ProfileRoleSpecificInfo";
 import ProfileStatsTile from "@/components/profile/ProfileStatsTile";
+import ProfileStatusStrip from "@/components/profile/ProfileStatusStrip";
+import RotatingProfileHeadline from "@/components/profile/RotatingProfileHeadline";
+import type { User } from "@/graphql/graphql.type";
 import { useDevice } from "@/providers/DeviceProvider";
-import { User } from "@/graphql/graphql.type";
-
 
 const gridVariants = {
   hidden: {},
@@ -33,18 +32,22 @@ const gridVariants = {
   },
 };
 
-export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: boolean }): JSX.Element {
-  const pathname = usePathname();
+export default function ProfilePage({
+  user,
+  isAdmin,
+}: {
+  user: User;
+  isAdmin: boolean;
+}): JSX.Element {
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
   const { isMobile, isDesktop } = useDevice();
-  
+
   useEffect(() => {
     setAnimationKey((k) => k + 1);
     setFocused(null);
-  }, [pathname]);
+  }, []);
 
-  
   return (
     <Container
       maxWidth={false}

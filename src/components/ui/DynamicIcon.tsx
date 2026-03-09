@@ -1,7 +1,7 @@
 "use client";
 
-import * as LucideIcons from "lucide-react";
 import type { LucideProps } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { HelpCircle } from "lucide-react";
 import { memo } from "react";
 
@@ -33,9 +33,7 @@ function DynamicIconComponent({
     return <HelpCircle {...props} />;
   }
 
-  const formatted = normalize
-    ? name.charAt(0).toUpperCase() + name.slice(1)
-    : name;
+  const formatted = normalize ? name.charAt(0).toUpperCase() + name.slice(1) : name;
 
   const Icon = iconMap[formatted] ?? iconMap[fallback] ?? HelpCircle;
 

@@ -14,13 +14,7 @@ export function NavbarSocials() {
       }}
     >
       {Socials.map((social) => (
-        <Image
-          key={social.name}
-          src={social.src}
-          alt={social.name}
-          width={22}
-          height={22}
-        />
+        <Image key={social.name} src={social.src} alt={social.name} width={22} height={22} />
       ))}
     </Box>
   );

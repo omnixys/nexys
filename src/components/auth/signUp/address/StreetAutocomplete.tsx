@@ -46,7 +46,7 @@ function useDebouncedValue<T>(value: T, delayMs: number) {
 export default function StreetAutocomplete({ idx }: Props) {
   const { setValue, control } = useFormContext();
 
-  const t = useTypedTranslations("signup.address.street");
+  const t = useTypedTranslations("signup");
 
   const street = useWatch({
     control,
@@ -65,10 +65,7 @@ export default function StreetAutocomplete({ idx }: Props) {
 
   const [load, { data, loading }] = useAddressAutocomplete();
 
-  const options: Suggestion[] = useMemo(
-    () => data?.addressAutocomplete ?? [],
-    [data],
-  );
+  const options = useMemo(() => data?.addressAutocomplete ?? [], [data]);
 
   useEffect(() => {
     if (!debounced || debounced.length < 3) return;
@@ -86,16 +83,11 @@ export default function StreetAutocomplete({ idx }: Props) {
     return (
       <Box>
         <Stack direction="row" spacing={2} alignItems="center">
-          <TextField
-            value={street}
-            label={t("fields.street")}
-            fullWidth
-            disabled
-          />
+          <TextField value={street} label={t("address.street.fields.street")} fullWidth disabled />
 
           <TextField
             value={houseNumber}
-            label={t("fields.houseNumber")}
+            label={t("address.street.fields.houseNumber")}
             sx={{ width: 140 }}
             disabled
           />
@@ -113,7 +105,7 @@ export default function StreetAutocomplete({ idx }: Props) {
               setInputValue("");
             }}
           >
-            {t("change")}
+            {t("address.street.change")}
           </Button>
         </Box>
       </Box>
@@ -155,7 +147,7 @@ export default function StreetAutocomplete({ idx }: Props) {
 
             {option.confidence != null && (
               <Typography variant="caption" color="text.secondary">
-                {t("confidence")} {Math.round(option.confidence * 100)}%
+                {t("address.street.confidence")} {Math.round(option.confidence * 100)}%
               </Typography>
             )}
           </Stack>
@@ -164,9 +156,9 @@ export default function StreetAutocomplete({ idx }: Props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label={t("fields.streetHouse")}
-          placeholder={t("placeholder")}
-          helperText={t("helper")}
+          label={t("address.street.fields.streetHouse")}
+          placeholder={t("address.street.placeholder")}
+          helperText={t("address.street.helper")}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMutation } from "@apollo/client/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -13,26 +14,26 @@ import {
 } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-
 import Confetti from "react-confetti";
-
+import { FormProvider, useForm } from "react-hook-form";
 // Steps
 import {
   AddressType,
   CreateSignupVerificationDocument,
-  CreateSignupVerificationMutation,
-  CreateSignupVerificationMutationVariables,
+  type CreateSignupVerificationMutation,
+  type CreateSignupVerificationMutationVariables,
+  SecurityQuestionEnum,
   StatusType,
   UserType,
 } from "@/generated/graphql";
-import { useMutation } from "@apollo/client/react";
-import { useRouter } from "next/navigation";
+import type { CreateSignupVerificationRequest } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 import { useThemeMode } from "../../../providers/ThemeModeProvider";
-import { schema, SignUpFormValues } from "../../../schemas/sign-up.schema";
+import { type SignUpFormValues, schema } from "../../../schemas/sign-up.schema";
 import { OMNIXYS_LOGOS } from "../../../utils/omnixysBranding";
-import { SignUpPageProps } from "./SignUpPage";
+import type { SignUpPageProps } from "./SignUpPage";
 import AccountStep from "./steps/AccountStep";
 import AddressesStep from "./steps/AddressesStep";
 import ContactsStep from "./steps/ContactsStep";
@@ -40,18 +41,12 @@ import PersonalInfoStep from "./steps/PersonalInfoStep";
 import PhoneNumbersStep from "./steps/PhoneNumbersStep";
 import ProfileDetailsStep from "./steps/ProfileDetailsStep";
 import SecurityQuestionsStep from "./steps/SecurityQuestionsStep";
-import { STEPS } from "./steps/steps";
 import SuccessStep from "./steps/SuccessStep";
 import SummaryStep from "./steps/SummaryStep";
+import { STEPS } from "./steps/steps";
 import TermsStep from "./steps/TermsStep";
-import { Country } from '../../../generated/graphql';
-import { CreateSignupVerificationRequest } from "@/graphql/graphql.type";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
-export default function SignUpWizard({
-  countries,
-  defaultCountry,
-}: SignUpPageProps) {
+export default function SignUpWizard({ countries, defaultCountry }: SignUpPageProps) {
   const router = useRouter();
 
   const t = useTypedTranslations("signup");
@@ -105,7 +100,9 @@ export default function SignUpWizard({
         },
       ],
       phoneNumbers: [],
-      securityQuestions: [{ questionId: "", answer: "", questionKey: '' }],
+      securityQuestions: [
+        { questionId: "", answer: "", questionKey: SecurityQuestionEnum.MotherMaidenName },
+      ],
       customer: {
         subscribed: true,
         state: "ACTIVE",
@@ -145,7 +142,7 @@ export default function SignUpWizard({
         shouldDirty: false,
       });
     }
-  }, [firstName, lastName]);
+  }, [firstName, lastName, methods.getValues, methods.setValue]);
 
   const userType = methods.watch("userType");
   const canSkipContacts = true;
@@ -186,10 +183,8 @@ export default function SignUpWizard({
 
     // Ensure conditional data is present before leaving "details"
     if (step.key === "details") {
-      if (userType === UserType.Customer && !methods.getValues("customer"))
-        return;
-      if (userType === UserType.Employee && !methods.getValues("employee"))
-        return;
+      if (userType === UserType.Customer && !methods.getValues("customer")) return;
+      if (userType === UserType.Employee && !methods.getValues("employee")) return;
     }
 
     setActiveStep((s) => s + 1);
@@ -202,19 +197,9 @@ export default function SignUpWizard({
       case "personal":
         return <PersonalInfoStep />;
       case "addresses":
-        return (
-          <AddressesStep
-            countries={countries ?? []}
-            defaultCountry={defaultCountry}
-          />
-        );
+        return <AddressesStep countries={countries ?? []} defaultCountry={defaultCountry} />;
       case "phones":
-        return (
-          <PhoneNumbersStep
-            countries={countries ?? []}
-            defaultCountry={defaultCountry}
-          />
-        );
+        return <PhoneNumbersStep countries={countries ?? []} defaultCountry={defaultCountry} />;
       case "security":
         return <SecurityQuestionsStep />;
       case "details":
@@ -273,13 +258,7 @@ export default function SignUpWizard({
           justifyContent: "center",
         }}
       >
-        <Image
-          src={logoSrc}
-          alt="Omnixys Logo"
-          width={50}
-          height={50}
-          priority
-        />
+        <Image src={logoSrc} alt="Omnixys Logo" width={50} height={50} priority />
         <Typography variant="h4" sx={{ fontWeight: 700 }}>
           {t("wizard.brand")}
         </Typography>
@@ -335,17 +314,13 @@ export default function SignUpWizard({
               },
               "&::-webkit-scrollbar-thumb": {
                 backgroundColor:
-                  theme.palette.mode === "dark"
-                    ? "rgba(255,255,255,0.25)"
-                    : "rgba(0,0,0,0.25)",
+                  theme.palette.mode === "dark" ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)",
                 borderRadius: 20,
                 transition: "background-color 0.3s ease",
               },
               "&:hover::-webkit-scrollbar-thumb": {
                 backgroundColor:
-                  theme.palette.mode === "dark"
-                    ? "rgba(255,255,255,0.45)"
-                    : "rgba(0,0,0,0.45)",
+                  theme.palette.mode === "dark" ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)",
               },
             })}
           >
@@ -387,9 +362,7 @@ export default function SignUpWizard({
                   onClick={next}
                   disabled={!isCurrentStepValid || loading}
                 >
-                  {STEPS[activeStep].key === "summary"
-                    ? t("actions.confirm")
-                    : t("actions.next")}
+                  {STEPS[activeStep].key === "summary" ? t("actions.confirm") : t("actions.next")}
                 </Button>
               </Box>
             )}
@@ -402,11 +375,8 @@ export default function SignUpWizard({
   );
 }
 
-function mapFormToCreateUserInput(
-  values: SignUpFormValues,
-): CreateSignupVerificationRequest {
-  const { confirmPassword, addresses, customer, securityQuestions, ...rest } =
-    values;
+function mapFormToCreateUserInput(values: SignUpFormValues): CreateSignupVerificationRequest {
+  const { confirmPassword, addresses, customer, securityQuestions, ...rest } = values;
 
   return {
     ...rest,

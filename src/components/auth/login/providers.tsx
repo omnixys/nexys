@@ -1,4 +1,4 @@
-import { Key, Password, Email, Fingerprint } from "@mui/icons-material";
+import { Email, Fingerprint, Key, Password } from "@mui/icons-material";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -6,9 +6,9 @@ import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
-import { type AuthProvider } from "@toolpad/core/SignInPage";
+import type { AuthProvider } from "@toolpad/core/SignInPage";
 
-import { JSX } from "react";
+import type { JSX } from "react";
 
 /**
  * Extended provider IDs for custom authentication flows.

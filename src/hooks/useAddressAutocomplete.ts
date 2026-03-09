@@ -1,6 +1,12 @@
-import { AutocompleteAddressDocument } from "@/generated/graphql";
 import { useLazyQuery } from "@apollo/client/react";
+import {
+  AutocompleteAddressDocument,
+  type AutocompleteAddressQuery,
+  type AutocompleteAddressQueryVariables,
+} from "@/generated/graphql";
 
 export function useAddressAutocomplete() {
-    return useLazyQuery(AutocompleteAddressDocument);
+  return useLazyQuery<AutocompleteAddressQuery, AutocompleteAddressQueryVariables>(
+    AutocompleteAddressDocument,
+  );
 }

@@ -5,13 +5,13 @@
 
 "use client";
 
-import { CALENDAR } from "@/mocks/liveData";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useFormatter } from "next-intl";
-import { JSX, useEffect, useState } from "react";
-import TileSkeleton from "./TileSkeleton";
+import { type JSX, useEffect, useState } from "react";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { CALENDAR } from "@/mocks/liveData";
+import TileSkeleton from "./TileSkeleton";
 
 export default function CalendarTile(): JSX.Element {
   const t = useTypedTranslations("home");
@@ -28,11 +28,7 @@ export default function CalendarTile(): JSX.Element {
   return (
     <Box p={2}>
       {/* TITLE */}
-      <Typography
-        component="div"
-        variant="subtitle2"
-        sx={{ opacity: 0.8, color: "text.primary" }}
-      >
+      <Typography component="div" variant="subtitle2" sx={{ opacity: 0.8, color: "text.primary" }}>
         {t("calendar.title")}
       </Typography>
 
@@ -70,11 +66,7 @@ export default function CalendarTile(): JSX.Element {
               </Typography>
 
               {/* TITLE */}
-              <Typography
-                component="div"
-                variant="body2"
-                sx={{ color: "text.primary" }}
-              >
+              <Typography component="div" variant="body2" sx={{ color: "text.primary" }}>
                 {t(`calendar.events.${item.titleKey}`)}
               </Typography>
 

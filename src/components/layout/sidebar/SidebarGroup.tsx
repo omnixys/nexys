@@ -5,17 +5,17 @@
 
 "use client";
 
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Collapse,
   List,
   ListItemButton,
   ListItemText,
-  SxProps,
-  Theme,
+  type SxProps,
+  type Theme,
   useTheme,
 } from "@mui/material";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -74,9 +74,7 @@ export default function SidebarGroup({
           primary={label}
           primaryTypographyProps={{
             fontWeight: isActiveGroup ? 800 : 600,
-            color: isActiveGroup
-              ? theme.palette.text.primary
-              : theme.palette.text.secondary,
+            color: isActiveGroup ? theme.palette.text.primary : theme.palette.text.secondary,
           }}
         />
 
@@ -89,11 +87,7 @@ export default function SidebarGroup({
           style={{ display: "inline-flex", alignItems: "center" }}
           aria-label={open ? "Collapse" : "Expand"}
         >
-          {open ? (
-            <ExpandLessIcon fontSize="small" />
-          ) : (
-            <ExpandMoreIcon fontSize="small" />
-          )}
+          {open ? <ExpandLessIcon fontSize="small" /> : <ExpandMoreIcon fontSize="small" />}
         </span>
       </ListItemButton>
 
@@ -111,9 +105,7 @@ export default function SidebarGroup({
                   mx: 1,
                   my: 0.25,
                   py: 0.75,
-                  bgcolor: isActive
-                    ? theme.palette.action.selected
-                    : "transparent",
+                  bgcolor: isActive ? theme.palette.action.selected : "transparent",
                   "&:hover": { bgcolor: theme.palette.action.hover },
                 }}
               >
@@ -122,9 +114,7 @@ export default function SidebarGroup({
                   primaryTypographyProps={{
                     fontSize: 13,
                     fontWeight: isActive ? 800 : 600,
-                    color: isActive
-                      ? theme.palette.text.primary
-                      : theme.palette.text.secondary,
+                    color: isActive ? theme.palette.text.primary : theme.palette.text.secondary,
                   }}
                 />
               </ListItemButton>

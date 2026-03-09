@@ -67,16 +67,8 @@ export default function PasswordStrength({ password }: Props) {
         }}
       />
 
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        mt={0.5}
-        alignItems="center"
-      >
-        <Typography
-          variant="caption"
-          sx={{ fontWeight: 600, color: result.color }}
-        >
+      <Box display="flex" justifyContent="space-between" mt={0.5} alignItems="center">
+        <Typography variant="caption" sx={{ fontWeight: 600, color: result.color }}>
           {result.label}
         </Typography>
 

@@ -7,10 +7,9 @@ import {
   OutlinedInput,
   useTheme,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
-import { glassInputSx } from "@/themes/styles/glassInput";
+import React, { useState } from "react";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { glassInputSx } from "@/themes/styles/glassInput";
 
 /**
  * Benutzerdefiniertes Passwort-Feld mit Sichtbarkeitsumschaltung.
@@ -19,7 +18,7 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function PasswordField() {
   const theme = useTheme();
-    const t = useTypedTranslations("login");
+  const t = useTypedTranslations("login");
   const [showPassword, setShowPassword] = React.useState(false);
 
   /**

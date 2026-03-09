@@ -1,8 +1,8 @@
 "use client";
 
-import { Product, PRODUCTS } from "@/mocks/products.mock";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { PRODUCTS, type Product } from "@/mocks/products.mock";
 import ProductAppIcon from "./ProductAppIcon";
 
 export default function ProductShelf({ isFocused }: { isFocused: boolean }) {

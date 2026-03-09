@@ -1,6 +1,6 @@
 "use client";
 
-import { TextField, TextFieldProps } from "@mui/material";
+import { TextField, type TextFieldProps } from "@mui/material";
 
 export default function GlassTextField(props: TextFieldProps) {
   return (

@@ -8,7 +8,6 @@ export type CommandItem = {
   path?: string;
 };
 
-
 export const COMMANDS: CommandItem[] = [
   { key: "home", group: "navigation", path: "/home" },
   { key: "inbox", group: "navigation", path: "/home/inbox" },
@@ -17,5 +16,3 @@ export const COMMANDS: CommandItem[] = [
   { key: "accountSettings", group: "account", path: "/settings/account" },
   { key: "securitySettings", group: "account", path: "/settings/security" },
 ];
-
-

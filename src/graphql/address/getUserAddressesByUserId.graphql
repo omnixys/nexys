@@ -1,14 +1,14 @@
 query GetUserAddressesByUserId($userId: ID!) {
-    getUserAddressesByUserId(userId: $userId) {
-        id
-        userId
-        country
-        state
-        city
-        postalCode
-        street
-        houseNumber
-        additionalInfo
-        addressType
-    }
+  getUserAddressesByUserId(userId: $userId) {
+    id
+    userId
+    country
+    state
+    city
+    postalCode
+    street
+    houseNumber
+    additionalInfo
+    addressType
+  }
 }

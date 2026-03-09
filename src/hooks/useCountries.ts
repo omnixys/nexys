@@ -1,6 +1,10 @@
 import { useQuery } from "@apollo/client/react";
-import { GET_ALL_COUNTRIES } from "../graphql/address/country.queries";
+import {
+  GetAllCountriesDocument,
+  type GetAllCountriesQuery,
+  type GetAllCountriesQueryVariables,
+} from "@/generated/graphql";
 
 export function useCountries() {
-    return useQuery(GET_ALL_COUNTRIES);
+  return useQuery<GetAllCountriesQuery, GetAllCountriesQueryVariables>(GetAllCountriesDocument);
 }

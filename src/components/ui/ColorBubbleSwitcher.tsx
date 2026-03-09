@@ -1,27 +1,15 @@
 "use client";
 
+import { Box, Fade, IconButton, Popover, useMediaQuery, useTheme } from "@mui/material";
+import type React from "react";
+import { useRef, useState } from "react";
 import { useThemeMode } from "@/providers/ThemeModeProvider";
-import {
-  Box,
-  Fade,
-  IconButton,
-  Popover,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import React, { useRef, useState } from "react";
-import { OmnixysColorScheme } from "../../themes/paletteTypes";
+import type { OmnixysColorScheme } from "../../themes/paletteTypes";
 
 // -------------------------------------------------------------
 // Available colors
 // -------------------------------------------------------------
-const schemes: OmnixysColorScheme[] = [
-  "original",
-  "red",
-  "green",
-  "yellow",
-  "blue",
-];
+const schemes: OmnixysColorScheme[] = ["original", "red", "green", "yellow", "blue"];
 
 const bubbleColor: Record<OmnixysColorScheme, string> = {
   original: "#6A4BBC",
@@ -106,8 +94,7 @@ export default function ColorBubbleSwitcher({
           height: 40,
           borderRadius: "50%",
           backgroundColor: bubbleColor[scheme],
-          boxShadow:
-            "0 8px 30px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.4)",
+          boxShadow: "0 8px 30px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.4)",
           transformStyle: "preserve-3d",
           transition: "transform 0.25s cubic-bezier(.4,0,.2,1)",
           "&:hover": {
@@ -134,8 +121,7 @@ export default function ColorBubbleSwitcher({
             backdropFilter: "blur(30px) saturate(180%)",
             WebkitBackdropFilter: "blur(30px) saturate(180%)",
             border: "1px solid rgba(255,255,255,0.28)",
-            boxShadow:
-              "0 20px 60px rgba(0,0,0,0.25), 0 0 40px rgba(255,255,255,0.25)",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.25), 0 0 40px rgba(255,255,255,0.25)",
             transformOrigin: "center",
             animation: "visionOSFloat 260ms cubic-bezier(.4,0,.2,1)",
           },
@@ -155,8 +141,7 @@ export default function ColorBubbleSwitcher({
             sx={{
               display: "flex",
               gap: 1.5,
-              flexDirection:
-                effectiveDirection === "vertical" ? "column" : "row",
+              flexDirection: effectiveDirection === "vertical" ? "column" : "row",
             }}
           >
             {schemes.map((s) => (
@@ -173,11 +158,8 @@ export default function ColorBubbleSwitcher({
                   borderRadius: "50%",
                   backgroundColor: bubbleColor[s],
                   boxShadow:
-                    s === scheme
-                      ? "0 0 0 3px rgba(0,0,0,0.2)"
-                      : "0 6px 18px rgba(0,0,0,0.2)",
-                  transition:
-                    "all 0.25s cubic-bezier(.4,0,.2,1), transform 0.2s ease",
+                    s === scheme ? "0 0 0 3px rgba(0,0,0,0.2)" : "0 6px 18px rgba(0,0,0,0.2)",
+                  transition: "all 0.25s cubic-bezier(.4,0,.2,1), transform 0.2s ease",
                   transform: s === scheme ? "scale(1.18)" : "scale(1)",
                   "&:hover": {
                     transform: "scale(1.22)",

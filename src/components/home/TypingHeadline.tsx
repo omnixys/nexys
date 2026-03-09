@@ -6,10 +6,10 @@
 "use client";
 
 import { Typography, useTheme } from "@mui/material";
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 
 export default function TypingHeadline({
-  text,
+  text = "",
   variant = "h1",
   speed = 55,
   delay = 300,
@@ -35,10 +35,10 @@ export default function TypingHeadline({
   useEffect(() => {
     if (!started) return;
 
-    if (visibleText.length >= text.length) return;
+    if (visibleText.length >= text?.length) return;
 
     const timeout = setTimeout(() => {
-      setVisibleText((prev) => text.slice(0, prev.length + 1));
+      setVisibleText((prev) => text?.slice(0, prev.length + 1));
     }, speed);
 
     return () => clearTimeout(timeout);
@@ -47,9 +47,7 @@ export default function TypingHeadline({
   return (
     <Typography
       color={
-        theme.palette.mode === "dark"
-          ? theme.palette.text.primary
-          : theme.palette.primary.light
+        theme.palette.mode === "dark" ? theme.palette.text.primary : theme.palette.primary.light
       }
       variant={variant}
       gutterBottom

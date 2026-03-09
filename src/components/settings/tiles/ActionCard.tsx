@@ -5,7 +5,7 @@
 
 "use client";
 
-import { Box, Chip, Typography, alpha } from "@mui/material";
+import { alpha, Box, Chip, Typography } from "@mui/material";
 
 export default function ActionCard({
   title,
@@ -19,7 +19,7 @@ export default function ActionCard({
   description: string;
   color: string;
   icon: React.ReactNode;
-  enabled: boolean;
+  enabled?: boolean;
   onClick?: () => void;
 }) {
   return (

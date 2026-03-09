@@ -10,7 +10,6 @@ import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
 import QuickActionsPanel from "../../../components/settings/panels/QuickActionsPanel";
 import { useAuth } from "../../../providers/AuthProvider";
 
-
 export default function ActionsPage() {
   const { user, loading } = useAuth();
 

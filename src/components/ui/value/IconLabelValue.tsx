@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
 import type { SxProps, Theme } from "@mui/material";
 import { Stack, Typography } from "@mui/material";
+import type React from "react";
 
 type Props = {
   icon: React.ReactNode;
@@ -15,14 +15,7 @@ type Props = {
   valueSx?: SxProps<Theme>;
 };
 
-export function IconLabelValue({
-  icon,
-  label,
-  value,
-  rootSx,
-  labelSx,
-  valueSx,
-}: Props) {
+export function IconLabelValue({ icon, label, value, rootSx, labelSx, valueSx }: Props) {
   return (
     <Stack direction="row" spacing={1.2} alignItems="center" sx={rootSx}>
       {icon}

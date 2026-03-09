@@ -5,21 +5,20 @@
 
 "use client";
 
-import { Box, Chip, Typography, alpha } from "@mui/material";
 import SecurityIcon from "@mui/icons-material/Security";
+import { alpha, Box, Chip, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import {
-  LineChart,
+  CartesianGrid,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
-
-import BentoTile from "./BentoTile";
 import { useSecurity } from "../SecurityContext";
+import BentoTile from "./BentoTile";
 
 const securityData = [
   { month: "Jan", score: 75, threats: 3 },
@@ -100,8 +99,7 @@ export default function SecurityScoreTile({
                 variant="h2"
                 fontWeight={900}
                 sx={{
-                  background:
-                    "linear-gradient(90deg, #2196F3 0%, #00BCD4 100%)",
+                  background: "linear-gradient(90deg, #2196F3 0%, #00BCD4 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   letterSpacing: -0.8,
@@ -122,10 +120,7 @@ export default function SecurityScoreTile({
                   : "Needs attention"
             }
             sx={{
-              bgcolor: alpha(
-                state.securityScore >= 90 ? "#4CAF50" : "#FF9800",
-                0.2,
-              ),
+              bgcolor: alpha(state.securityScore >= 90 ? "#4CAF50" : "#FF9800", 0.2),
               color: state.securityScore >= 90 ? "#4CAF50" : "#FF9800",
               fontWeight: 900,
             }}
@@ -135,15 +130,8 @@ export default function SecurityScoreTile({
         <Box sx={{ flex: 1, minHeight: 140 }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={securityData}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="rgba(255,255,255,0.1)"
-              />
-              <XAxis
-                dataKey="month"
-                stroke="rgba(255,255,255,0.5)"
-                fontSize={12}
-              />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+              <XAxis dataKey="month" stroke="rgba(255,255,255,0.5)" fontSize={12} />
               <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} />
               <Tooltip
                 contentStyle={{

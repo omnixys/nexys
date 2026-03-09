@@ -10,7 +10,6 @@ import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
 import SecurityFeaturesPanel from "../../../components/settings/panels/SecurityFeaturesPanel";
 import { useAuth } from "../../../providers/AuthProvider";
 
-
 export default function FeaturesPage() {
   const { user, loading } = useAuth();
 

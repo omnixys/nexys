@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import { IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
+import { IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { CheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { CheckIcon } from "lucide-react";
-
+import React from "react";
 
 type Locale = "de" | "en";
 
@@ -23,8 +22,7 @@ export default function LanguageSwitcher() {
 
   const open = Boolean(anchorEl);
 
-  const handleOpen = (e: React.MouseEvent<HTMLElement>) =>
-    setAnchorEl(e.currentTarget);
+  const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
 
   const handleClose = () => setAnchorEl(null);
 

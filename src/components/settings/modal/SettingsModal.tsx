@@ -5,14 +5,8 @@
 
 "use client";
 
-import {
-  Dialog,
-  DialogContent,
-  IconButton,
-  Box,
-  Typography,
-} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Box, Dialog, DialogContent, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function SettingsModal({

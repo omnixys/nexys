@@ -5,12 +5,12 @@
 
 "use client";
 
-import { Box, Divider, Stack, Typography } from "@mui/material";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
 import AppsIcon from "@mui/icons-material/Apps";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import SettingsIcon from "@mui/icons-material/Settings";
 import StorageIcon from "@mui/icons-material/Storage";
-import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 import ActionCard from "../tiles/ActionCard";
 
@@ -83,8 +83,7 @@ export default function AdvancedPanel() {
       </Box>
 
       <Typography variant="caption" color="text.secondary">
-        Next step: wire these to real endpoints (cache purge, token management,
-        permission toggles).
+        Next step: wire these to real endpoints (cache purge, token management, permission toggles).
       </Typography>
     </Stack>
   );

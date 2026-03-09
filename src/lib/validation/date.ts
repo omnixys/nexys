@@ -10,11 +10,7 @@ export function isAtLeastAge(dateISO: string, minAgeYears: number): boolean {
   if (Number.isNaN(dob.getTime())) return false;
 
   const now = new Date();
-  const cutoff = new Date(
-    now.getFullYear() - minAgeYears,
-    now.getMonth(),
-    now.getDate(),
-  );
+  const cutoff = new Date(now.getFullYear() - minAgeYears, now.getMonth(), now.getDate());
 
   return dob <= cutoff;
 }

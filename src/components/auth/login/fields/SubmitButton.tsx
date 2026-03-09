@@ -38,12 +38,7 @@ export default function SubmitButton({ loading = false }: SubmitButtonProps) {
     >
       {loading ? (
         <>
-          <CircularProgress
-            size={22}
-            thickness={4}
-            color="inherit"
-            sx={{ mr: 1 }}
-          />
+          <CircularProgress size={22} thickness={4} color="inherit" sx={{ mr: 1 }} />
           {t("credentials.submit.loading")}
         </>
       ) : (

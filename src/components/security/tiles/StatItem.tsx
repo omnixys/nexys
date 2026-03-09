@@ -24,19 +24,11 @@ export default function StatItem({
 
   return (
     <Box sx={{ textAlign: "center", minWidth: 120 }}>
-      <Typography
-        variant="caption"
-        color="text.secondary"
-        sx={{ mb: 1, display: "block" }}
-      >
+      <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: "block" }}>
         {label}
       </Typography>
 
-      <Typography
-        variant="h3"
-        fontWeight={900}
-        sx={{ color, mb: 0.5, letterSpacing: -0.6 }}
-      >
+      <Typography variant="h3" fontWeight={900} sx={{ color, mb: 0.5, letterSpacing: -0.6 }}>
         {value}
       </Typography>
 
@@ -44,11 +36,7 @@ export default function StatItem({
         <Typography
           variant="caption"
           sx={{
-            color: isPositive
-              ? "#4CAF50"
-              : isNegative
-                ? "#FF5252"
-                : "text.secondary",
+            color: isPositive ? "#4CAF50" : isNegative ? "#FF5252" : "text.secondary",
             fontWeight: 800,
           }}
         >

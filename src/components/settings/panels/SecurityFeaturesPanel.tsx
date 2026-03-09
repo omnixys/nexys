@@ -5,18 +5,10 @@
 
 "use client";
 
-import {
-  Box,
-  Divider,
-  Stack,
-  Switch,
-  Typography,
-  Chip,
-  alpha,
-} from "@mui/material";
-import SecurityIcon from "@mui/icons-material/Security";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import SecurityIcon from "@mui/icons-material/Security";
+import { alpha, Box, Chip, Divider, Stack, Switch, Typography } from "@mui/material";
 import { useSecurity } from "../../security/SecurityContext";
 
 export default function SecurityFeaturesPanel() {
@@ -118,8 +110,7 @@ export default function SecurityFeaturesPanel() {
           Recommendation
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Enable “Session Timeout” and “Device Approval” to reduce account
-          takeover risk.
+          Enable “Session Timeout” and “Device Approval” to reduce account takeover risk.
         </Typography>
       </Box>
     </Stack>

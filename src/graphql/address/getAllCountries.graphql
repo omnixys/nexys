@@ -1,13 +1,13 @@
-  query GetAllCountries {
-    getAllCountries {
+query GetAllCountries {
+  getAllCountries {
+    id
+    name
+    flagSvg
+    flagPng
+    iso2
+    callingCode {
       id
-      name
-      flagSvg
-      flagPng
-      iso2
-      callingCode {
-        id
-        code
-      }
+      code
     }
   }
+}

@@ -5,15 +5,14 @@
 
 "use client";
 
-import { Box, Typography } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
 import DevicesIcon from "@mui/icons-material/Devices";
-import WarningIcon from "@mui/icons-material/Warning";
+import LockIcon from "@mui/icons-material/Lock";
 import SecurityIcon from "@mui/icons-material/Security";
+import WarningIcon from "@mui/icons-material/Warning";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-
-import BentoTile from "./BentoTile";
 import ActionCard from "./ActionCard";
+import BentoTile from "./BentoTile";
 
 export default function QuickActionsTile({
   index,

@@ -19,15 +19,13 @@ import {
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useFormContext } from "react-hook-form";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import {
   CheckUsernameDocument,
-  CheckUsernameQuery,
-  CheckUsernameQueryVariables,
+  type CheckUsernameQuery,
+  type CheckUsernameQueryVariables,
 } from "@/generated/graphql";
-
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 type UsernameStatus = "idle" | "checking" | "available" | "taken";
 
@@ -45,10 +43,9 @@ export default function AccountStep() {
   const [showPassword, setShowPassword] = useState(false);
   const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>("idle");
 
-  const [checkUsername] = useLazyQuery<
-    CheckUsernameQuery,
-    CheckUsernameQueryVariables
-  >(CheckUsernameDocument);
+  const [checkUsername] = useLazyQuery<CheckUsernameQuery, CheckUsernameQueryVariables>(
+    CheckUsernameDocument,
+  );
 
   const username = watch("username");
   const password = watch("password");
@@ -133,9 +130,7 @@ export default function AccountStep() {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {usernameStatus === "checking" && (
-                  <CircularProgress size={18} />
-                )}
+                {usernameStatus === "checking" && <CircularProgress size={18} />}
 
                 {usernameStatus === "available" && <Check color="success" />}
 
@@ -160,10 +155,7 @@ export default function AccountStep() {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword((v) => !v)}
-                    edge="end"
-                  >
+                  <IconButton onClick={() => setShowPassword((v) => !v)} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>

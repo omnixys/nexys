@@ -2,8 +2,8 @@
 
 import { Box, Divider, SwipeableDrawer, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
-import SidebarLink from "../../sidebar/SidebarLink";
 import SidebarGroup from "../../sidebar/SidebarGroup";
+import SidebarLink from "../../sidebar/SidebarLink";
 
 type Props = {
   open: boolean;

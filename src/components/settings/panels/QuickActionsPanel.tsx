@@ -5,11 +5,11 @@
 
 "use client";
 
-import { Divider, Stack, Typography } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
 import DevicesIcon from "@mui/icons-material/Devices";
-import WarningIcon from "@mui/icons-material/Warning";
+import LockIcon from "@mui/icons-material/Lock";
 import SecurityIcon from "@mui/icons-material/Security";
+import WarningIcon from "@mui/icons-material/Warning";
+import { Divider, Stack, Typography } from "@mui/material";
 
 import ActionCard from "../tiles/ActionCard";
 
@@ -50,8 +50,8 @@ export default function QuickActionsPanel() {
       </Stack>
 
       <Typography variant="caption" color="text.secondary">
-        Next step: connect actions to actual routes/endpoints (password flow,
-        device revoke, alert feed, recovery setup).
+        Next step: connect actions to actual routes/endpoints (password flow, device revoke, alert
+        feed, recovery setup).
       </Typography>
     </Stack>
   );

@@ -1,13 +1,11 @@
-import { Theme } from "@mui/material/styles";
+import type { Theme } from "@mui/material/styles";
 
 export const glassInputSx = (theme: Theme) => {
   const isDark = theme.palette.mode === "dark";
 
   return {
     "& .MuiOutlinedInput-root": {
-      backgroundColor: isDark
-        ? "rgba(255,255,255,0.08)"
-        : "rgba(255,255,255,0.65)",
+      backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.65)",
 
       backdropFilter: "blur(8px)",
       WebkitBackdropFilter: "blur(8px)",

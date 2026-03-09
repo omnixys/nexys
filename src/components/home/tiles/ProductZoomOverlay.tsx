@@ -38,8 +38,7 @@ export default function ProductZoomOverlay({
           width: 420,
           borderRadius: 6,
           p: 5,
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08))",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08))",
           border: "1px solid rgba(255,255,255,0.25)",
           textAlign: "center",
         }}
@@ -48,10 +47,7 @@ export default function ProductZoomOverlay({
         <Typography variant="h5" sx={{ mt: 2 }}>
           {product.name}
         </Typography>
-        <Typography
-          variant="body2"
-          sx={{ mt: 1, color: "rgba(255,255,255,0.7)" }}
-        >
+        <Typography variant="body2" sx={{ mt: 1, color: "rgba(255,255,255,0.7)" }}>
           {product.subtitle}
         </Typography>
       </Box>

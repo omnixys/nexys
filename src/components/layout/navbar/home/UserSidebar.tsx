@@ -5,11 +5,11 @@
 
 "use client";
 
-import { Divider, Drawer, SxProps, Theme, useTheme } from "@mui/material";
+import { Divider, Drawer, type SxProps, type Theme, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { JSX } from "react";
-import SidebarLink from "../../sidebar/SidebarLink";
+import type { JSX } from "react";
 import SidebarGroup from "../../sidebar/SidebarGroup";
+import SidebarLink from "../../sidebar/SidebarLink";
 
 export default function UserSidebar({
   width,
@@ -53,7 +53,7 @@ export default function UserSidebar({
           },
           {
             href: "/settings/language",
-            label: t("sidebar.settings_language")
+            label: t("sidebar.settings_language"),
           },
           {
             href: "/settings/notifications",
@@ -78,7 +78,7 @@ export default function UserSidebar({
           { href: "/security/actions", label: t("sidebar.security_actions") },
         ]}
       />
-      
+
       <SidebarLink href="/billing" label={t("sidebar.billing")} sx={sx} />
       <Divider sx={{ my: 2, borderColor: theme.palette.divider }} />
       <SidebarLink href="/support" label={t("sidebar.support")} sx={sx} />

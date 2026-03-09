@@ -10,7 +10,6 @@ import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
 import LoginHistoryPanel from "../../../components/settings/panels/LoginHistoryPanel";
 import { useAuth } from "../../../providers/AuthProvider";
 
-
 export default function HistoryPage() {
   const { user, loading } = useAuth();
 

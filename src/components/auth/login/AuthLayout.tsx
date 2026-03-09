@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, useTheme, useMediaQuery } from "@mui/material";
-import { ReactNode } from "react";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
+import type { ReactNode } from "react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const theme = useTheme();

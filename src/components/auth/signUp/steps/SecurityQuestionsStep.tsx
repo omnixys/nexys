@@ -1,29 +1,17 @@
 "use client";
 
+import { useQuery } from "@apollo/client/react";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-
+import { Box, Button, IconButton, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { useQuery } from "@apollo/client/react";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
-
 import {
   GetSecurityQuestionsDocument,
-  GetSecurityQuestionsQuery,
+  type GetSecurityQuestionsQuery,
+  SecurityQuestionEnum,
 } from "@/generated/graphql";
-
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function SecurityQuestionsStep() {
   const { control, watch, setValue } = useFormContext<SignUpFormValues>();
@@ -36,23 +24,18 @@ export default function SecurityQuestionsStep() {
     name: "securityQuestions",
   });
 
-  const { data, loading } = useQuery<GetSecurityQuestionsQuery>(
-    GetSecurityQuestionsDocument,
-    {
-      fetchPolicy: "cache-first",
-      context: {
-        fetchOptions: {
-          credentials: "include",
-        },
+  const { data, loading } = useQuery<GetSecurityQuestionsQuery>(GetSecurityQuestionsDocument, {
+    fetchPolicy: "cache-first",
+    context: {
+      fetchOptions: {
+        credentials: "include",
       },
     },
-  );
+  });
 
   const questions = data?.getSecurityQuestions ?? [];
 
-  const selectedQuestions = new Set(
-    watch("securityQuestions")?.map((q) => q.questionId) ?? [],
-  );
+  const selectedQuestions = new Set(watch("securityQuestions")?.map((q) => q.questionId) ?? []);
 
   return (
     <>
@@ -108,17 +91,14 @@ export default function SecurityQuestionsStep() {
 
                     setValue(
                       `securityQuestions.${idx}.questionKey`,
-                      selected?.key ?? "",
+                      selected?.key ?? SecurityQuestionEnum.MotherMaidenName,
                     );
                   }}
                 >
                   <MenuItem value="">{t("security.select")}</MenuItem>
 
                   {questions
-                    .filter(
-                      (q) =>
-                        !selectedQuestions.has(q.id) || field.value === q.id,
-                    )
+                    .filter((q) => !selectedQuestions.has(q.id) || field.value === q.id)
                     .map((q) => (
                       <MenuItem key={q.id} value={q.id}>
                         {enumT(`securityQuestion.${q.key}`)}
@@ -153,7 +133,7 @@ export default function SecurityQuestionsStep() {
         onClick={() =>
           append({
             questionId: "",
-            questionKey: "",
+            questionKey: SecurityQuestionEnum.MotherMaidenName,
             answer: "",
           })
         }

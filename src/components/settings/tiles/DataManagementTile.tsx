@@ -5,15 +5,14 @@
 
 "use client";
 
-import { Box, Chip, IconButton, Typography, alpha } from "@mui/material";
-import StorageIcon from "@mui/icons-material/Storage";
-import CloudIcon from "@mui/icons-material/Cloud";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CloudIcon from "@mui/icons-material/Cloud";
+import StorageIcon from "@mui/icons-material/Storage";
+import { alpha, Box, Chip, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-
-import BentoTile from "./BentoTile";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { useSettings } from "../SettingsContext";
+import BentoTile from "./BentoTile";
 
 const storageData = [
   { name: "Used", value: 65, color: "#2196F3" },
@@ -160,11 +159,7 @@ export default function DataManagementTile({
                 Last backup: 2 hours ago
               </Typography>
 
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontWeight: 800 }}
-              >
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
                 Frequency
               </Typography>
 
@@ -177,9 +172,7 @@ export default function DataManagementTile({
                     setState({ autoBackup: true });
                   }}
                   sx={{
-                    bgcolor: state.autoBackup
-                      ? alpha("#4CAF50", 0.2)
-                      : "rgba(255,255,255,0.05)",
+                    bgcolor: state.autoBackup ? alpha("#4CAF50", 0.2) : "rgba(255,255,255,0.05)",
                     color: state.autoBackup ? "#4CAF50" : "text.secondary",
                     cursor: "pointer",
                     fontWeight: 800,
@@ -193,9 +186,7 @@ export default function DataManagementTile({
                     setState({ autoBackup: false });
                   }}
                   sx={{
-                    bgcolor: !state.autoBackup
-                      ? alpha("#4CAF50", 0.2)
-                      : "rgba(255,255,255,0.05)",
+                    bgcolor: !state.autoBackup ? alpha("#4CAF50", 0.2) : "rgba(255,255,255,0.05)",
                     color: !state.autoBackup ? "#4CAF50" : "text.secondary",
                     cursor: "pointer",
                     fontWeight: 800,
@@ -211,11 +202,7 @@ export default function DataManagementTile({
                 size="small"
                 sx={{ bgcolor: "rgba(255,255,255,0.10)", fontWeight: 800 }}
               />
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontWeight: 800 }}
-              >
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800 }}>
                 Cloud sync
               </Typography>
             </Box>

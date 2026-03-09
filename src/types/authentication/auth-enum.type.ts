@@ -1,4 +1,3 @@
-import { CustomerInfo } from '../user/user.type';
 export enum KcRole {
   ADMIN = "ADMIN",
   // SECURITY = "SECURITY",
@@ -23,7 +22,7 @@ export function extractRoles(raw?: string[] | null): KcRole[] {
   // if (set.has("SECURITY")) roles.push(KcRole.SECURITY);
   // if (set.has("EVENT_ADMIN")) roles.push(KcRole.EVENT_ADMIN);
   // if (set.has("GUEST")) roles.push(KcRole.GUEST);
-    if (set.has("SUPREME")) roles.push(KcRole.SUPREME);
+  if (set.has("SUPREME")) roles.push(KcRole.SUPREME);
 
   return roles;
 }
@@ -33,10 +32,7 @@ export function extractRoles(raw?: string[] | null): KcRole[] {
  * - Nicht eingeloggt  => ['ANON']
  * - Eingeloggt, aber keine Rollen => ['GUEST'] (falls du lieber streng sein willst, ändere auf ['ANON'])
  */
-export function resolveUserRoles(
-  isAuthenticated: boolean,
-  raw?: string[] | null
-): KcRole[] {
+export function resolveUserRoles(isAuthenticated: boolean, raw?: string[] | null): KcRole[] {
   // if (!isAuthenticated) return [KcRole.ANON];
   const mapped = extractRoles(raw);
   // if (mapped.length === 0) return [KcRole.GUEST];

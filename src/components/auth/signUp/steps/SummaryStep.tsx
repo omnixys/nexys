@@ -1,23 +1,21 @@
 "use client";
 
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
-
-import { Box, Chip, Divider, Typography } from "@mui/material";
-
-import { useFormContext } from "react-hook-form";
-import { useMemo } from "react";
-
-import { formatAddressLines } from "../../../../utils/formatAddress";
-
-import {
-  GetAllInterestCategoriesDocument,
-  GetAllInterestCategoriesQuery,
-  GetAllInterestCategoriesQueryVariables,
-} from "@/generated/graphql";
-
 import { useQuery } from "@apollo/client/react";
 
+import { Box, Chip, Divider, Typography } from "@mui/material";
+import { useMemo } from "react";
+import { useFormContext } from "react-hook-form";
+import {
+  type ContactOptionsType,
+  GetAllInterestCategoriesDocument,
+  type GetAllInterestCategoriesQuery,
+  type GetAllInterestCategoriesQueryVariables,
+  SecurityQuestionEnum,
+} from "@/generated/graphql";
+import type { SecurityQuestionTranslationKey } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { formatAddressLines } from "@/utils/formatAddress";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -40,12 +38,12 @@ export default function SummaryStep() {
   const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
-  const { data } = useQuery<
-    GetAllInterestCategoriesQuery,
-    GetAllInterestCategoriesQueryVariables
-  >(GetAllInterestCategoriesDocument, {
-    fetchPolicy: "cache-first",
-  });
+  const { data } = useQuery<GetAllInterestCategoriesQuery, GetAllInterestCategoriesQueryVariables>(
+    GetAllInterestCategoriesDocument,
+    {
+      fetchPolicy: "cache-first",
+    },
+  );
 
   // ---------------------------
   // Interest Map
@@ -61,7 +59,7 @@ export default function SummaryStep() {
     });
 
     return map;
-  }, [data]);
+  }, [data, enumT]);
 
   return (
     <>
@@ -108,10 +106,7 @@ export default function SummaryStep() {
 
         <Row label={t("summary.fields.birthDate")} value={v.personalInfo.birthDate} />
 
-        <Row
-          label={t("summary.fields.gender")}
-          value={enumT(`gender.${v.personalInfo.gender}`)}
-        />
+        <Row label={t("summary.fields.gender")} value={enumT(`gender.${v.personalInfo.gender}`)} />
 
         <Row
           label={t("summary.fields.maritalStatus")}
@@ -172,10 +167,10 @@ export default function SummaryStep() {
           {t("summary.sections.securityQuestions")}
         </Typography>
 
-        {(v.securityQuestions ?? []).map((q, i) => (
-          <Box key={i} mb={1}>
+        {(v.securityQuestions ?? []).map((q) => (
+          <Box key={q.questionId} mb={1}>
             <Typography variant="body2">
-              {enumT(`securityQuestion.${q.questionKey}`)}
+              {enumT(`securityQuestion.${q.questionKey}` as SecurityQuestionTranslationKey)}
             </Typography>
           </Box>
         ))}
@@ -210,8 +205,8 @@ export default function SummaryStep() {
           </Typography>
 
           <Box display="flex" flexWrap="wrap" gap={1} mt={0.5}>
-            {(v.customer?.contactOptions ?? []).map((c) => (
-              <Chip key={c} label={enumT(`contactOptions.${c}`)} size="small" />
+            {(v.customer?.contactOptions ?? []).map((c: ContactOptionsType) => (
+              <Chip key={c} label={enumT(`contactOption.${c}`)} size="small" />
             ))}
           </Box>
         </Box>
@@ -229,9 +224,7 @@ export default function SummaryStep() {
 
         <Row
           label={t("summary.fields.terms")}
-          value={
-            v.acceptedTerms ? t("summary.values.accepted") : t("summary.values.notAccepted")
-          }
+          value={v.acceptedTerms ? t("summary.values.accepted") : t("summary.values.notAccepted")}
         />
       </Box>
     </>

@@ -1,10 +1,10 @@
 "use client";
 
-import { Paper, Typography, Box, TextField, Button } from "@mui/material";
-import BrandingHeader from "./BrandingHeader";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import SignUpLink from "@/components/auth/login/fields/SignUpLink";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import ForgotPasswordLink from "@/components/auth/login/fields/ForgotPasswordLink";
+import SignUpLink from "@/components/auth/login/fields/SignUpLink";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import BrandingHeader from "./BrandingHeader";
 
 type MagicLinkLoginCardProps = {
   onSend: (email: string) => Promise<void> | void;
@@ -74,10 +74,10 @@ export default function MagicLinkLoginCard({
         </Button>
       </form>
 
-            <Box display="flex" justifyContent="space-between" mt={2}>
-              <SignUpLink />
-              <ForgotPasswordLink />
-            </Box>
+      <Box display="flex" justifyContent="space-between" mt={2}>
+        <SignUpLink />
+        <ForgotPasswordLink />
+      </Box>
 
       {infoText && (
         <Box

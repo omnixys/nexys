@@ -6,8 +6,6 @@
 import SecurityModal from "@/components/security/modal/SecurityModal";
 import SecurityFeaturesPanel from "@/components/settings/panels/SecurityFeaturesPanel";
 
-
-
 export default function FeaturesModalPage() {
   return (
     <SecurityModal

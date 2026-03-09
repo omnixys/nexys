@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useRef, useState, Suspense } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Preload } from "@react-three/drei";
 import { Box } from "@mui/material";
-// @ts-ignore
+import { PointMaterial, Points, Preload } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+// @ts-expect-error
 import * as random from "maath/random/dist/maath-random.esm";
+import React, { Suspense, useRef, useState } from "react";
 
 const STAR_COUNT = 5000;
 
@@ -26,13 +26,7 @@ const StarBackground = (props: any) => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points
-        ref={ref}
-        positions={positions}
-        stride={3}
-        frustumCulled
-        {...props}
-      >
+      <Points ref={ref} positions={positions} stride={3} frustumCulled {...props}>
         <PointMaterial
           transparent
           color="#ffffff"

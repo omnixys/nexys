@@ -1,34 +1,31 @@
 "use client";
 
+import { useMutation } from "@apollo/client/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import {
+  Alert,
   Box,
+  Button,
   Card,
   CardContent,
-  Typography,
-  TextField,
-  Button,
-  useTheme,
-  Alert,
   Fade,
   Stack,
+  TextField,
+  Typography,
+  useTheme,
 } from "@mui/material";
-
-import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
-
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 
-import { useMutation } from "@apollo/client/react";
+import { useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import {
   RequestPasswordResetDocument,
-  RequestPasswordResetMutation,
-  RequestPasswordResetMutationVariables,
+  type RequestPasswordResetMutation,
+  type RequestPasswordResetMutationVariables,
 } from "@/generated/graphql";
 
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
@@ -90,21 +87,21 @@ export default function ForgotPasswordForm() {
     }
   };
 
-const resend = async () => {
-  if (!emailSent) return;
+  const resend = async () => {
+    if (!emailSent) return;
 
-  try {
-    await requestReset({
-      variables: {
-        email: emailSent,
-      },
-    });
+    try {
+      await requestReset({
+        variables: {
+          email: emailSent,
+        },
+      });
 
-    setResendTimer(RESEND_SECONDS);
-  } catch {
-    // ignore errors (anti-enumeration)
-  }
-};
+      setResendTimer(RESEND_SECONDS);
+    } catch {
+      // ignore errors (anti-enumeration)
+    }
+  };
   const cardSx = useMemo(
     () => ({
       width: "100%",
@@ -166,11 +163,7 @@ const resend = async () => {
             </Typography>
 
             <Stack spacing={2} mt={3}>
-              <Button
-                variant="outlined"
-                disabled={resendTimer > 0}
-                onClick={resend}
-              >
+              <Button variant="outlined" disabled={resendTimer > 0} onClick={resend}>
                 {resendTimer > 0
                   ? `${t("forgotPassword.resend")} (${resendTimer}s)`
                   : t("forgotPassword.resend")}
@@ -222,18 +215,10 @@ const resend = async () => {
             sx={{ mt: 3, borderRadius: 3 }}
             disabled={isSubmitting || !isValid}
           >
-            {isSubmitting
-              ? t("forgotPassword.sending")
-              : t("forgotPassword.sendLink")}
+            {isSubmitting ? t("forgotPassword.sending") : t("forgotPassword.sendLink")}
           </Button>
 
-          <Button
-            component={Link}
-            href="/login"
-            fullWidth
-            variant="text"
-            sx={{ mt: 1.5 }}
-          >
+          <Button component={Link} href="/login" fullWidth variant="text" sx={{ mt: 1.5 }}>
             {t("forgotPassword.cancel")}
           </Button>
         </Box>

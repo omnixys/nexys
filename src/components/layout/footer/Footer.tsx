@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
 import { Box, Typography } from "@mui/material";
+import type React from "react";
+import { FaYoutube } from "react-icons/fa";
 import {
   RxDiscordLogo,
   RxGithubLogo,
   RxInstagramLogo,
-  RxTwitterLogo,
   RxLinkedinLogo,
+  RxTwitterLogo,
 } from "react-icons/rx";
-import { FaYoutube } from "react-icons/fa";
 import { useDevice } from "../../../providers/DeviceProvider";
 
 type FooterItemProps = {
@@ -48,9 +48,9 @@ const FooterItem = ({ icon, label, href, sidebarPx }: FooterItemProps) => {
   );
 };
 
-const Footer = ({isFullSize}: {isFullSize?: boolean}) => {
+const Footer = ({ isFullSize }: { isFullSize?: boolean }) => {
   const { isMobile } = useDevice();
-  
+
   return (
     <Box
       component="footer"
@@ -92,21 +92,9 @@ const Footer = ({isFullSize}: {isFullSize?: boolean}) => {
             Community
           </Typography>
 
-          <FooterItem
-            icon={<FaYoutube />}
-            label="YouTube"
-            href="https://youtube.com"
-          />
-          <FooterItem
-            icon={<RxGithubLogo />}
-            label="GitHub"
-            href="https://github.com/omnixys"
-          />
-          <FooterItem
-            icon={<RxDiscordLogo />}
-            label="Discord"
-            href="https://discord.com"
-          />
+          <FooterItem icon={<FaYoutube />} label="YouTube" href="https://youtube.com" />
+          <FooterItem icon={<RxGithubLogo />} label="GitHub" href="https://github.com/omnixys" />
+          <FooterItem icon={<RxDiscordLogo />} label="Discord" href="https://discord.com" />
         </Box>
 
         {/* SOCIAL */}
@@ -123,21 +111,9 @@ const Footer = ({isFullSize}: {isFullSize?: boolean}) => {
             Social
           </Typography>
 
-          <FooterItem
-            icon={<RxInstagramLogo />}
-            label="Instagram"
-            href="https://instagram.com"
-          />
-          <FooterItem
-            icon={<RxTwitterLogo />}
-            label="Twitter / X"
-            href="https://twitter.com"
-          />
-          <FooterItem
-            icon={<RxLinkedinLogo />}
-            label="LinkedIn"
-            href="https://linkedin.com"
-          />
+          <FooterItem icon={<RxInstagramLogo />} label="Instagram" href="https://instagram.com" />
+          <FooterItem icon={<RxTwitterLogo />} label="Twitter / X" href="https://twitter.com" />
+          <FooterItem icon={<RxLinkedinLogo />} label="LinkedIn" href="https://linkedin.com" />
         </Box>
 
         {/* ABOUT */}

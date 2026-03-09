@@ -1,10 +1,5 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloLink,
-  Observable,
-} from "@apollo/client";
-import { createClient, Client } from "graphql-ws";
+import { ApolloClient, ApolloLink, InMemoryCache, Observable } from "@apollo/client";
+import { type Client, createClient } from "graphql-ws";
 
 function createWsLink(client: Client): ApolloLink {
   return new ApolloLink((operation) => {
@@ -12,13 +7,13 @@ function createWsLink(client: Client): ApolloLink {
       const dispose = client.subscribe(
         {
           ...operation,
-          query: operation.query.loc?.source.body ?? '',
+          query: operation.query.loc?.source.body ?? "",
         },
         {
           next: sink.next.bind(sink),
           error: sink.error.bind(sink),
           complete: sink.complete.bind(sink),
-        }
+        },
       );
 
       return () => dispose();
@@ -30,8 +25,7 @@ export function createWsApolloClient(token?: string) {
   if (typeof window === "undefined") return null;
 
   const httpUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL!;
-  const wsUrl =
-    process.env.NEXT_PUBLIC_GRAPHQL_WS_URL || httpUrl.replace(/^http/, "ws");
+  const wsUrl = process.env.NEXT_PUBLIC_GRAPHQL_WS_URL || httpUrl.replace(/^http/, "ws");
 
   const wsClient = createClient({
     url: wsUrl,

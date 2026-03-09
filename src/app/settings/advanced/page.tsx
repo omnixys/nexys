@@ -6,8 +6,8 @@
 "use client";
 
 import { Container } from "@mui/material";
-import AdvancedPanel from "../../../components/settings/panels/AdvancedPanel";
 import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
+import AdvancedPanel from "../../../components/settings/panels/AdvancedPanel";
 import { useAuth } from "../../../providers/AuthProvider";
 
 export default function AdvancedPage() {

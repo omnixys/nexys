@@ -1,4 +1,4 @@
-import { AuthProvider, AuthResponse } from "@toolpad/core/SignInPage";
+import type { AuthProvider, AuthResponse } from "@toolpad/core/SignInPage";
 import { signIn } from "next-auth/react";
 import { getLogger } from "@/utils/logger";
 

@@ -1,4 +1,4 @@
-import { GraphQLError } from "graphql";
+import type { GraphQLError } from "graphql";
 import { getLogger } from "./logger";
 
 const logger = getLogger("graphQl.error.ts");
@@ -32,25 +32,16 @@ export interface GatewayGraphQLResponse<T> {
  */
 export function handleGraphQLError(error: unknown, message: string) {
   if (typeof error === "object" && error !== null && "graphQLErrors" in error) {
-    const gqlErrors = (error as any).graphQLErrors as
-      | GraphQLError[]
-      | undefined;
+    const gqlErrors = (error as any).graphQLErrors as GraphQLError[] | undefined;
     const first = gqlErrors?.[0];
-    const extensions = first?.extensions as
-      | GatewayGraphQLErrorExtension
-      | undefined;
+    const extensions = first?.extensions as GatewayGraphQLErrorExtension | undefined;
 
-    const status =
-      extensions?.status ?? extensions?.originalError?.statusCode ?? "UNKNOWN";
+    const status = extensions?.status ?? extensions?.originalError?.statusCode ?? "UNKNOWN";
 
     const originalMessage =
-      first?.message ??
-      extensions?.originalError?.message ??
-      "Unknown GraphQL error";
+      first?.message ?? extensions?.originalError?.message ?? "Unknown GraphQL error";
 
-    logger.error(
-      `${message} - GraphQL error: ${originalMessage} (status: ${status})`
-    );
+    logger.error(`${message} - GraphQL error: ${originalMessage} (status: ${status})`);
 
     throw new Error(`${originalMessage} (status: ${status})`);
   }

@@ -1,7 +1,11 @@
 import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
-import { UniversalOption } from "../components/ui/UniversalAutocomplete";
-import { GetStatesByCountryDocument, GetStatesByCountryQuery, GetStatesByCountryQueryVariables } from "@/generated/graphql";
+import {
+  GetStatesByCountryDocument,
+  type GetStatesByCountryQuery,
+  type GetStatesByCountryQueryVariables,
+} from "@/generated/graphql";
+import type { UniversalOption } from "../components/ui/UniversalAutocomplete";
 
 export function useState(countryId?: string) {
   const { data, loading, error } = useQuery<

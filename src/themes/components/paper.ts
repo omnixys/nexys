@@ -1,4 +1,4 @@
-import { Components, Theme } from "@mui/material/styles";
+import type { Components, Theme } from "@mui/material/styles";
 
 export const paperComponents = (theme: Theme): Components["MuiPaper"] => ({
   styleOverrides: {
@@ -7,9 +7,7 @@ export const paperComponents = (theme: Theme): Components["MuiPaper"] => ({
       backgroundImage: "none",
 
       backgroundColor:
-        theme.palette.mode === "dark"
-          ? "rgba(28,28,30,0.72)"
-          : "rgba(255,255,255,0.72)",
+        theme.palette.mode === "dark" ? "rgba(28,28,30,0.72)" : "rgba(255,255,255,0.72)",
 
       backdropFilter: "blur(14px)",
       WebkitBackdropFilter: "blur(14px)",

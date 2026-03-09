@@ -5,19 +5,19 @@
 
 "use client";
 
+import LanguageIcon from "@mui/icons-material/Language";
 import {
   Box,
+  Chip,
   Divider,
   FormControl,
   MenuItem,
   Select,
   Stack,
   Typography,
-  Chip,
 } from "@mui/material";
-import LanguageIcon from "@mui/icons-material/Language";
-import { useSettings } from "../SettingsContext";
 import { useTranslations } from "next-intl";
+import { useSettings } from "../SettingsContext";
 
 const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
@@ -31,8 +31,7 @@ const currencies = ["USD", "EUR", "GBP", "CHF", "JPY"];
 
 export default function LanguagePanel() {
   const { state, setState } = useSettings();
-    const tSettings = useTranslations("settings");
-  
+  const tSettings = useTranslations("settings");
 
   return (
     <Stack spacing={3}>
@@ -55,10 +54,7 @@ export default function LanguagePanel() {
           {tSettings("labels.language")}
         </Typography>
         <FormControl fullWidth size="small">
-          <Select
-            value={state.language}
-            onChange={(e) => setState({ language: e.target.value })}
-          >
+          <Select value={state.language} onChange={(e) => setState({ language: e.target.value })}>
             {languages.map((l) => (
               <MenuItem key={l.code} value={l.code}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
@@ -78,10 +74,7 @@ export default function LanguagePanel() {
           {tSettings("labels.currency")}
         </Typography>
         <FormControl fullWidth size="small">
-          <Select
-            value={state.currency}
-            onChange={(e) => setState({ currency: e.target.value })}
-          >
+          <Select value={state.currency} onChange={(e) => setState({ currency: e.target.value })}>
             {currencies.map((c) => (
               <MenuItem key={c} value={c}>
                 <Typography variant="body2" fontWeight={900}>
@@ -105,13 +98,8 @@ export default function LanguagePanel() {
           <Chip label="Decimal comma" clickable />
         </Box>
 
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ mt: 1, display: "block" }}
-        >
-          These toggles can be wired to Intl formatting later
-          (number/date/time).
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: "block" }}>
+          These toggles can be wired to Intl formatting later (number/date/time).
         </Typography>
       </Box>
     </Stack>

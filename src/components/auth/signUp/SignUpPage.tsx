@@ -2,10 +2,8 @@
 
 import { Box, Container, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
+import type { Country } from "@/graphql/graphql.type";
 import SignUpWizard from "./SignUpWizard";
-import { Country } from "@/graphql/graphql.type";
-
-
 
 export interface SignUpPageProps {
   countries?: Country[];

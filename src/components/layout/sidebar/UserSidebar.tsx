@@ -5,13 +5,19 @@
 
 "use client";
 
-import { Divider, Drawer, SxProps, Theme, useTheme } from "@mui/material";
+import { Divider, Drawer, type SxProps, type Theme, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { JSX } from "react";
+import type { JSX } from "react";
 import SidebarGroup from "./SidebarGroup";
 import SidebarLink from "./SidebarLink";
 
-export default function UserSidebar({ width, sx }: { width: number; sx?: SxProps<Theme>; }): JSX.Element {
+export default function UserSidebar({
+  width,
+  sx,
+}: {
+  width: number;
+  sx?: SxProps<Theme>;
+}): JSX.Element {
   const theme = useTheme();
   const t = useTranslations("sidebar");
 

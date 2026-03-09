@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
 import type { SxProps, Theme } from "@mui/material";
 import { Box, Stack, Typography } from "@mui/material";
+import type React from "react";
 
 type Props = {
   icon: React.ReactNode;
@@ -40,11 +40,7 @@ export function IconLabelValueRow({
       {/* Label area: icon + label */}
       <Stack direction="row" spacing={1} alignItems="center" sx={labelSx}>
         {icon}
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ whiteSpace: "nowrap" }}
-        >
+        <Typography variant="caption" color="text.secondary" sx={{ whiteSpace: "nowrap" }}>
           {label}
         </Typography>
       </Stack>

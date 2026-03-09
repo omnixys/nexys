@@ -6,37 +6,49 @@
 "use client";
 
 import {
+  AccountCircle as AccountIcon,
+  SettingsApplications as AdvancedIcon,
+  Analytics as AnalyticsIcon,
+  Backup as BackupIcon,
+  Receipt as BillingIcon,
+  CreditCard as CardIcon,
+  ChildCare as ChildCareIcon,
+  CloudDownload as CloudDownloadIcon,
+  Cloud as CloudIcon,
+  Dashboard as DashboardIcon,
+  Devices as DevicesIcon,
+  Smartphone as DigitalIcon,
+  FamilyRestroom as FamilyIcon,
+  FamilyRestroom as FamilyRestroomIcon,
+  History as HistoryIcon,
+  Language as LanguageIcon,
+  Lock as LockIcon,
+  Notifications as NotificationIcon,
+  Notifications as NotificationsIcon,
+  Payments as PaymentsIcon,
+  Speed as PerformanceIcon,
+  PersonAdd as PersonAddIcon,
+  Security as SecurityIcon,
+  Smartphone as SmartphoneIcon,
+  Speed as SpeedIcon,
+  Storage as StorageIcon,
+  Palette as ThemeIcon,
+} from "@mui/icons-material";
+
+import {
+  alpha,
   Box,
+  Chip,
+  Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Typography,
-  Chip,
-  Divider,
-  alpha,
 } from "@mui/material";
+
 import { motion } from "framer-motion";
-import {
-  Security as SecurityIcon,
-  AccountCircle as AccountIcon,
-  Payments as PaymentsIcon,
-  Smartphone as DigitalIcon,
-  CreditCard as CardIcon,
-  Devices as DevicesIcon,
-  Backup as BackupIcon,
-  SettingsApplications as AdvancedIcon,
-  FamilyRestroom as FamilyIcon,
-  Receipt as BillingIcon,
-  Notifications as NotificationIcon,
-  Language as LanguageIcon,
-  Palette as ThemeIcon,
-  Lock as LockIcon,
-  Speed as PerformanceIcon,
-  Cloud as CloudIcon,
-  PersonAdd as PersonAddIcon,
-  Analytics as AnalyticsIcon,
-} from "@mui/icons-material";
+import { CreditCardIcon, PaletteIcon, ReceiptIcon } from "lucide-react";
 
 const settingsSections = [
   {

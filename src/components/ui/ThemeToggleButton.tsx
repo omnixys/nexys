@@ -11,12 +11,7 @@ export default function ThemeToggleButton() {
 
   return (
     <Tooltip title={mode === "dark" ? "Light Mode" : "Dark Mode"}>
-      <IconButton
-        onClick={toggle}
-        aria-label="Theme Toggle"
-        size="large"
-        edge="end"
-      >
+      <IconButton onClick={toggle} aria-label="Theme Toggle" size="large" edge="end">
         {mode === "dark" ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
       </IconButton>
     </Tooltip>

@@ -9,22 +9,20 @@ import { Container } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import DepthBlurLayer from "@/components/home/DepthBlurLayer";
-import { useAuth } from "@/providers/AuthProvider";
+import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 import SettingsDashboardHeader from "@/components/settings/SettingsDashboardHeader";
 import SettingsGrid from "@/components/settings/SettingsGrid";
-import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function SettingsPage() {
   const { user, loading } = useAuth();
-  const pathname = usePathname();
-
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
     setAnimationKey((k) => k + 1);
     setFocused(null);
-  }, [pathname]);
+  }, []);
 
   return (
     <LayoutShell user={user} loading={loading}>
@@ -41,11 +39,7 @@ export default function SettingsPage() {
 
         <SettingsDashboardHeader />
 
-        <SettingsGrid
-          key={animationKey}
-          focused={focused}
-          setFocused={setFocused}
-        />
+        <SettingsGrid key={animationKey} focused={focused} setFocused={setFocused} />
       </Container>
     </LayoutShell>
   );

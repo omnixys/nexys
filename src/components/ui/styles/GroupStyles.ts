@@ -1,4 +1,3 @@
-
 import { styled } from "@mui/material/styles";
 
 export const GroupHeader = styled("div")(({ theme }) => {
@@ -26,9 +25,7 @@ export const GroupHeader = styled("div")(({ theme }) => {
     // backdropFilter: "blur(8px)",
 
     backgroundColor:
-      theme.palette.mode === "dark"
-        ? "rgba(28,28,30,0.85)"
-        : "rgba(255,255,255,0.85)",
+      theme.palette.mode === "dark" ? "rgba(28,28,30,0.85)" : "rgba(255,255,255,0.85)",
     backdropFilter: "blur(12px)",
 
     borderBottom: `1px solid ${apple.separator}`,

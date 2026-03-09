@@ -1,5 +1,8 @@
 "use client";
 
+import { useQuery } from "@apollo/client/react";
+
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   Checkbox,
@@ -9,27 +12,20 @@ import {
   InputBase,
   Typography,
 } from "@mui/material";
-
-import SearchIcon from "@mui/icons-material/Search";
 import { motion } from "framer-motion";
-
-import { Controller, useFormContext } from "react-hook-form";
-import { useQuery } from "@apollo/client/react";
 import { useMemo, useState } from "react";
-
+import { Controller, useFormContext } from "react-hook-form";
+import { DynamicIcon } from "@/components/ui/DynamicIcon";
 import {
-  GetAllInterestCategoriesDocument,
-  GetAllInterestCategoriesQuery,
   ContactOptionsType,
-  GetAllInterestCategoriesQueryVariables,
+  GetAllInterestCategoriesDocument,
+  type GetAllInterestCategoriesQuery,
+  type GetAllInterestCategoriesQueryVariables,
   InterestEnum,
 } from "@/generated/graphql";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
-import { InterestCategory } from "@/graphql/graphql.type";
-
-import { DynamicIcon } from "@/components/ui/DynamicIcon";
+import type { InterestCategory } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 const MotionChip = motion(Chip);
 const MotionBox = motion(Box);
@@ -42,17 +38,17 @@ export default function ProfileDetailsStep() {
 
   const [search, setSearch] = useState("");
 
-  const { data } = useQuery<
-    GetAllInterestCategoriesQuery,
-    GetAllInterestCategoriesQueryVariables
-  >(GetAllInterestCategoriesDocument, {
-    fetchPolicy: "cache-first",
-    context: {
-      fetchOptions: {
-        credentials: "include",
+  const { data } = useQuery<GetAllInterestCategoriesQuery, GetAllInterestCategoriesQueryVariables>(
+    GetAllInterestCategoriesDocument,
+    {
+      fetchPolicy: "cache-first",
+      context: {
+        fetchOptions: {
+          credentials: "include",
+        },
       },
     },
-  });
+  );
 
   const categories: InterestCategory[] = data?.getAllInterestCategories ?? [];
 
@@ -128,9 +124,7 @@ export default function ProfileDetailsStep() {
           const toggle = (id: string) => {
             const exists = selected.includes(id);
 
-            field.onChange(
-              exists ? selected.filter((v) => v !== id) : [...selected, id],
-            );
+            field.onChange(exists ? selected.filter((v) => v !== id) : [...selected, id]);
           };
 
           return (
@@ -154,11 +148,7 @@ export default function ProfileDetailsStep() {
                     }}
                   >
                     {category.icon && (
-                      <DynamicIcon
-                        name={category.icon}
-                        size={18}
-                        strokeWidth={1.8}
-                      />
+                      <DynamicIcon name={category.icon} size={18} strokeWidth={1.8} />
                     )}
 
                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
@@ -186,11 +176,7 @@ export default function ProfileDetailsStep() {
                           whileTap={{ scale: 0.94 }}
                           icon={
                             interest.icon ? (
-                              <DynamicIcon
-                                name={interest.icon}
-                                size={16}
-                                strokeWidth={1.8}
-                              />
+                              <DynamicIcon name={interest.icon} size={16} strokeWidth={1.8} />
                             ) : undefined
                           }
                           label={enumT(`interest.${interest.key}`)}
@@ -226,9 +212,7 @@ export default function ProfileDetailsStep() {
           const toggle = (val: ContactOptionsType) => {
             const exists = selected.includes(val);
 
-            field.onChange(
-              exists ? selected.filter((v) => v !== val) : [...selected, val],
-            );
+            field.onChange(exists ? selected.filter((v) => v !== val) : [...selected, val]);
           };
 
           return (

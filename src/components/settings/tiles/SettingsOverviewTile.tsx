@@ -5,14 +5,14 @@
 
 "use client";
 
-import { Box, Chip, Typography, alpha } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PaletteIcon from "@mui/icons-material/Palette";
+import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import LanguageIcon from "@mui/icons-material/Language";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import StorageIcon from "@mui/icons-material/Storage";
+import PaletteIcon from "@mui/icons-material/Palette";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
-import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
+import SettingsIcon from "@mui/icons-material/Settings";
+import StorageIcon from "@mui/icons-material/Storage";
+import { alpha, Box, Chip, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 import BentoTile from "./BentoTile";
@@ -84,13 +84,7 @@ export default function SettingsOverviewTile({
   const router = useRouter();
 
   return (
-    <BentoTile
-      index={index}
-      area={area}
-      focused={focused}
-      setFocused={setFocused}
-      heavy={heavy}
-    >
+    <BentoTile index={index} area={area} focused={focused} setFocused={setFocused} heavy={heavy}>
       <Box
         sx={{
           width: "100%",
@@ -136,8 +130,7 @@ export default function SettingsOverviewTile({
                 variant="h2"
                 fontWeight={900}
                 sx={{
-                  background:
-                    "linear-gradient(90deg, #9C27B0 0%, #673AB7 100%)",
+                  background: "linear-gradient(90deg, #9C27B0 0%, #673AB7 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   letterSpacing: -0.8,

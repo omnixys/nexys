@@ -5,16 +5,16 @@
 
 "use client";
 
-import { Box, Divider, Stack, Typography, Chip, alpha } from "@mui/material";
 import SecurityIcon from "@mui/icons-material/Security";
+import { alpha, Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import {
-  LineChart,
+  CartesianGrid,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 import { useSecurity } from "../../security/SecurityContext";
 
@@ -69,10 +69,7 @@ export default function SecurityScorePanel() {
         <Chip
           label={grade}
           sx={{
-            bgcolor: alpha(
-              state.securityScore >= 90 ? "#4CAF50" : "#FF9800",
-              0.2,
-            ),
+            bgcolor: alpha(state.securityScore >= 90 ? "#4CAF50" : "#FF9800", 0.2),
             color: state.securityScore >= 90 ? "#4CAF50" : "#FF9800",
             fontWeight: 900,
           }}
@@ -82,15 +79,8 @@ export default function SecurityScorePanel() {
       <Box sx={{ height: 280 }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={securityData}>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="rgba(255,255,255,0.1)"
-            />
-            <XAxis
-              dataKey="month"
-              stroke="rgba(255,255,255,0.5)"
-              fontSize={12}
-            />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+            <XAxis dataKey="month" stroke="rgba(255,255,255,0.5)" fontSize={12} />
             <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} />
             <Tooltip
               contentStyle={{
@@ -130,8 +120,8 @@ export default function SecurityScorePanel() {
             Key Risks
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Recent blocked attempt from unfamiliar location, review devices and
-            enable device approval.
+            Recent blocked attempt from unfamiliar location, review devices and enable device
+            approval.
           </Typography>
         </Box>
 
@@ -147,8 +137,7 @@ export default function SecurityScorePanel() {
             Recommended Next Steps
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Enable session timeout and device approval, then review recovery
-            options.
+            Enable session timeout and device approval, then review recovery options.
           </Typography>
         </Box>
       </Box>

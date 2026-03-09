@@ -7,13 +7,13 @@
 
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import SecurityScoreTile from "./tiles/SecurityScoreTile";
-import SecurityFeaturesTile from "@/components/settings/tiles/SecurityFeaturesTile";
 import ActiveDevicesTile from "@/components/settings/tiles/ActiveDevicesTile";
 import AuthenticationTile from "@/components/settings/tiles/AuthenticationTile";
 import LoginHistoryTile from "@/components/settings/tiles/LoginHistoryTile";
 import QuickActionsTile from "@/components/settings/tiles/QuickActionsTile";
+import SecurityFeaturesTile from "@/components/settings/tiles/SecurityFeaturesTile";
 import SecurityStatsTile from "@/components/settings/tiles/SecurityStatsTile";
+import SecurityScoreTile from "./tiles/SecurityScoreTile";
 
 const gridVariants = {
   hidden: {},
@@ -66,26 +66,20 @@ export default function SecurityGrid({
       />
       <SecurityFeaturesTile
         index={1}
-        area={
-          isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />
 
       <ActiveDevicesTile
         index={2}
-        area={
-          isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />
       <LoginHistoryTile
         index={3}
-        area={
-          isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />

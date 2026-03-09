@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Box, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-
-import { NavbarLogo } from "./NavbarLogo";
-import { NavbarLinks } from "./NavbarLinks";
-import { NavbarSocials } from "./NavbarSocials";
-import { NavbarMobileDrawer } from "./NavbarMobileDrawer";
-import { NavItem } from "./navbar.types";
+import { Box, IconButton } from "@mui/material";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useEffect, useState } from "react";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { NavbarLinks } from "./NavbarLinks";
+import { NavbarLogo } from "./NavbarLogo";
+import { NavbarMobileDrawer } from "./NavbarMobileDrawer";
+import { NavbarSocials } from "./NavbarSocials";
+import type { NavItem } from "./navbar.types";
 
 const ITEMS: NavItem[] = [
   { label: "About me", href: "/about/me" },
@@ -81,11 +80,7 @@ export default function Navbar() {
         </Box>
       </motion.div>
 
-      <NavbarMobileDrawer
-        open={open}
-        onClose={() => setOpen(false)}
-        items={ITEMS}
-      />
+      <NavbarMobileDrawer open={open} onClose={() => setOpen(false)} items={ITEMS} />
 
       {/* Animation */}
       <style jsx global>{`

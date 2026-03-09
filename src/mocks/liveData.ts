@@ -1,4 +1,10 @@
-export const INBOX = [
+type InboxItem = {
+  from: string;
+  subject: string;
+  createdAt: string;
+  status: string;
+};
+export const INBOX: InboxItem[] = [
   {
     from: "Omnixys",
     subject: "Welcome to Nexys",
@@ -11,8 +17,18 @@ export const INBOX = [
     createdAt: "2026-01-31T14:00:00Z",
     status: "read",
   },
-] as const;
+];
 
+export enum ConditionType {
+  cloudy = "cloudy",
+  sunny = "Sunny",
+  rain = "Rain",
+}
+export type WeatherType = {
+  location: string;
+  tempC: number;
+  condition: ConditionType;
+};
 export const WEATHER = {
   location: "Berlin",
   tempC: 7,

@@ -19,17 +19,15 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import {
   CheckEmailDocument,
-  CheckEmailQuery,
-  CheckEmailQueryVariables,
+  type CheckEmailQuery,
+  type CheckEmailQueryVariables,
   GenderType,
   MaritalStatusType,
 } from "@/generated/graphql";
-
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 type EmailStatus = "idle" | "checking" | "available" | "taken";
 
@@ -45,9 +43,7 @@ export default function PersonalInfoStep() {
     clearErrors,
   } = useFormContext<SignUpFormValues>();
 
-  const [checkEmail] = useLazyQuery<CheckEmailQuery, CheckEmailQueryVariables>(
-    CheckEmailDocument,
-  );
+  const [checkEmail] = useLazyQuery<CheckEmailQuery, CheckEmailQueryVariables>(CheckEmailDocument);
 
   const [emailStatus, setEmailStatus] = useState<EmailStatus>("idle");
 
@@ -159,9 +155,7 @@ export default function PersonalInfoStep() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    {emailStatus === "checking" && (
-                      <CircularProgress size={18} />
-                    )}
+                    {emailStatus === "checking" && <CircularProgress size={18} />}
 
                     {emailStatus === "available" && <Check color="success" />}
 

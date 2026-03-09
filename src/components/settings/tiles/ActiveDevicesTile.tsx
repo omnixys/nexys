@@ -5,12 +5,12 @@
 
 "use client";
 
-import { Box, IconButton, Typography } from "@mui/material";
 import DevicesIcon from "@mui/icons-material/Devices";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import BentoTile from "./BentoTile";
 import { useSecurity } from "@/components/security/SecurityContext";
+import BentoTile from "./BentoTile";
 
 export default function ActiveDevicesTile({
   index,
@@ -60,11 +60,7 @@ export default function ActiveDevicesTile({
             </Typography>
           </Box>
 
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            sx={{ fontWeight: 900 }}
-          >
+          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 900 }}>
             {activeCount} active
           </Typography>
         </Box>
@@ -80,13 +76,9 @@ export default function ActiveDevicesTile({
                 p: 2,
                 mb: 1,
                 borderRadius: 2,
-                bgcolor: device.active
-                  ? "rgba(33,150,243,0.10)"
-                  : "rgba(255,255,255,0.05)",
+                bgcolor: device.active ? "rgba(33,150,243,0.10)" : "rgba(255,255,255,0.05)",
                 border: "1px solid",
-                borderColor: device.active
-                  ? "rgba(33,150,243,0.30)"
-                  : "rgba(255,255,255,0.10)",
+                borderColor: device.active ? "rgba(33,150,243,0.30)" : "rgba(255,255,255,0.10)",
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -95,9 +87,7 @@ export default function ActiveDevicesTile({
                     width: 40,
                     height: 40,
                     borderRadius: "50%",
-                    bgcolor: device.active
-                      ? "rgba(33,150,243,0.2)"
-                      : "rgba(255,255,255,0.1)",
+                    bgcolor: device.active ? "rgba(33,150,243,0.2)" : "rgba(255,255,255,0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -106,9 +96,7 @@ export default function ActiveDevicesTile({
                   <DevicesIcon
                     sx={{
                       fontSize: 20,
-                      color: device.active
-                        ? "#2196F3"
-                        : "rgba(255,255,255,0.5)",
+                      color: device.active ? "#2196F3" : "rgba(255,255,255,0.5)",
                     }}
                   />
                 </Box>

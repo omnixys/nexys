@@ -2,12 +2,11 @@
 
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { useEffect, useState, useMemo } from "react";
 import { usePathname } from "next/navigation";
-
-import TypingHeadline from "../home/TypingHeadline";
-import { User } from "@/graphql/graphql.type";
+import { useEffect, useMemo, useState } from "react";
+import type { User } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import TypingHeadline from "../home/TypingHeadline";
 
 const MotionBox = motion(Box);
 
@@ -42,9 +41,7 @@ export default function RotatingProfileHeadline({ user }: { user?: User }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const next =
-      (index + 1 + Math.floor(Math.random() * (messages.length - 1))) %
-      messages.length;
+    const next = (index + 1 + Math.floor(Math.random() * (messages.length - 1))) % messages.length;
     setIndex(next);
   }, [pathname, messages.length]);
 
@@ -59,19 +56,9 @@ export default function RotatingProfileHeadline({ user }: { user?: User }) {
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <TypingHeadline
-          text={messages[index].title}
-          variant="h3"
-          speed={55}
-          delay={120}
-        />
+        <TypingHeadline text={messages[index].title} variant="h3" speed={55} delay={120} />
 
-        <TypingHeadline
-          text={messages[index].subtitle}
-          variant="body1"
-          speed={45}
-          delay={180}
-        />
+        <TypingHeadline text={messages[index].subtitle} variant="body1" speed={45} delay={180} />
       </MotionBox>
     </Box>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Typography, Button, Stack } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import BentoTile from "@/components/home/BentoTile";
 
 export default function SessionsPage() {
@@ -19,11 +19,7 @@ export default function SessionsPage() {
               lastActive="5 minutes ago"
               current
             />
-            <SessionItem
-              device="iPhone · App"
-              location="Germany"
-              lastActive="Yesterday"
-            />
+            <SessionItem device="iPhone · App" location="Germany" lastActive="Yesterday" />
 
             <Button color="error" variant="outlined">
               Log out of all sessions

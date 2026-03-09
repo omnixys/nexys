@@ -1,11 +1,11 @@
 "use client";
 
-import { Drawer, Stack, Box } from "@mui/material";
-import Link from "next/link";
+import { Box, Drawer, Stack } from "@mui/material";
 import Image from "next/image";
-import { NavItem } from "./navbar.types";
-import { Socials } from "@/constants/socials";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Socials } from "@/constants/socials";
+import type { NavItem } from "./navbar.types";
 
 export function NavbarMobileDrawer({
   open,
@@ -34,8 +34,7 @@ export function NavbarMobileDrawer({
     >
       <Stack spacing={3} sx={{ p: 3 }}>
         {items.map((item) => {
-          const active =
-            pathname === item.href || pathname.startsWith(item.href + "/");
+          const active = pathname === item.href || pathname.startsWith(item.href + "/");
 
           return (
             <Link
@@ -57,13 +56,7 @@ export function NavbarMobileDrawer({
 
         <Box sx={{ display: "flex", gap: 2, pt: 2 }}>
           {Socials.map((social) => (
-            <Image
-              key={social.name}
-              src={social.src}
-              alt={social.name}
-              width={22}
-              height={22}
-            />
+            <Image key={social.name} src={social.src} alt={social.name} width={22} height={22} />
           ))}
         </Box>
       </Stack>

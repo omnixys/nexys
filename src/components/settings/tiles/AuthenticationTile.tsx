@@ -5,9 +5,9 @@
 
 "use client";
 
-import { Box, Chip, Typography } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import LockIcon from "@mui/icons-material/Lock";
+import { Box, Chip, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 import BentoTile from "./BentoTile";
@@ -71,9 +71,7 @@ export default function AuthenticationTile({
             }}
           >
             <Box>
-              <Box
-                sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                 <Box
                   sx={{
                     width: 48,
@@ -131,9 +129,7 @@ export default function AuthenticationTile({
             }}
           >
             <Box>
-              <Box
-                sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                 <Box
                   sx={{
                     width: 48,

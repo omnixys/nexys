@@ -1,11 +1,5 @@
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, Observable } from "@apollo/client";
 import { getLogger } from "@/utils/logger";
-import {
-  ApolloClient,
-  ApolloLink,
-  HttpLink,
-  InMemoryCache,
-  Observable,
-} from "@apollo/client";
 
 export function getResetToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -22,7 +16,7 @@ export function createHttpApolloClient(token1?: string) {
   const authLink = new ApolloLink((operation, forward) => {
     const oldHeaders = operation.getContext().headers || {};
 
-     const token = getResetToken();
+    const token = getResetToken();
     const headers = {
       ...oldHeaders,
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -74,12 +68,7 @@ export function createHttpApolloClient(token1?: string) {
   });
 
   // Compose
-  const link = ApolloLink.from([
-    authLink,
-    errorLoggerLink,
-    loggerLink,
-    httpLink,
-  ]);
+  const link = ApolloLink.from([authLink, errorLoggerLink, loggerLink, httpLink]);
 
   return new ApolloClient({
     link,

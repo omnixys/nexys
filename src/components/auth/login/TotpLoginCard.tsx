@@ -1,10 +1,10 @@
 "use client";
 
-import { Paper, Typography, Box, TextField, Button } from "@mui/material";
-import BrandingHeader from "./BrandingHeader";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import SignUpLink from "@/components/auth/login/fields/SignUpLink";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import ForgotPasswordLink from "@/components/auth/login/fields/ForgotPasswordLink";
+import SignUpLink from "@/components/auth/login/fields/SignUpLink";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import BrandingHeader from "./BrandingHeader";
 
 type TotpLoginCardProps = {
   onVerify: (code: string, username: string) => Promise<void> | void;
@@ -19,15 +19,15 @@ export default function TotpLoginCard({
 }: TotpLoginCardProps) {
   const t = useTypedTranslations("login");
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
-  const data = new FormData(e.currentTarget);
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
 
-  const username = String(data.get("username") ?? "").trim();
-  const code = String(data.get("totp") ?? "").trim();
+    const username = String(data.get("username") ?? "").trim();
+    const code = String(data.get("totp") ?? "").trim();
 
-  await onVerify(code, username);
-}
+    await onVerify(code, username);
+  }
 
   return (
     <Paper
@@ -55,12 +55,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
       </Box>
 
       <form onSubmit={onSubmit}>
-        <TextField
-          name="username"
-          label={t("totp.usernameLabel")}
-          fullWidth
-          sx={{ mb: 2 }}
-        />
+        <TextField name="username" label={t("totp.usernameLabel")} fullWidth sx={{ mb: 2 }} />
 
         <TextField
           name="totp"
@@ -85,10 +80,10 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         </Button>
       </form>
 
-            <Box display="flex" justifyContent="space-between" mt={2}>
-              <SignUpLink />
-              <ForgotPasswordLink />
-            </Box>
+      <Box display="flex" justifyContent="space-between" mt={2}>
+        <SignUpLink />
+        <ForgotPasswordLink />
+      </Box>
 
       {errorText && (
         <Typography color="error" mt={1}>

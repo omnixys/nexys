@@ -1,7 +1,7 @@
 query GetStatesByCountry($countryId: ID!) {
-    getStatesByCountry(countryId: $countryId) {
-      id
-      code
-      name
-    }
+  getStatesByCountry(countryId: $countryId) {
+    id
+    code
+    name
   }
+}

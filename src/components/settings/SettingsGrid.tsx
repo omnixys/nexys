@@ -71,34 +71,26 @@ export default function SettingsGrid({
       />
       <QuickSettingsTile
         index={1}
-        area={
-          isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 6" : isMdUp ? "auto / span 4" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />
 
       <AppearanceTile
         index={2}
-        area={
-          isLgUp ? "auto / span 4" : isMdUp ? "auto / span 4" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 4" : isMdUp ? "auto / span 4" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />
       <LanguageTile
         index={3}
-        area={
-          isLgUp ? "auto / span 4" : isMdUp ? "auto / span 4" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 4" : isMdUp ? "auto / span 4" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />
       <NotificationsTile
         index={4}
-        area={
-          isLgUp ? "auto / span 4" : isMdUp ? "auto / span 8" : "auto / span 4"
-        }
+        area={isLgUp ? "auto / span 4" : isMdUp ? "auto / span 8" : "auto / span 4"}
         focused={focused}
         setFocused={setFocused}
       />

@@ -21,12 +21,7 @@ export default function SettingsStatsTile({
   setFocused: (i: number | null) => void;
 }) {
   return (
-    <BentoTile
-      index={index}
-      area={area}
-      focused={focused}
-      setFocused={setFocused}
-    >
+    <BentoTile index={index} area={area} focused={focused} setFocused={setFocused}>
       <Box
         sx={{
           width: "100%",
@@ -39,30 +34,10 @@ export default function SettingsStatsTile({
           overflowX: "auto",
         }}
       >
-        <StatItem
-          label="Active Settings"
-          value="28"
-          change="+3"
-          color="#9C27B0"
-        />
-        <StatItem
-          label="Customizations"
-          value="12"
-          change="+2"
-          color="#2196F3"
-        />
-        <StatItem
-          label="Data Stored"
-          value="2.8 GB"
-          change="+450 MB"
-          color="#4CAF50"
-        />
-        <StatItem
-          label="Notifications"
-          value="236"
-          change="+42"
-          color="#FF9800"
-        />
+        <StatItem label="Active Settings" value="28" change="+3" color="#9C27B0" />
+        <StatItem label="Customizations" value="12" change="+2" color="#2196F3" />
+        <StatItem label="Data Stored" value="2.8 GB" change="+450 MB" color="#4CAF50" />
+        <StatItem label="Notifications" value="236" change="+42" color="#FF9800" />
         <StatItem label="Last Updated" value="Now" color="#00BCD4" />
       </Box>
     </BentoTile>

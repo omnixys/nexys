@@ -5,20 +5,14 @@
 
 "use client";
 
-import React from "react";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
-
-import {
-  GENDER_I18N,
-  MARITAL_STATUS_I18N,
-  PHONE_NUMBER_TYPE_I18N,
-} from "@/types/user/enum-translations";
-import { getAgeYears } from "../../utils/enums/date.utils";
-import { User } from "@/graphql/graphql.type";
-import { formatEnum } from "@/i18n/format-enum";
+import React from "react";
 import { GenderType } from "@/generated/graphql";
+import type { User } from "@/graphql/graphql.type";
+import { formatEnum } from "@/i18n/format-enum";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { getAgeYears } from "@/utils/enums/date.utils";
 
 type Props = {
   user: User;
@@ -30,23 +24,23 @@ export default function ProfilePersonalInfo({ user, isAdmin }: Props) {
 
   const tCommon = useTranslations("common");
   const tUser = useTypedTranslations("profile");
-  const tEnum = useTypedTranslations('enums');
+  const tEnum = useTypedTranslations("enums");
   const locale = useLocale();
 
   const info = user?.personalInfo;
 
-const birthDateObj = info?.birthDate ? new Date(info.birthDate) : null;
+  const birthDateObj = info?.birthDate ? new Date(info.birthDate) : null;
 
-const birthDate = birthDateObj
-  ? new Intl.DateTimeFormat(locale, {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(birthDateObj)
-  : null;
+  const birthDate = birthDateObj
+    ? new Intl.DateTimeFormat(locale, {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      }).format(birthDateObj)
+    : null;
 
   const ageYears = birthDateObj ? getAgeYears(birthDateObj) : null;
-  
+
   const bornPart =
     birthDate && ageYears !== null
       ? tUser("personal.bornOnWithAge", {
@@ -57,31 +51,25 @@ const birthDate = birthDateObj
         ? tUser("personal.bornOn", { date: birthDate })
         : null;
 
-
-
   // Translated gender / maritalStatus (fallback to "—" if missing)
   const genderLabel = info?.gender
-    ? formatEnum(tEnum, 'gender', info.gender)
+    ? formatEnum(tEnum, "gender", info.gender)
     : tCommon("values.notAvailable");
 
   const maritalLabel = info?.maritalStatus
-    ? formatEnum(tEnum,'maritalStatus', info.maritalStatus)
+    ? formatEnum(tEnum, "maritalStatus", info.maritalStatus)
     : tCommon("values.notAvailable");
 
   // Access label (admin vs standard)
-  const accessLabel = isAdmin
-    ? tUser("employee.admin")
-    : tUser("employee.standard");
-  
-    const headlineParts = [
-      bornPart,
-      info?.gender ? genderLabel : null,
-      info?.maritalStatus ? maritalLabel : null,
-    ]
-      .filter(Boolean)
-      .join(" · ");
+  const accessLabel = isAdmin ? tUser("employee.admin") : tUser("employee.standard");
 
-
+  const headlineParts = [
+    bornPart,
+    info?.gender ? genderLabel : null,
+    info?.maritalStatus ? maritalLabel : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <Box
@@ -102,12 +90,7 @@ const birthDate = birthDateObj
       {/* Identity */}
       <Stack spacing={1.2}>
         <Stack spacing={0.5}>
-          <Stack
-            direction="row"
-            alignItems="baseline"
-            spacing={1}
-            flexWrap="wrap"
-          >
+          <Stack direction="row" alignItems="baseline" spacing={1} flexWrap="wrap">
             {/* Access badge (admin vs standard) */}
 
             {user.employee && (
@@ -158,9 +141,7 @@ const birthDate = birthDateObj
 
           <Stack spacing={0.75}>
             {info?.phoneNumbers?.map((phone) => {
-              const phoneTypeLabel = phone.type
-                ? formatEnum(tEnum, "phoneType", phone.type)
-                : null;
+              const phoneTypeLabel = phone.type ? formatEnum(tEnum, "phoneType", phone.type) : null;
 
               return (
                 <Typography key={phone.id} variant="body2" fontWeight={500}>

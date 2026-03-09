@@ -5,21 +5,12 @@
 
 "use client";
 
-import {
-  Box,
-  Divider,
-  Stack,
-  Typography,
-  Chip,
-  Button,
-  Snackbar,
-} from "@mui/material";
 import DevicesIcon from "@mui/icons-material/Devices";
 import UndoIcon from "@mui/icons-material/Undo";
+import { Box, Button, Chip, Divider, Snackbar, Stack, Typography } from "@mui/material";
 import { useMemo, useRef, useState } from "react";
-
-import { useSecurity, DeviceItem } from "../SecurityContext";
 import ConfirmDialog from "../modal/ConfirmDialog";
+import { type DeviceItem, useSecurity } from "../SecurityContext";
 
 type PendingRevoke = {
   deviceId: number;
@@ -35,10 +26,7 @@ export default function ActiveDevicesPanel() {
   const [snackOpen, setSnackOpen] = useState(false);
   const pendingRef = useRef<PendingRevoke | null>(null);
 
-  const activeCount = useMemo(
-    () => state.devices.filter((d) => d.active).length,
-    [state.devices],
-  );
+  const activeCount = useMemo(() => state.devices.filter((d) => d.active).length, [state.devices]);
 
   const selectedDevice = useMemo(
     () => state.devices.find((d) => d.id === selectedDeviceId) ?? null,
@@ -66,9 +54,7 @@ export default function ActiveDevicesPanel() {
     // Optimistic update: mark inactive.
     setState({
       devices: state.devices.map((d) =>
-        d.id === selectedDevice.id
-          ? { ...d, active: false, lastActive: "just now" }
-          : d,
+        d.id === selectedDevice.id ? { ...d, active: false, lastActive: "just now" } : d,
       ),
     });
 
@@ -81,9 +67,7 @@ export default function ActiveDevicesPanel() {
     if (!pending) return;
 
     setState({
-      devices: state.devices.map((d) =>
-        d.id === pending.deviceId ? pending.prev : d,
-      ),
+      devices: state.devices.map((d) => (d.id === pending.deviceId ? pending.prev : d)),
     });
 
     pendingRef.current = null;
@@ -134,9 +118,7 @@ export default function ActiveDevicesPanel() {
               p: 2,
               borderRadius: 3,
               border: "1px solid rgba(255,255,255,0.12)",
-              bgcolor: device.active
-                ? "rgba(33,150,243,0.08)"
-                : "rgba(255,255,255,0.04)",
+              bgcolor: device.active ? "rgba(33,150,243,0.08)" : "rgba(255,255,255,0.04)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -147,8 +129,7 @@ export default function ActiveDevicesPanel() {
             <Box>
               <Typography fontWeight={900}>{device.name}</Typography>
               <Typography variant="caption" color="text.secondary">
-                {device.type} • {device.location} • last active{" "}
-                {device.lastActive}
+                {device.type} • {device.location} • last active {device.lastActive}
               </Typography>
             </Box>
 
@@ -164,9 +145,7 @@ export default function ActiveDevicesPanel() {
                 label={device.active ? "Active" : "Inactive"}
                 size="small"
                 sx={{
-                  bgcolor: device.active
-                    ? "rgba(76,175,80,0.2)"
-                    : "rgba(255,82,82,0.2)",
+                  bgcolor: device.active ? "rgba(76,175,80,0.2)" : "rgba(255,82,82,0.2)",
                   color: device.active ? "#4CAF50" : "#FF5252",
                   fontWeight: 900,
                 }}

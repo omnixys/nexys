@@ -5,10 +5,10 @@
 
 "use client";
 
-import { Box, Divider, Stack, Typography, Chip, alpha } from "@mui/material";
-import StorageIcon from "@mui/icons-material/Storage";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import StorageIcon from "@mui/icons-material/Storage";
+import { alpha, Box, Chip, Divider, Stack, Typography } from "@mui/material";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { useSettings } from "../SettingsContext";
 
 const storageData = [
@@ -114,9 +114,7 @@ export default function DataPanel() {
               clickable
               onClick={() => setState({ autoBackup: true })}
               sx={{
-                bgcolor: state.autoBackup
-                  ? alpha("#4CAF50", 0.2)
-                  : "rgba(255,255,255,0.06)",
+                bgcolor: state.autoBackup ? alpha("#4CAF50", 0.2) : "rgba(255,255,255,0.06)",
                 color: state.autoBackup ? "#4CAF50" : "text.secondary",
                 fontWeight: 900,
               }}
@@ -126,9 +124,7 @@ export default function DataPanel() {
               clickable
               onClick={() => setState({ autoBackup: false })}
               sx={{
-                bgcolor: !state.autoBackup
-                  ? alpha("#4CAF50", 0.2)
-                  : "rgba(255,255,255,0.06)",
+                bgcolor: !state.autoBackup ? alpha("#4CAF50", 0.2) : "rgba(255,255,255,0.06)",
                 color: !state.autoBackup ? "#4CAF50" : "text.secondary",
                 fontWeight: 900,
               }}
@@ -142,11 +138,7 @@ export default function DataPanel() {
               size="small"
               sx={{ bgcolor: "rgba(255,255,255,0.10)", fontWeight: 900 }}
             />
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ fontWeight: 900 }}
-            >
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 900 }}>
               Cloud sync enabled
             </Typography>
           </Box>

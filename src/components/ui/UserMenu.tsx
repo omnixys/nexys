@@ -1,5 +1,11 @@
 "use client";
 
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import BadgeIcon from "@mui/icons-material/Badge";
+import LogoutIcon from "@mui/icons-material/Logout";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Person from "@mui/icons-material/Person";
+import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import {
   Avatar,
   Divider,
@@ -10,30 +16,17 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { JSX } from "react";
-
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import BadgeIcon from "@mui/icons-material/Badge";
-import LogoutIcon from "@mui/icons-material/Logout";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Person from "@mui/icons-material/Person";
-import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
-
-import { useAuth } from "@/providers/AuthProvider";
-import { useDevice } from "@/providers/DeviceProvider";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-
-import ColorBubbleSwitcher from "./ColorBubbleSwitcher";
+import React, { type JSX } from "react";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { useAuth } from "@/providers/AuthProvider";
+import { useDevice } from "@/providers/DeviceProvider";
+import ColorBubbleSwitcher from "./ColorBubbleSwitcher";
 
 type EventRole = "ADMIN" | "SECURITY" | "GUEST";
 
-export default function UserMenu({
-  logoutPath,
-}: {
-  logoutPath: string;
-}): JSX.Element | null {
+export default function UserMenu({ logoutPath }: { logoutPath: string }): JSX.Element | null {
   const router = useRouter();
   const { device } = useDevice();
   const { user, isAuthenticated, loading, logout } = useAuth();
@@ -46,12 +39,8 @@ export default function UserMenu({
   if (loading) return null;
   if (!isAuthenticated || !user) return null;
 
-  const role = user?.eventRole as EventRole | undefined;
-
   const displayName =
-    [user?.personalInfo?.firstName, user?.personalInfo?.lastName]
-      .filter(Boolean)
-      .join(" ") ||
+    [user?.personalInfo?.firstName, user?.personalInfo?.lastName].filter(Boolean).join(" ") ||
     user.username ||
     "User";
 
@@ -61,8 +50,7 @@ export default function UserMenu({
     .slice(0, 2)
     .join("");
 
-  const handleOpen = (e: React.MouseEvent<HTMLElement>) =>
-    setAnchorEl(e.currentTarget);
+  const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
 
   const handleClose = () => setAnchorEl(null);
 
@@ -146,26 +134,6 @@ export default function UserMenu({
           </ListItemIcon>
           {t("userMenu.qr")}
         </MenuItem>
-
-        {/* Security Scanner */}
-        {role === "SECURITY" && (
-          <MenuItem onClick={() => go("/scan")}>
-            <ListItemIcon>
-              <QrCodeScannerIcon fontSize="small" />
-            </ListItemIcon>
-            Scanner
-          </MenuItem>
-        )}
-
-        {/* Admin */}
-        {role === "ADMIN" && (
-          <MenuItem onClick={() => go("/checkpoint/admin")}>
-            <ListItemIcon>
-              <AdminPanelSettingsIcon fontSize="small" />
-            </ListItemIcon>
-            Admin Panel
-          </MenuItem>
-        )}
 
         <Divider />
 

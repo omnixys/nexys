@@ -3,22 +3,12 @@
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, IconButton, MenuItem, TextField, Typography } from "@mui/material";
 
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { RelationshipType } from "@/generated/graphql";
-
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function ContactsStep() {
   const { control } = useFormContext<SignUpFormValues>();
@@ -33,12 +23,7 @@ export default function ContactsStep() {
 
   return (
     <>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={2}
-      >
+      <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
           {t("contacts.title")}
         </Typography>
@@ -104,10 +89,7 @@ export default function ContactsStep() {
                       fullWidth
                       label={t("contacts.fields.contactId")}
                       error={!!fieldState.error}
-                      helperText={
-                        fieldState.error?.message ??
-                        t("contacts.helpers.contactId")
-                      }
+                      helperText={fieldState.error?.message ?? t("contacts.helpers.contactId")}
                     />
                   )}
                 />
@@ -147,9 +129,7 @@ export default function ContactsStep() {
                       fullWidth
                       label={t("contacts.fields.withdrawalLimit")}
                       onChange={(e) =>
-                        field.onChange(
-                          e.target.value ? Number(e.target.value) : null,
-                        )
+                        field.onChange(e.target.value ? Number(e.target.value) : null)
                       }
                     />
                   )}
@@ -168,9 +148,7 @@ export default function ContactsStep() {
                       fullWidth
                       label={t("contacts.fields.emergency")}
                       value={String(!!field.value)}
-                      onChange={(e) =>
-                        field.onChange(e.target.value === "true")
-                      }
+                      onChange={(e) => field.onChange(e.target.value === "true")}
                     >
                       <MenuItem value="false">{t("contacts.no")}</MenuItem>
 

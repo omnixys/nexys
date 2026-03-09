@@ -1,20 +1,17 @@
 "use client";
 
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import { Box, Divider, Stack, useTheme } from "@mui/material";
 import { motion, useAnimationFrame } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
-
-import { useDevice } from "@/providers/DeviceProvider";
+import type { User } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-
-import { IconLabelValue } from "../ui/value/IconLabelValue";
+import { useDevice } from "@/providers/DeviceProvider";
 import {
   formatUserStatus,
   getStatusIcon,
@@ -22,8 +19,7 @@ import {
 } from "@/utils/enums/userStatus.utils";
 
 import { formatUserType } from "@/utils/enums/userType.utils";
-
-import { User } from "@/graphql/graphql.type";
+import { IconLabelValue } from "../ui/value/IconLabelValue";
 
 const MotionBox = motion(Box);
 
@@ -33,22 +29,15 @@ type Props = {
   secure: boolean;
 };
 
-export default function ProfileStatusStrip({
-  completeness,
-  secure,
-  user,
-}: Props) {
+export default function ProfileStatusStrip({ completeness, secure, user }: Props) {
   const theme = useTheme();
-  const { isMobile } = useDevice();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [hovered, setHovered] = useState(false);
-
   const t = useTypedTranslations("profile");
   const enumT = useTypedTranslations("enums");
 
   const contacts = user?.contacts?.length || 0;
-  const addresses = user?.addresses?.length || 0;
 
   const statusLabel = formatUserStatus(user?.status, enumT);
   const statusIcon = getStatusIcon(user?.status, theme);
@@ -69,11 +58,8 @@ export default function ProfileStatusStrip({
     const el = containerRef.current;
 
     if (!el || hovered) return;
-
     const speed = 25;
-
     el.scrollLeft += (speed * delta) / 1000;
-
     const half = el.scrollWidth / 2;
 
     if (el.scrollLeft >= half) {
@@ -87,9 +73,7 @@ export default function ProfileStatusStrip({
         direction="row"
         alignItems="center"
         spacing={3}
-        divider={
-          <Divider orientation="vertical" flexItem sx={{ opacity: 0.25 }} />
-        }
+        divider={<Divider orientation="vertical" flexItem sx={{ opacity: 0.25 }} />}
         sx={{ whiteSpace: "nowrap", px: 1 }}
       >
         <IconLabelValue
@@ -103,21 +87,17 @@ export default function ProfileStatusStrip({
           label={t("label.contacts")}
           value={contacts}
         />
-
-        <IconLabelValue
+        {/* TODO */}
+        {/* <IconLabelValue
           icon={<HomeOutlinedIcon />}
           label={t("label.addresses")}
           value={addresses}
-        />
+        /> */}
 
         <IconLabelValue
           icon={securityIcon}
           label={t("label.securityLevel")}
-          value={
-            secure
-              ? t("value.secure")
-              : t("value.actionRequired")
-          }
+          value={secure ? t("value.secure") : t("value.actionRequired")}
         />
 
         <IconLabelValue
@@ -138,12 +118,12 @@ export default function ProfileStatusStrip({
       t,
       completeness,
       contacts,
-      addresses,
       secure,
       statusIcon,
       statusLabel,
       statusColor,
       userTypeLabel,
+      securityIcon,
     ],
   );
 

@@ -1,13 +1,10 @@
-import { PaletteMode, ThemeOptions, createTheme } from "@mui/material";
-import { OmnixysColorScheme } from "./paletteTypes";
-import { omnixysPresets } from "./colors/omnixysPresets";
+import { createTheme, type PaletteMode, ThemeOptions } from "@mui/material";
 import { appleDark, appleLight } from "./colors/appleColors";
+import { omnixysPresets } from "./colors/omnixysPresets";
 import { createComponentOverrides } from "./components";
+import type { OmnixysColorScheme } from "./paletteTypes";
 
-export const createAppTheme = (
-  mode: PaletteMode,
-  scheme: OmnixysColorScheme = "original",
-) => {
+export const createAppTheme = (mode: PaletteMode, scheme: OmnixysColorScheme = "original") => {
   const apple = mode === "light" ? appleLight : appleDark;
   const omni = omnixysPresets[scheme][mode];
 

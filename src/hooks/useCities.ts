@@ -1,16 +1,20 @@
 import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
-import { UniversalOption } from "../components/ui/UniversalAutocomplete";
-import { GetCitiesByStateDocument, GetCitiesByStateQuery, GetCitiesByStateQueryVariables } from "@/generated/graphql";
+import {
+  GetCitiesByStateDocument,
+  type GetCitiesByStateQuery,
+  type GetCitiesByStateQueryVariables,
+} from "@/generated/graphql";
+import type { UniversalOption } from "../components/ui/UniversalAutocomplete";
 
 export function useCity(stateId?: string) {
-  const { data, error, loading } = useQuery<
-    GetCitiesByStateQuery,
-    GetCitiesByStateQueryVariables
-  >(GetCitiesByStateDocument, {
-    variables: { stateId: stateId! },
-    skip: !stateId,
-  });
+  const { data, error, loading } = useQuery<GetCitiesByStateQuery, GetCitiesByStateQueryVariables>(
+    GetCitiesByStateDocument,
+    {
+      variables: { stateId: stateId! },
+      skip: !stateId,
+    },
+  );
 
   const cityOptions: UniversalOption[] = useMemo(() => {
     return (

@@ -5,30 +5,16 @@
 
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  Box,
-  MenuItem,
-  Select,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import TextTransition, { presets } from "react-text-transition";
-import { useTranslations } from "next-intl";
-
-import {
-  CustomerInterestPayload,
-  InterestCategoryEnum,
-  InterestEnum,
-} from "@/generated/graphql";
-
-import { formatEnum } from "@/i18n/format-enum";
-import { useInterestCategory } from "@/hooks/useInterest";
+import { Box, MenuItem, Select, Stack, Typography, useTheme } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
+import type { GetMeQuery, InterestCategoryEnum, InterestEnum } from "@/generated/graphql";
+import { useInterestCategory } from "@/hooks/useInterest";
+import { formatEnum } from "@/i18n/format-enum";
 
 type Props = {
-  interests: CustomerInterestPayload[];
+  interests?: NonNullable<NonNullable<GetMeQuery["me"]["customer"]>["customerInterest"]>;
 };
 
 export default function CustomerInterestSpectrum({ interests }: Props) {
@@ -40,25 +26,9 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
 
   const categories = data?.getAllInterestCategories ?? [];
 
-  /* ---------------------- guard */
-
-  if (!interests?.length) {
-    return (
-      <Typography variant="caption" color="text.secondary">
-        {tUser("customer.labels.noInterests")}
-      </Typography>
-    );
-  }
-
-  /* ---------------------- normalize interests */
-
   const userInterestKeys = useMemo(() => {
-    return interests
-      .map((i) => i.interest?.key)
-      .filter(Boolean) as InterestEnum[];
+    return interests?.map((i) => i.interest?.key).filter(Boolean) as InterestEnum[];
   }, [interests]);
-
-  /* ---------------------- categorize */
 
   const categorized = useMemo(() => {
     const result: Record<InterestCategoryEnum, InterestEnum[]> = {} as Record<
@@ -68,9 +38,7 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
 
     categories.forEach((cat) => {
       const matches =
-        cat.interests
-          ?.map((i) => i.key)
-          .filter((k) => userInterestKeys.includes(k)) ?? [];
+        cat.interests?.map((i) => i.key).filter((k) => userInterestKeys.includes(k)) ?? [];
 
       if (matches.length) {
         result[cat.key] = matches;
@@ -89,8 +57,7 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
 
   const maxCount = Math.max(...Object.values(categorized).map((v) => v.length), 1);
 
-  const density = (cat: InterestCategoryEnum) =>
-    (categorized[cat]?.length ?? 0) / maxCount;
+  const density = (cat: InterestCategoryEnum) => (categorized[cat]?.length ?? 0) / maxCount;
 
   /* ---------------------- state */
 
@@ -100,15 +67,15 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
     if (!category && categoryKeys.length) {
       setCategory(categoryKeys[0]);
     }
-  }, [categoryKeys]);
+  }, [categoryKeys, category]);
 
-  const list = category ? categorized[category] ?? [] : [];
+  const list = category ? (categorized[category] ?? []) : [];
 
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIndex(0);
-  }, [category, list.length]);
+  }, []);
 
   useEffect(() => {
     if (!list.length) return;
@@ -120,28 +87,29 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
     return () => window.clearInterval(id);
   }, [list]);
 
+  /* ---------------------- guard */
+
+  if (!interests?.length) {
+    return (
+      <Typography variant="caption" color="text.secondary">
+        {tUser("customer.labels.noInterests")}
+      </Typography>
+    );
+  }
+
   const current = list[index];
 
-  const currentLabel = current
-    ? formatEnum(tEnum, "interest", current)
-    : "—";
+  const currentLabel = current ? formatEnum(tEnum, "interest", current) : "—";
 
   /* ---------------------- render */
 
   return (
     <Stack spacing={2}>
-      <Stack
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        sx={{ width: "100%" }}
-      >
+      <Stack direction="column" spacing={2} alignItems="center" sx={{ width: "100%" }}>
         <Select
           size="small"
           value={category}
-          onChange={(e) =>
-            setCategory(e.target.value as InterestCategoryEnum)
-          }
+          onChange={(e) => setCategory(e.target.value as InterestCategoryEnum)}
           sx={{ minWidth: 180, borderRadius: 999 }}
         >
           {categoryKeys.map((cat) => (
@@ -197,17 +165,17 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
               whiteSpace: "nowrap",
             }}
           >
-           <AnimatePresence mode="wait">
-  <motion.span
-    key={currentLabel}
-    initial={{ opacity: 0, y: 6 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -6 }}
-    transition={{ duration: 0.25 }}
-  >
-    {currentLabel}
-  </motion.span>
-</AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentLabel}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25 }}
+              >
+                {currentLabel}
+              </motion.span>
+            </AnimatePresence>
           </Box>
         </Box>
       </Stack>

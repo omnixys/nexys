@@ -5,10 +5,10 @@
 
 "use client";
 
+import { Container } from "@mui/material";
 import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 import DataPanel from "@/components/settings/panels/DataPanel";
 import { useAuth } from "@/providers/AuthProvider";
-import { Container } from "@mui/material";
 
 export default function DataPage() {
   const { user, loading } = useAuth();

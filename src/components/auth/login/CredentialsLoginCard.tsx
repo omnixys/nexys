@@ -1,16 +1,16 @@
 "use client";
 
-import { Paper, Typography, Box } from "@mui/material";
-import BrandingHeader from "./BrandingHeader";
-import UsernameField from "./fields/UsernameField";
-import PasswordField from "./fields/PasswordField";
-import AgreeWithTerms from "./fields/AgreeWithTerms";
-import SubmitButton from "./fields/SubmitButton";
-import ForgotPasswordLink from "./fields/ForgotPasswordLink";
-import SignUpLink from "./fields/SignUpLink";
-import { FormEvent } from "react";
+import { Box, Paper, Typography } from "@mui/material";
+import type { FormEvent } from "react";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import { AuthErrorKey } from "@/types/authentication/auth.type";
+import type { AuthErrorKey } from "@/types/authentication/auth.type";
+import BrandingHeader from "./BrandingHeader";
+import AgreeWithTerms from "./fields/AgreeWithTerms";
+import ForgotPasswordLink from "./fields/ForgotPasswordLink";
+import PasswordField from "./fields/PasswordField";
+import SignUpLink from "./fields/SignUpLink";
+import SubmitButton from "./fields/SubmitButton";
+import UsernameField from "./fields/UsernameField";
 
 type CredentialsLoginCardProps = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;

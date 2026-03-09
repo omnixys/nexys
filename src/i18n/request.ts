@@ -1,5 +1,5 @@
-import { getRequestConfig } from "next-intl/server";
 import { cookies, headers } from "next/headers";
+import { getRequestConfig } from "next-intl/server";
 
 const SUPPORTED_LOCALES = ["de", "en"] as const;
 type Locale = (typeof SUPPORTED_LOCALES)[number];
@@ -10,11 +10,7 @@ export default getRequestConfig(async () => {
   const cookieLocale = cookieStore.get("locale")?.value;
 
   // 2️⃣ Fallback: Accept-Language (optional, simpel)
-  const headerLocale = (await headers())
-    .get("accept-language")
-    ?.startsWith("en")
-    ? "en"
-    : "de";
+  const headerLocale = (await headers()).get("accept-language")?.startsWith("en") ? "en" : "de";
 
   const locale: Locale = SUPPORTED_LOCALES.includes(cookieLocale as Locale)
     ? (cookieLocale as Locale)

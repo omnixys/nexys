@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTheme } from "@mui/material";
+import { motion } from "framer-motion";
 
 export default function AnimatedCheck() {
   const theme = useTheme();

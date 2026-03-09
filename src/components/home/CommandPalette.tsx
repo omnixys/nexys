@@ -4,15 +4,10 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
 import { Dialog, List, ListItem, ListItemText } from "@mui/material";
+import { type JSX, useEffect, useState } from "react";
 
-const COMMANDS = [
-  "Open Inbox",
-  "Go to Calendar",
-  "Open Products",
-  "Account Settings",
-];
+const COMMANDS = ["Open Inbox", "Go to Calendar", "Open Products", "Account Settings"];
 
 export default function CommandPalette(): JSX.Element {
   const [open, setOpen] = useState(false);
@@ -32,7 +27,7 @@ export default function CommandPalette(): JSX.Element {
     <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
       <List>
         {COMMANDS.map((c) => (
-          <ListItem button key={c}>
+          <ListItem key={c}>
             <ListItemText primary={c} />
           </ListItem>
         ))}

@@ -19,25 +19,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import Image from "next/image";
-
-import { Country } from "@/graphql/graphql.type";
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { PhoneNumberType } from "@/generated/graphql";
-
+import type { Country } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 type Props = {
   countries: Country[];
   defaultCountry?: string;
 };
 
-export default function PhoneNumbersStep({
-  countries,
-  defaultCountry = "+49",
-}: Props) {
+export default function PhoneNumbersStep({ countries, defaultCountry = "+49" }: Props) {
   const t = useTypedTranslations("signup");
   const enumT = useTypedTranslations("enums");
 
@@ -87,12 +81,7 @@ export default function PhoneNumbersStep({
                 name={`phoneNumbers.${idx}.type`}
                 control={control}
                 render={({ field }) => (
-                  <TextField
-                    {...field}
-                    select
-                    fullWidth
-                    label={t("phoneNumbers.fields.type")}
-                  >
+                  <TextField {...field} select fullWidth label={t("phoneNumbers.fields.type")}>
                     {Object.values(PhoneNumberType).map((type) => (
                       <MenuItem key={type} value={type}>
                         {enumT(`phoneNumberType.${type}`)}

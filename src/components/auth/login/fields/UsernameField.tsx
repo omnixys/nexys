@@ -1,7 +1,7 @@
 import { AccountCircle } from "@mui/icons-material";
 import { InputAdornment, TextField, useTheme } from "@mui/material";
-import { glassInputSx } from "@/themes/styles/glassInput";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { glassInputSx } from "@/themes/styles/glassInput";
 
 /**
  * Benutzerdefiniertes E-Mail-Feld mit integriertem Icon.
@@ -10,8 +10,8 @@ import { useTypedTranslations } from "@/i18n/useTypedTranslations";
  */
 export default function UsernameField() {
   const theme = useTheme();
-   const t = useTypedTranslations("login");
-  
+  const t = useTypedTranslations("login");
+
   return (
     <TextField
       id="input-with-icon-textfield"
@@ -24,10 +24,7 @@ export default function UsernameField() {
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <AccountCircle
-              fontSize="inherit"
-              style={{ color: theme.palette.text.secondary }}
-            />
+            <AccountCircle fontSize="inherit" style={{ color: theme.palette.text.secondary }} />
           </InputAdornment>
         ),
         style: { backgroundColor: theme.palette.background.paper }, // Weiß für Textfelder

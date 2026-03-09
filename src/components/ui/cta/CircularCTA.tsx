@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 type CircularCTAProps = {
   label: string;
@@ -10,7 +10,7 @@ type CircularCTAProps = {
 
 export function CircularCTA({ label, href, text }: CircularCTAProps) {
   return (
-    <Box position="relative" sx={{zIndex: 1300}}>
+    <Box position="relative" sx={{ zIndex: 1300 }}>
       <motion.svg
         animate={{ rotate: 360 }}
         transition={{ duration: 10, ease: "linear", repeat: Infinity }}
@@ -26,10 +26,7 @@ export function CircularCTA({ label, href, text }: CircularCTAProps) {
           />
         </defs>
 
-        <text
-          fill="#fff"
-          style={{ letterSpacing: "0.12em", textTransform: "uppercase" }}
-        >
+        <text fill="#fff" style={{ letterSpacing: "0.12em", textTransform: "uppercase" }}>
           <textPath href={`#circlePath-${label}`} fontSize={14}>
             {text}
           </textPath>

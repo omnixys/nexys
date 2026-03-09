@@ -1,8 +1,8 @@
 "use client";
 
+import { Box, type SxProps, type Theme, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
-import { Box, SxProps, Theme, Typography, useTheme } from "@mui/material";
-import { JSX } from "react";
+import type { JSX } from "react";
 
 export default function SidebarLink({
   href,
@@ -43,11 +43,7 @@ export default function SidebarLink({
       }}
       aria-disabled={disabled}
     >
-      <Typography
-        
-      >
-        {label}
-      </Typography>
+      <Typography>{label}</Typography>
     </Box>
   );
 

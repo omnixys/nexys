@@ -6,20 +6,16 @@ import EditLocationRoundedIcon from "@mui/icons-material/EditLocationRounded";
 import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-
 import { useEffect, useMemo } from "react";
-
+import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { AddressType } from "@/generated/graphql";
+import type { Country } from "@/graphql/graphql.type";
 import { useCity } from "@/hooks/useCities";
 import { usePostalCode } from "@/hooks/usePostalCodes";
 import { useState } from "@/hooks/useStates";
-
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 import UniversalAutocomplete from "../../../ui/UniversalAutocomplete";
 import StreetAutocomplete from "./StreetAutocomplete";
-
-import { Country } from "@/graphql/graphql.type";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import { AddressType } from "@/generated/graphql";
 
 type Props = {
   idx: number;
@@ -34,12 +30,7 @@ const revealVariant = {
   exit: { opacity: 0, y: -10, height: 0 },
 };
 
-export default function AddressCard({
-  idx,
-  countries,
-  canRemove,
-  onRemove,
-}: Props) {
+export default function AddressCard({ idx, countries, canRemove, onRemove }: Props) {
   const { setValue, control } = useFormContext();
 
   const t = useTypedTranslations("signup");
@@ -106,12 +97,12 @@ export default function AddressCard({
       {
         id: AddressType.Billing,
         label: enumT("addressType.BILLING"),
-        icon: 'credit-card',
+        icon: "credit-card",
       },
       {
         id: AddressType.Shipping,
         label: enumT("addressType.SHIPPING"),
-        icon: 'truck',
+        icon: "truck",
       },
     ],
     [enumT],
@@ -171,12 +162,7 @@ export default function AddressCard({
           <Box sx={{ width: "60%" }}>
             <AnimatePresence>
               {!!addressType?.trim() && (
-                <motion.div
-                  variants={revealVariant}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
+                <motion.div variants={revealVariant} initial="hidden" animate="visible" exit="exit">
                   <UniversalAutocomplete
                     label={t("address.fields.country")}
                     options={countries.map((c) => ({
@@ -210,12 +196,7 @@ export default function AddressCard({
           <Box sx={{ width: "40%" }}>
             <AnimatePresence>
               {!!countryId && (
-                <motion.div
-                  variants={revealVariant}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
+                <motion.div variants={revealVariant} initial="hidden" animate="visible" exit="exit">
                   <UniversalAutocomplete
                     label={t("address.fields.state")}
                     options={stateOptions}
@@ -245,12 +226,7 @@ export default function AddressCard({
           <Box sx={{ width: "40%" }}>
             <AnimatePresence>
               {!!cityId && postalCodeRequired && (
-                <motion.div
-                  variants={revealVariant}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
+                <motion.div variants={revealVariant} initial="hidden" animate="visible" exit="exit">
                   <UniversalAutocomplete
                     label={t("address.fields.postalCode")}
                     options={postalCodeOptions}
@@ -270,12 +246,7 @@ export default function AddressCard({
           <Box sx={{ width: "60%" }}>
             <AnimatePresence>
               {!!stateId && (
-                <motion.div
-                  variants={revealVariant}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
+                <motion.div variants={revealVariant} initial="hidden" animate="visible" exit="exit">
                   <UniversalAutocomplete
                     label={t("address.fields.city")}
                     options={cityOptions}
@@ -296,12 +267,7 @@ export default function AddressCard({
         {/* STREET */}
         <AnimatePresence>
           {!!stateId && (
-            <motion.div
-              variants={revealVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
+            <motion.div variants={revealVariant} initial="hidden" animate="visible" exit="exit">
               <StreetAutocomplete idx={idx} />
             </motion.div>
           )}
@@ -338,11 +304,7 @@ export default function AddressCard({
               name={`addresses.${idx}.additionalInfo`}
               control={control}
               render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
-                  label={t("address.fields.additionalInfo")}
-                />
+                <TextField {...field} fullWidth label={t("address.fields.additionalInfo")} />
               )}
             />
           </Box>

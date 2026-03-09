@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  Autocomplete,
-  Box,
-  CircularProgress,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { ReactNode, useMemo } from "react";
-import { GroupHeader, GroupItems } from "./styles/GroupStyles";
+import { Autocomplete, Box, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
+import { ReactNode, useMemo } from "react";
 import { DynamicIcon } from "@/components/ui/DynamicIcon";
+import { GroupHeader, GroupItems } from "./styles/GroupStyles";
 
 export type UniversalOption = {
   id: string;
@@ -20,7 +13,7 @@ export type UniversalOption = {
   secondLabel?: string;
   flagSrc?: string | null;
   category?: string;
-  icon?: string
+  icon?: string;
 };
 
 type FilterMode = "contains" | "startsWith";
@@ -85,10 +78,7 @@ export default function UniversalAutocomplete({
     copy.sort((a, b) => {
       // Wenn grouping aktiv ist → erst nach category sortieren
       if (withCategory) {
-        const catCompare = (a.category ?? "").localeCompare(
-          b.category ?? "",
-          "de",
-        );
+        const catCompare = (a.category ?? "").localeCompare(b.category ?? "", "de");
 
         if (catCompare !== 0) return catCompare;
       }
@@ -114,11 +104,7 @@ export default function UniversalAutocomplete({
     return processedOptions.find((o) => o.id === valueId) ?? null;
   }, [multiple, freeSolo, valueText, processedOptions, valueId]);
 
-
-  const customFilter = (
-    opts: UniversalOption[],
-    state: { inputValue: string },
-  ) => {
+  const customFilter = (opts: UniversalOption[], state: { inputValue: string }) => {
     const input = state.inputValue.toLowerCase();
 
     return opts.filter((o) => {
@@ -227,13 +213,7 @@ export default function UniversalAutocomplete({
                 />
               )}
 
-              {option.icon && (
-                   <DynamicIcon
-                                        name={option.icon}
-                                        size={18}
-                                        strokeWidth={1.8}
-                                      />
-              )}
+              {option.icon && <DynamicIcon name={option.icon} size={18} strokeWidth={1.8} />}
 
               <Box>
                 <Typography variant="body2">

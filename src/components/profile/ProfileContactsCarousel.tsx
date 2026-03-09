@@ -5,7 +5,12 @@
 
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import BoltRoundedIcon from "@mui/icons-material/BoltRounded";
+import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
+import PaymentsRoundedIcon from "@mui/icons-material/PaymentsRounded";
 import {
   alpha,
   Box,
@@ -19,19 +24,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
-
-
-import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import BoltRoundedIcon from "@mui/icons-material/BoltRounded";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import PaymentsRoundedIcon from "@mui/icons-material/PaymentsRounded";
-import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
-import { RelationshipType } from "@/generated/graphql";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { RelationshipType } from "@/generated/graphql";
+import type { User } from "@/graphql/graphql.type";
 import { formatEnum } from "@/i18n/format-enum";
-import { User } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
 type Props = {
   user: User;
@@ -46,8 +43,8 @@ type FilterKey = "ALL" | RelationshipType;
 
 export default function ProfileContactsCarousel({ user }: Props) {
   const theme = useTheme();
-  const tUser = useTypedTranslations('profile');
-  const tEnum = useTypedTranslations('enums');
+  const tUser = useTypedTranslations("profile");
+  const tEnum = useTypedTranslations("enums");
 
   const contacts: Contact[] = user?.contacts ?? [];
 
@@ -68,11 +65,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
 
   const selected = useMemo(() => {
     if (!filteredContacts.length) return null;
-    return (
-      filteredContacts.find((c) => c.id === selectedId) ??
-      filteredContacts[0] ??
-      null
-    );
+    return filteredContacts.find((c) => c.id === selectedId) ?? filteredContacts[0] ?? null;
   }, [filteredContacts, selectedId]);
 
   // Keep selected item valid when filter changes
@@ -82,16 +75,12 @@ export default function ProfileContactsCarousel({ user }: Props) {
       return;
     }
     if (!selectedId || !filteredContacts.some((c) => c.id === selectedId)) {
-      setSelectedId(filteredContacts[0]!.id);
+      setSelectedId(filteredContacts[0].id);
     }
   }, [filteredContacts, selectedId]);
 
   const totalLimit = useMemo(
-    () =>
-      filteredContacts.reduce(
-        (sum, c) => sum + Number(c.withdrawalLimit ?? 0),
-        0,
-      ),
+    () => filteredContacts.reduce((sum, c) => sum + Number(c.withdrawalLimit ?? 0), 0),
     [filteredContacts],
   );
 
@@ -137,9 +126,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
         }}
       >
         <Stack spacing={1.2} alignItems="center">
-          <Typography fontWeight={800}>
-            {tUser("contact.emptyTitle")}
-          </Typography>
+          <Typography fontWeight={800}>{tUser("contact.emptyTitle")}</Typography>
           <Typography variant="body2" color="text.secondary" textAlign="center">
             {tUser("contact.emptySubtitle")}
           </Typography>
@@ -167,23 +154,13 @@ export default function ProfileContactsCarousel({ user }: Props) {
       }}
     >
       {/* Header */}
-      <Stack
-        direction="row"
-        alignItems="flex-start"
-        justifyContent="space-between"
-        gap={2}
-      >
+      <Stack direction="row" alignItems="flex-start" justifyContent="space-between" gap={2}>
         <Box>
           <Typography variant="h6" fontWeight={800}>
             {tUser("label.contacts")}
           </Typography>
 
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            flexWrap="wrap"
-          >
+          <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
             <Typography variant="caption" color="text.secondary">
               {tUser("contact.count", {
                 count: filteredContacts.length,
@@ -257,14 +234,8 @@ export default function ProfileContactsCarousel({ user }: Props) {
           }}
         >
           <Stack spacing={0.75} alignItems="center">
-            <Typography fontWeight={800}>
-              {tUser("value.noResultsTitle")}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              textAlign="center"
-            >
+            <Typography fontWeight={800}>{tUser("value.noResultsTitle")}</Typography>
+            <Typography variant="body2" color="text.secondary" textAlign="center">
               {tUser("value.noResultsSubtitle")}
             </Typography>
             <Chip
@@ -340,8 +311,7 @@ export default function ProfileContactsCarousel({ user }: Props) {
                           ? `0 12px 30px ${alpha(theme.palette.primary.main, 0.15)}`
                           : "none",
 
-                        transition:
-                          "border-color 180ms ease, background 180ms ease",
+                        transition: "border-color 180ms ease, background 180ms ease",
                       }}
                     >
                       {/* subtle gradient flare */}
@@ -357,22 +327,11 @@ export default function ProfileContactsCarousel({ user }: Props) {
                         }}
                       />
 
-                      <Stack
-                        spacing={1.2}
-                        sx={{ position: "relative", zIndex: 1 }}
-                      >
-                        <Stack
-                          direction="row"
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
+                      <Stack spacing={1.2} sx={{ position: "relative", zIndex: 1 }}>
+                        <Stack direction="row" alignItems="center" justifyContent="space-between">
                           <Chip
                             size="small"
-                            label={formatEnum(
-                              tEnum,
-                              "relationshipType",
-                              c.relationship,
-                            )}
+                            label={formatEnum(tEnum, "relationshipType", c.relationship)}
                             sx={{
                               bgcolor: alpha(theme.palette.text.primary, 0.07),
                               color: theme.palette.text.primary,
@@ -397,36 +356,19 @@ export default function ProfileContactsCarousel({ user }: Props) {
                         <Divider sx={{ my: 0.5, opacity: 0.35 }} />
 
                         <RowStat
-                          icon={
-                            <PaymentsRoundedIcon
-                              fontSize="small"
-                              color="disabled"
-                            />
-                          }
+                          icon={<PaymentsRoundedIcon fontSize="small" color="disabled" />}
                           label={tUser("label.limit")}
-                          value={formatterEUR.format(
-                            Number(c.withdrawalLimit ?? 0),
-                          )}
+                          value={formatterEUR.format(Number(c.withdrawalLimit ?? 0))}
                         />
 
                         <RowStat
-                          icon={
-                            <CalendarMonthRoundedIcon
-                              fontSize="small"
-                              color="disabled"
-                            />
-                          }
+                          icon={<CalendarMonthRoundedIcon fontSize="small" color="disabled" />}
                           label={tUser("label.start")}
                           value={formatMonthYear(c.startDate) ?? ""}
                         />
 
                         <RowStat
-                          icon={
-                            <CalendarMonthRoundedIcon
-                              fontSize="small"
-                              color="disabled"
-                            />
-                          }
+                          icon={<CalendarMonthRoundedIcon fontSize="small" color="disabled" />}
                           label={tUser("label.end")}
                           value={formatMonthYear(c.endDate) ?? "—"}
                           valueTone={c.endDate ? "default" : "muted"}
@@ -460,12 +402,7 @@ function RowStat({
   valueTone?: "default" | "muted";
 }) {
   return (
-    <Stack
-      direction="row"
-      spacing={1}
-      alignItems="center"
-      justifyContent="space-between"
-    >
+    <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
       <Stack direction="row" spacing={1} alignItems="center">
         {icon}
         <Typography variant="caption" color="text.secondary">
@@ -483,7 +420,6 @@ function RowStat({
     </Stack>
   );
 }
-
 
 /* ------------------------------------------------------------ */
 /* Date helper                                                   */

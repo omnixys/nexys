@@ -5,8 +5,8 @@
 
 "use client";
 
-import React from "react";
 import { Box, Skeleton, Stack, useTheme } from "@mui/material";
+import React from "react";
 
 export default function ProfilePageSkeleton() {
   const theme = useTheme();

@@ -1,12 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export function LabelValue({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+export function LabelValue({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <Box
       sx={{

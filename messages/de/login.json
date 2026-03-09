@@ -1,9 +1,8 @@
 {
-  "title":{
+  "title": {
     "auth": "Anmelden",
     "provider": "Weiter mit"
   },
-  
 
   "credentials": {
     "username": {

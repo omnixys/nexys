@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, BoxProps } from "@mui/material";
+import { Box, type BoxProps } from "@mui/material";
 import { motion } from "framer-motion";
 import { glassTokens } from "./glassTokens";
 
@@ -46,7 +46,7 @@ export default function GlassCard({
         position: "relative",
         overflow: "hidden",
       }}
-      {...rest}
+      // {...rest}
     >
       {children}
     </MotionBox>

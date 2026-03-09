@@ -5,7 +5,7 @@
 
 "use client";
 
-import { Box, Switch, Typography, alpha } from "@mui/material";
+import { alpha, Box, Switch, Typography } from "@mui/material";
 import { useSettings } from "../SettingsContext";
 import BentoTile from "./BentoTile";
 
@@ -62,12 +62,7 @@ export default function QuickSettingsTile({
   ];
 
   return (
-    <BentoTile
-      index={index}
-      area={area}
-      focused={focused}
-      setFocused={setFocused}
-    >
+    <BentoTile index={index} area={area} focused={focused} setFocused={setFocused}>
       <Box sx={{ width: "100%", height: "100%", p: 3 }}>
         <Typography variant="h6" fontWeight={900} sx={{ mb: 3 }}>
           Quick Settings
@@ -116,9 +111,7 @@ export default function QuickSettingsTile({
                 }}
                 sx={{
                   "& .MuiSwitch-track": {
-                    bgcolor: s.enabled
-                      ? alpha("#4CAF50", 0.5)
-                      : alpha("#757575", 0.5),
+                    bgcolor: s.enabled ? alpha("#4CAF50", 0.5) : alpha("#757575", 0.5),
                   },
                   "& .MuiSwitch-thumb": {
                     bgcolor: s.enabled ? "#4CAF50" : "#757575",

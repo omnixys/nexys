@@ -5,14 +5,14 @@
 
 "use client";
 
-import { Box, Chip, IconButton, Typography } from "@mui/material";
 import HistoryIcon from "@mui/icons-material/History";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import WarningIcon from "@mui/icons-material/Warning";
+import { Box, Chip, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import BentoTile from "./BentoTile";
 import { useSecurity } from "@/components/security/SecurityContext";
+import BentoTile from "./BentoTile";
 
 export default function LoginHistoryTile({
   index,
@@ -60,11 +60,7 @@ export default function LoginHistoryTile({
             </Typography>
           </Box>
 
-          <IconButton
-            size="small"
-            onClick={(e) => e.stopPropagation()}
-            aria-label="Refresh"
-          >
+          <IconButton size="small" onClick={(e) => e.stopPropagation()} aria-label="Refresh">
             <RefreshIcon />
           </IconButton>
         </Box>
@@ -81,14 +77,10 @@ export default function LoginHistoryTile({
                 mb: 1,
                 borderRadius: 2,
                 bgcolor:
-                  login.status === "blocked"
-                    ? "rgba(255,82,82,0.10)"
-                    : "rgba(255,255,255,0.05)",
+                  login.status === "blocked" ? "rgba(255,82,82,0.10)" : "rgba(255,255,255,0.05)",
                 border: "1px solid",
                 borderColor:
-                  login.status === "blocked"
-                    ? "rgba(255,82,82,0.30)"
-                    : "rgba(255,255,255,0.10)",
+                  login.status === "blocked" ? "rgba(255,82,82,0.30)" : "rgba(255,255,255,0.10)",
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -98,9 +90,7 @@ export default function LoginHistoryTile({
                     height: 40,
                     borderRadius: "50%",
                     bgcolor:
-                      login.status === "success"
-                        ? "rgba(76,175,80,0.2)"
-                        : "rgba(255,82,82,0.2)",
+                      login.status === "success" ? "rgba(76,175,80,0.2)" : "rgba(255,82,82,0.2)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -128,9 +118,7 @@ export default function LoginHistoryTile({
                 size="small"
                 sx={{
                   bgcolor:
-                    login.status === "success"
-                      ? "rgba(76,175,80,0.2)"
-                      : "rgba(255,82,82,0.2)",
+                    login.status === "success" ? "rgba(76,175,80,0.2)" : "rgba(255,82,82,0.2)",
                   color: login.status === "success" ? "#4CAF50" : "#FF5252",
                   fontWeight: 900,
                 }}

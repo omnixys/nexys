@@ -1,4 +1,4 @@
-import { PhoneNumberType } from "../../user/user-enum-type";
+import type { PhoneNumberType } from "@/generated/graphql";
 
 export interface SignUpStep1 {
   firstName: string;
@@ -27,7 +27,4 @@ export type AuthToken = {
   scope: string;
 };
 
-export type AuthErrorKey =
-  | "termsRequired"
-  | "missingCredentials"
-  | "loginFailed";
+export type AuthErrorKey = "termsRequired" | "missingCredentials" | "loginFailed";

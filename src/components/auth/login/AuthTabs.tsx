@@ -1,7 +1,7 @@
 "use client";
 
+import { Box, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
-import { Box, Tabs, Tab, useMediaQuery, useTheme } from "@mui/material";
 
 type Props = {
   credentials: React.ReactNode;

@@ -7,21 +7,19 @@
 
 import { Box, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { JSX, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-
-import DepthBlurLayer from "./DepthBlurLayer";
-import BentoTile from "./BentoTile";
-
-import InboxTile from "./tiles/InboxTile2";
-import CalendarTile from "./tiles/CalendarTile";
-import WeatherTile from "./tiles/WeatherTile";
-import StaticTile from "./tiles/StaticTile";
-import TypingHeadline from "./TypingHeadline";
-import ProductsTile from "./tiles/ProductsTile";
-import { useDevice } from "../../providers/DeviceProvider";
-import { User } from "@/graphql/graphql.type";
+import { type JSX, useEffect, useState } from "react";
+import type { User } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { useDevice } from "../../providers/DeviceProvider";
+import BentoTile from "./BentoTile";
+import DepthBlurLayer from "./DepthBlurLayer";
+import TypingHeadline from "./TypingHeadline";
+import CalendarTile from "./tiles/CalendarTile";
+import InboxTile from "./tiles/InboxTile2";
+import ProductsTile from "./tiles/ProductsTile";
+import StaticTile from "./tiles/StaticTile";
+import WeatherTile from "./tiles/WeatherTile";
 
 /* =====================================================
    STAGGER CONFIG
@@ -38,7 +36,7 @@ const gridVariants = {
 };
 
 export default function BentoGrid({ user }: { user?: User }): JSX.Element {
-    const t = useTypedTranslations("home");
+  const t = useTypedTranslations("home");
   const pathname = usePathname();
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
@@ -52,17 +50,11 @@ export default function BentoGrid({ user }: { user?: User }): JSX.Element {
     setFocused(null);
   }, [pathname]);
 
-    const name =
-      user?.personalInfo?.firstName ?? user?.username ?? "there";
+  const name = user?.personalInfo?.firstName ?? user?.username ?? "there";
 
   return (
     <>
-      <TypingHeadline
-        text={t("dashboard.welcome", { name })}
-        variant="h3"
-        speed={55}
-        delay={250}
-      />
+      <TypingHeadline text={t("dashboard.welcome", { name })} variant="h3" speed={55} delay={250} />
 
       <DepthBlurLayer active={focused !== null} />
 

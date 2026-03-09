@@ -5,16 +5,15 @@
 
 "use client";
 
-import { Box, Typography } from "@mui/material";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
 import AppsIcon from "@mui/icons-material/Apps";
-import SettingsIcon from "@mui/icons-material/Settings";
 import DevicesIcon from "@mui/icons-material/Devices";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import SettingsIcon from "@mui/icons-material/Settings";
 import StorageIcon from "@mui/icons-material/Storage";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-
-import BentoTile from "./BentoTile";
 import ActionCard from "./ActionCard";
+import BentoTile from "./BentoTile";
 
 export default function AdvancedSettingsTile({
   index,

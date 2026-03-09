@@ -1,16 +1,23 @@
 "use client";
 
-import AddressCarousel from "@/components/profile/AddressCarousel";
-import { GetUserAddressesByUserIdDocument, GetUserAddressesByUserIdQuery, GetUserAddressesByUserIdQueryVariables } from "@/generated/graphql";
 import { useQuery } from "@apollo/client/react";
 import { Box, CircularProgress } from "@mui/material";
+import AddressCarousel from "@/components/profile/AddressCarousel";
+import {
+  GetUserAddressesByUserIdDocument,
+  type GetUserAddressesByUserIdQuery,
+  type GetUserAddressesByUserIdQueryVariables,
+} from "@/generated/graphql";
 
 type Props = {
   userId: string;
 };
 
 export default function ProfileAddressStack({ userId }: Props) {
-  const { data, loading, error } = useQuery<GetUserAddressesByUserIdQuery, GetUserAddressesByUserIdQueryVariables>(GetUserAddressesByUserIdDocument, {
+  const { data, loading, error } = useQuery<
+    GetUserAddressesByUserIdQuery,
+    GetUserAddressesByUserIdQueryVariables
+  >(GetUserAddressesByUserIdDocument, {
     variables: { userId },
     fetchPolicy: "cache-first",
   });
@@ -24,11 +31,7 @@ export default function ProfileAddressStack({ userId }: Props) {
   }
 
   if (error) {
-    return (
-      <Box>
-        Failed to load addresses
-      </Box>
-    );
+    return <Box>Failed to load addresses</Box>;
   }
 
   const addresses = data?.getUserAddressesByUserId ?? [];

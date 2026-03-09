@@ -5,12 +5,11 @@
 
 "use client";
 
-import { Box, Divider, Stack, Typography, Chip } from "@mui/material";
 import HistoryIcon from "@mui/icons-material/History";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import WarningIcon from "@mui/icons-material/Warning";
+import { Box, Chip, Divider, Stack, Typography } from "@mui/material";
 import { useSecurity } from "../../security/SecurityContext";
-
 
 export default function LoginHistoryPanel() {
   const { state } = useSecurity();
@@ -40,9 +39,7 @@ export default function LoginHistoryPanel() {
               borderRadius: 3,
               border: "1px solid rgba(255,255,255,0.12)",
               bgcolor:
-                login.status === "blocked"
-                  ? "rgba(255,82,82,0.08)"
-                  : "rgba(255,255,255,0.04)",
+                login.status === "blocked" ? "rgba(255,82,82,0.08)" : "rgba(255,255,255,0.04)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -57,9 +54,7 @@ export default function LoginHistoryPanel() {
                   height: 40,
                   borderRadius: "50%",
                   bgcolor:
-                    login.status === "success"
-                      ? "rgba(76,175,80,0.2)"
-                      : "rgba(255,82,82,0.2)",
+                    login.status === "success" ? "rgba(76,175,80,0.2)" : "rgba(255,82,82,0.2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -84,10 +79,7 @@ export default function LoginHistoryPanel() {
               label={login.status === "success" ? "Success" : "Blocked"}
               size="small"
               sx={{
-                bgcolor:
-                  login.status === "success"
-                    ? "rgba(76,175,80,0.2)"
-                    : "rgba(255,82,82,0.2)",
+                bgcolor: login.status === "success" ? "rgba(76,175,80,0.2)" : "rgba(255,82,82,0.2)",
                 color: login.status === "success" ? "#4CAF50" : "#FF5252",
                 fontWeight: 900,
               }}
@@ -97,8 +89,7 @@ export default function LoginHistoryPanel() {
       </Stack>
 
       <Typography variant="caption" color="text.secondary">
-        Next step: add filters (date range, location, device) + export audit
-        log.
+        Next step: add filters (date range, location, device) + export audit log.
       </Typography>
     </Stack>
   );

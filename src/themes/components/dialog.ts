@@ -1,4 +1,4 @@
-import { Components, Theme } from "@mui/material/styles";
+import type { Components, Theme } from "@mui/material/styles";
 
 export const dialogComponents = (theme: Theme): Components["MuiDialog"] => ({
   styleOverrides: {
@@ -7,9 +7,7 @@ export const dialogComponents = (theme: Theme): Components["MuiDialog"] => ({
       padding: theme.spacing(2),
 
       backgroundColor:
-        theme.palette.mode === "dark"
-          ? "rgba(28,28,30,0.85)"
-          : "rgba(255,255,255,0.85)",
+        theme.palette.mode === "dark" ? "rgba(28,28,30,0.85)" : "rgba(255,255,255,0.85)",
 
       backdropFilter: "blur(20px)",
       WebkitBackdropFilter: "blur(20px)",

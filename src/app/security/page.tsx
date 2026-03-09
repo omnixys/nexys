@@ -9,14 +9,13 @@ import { Container } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import DepthBlurLayer from "@/components/home/DepthBlurLayer";
-import { useAuth } from "@/providers/AuthProvider";
-import SecurityHeader from "@/components/security/SecurityHeader";
-import SecurityGrid from "@/components/security/SecurityGrid";
 import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
+import SecurityGrid from "@/components/security/SecurityGrid";
+import SecurityHeader from "@/components/security/SecurityHeader";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function SecurityPage() {
   const { user, loading } = useAuth();
-  const pathname = usePathname();
 
   const [focused, setFocused] = useState<number | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
@@ -24,7 +23,7 @@ export default function SecurityPage() {
   useEffect(() => {
     setAnimationKey((k) => k + 1);
     setFocused(null);
-  }, [pathname]);
+  }, []);
 
   return (
     <LayoutShell user={user} loading={loading}>
@@ -41,11 +40,7 @@ export default function SecurityPage() {
 
         <SecurityHeader />
 
-        <SecurityGrid
-          key={animationKey}
-          focused={focused}
-          setFocused={setFocused}
-        />
+        <SecurityGrid key={animationKey} focused={focused} setFocused={setFocused} />
       </Container>
     </LayoutShell>
   );

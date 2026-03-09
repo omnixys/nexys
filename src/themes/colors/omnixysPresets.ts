@@ -1,6 +1,6 @@
 // src/theme/omnixysPresets.ts
 
-import { ColorPreset, OmnixysColorScheme } from "./paletteTypes";
+import type { ColorPreset, OmnixysColorScheme } from "@/themes/paletteTypes";
 
 export const omnixysPresets: Record<OmnixysColorScheme, ColorPreset> = {
   original: {

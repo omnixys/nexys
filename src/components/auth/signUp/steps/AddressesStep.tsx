@@ -3,12 +3,11 @@
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { Box, Button, Typography } from "@mui/material";
 import { useFieldArray, useFormContext } from "react-hook-form";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
-import AddressCard from "../address/AddressCard";
-import { Country } from "@/graphql/graphql.type";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 import { AddressType } from "@/generated/graphql";
+import type { Country } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
+import AddressCard from "../address/AddressCard";
 
 type Props = {
   countries: Country[];
@@ -48,21 +47,12 @@ export default function AddressesStep({ countries, defaultCountry }: Props) {
 
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={3}
-      >
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
           {t("address.title")}
         </Typography>
 
-        <Button
-          variant="outlined"
-          startIcon={<AddRoundedIcon />}
-          onClick={handleAddAddress}
-        >
+        <Button variant="outlined" startIcon={<AddRoundedIcon />} onClick={handleAddAddress}>
           {t("address.add")}
         </Button>
       </Box>

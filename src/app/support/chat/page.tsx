@@ -5,16 +5,10 @@
 
 "use client";
 
-import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  IconButton,
-} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useAuth } from "@/providers/AuthProvider";
+import { Box, Container, IconButton, TextField, Typography } from "@mui/material";
 import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function SupportChatPage() {
   const { user, loading } = useAuth();
@@ -36,9 +30,7 @@ export default function SupportChatPage() {
             overflowY: "auto",
           }}
         >
-          <Typography color="text.secondary">
-            👋 Hi! How can we help you today?
-          </Typography>
+          <Typography color="text.secondary">👋 Hi! How can we help you today?</Typography>
         </Box>
 
         <Box sx={{ display: "flex", gap: 1 }}>

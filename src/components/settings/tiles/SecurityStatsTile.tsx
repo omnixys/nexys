@@ -21,12 +21,7 @@ export default function SecurityStatsTile({
   setFocused: (i: number | null) => void;
 }) {
   return (
-    <BentoTile
-      index={index}
-      area={area}
-      focused={focused}
-      setFocused={setFocused}
-    >
+    <BentoTile index={index} area={area} focused={focused} setFocused={setFocused}>
       <Box
         sx={{
           width: "100%",
@@ -39,18 +34,8 @@ export default function SecurityStatsTile({
           overflowX: "auto",
         }}
       >
-        <StatItem
-          label="Total Logins"
-          value="1,247"
-          change="+12%"
-          color="#2196F3"
-        />
-        <StatItem
-          label="Blocked Attempts"
-          value="3"
-          change="-75%"
-          color="#FF5252"
-        />
+        <StatItem label="Total Logins" value="1,247" change="+12%" color="#2196F3" />
+        <StatItem label="Blocked Attempts" value="3" change="-75%" color="#FF5252" />
         <StatItem label="Devices" value="4" change="+1" color="#4CAF50" />
         <StatItem label="Alerts" value="2" change="0" color="#FF9800" />
         <StatItem label="Last Audit" value="Today" color="#9C27B0" />

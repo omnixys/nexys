@@ -3,7 +3,7 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Button } from "@mui/material";
 import { usePathname } from "next/navigation";
-import { useTypedTranslations } from "../../i18n/useTypedTranslations";
+import { useTranslations } from "next-intl";
 import { PRODUCTS } from "../../mocks/products.mock";
 
 interface Props {
@@ -12,10 +12,9 @@ interface Props {
 
 export default function ProductSelectorMobileButton({ onOpen }: Props) {
   const pathname = usePathname();
-  const t = useTypedTranslations("products");
+  const t = useTranslations("common");
 
-  const active =
-    PRODUCTS.find((p) => pathname.startsWith(p.href)) ?? PRODUCTS[0];
+  const active = PRODUCTS.find((p) => pathname.startsWith(p.href)) ?? PRODUCTS[0];
 
   return (
     <Button
@@ -30,7 +29,7 @@ export default function ProductSelectorMobileButton({ onOpen }: Props) {
         gap: 0.5,
       }}
     >
-      {t(active.nameKey)}
+      {t(`products.${active.nameKey}`)}
       <ArrowDropDownIcon />
     </Button>
   );

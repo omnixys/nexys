@@ -1,6 +1,6 @@
-  query GetPostalCodesByCity($cityId: ID!) {
-    getPostalCodesByCity(cityId: $cityId) {
-      id
-      code
-    }
+query GetPostalCodesByCity($cityId: ID!) {
+  getPostalCodesByCity(cityId: $cityId) {
+    id
+    code
   }
+}

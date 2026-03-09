@@ -1,13 +1,11 @@
 "use client";
 
-import React from "react";
-
-
 import { CssBaseline } from "@mui/material";
-import ThemeModeProvider from "./ThemeModeProvider";
+import type React from "react";
+import { ApolloRootProvider } from "@/providers/ApolloProvider";
 import { AuthProvider } from "./AuthProvider";
 import { DeviceProvider } from "./DeviceProvider";
-import { ApolloRootProvider } from "@/providers/ApolloProvider";
+import ThemeModeProvider from "./ThemeModeProvider";
 
 type ProviderProps = { children: React.ReactNode };
 
@@ -18,7 +16,7 @@ export default function Provider({ children }: ProviderProps) {
         <CssBaseline />
         <ApolloRootProvider>
           <AuthProvider>{children}</AuthProvider>
-          </ApolloRootProvider>
+        </ApolloRootProvider>
       </ThemeModeProvider>
     </DeviceProvider>
   );

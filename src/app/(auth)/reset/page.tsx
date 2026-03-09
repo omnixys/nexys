@@ -1,7 +1,14 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: any in use for now */
 "use client";
 
+import { useMutation } from "@apollo/client/react";
+
+import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   Alert,
+  Box,
   Button,
   Card,
   CardContent,
@@ -16,23 +23,29 @@ import {
   TextField,
   Typography,
   useTheme,
-  Box,
 } from "@mui/material";
-
-import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 import { motion } from "framer-motion";
-import { useMutation } from "@apollo/client/react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import zxcvbn from "zxcvbn";
-
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 import PasswordStrength from "@/components/ui/PasswordStrength";
-import { CompletePasswordResetDocument, CompletePasswordResetMutation, CompletePasswordResetMutationVariables, MfaPreference, VerifyPasswordResetStepUpDocument, VerifyPasswordResetStepUpMutation, VerifyPasswordResetStepUpMutationVariables, VerifyPasswordResetTokenDocument, VerifyPasswordResetTokenMutation, VerifyPasswordResetTokenMutationVariables } from "@/generated/graphql";
+import {
+  CompletePasswordResetDocument,
+  type CompletePasswordResetMutation,
+  type CompletePasswordResetMutationVariables,
+  type MfaPreference,
+  VerifyPasswordResetStepUpDocument,
+  type VerifyPasswordResetStepUpMutation,
+  type VerifyPasswordResetStepUpMutationVariables,
+  VerifyPasswordResetTokenDocument,
+  type VerifyPasswordResetTokenMutation,
+  type VerifyPasswordResetTokenMutationVariables,
+} from "@/generated/graphql";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
+type ResetStep = "verify" | "mfa" | "password";
+
+const steps: ResetStep[] = ["verify", "mfa", "password"];
 
 export default function ResetPage() {
   const theme = useTheme();
@@ -45,7 +58,7 @@ export default function ResetPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const [mfaRequired, setMfaRequired] = useState(false);
+  const [, setMfaRequired] = useState(false);
   const [mfaMethod, setMfaMethod] = useState<MfaPreference | null>(null);
 
   const [totpCode, setTotpCode] = useState("");
@@ -67,12 +80,6 @@ export default function ResetPage() {
     CompletePasswordResetMutationVariables
   >(CompletePasswordResetDocument);
 
-  const strength = useMemo(() => {
-    if (!newPassword) return { score: 0, pct: 0 };
-    const r = zxcvbn(newPassword);
-    return { score: r.score, pct: (r.score / 4) * 100 };
-  }, [newPassword]);
-
   const handleVerifyToken = async () => {
     try {
       const res = await verifyToken({ variables: { token } });
@@ -90,7 +97,7 @@ export default function ResetPage() {
 
   const handleStepUp = async () => {
     try {
-      let input: any = { token };
+      const input: any = { token };
 
       if (mfaMethod === "TOTP") input.code = totpCode;
       if (mfaMethod === "BACKUP_CODES") input.code = backupCode;
@@ -136,7 +143,7 @@ export default function ResetPage() {
         </Typography>
 
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
-          {["verify", "mfa", "password"].map((s) => (
+          {steps.map((s: ResetStep) => (
             <Step key={s}>
               <StepLabel>{t(`resetPassword.steps.${s}`)}</StepLabel>
             </Step>
@@ -201,11 +208,7 @@ export default function ResetPage() {
               {t("resetPassword.securityHint")}
             </Typography>
 
-            <Button
-              variant="contained"
-              disabled={newPassword.length < 12}
-              onClick={handleComplete}
-            >
+            <Button variant="contained" disabled={newPassword.length < 12} onClick={handleComplete}>
               {t("resetPassword.setPassword")}
             </Button>
           </Stack>
@@ -218,18 +221,14 @@ export default function ResetPage() {
               animate={{ scale: 1 }}
               transition={{ type: "spring" }}
             >
-              <CheckCircleRounded
-                sx={{ fontSize: 72, color: "success.main" }}
-              />
+              <CheckCircleRounded sx={{ fontSize: 72, color: "success.main" }} />
             </motion.div>
 
             <Typography variant="h6" fontWeight={700}>
               {t("resetPassword.successTitle")}
             </Typography>
 
-            <Typography color="text.secondary">
-              {t("resetPassword.successDescription")}
-            </Typography>
+            <Typography color="text.secondary">{t("resetPassword.successDescription")}</Typography>
           </Stack>
         )}
       </CardContent>

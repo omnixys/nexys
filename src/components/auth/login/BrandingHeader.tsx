@@ -25,13 +25,7 @@ export default function BrandingHeader() {
           justifyContent: "center",
         }}
       >
-        <Image
-          src={logoSrc}
-          alt="Omnixys Logo"
-          width={50}
-          height={50}
-          priority
-        />
+        <Image src={logoSrc} alt="Omnixys Logo" width={50} height={50} priority />
       </Box>
 
       <Typography

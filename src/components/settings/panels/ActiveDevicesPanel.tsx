@@ -5,10 +5,9 @@
 
 "use client";
 
-import { Box, Divider, Stack, Typography, Chip, Button } from "@mui/material";
 import DevicesIcon from "@mui/icons-material/Devices";
+import { Box, Button, Chip, Divider, Stack, Typography } from "@mui/material";
 import { useSecurity } from "../../security/SecurityContext";
-
 
 export default function ActiveDevicesPanel() {
   const { state, setState } = useSecurity();
@@ -37,9 +36,7 @@ export default function ActiveDevicesPanel() {
               p: 2,
               borderRadius: 3,
               border: "1px solid rgba(255,255,255,0.12)",
-              bgcolor: device.active
-                ? "rgba(33,150,243,0.08)"
-                : "rgba(255,255,255,0.04)",
+              bgcolor: device.active ? "rgba(33,150,243,0.08)" : "rgba(255,255,255,0.04)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -50,8 +47,7 @@ export default function ActiveDevicesPanel() {
             <Box>
               <Typography fontWeight={900}>{device.name}</Typography>
               <Typography variant="caption" color="text.secondary">
-                {device.type} • {device.location} • last active{" "}
-                {device.lastActive}
+                {device.type} • {device.location} • last active {device.lastActive}
               </Typography>
             </Box>
 
@@ -67,9 +63,7 @@ export default function ActiveDevicesPanel() {
                 label={device.active ? "Active" : "Inactive"}
                 size="small"
                 sx={{
-                  bgcolor: device.active
-                    ? "rgba(76,175,80,0.2)"
-                    : "rgba(255,82,82,0.2)",
+                  bgcolor: device.active ? "rgba(76,175,80,0.2)" : "rgba(255,82,82,0.2)",
                   color: device.active ? "#4CAF50" : "#FF5252",
                   fontWeight: 900,
                 }}
@@ -82,9 +76,7 @@ export default function ActiveDevicesPanel() {
                   // Simulate revoke by marking inactive
                   setState({
                     devices: state.devices.map((d) =>
-                      d.id === device.id
-                        ? { ...d, active: false, lastActive: "just now" }
-                        : d,
+                      d.id === device.id ? { ...d, active: false, lastActive: "just now" } : d,
                     ),
                   });
                 }}

@@ -5,12 +5,12 @@
 
 "use client";
 
-import { Box, Chip, Typography, alpha } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { alpha, Box, Chip, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import BentoTile from "./BentoTile";
 import { useSecurity } from "@/components/security/SecurityContext";
+import BentoTile from "./BentoTile";
 
 export default function SecurityFeaturesTile({
   index,
@@ -95,11 +95,7 @@ export default function SecurityFeaturesTile({
           ))}
         </Box>
 
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ mt: 2, display: "block" }}
-        >
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: "block" }}>
           Open to enable/disable and view recommendations.
         </Typography>
       </Box>

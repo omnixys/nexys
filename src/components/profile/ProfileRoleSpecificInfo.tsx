@@ -5,12 +5,12 @@
 
 "use client";
 
-import React from "react";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import CustomerInterestSpectrum from "../profile/SpectrumRow";
-import { User } from "@/graphql/graphql.type";
+import React from "react";
 import { UserType } from "@/generated/graphql";
+import type { User } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import CustomerInterestSpectrum from "../profile/SpectrumRow";
 
 type Props = {
   user: User;
@@ -19,10 +19,9 @@ type Props = {
 export default function ProfileRoleSpecificInfo({ user }: Props) {
   const theme = useTheme();
   const tProfile = useTypedTranslations("profile");
-      const tSection = useTypedTranslations("profile");
+  const tSection = useTypedTranslations("profile");
 
-
-  const interests = user?.customer?.customerInterest?? [];
+  const interests = user?.customer?.customerInterest ?? [];
   const isCustomer = user?.userType === UserType.Customer;
 
   return (
@@ -55,7 +54,7 @@ export default function ProfileRoleSpecificInfo({ user }: Props) {
         <Typography variant="body2" color="text.secondary">
           {tProfile("value.noInterests")}
         </Typography>
-        ) : (
+      ) : (
         <Stack spacing={2}>
           <CustomerInterestSpectrum interests={interests} />
         </Stack>

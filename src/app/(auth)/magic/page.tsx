@@ -1,26 +1,15 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-import {
-  Box,
-  CircularProgress,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Stack,
-} from "@mui/material";
-
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import ErrorOutlineRounded from "@mui/icons-material/ErrorOutlineRounded";
 
+import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-
-import { AuthManager } from "@/utils/AuthManager";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { AuthManager } from "@/utils/AuthManager";
 
 type State = "loading" | "success" | "error";
 
@@ -83,9 +72,7 @@ export default function VerifyMagicLinkPage() {
               <>
                 <CircularProgress size={46} />
 
-                <Typography color="text.secondary">
-                  {t("magicLink.verifying")}
-                </Typography>
+                <Typography color="text.secondary">{t("magicLink.verifying")}</Typography>
               </>
             )}
 
@@ -110,9 +97,7 @@ export default function VerifyMagicLinkPage() {
                   {t("magicLink.successTitle")}
                 </Typography>
 
-                <Typography color="text.secondary">
-                  {t("magicLink.successDescription")}
-                </Typography>
+                <Typography color="text.secondary">{t("magicLink.successDescription")}</Typography>
               </>
             )}
 
@@ -131,14 +116,9 @@ export default function VerifyMagicLinkPage() {
                   {t("magicLink.errorTitle")}
                 </Typography>
 
-                <Typography color="text.secondary">
-                  {t("magicLink.errorDescription")}
-                </Typography>
+                <Typography color="text.secondary">{t("magicLink.errorDescription")}</Typography>
 
-                <Button
-                  variant="contained"
-                  onClick={() => router.push("/login")}
-                >
+                <Button variant="contained" onClick={() => router.push("/login")}>
                   {t("magicLink.backToLogin")}
                 </Button>
               </>

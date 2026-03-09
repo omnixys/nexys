@@ -1,10 +1,10 @@
-import RootProviders from "@/providers/RootProvider";
 import { Box } from "@mui/material";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import React from "react";
-import Footer from "../../components/layout/footer/Footer";
+import type React from "react";
+import RootProviders from "@/providers/RootProvider";
 import StarsCanvas from "../../components/background/StarBackground";
+import Footer from "../../components/layout/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Omnixys",
@@ -12,11 +12,7 @@ export const metadata: Metadata = {
     "Omnixys is a modular, event-driven platform for building scalable, secure, and domain-driven software systems.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <Box
       sx={{

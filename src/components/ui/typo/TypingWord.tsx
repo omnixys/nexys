@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, TypographyProps } from "@mui/material";
+import { Typography, type TypographyProps } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface TypingWordProps extends TypographyProps {
@@ -32,20 +32,14 @@ export default function TypingWord({
     if (!deleting) {
       // typing
       if (text.length < currentWord.length) {
-        timeout = setTimeout(
-          () => setText(currentWord.slice(0, text.length + 1)),
-          typingSpeed,
-        );
+        timeout = setTimeout(() => setText(currentWord.slice(0, text.length + 1)), typingSpeed);
       } else {
         timeout = setTimeout(() => setDeleting(true), pauseAfterType);
       }
     } else {
       // deleting
       if (text.length > 0) {
-        timeout = setTimeout(
-          () => setText(currentWord.slice(0, text.length - 1)),
-          deletingSpeed,
-        );
+        timeout = setTimeout(() => setText(currentWord.slice(0, text.length - 1)), deletingSpeed);
       } else {
         timeout = setTimeout(() => {
           setDeleting(false);

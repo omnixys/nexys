@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
-import LoginInPage from '@/components/auth/login/LogInPage';
+import type { Metadata } from "next";
+import LoginInPage from "@/components/auth/login/LogInPage";
 
 export const metadata: Metadata = {
   title: {
@@ -24,8 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "Login · Nexys",
-    description:
-      "Secure access to Nexys — the modular, event-driven platform by Omnixys.",
+    description: "Secure access to Nexys — the modular, event-driven platform by Omnixys.",
     siteName: "Nexys",
   },
 

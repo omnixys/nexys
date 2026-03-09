@@ -10,12 +10,11 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import { useRouter } from "next/navigation";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 const EXPIRATION_SECONDS = 15 * 60; // 15 min
 
@@ -63,40 +62,40 @@ export default function VerifyEmailStep() {
   // Countdown
   // ----------------------------
 
-useEffect(() => {
-  if (timeLeft === 0) return;
+  useEffect(() => {
+    if (timeLeft === 0) return;
 
-  const interval = setInterval(() => {
-    setTimeLeft((t) => Math.max(0, t - 1));
-  }, 1000);
+    const interval = setInterval(() => {
+      setTimeLeft((t) => Math.max(0, t - 1));
+    }, 1000);
 
-  return () => clearInterval(interval);
-}, [timeLeft]);
+    return () => clearInterval(interval);
+  }, [timeLeft]);
 
   // ----------------------------
   // Polling verification
   // ----------------------------
 
-useEffect(() => {
-  if (verified) return;
+  useEffect(() => {
+    if (verified) return;
 
-  const interval = setInterval(async () => {
-    try {
-      const res = await fetch("/api/auth/verify-status", {
-        credentials: "include",
-      });
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch("/api/auth/verify-status", {
+          credentials: "include",
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      if (data.verified) {
-        setVerified(true);
-        router.push("/home");
-      }
-    } catch {}
-  }, 5000);
+        if (data.verified) {
+          setVerified(true);
+          router.push("/home");
+        }
+      } catch {}
+    }, 5000);
 
-  return () => clearInterval(interval);
-}, [router, verified]);
+    return () => clearInterval(interval);
+  }, [router, verified]);
 
   // ----------------------------
   // Time format
@@ -111,17 +110,17 @@ useEffect(() => {
   // Mail provider detection
   // ----------------------------
 
-const getMailLinks = () => {
-  const domain = email?.split("@")[1]?.toLowerCase();
+  const getMailLinks = () => {
+    const domain = email?.split("@")[1]?.toLowerCase();
 
-  if (!domain) return LINKS;
+    if (!domain) return LINKS;
 
-  return LINKS.filter((link) => {
-    if (!link.domains) return true;
+    return LINKS.filter((link) => {
+      if (!link.domains) return true;
 
-    return link.domains.some((d) => domain.includes(d));
-  });
-};
+      return link.domains.some((d) => domain.includes(d));
+    });
+  };
   const mailLinks = getMailLinks();
 
   return (

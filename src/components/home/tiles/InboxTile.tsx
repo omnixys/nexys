@@ -5,18 +5,18 @@
 
 "use client";
 
-import { Box, Typography, Stack, useTheme, Chip } from "@mui/material";
+import { Box, Chip, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { JSX, useEffect, useState } from "react";
-import { INBOX } from "../../mock/liveData";
-import TileSkeleton from "./TileSkeleton";
 import { useFormatter, useTranslations } from "next-intl";
+import { type JSX, useEffect, useState } from "react";
+import { INBOX } from "@/mocks/liveData";
+import TileSkeleton from "./TileSkeleton";
 
 export default function InboxTile(): JSX.Element {
   const theme = useTheme();
   const t = useTranslations("inbox");
-    const format = useFormatter();
-  
+  const format = useFormatter();
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,11 +28,7 @@ export default function InboxTile(): JSX.Element {
 
   return (
     <Box p={2}>
-      <Typography
-        color={theme.palette.text.primary}
-        variant="subtitle2"
-        sx={{ opacity: 0.8 }}
-      >
+      <Typography color={theme.palette.text.primary} variant="subtitle2" sx={{ opacity: 0.8 }}>
         {t("title")}
       </Typography>
 
@@ -50,12 +46,12 @@ export default function InboxTile(): JSX.Element {
       {/* MESSAGES */}
       <Stack spacing={1} mt={1}>
         {INBOX.map((m, i) => {
-           const createdAt = new Date(m.createdAt);
-           const relativeTime = format.relativeTime(createdAt, {
-             numeric: "auto",
-           });
-          
-            const isUnread = m.status === "unread";
+          const createdAt = new Date(m.createdAt);
+          const relativeTime = format.relativeTime(createdAt, {
+            style: "short",
+          });
+
+          const isUnread = m.status === "unread";
 
           return (
             <motion.div
@@ -75,11 +71,7 @@ export default function InboxTile(): JSX.Element {
                   bgcolor: isUnread ? "action.hover" : "transparent",
                 }}
               >
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
                   <Typography
                     component="div"
                     variant="body2"

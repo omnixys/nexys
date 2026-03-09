@@ -22,7 +22,7 @@ const tileEntry = {
     y: 0,
     transition: {
       duration: 0.45,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -82,9 +82,7 @@ export default function BentoTile({
         border: "1px solid rgba(255,255,255,0.14)",
         color: "#fff",
         display: "flex",
-        boxShadow: isFocused
-          ? "0 30px 90px rgba(0,0,0,0.6)"
-          : "0 12px 45px rgba(0,0,0,0.35)",
+        boxShadow: isFocused ? "0 30px 90px rgba(0,0,0,0.6)" : "0 12px 45px rgba(0,0,0,0.35)",
         zIndex: isFocused ? 10 : 1,
       }}
     >

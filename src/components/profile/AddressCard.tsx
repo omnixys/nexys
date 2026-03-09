@@ -1,26 +1,17 @@
 "use client";
 
-import {
-  Box,
-  Stack,
-  Typography,
-  Chip,
-  IconButton,
-  alpha,
-  useTheme,
-} from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
-import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import { alpha, Box, Chip, IconButton, Stack, Typography, useTheme } from "@mui/material";
 
-import { GetUserAddressesByUserIdQuery, AddressType } from "@/generated/graphql";
+import { AddressType, type GetUserAddressesByUserIdQuery } from "@/generated/graphql";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
 
-type Address =
-  GetUserAddressesByUserIdQuery["getUserAddressesByUserId"][number];
+type Address = GetUserAddressesByUserIdQuery["getUserAddressesByUserId"][number];
 
 type Props = {
   address: Address;
@@ -43,11 +34,9 @@ function getAddressTypeIcon(addressType: AddressType) {
 
 export default function AddressCard({ address }: Props) {
   const theme = useTheme();
-  const t = useTypedTranslations('enums');
+  const t = useTypedTranslations("enums");
 
-  const addressLine = [address.street, address.houseNumber]
-    .filter(Boolean)
-    .join(" ");
+  const addressLine = [address.street, address.houseNumber].filter(Boolean).join(" ");
 
   const cityLine = [address.postalCode, address.city].filter(Boolean).join(" ");
 
@@ -81,12 +70,7 @@ export default function AddressCard({ address }: Props) {
         }}
       >
         <Stack spacing={1.5}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            spacing={2}
-          >
+          <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
             <Stack direction="row" spacing={1.25} alignItems="center" minWidth={0}>
               <Box
                 sx={{

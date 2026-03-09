@@ -5,7 +5,9 @@
 
 "use client";
 
+import PaletteIcon from "@mui/icons-material/Palette";
 import {
+  alpha,
   Box,
   Chip,
   Divider,
@@ -14,9 +16,7 @@ import {
   Stack,
   Switch,
   Typography,
-  alpha,
 } from "@mui/material";
-import PaletteIcon from "@mui/icons-material/Palette";
 import { useSettings } from "../SettingsContext";
 
 export default function AppearancePanel() {
@@ -49,9 +49,7 @@ export default function AppearancePanel() {
             clickable
             onClick={() => setState({ darkMode: false })}
             sx={{
-              bgcolor: !state.darkMode
-                ? alpha("#2196F3", 0.22)
-                : "rgba(255,255,255,0.06)",
+              bgcolor: !state.darkMode ? alpha("#2196F3", 0.22) : "rgba(255,255,255,0.06)",
               border: `1px solid ${!state.darkMode ? alpha("#2196F3", 0.6) : "rgba(255,255,255,0.12)"}`,
             }}
           />
@@ -60,17 +58,11 @@ export default function AppearancePanel() {
             clickable
             onClick={() => setState({ darkMode: true })}
             sx={{
-              bgcolor: state.darkMode
-                ? alpha("#9C27B0", 0.22)
-                : "rgba(255,255,255,0.06)",
+              bgcolor: state.darkMode ? alpha("#9C27B0", 0.22) : "rgba(255,255,255,0.06)",
               border: `1px solid ${state.darkMode ? alpha("#9C27B0", 0.6) : "rgba(255,255,255,0.12)"}`,
             }}
           />
-          <Chip
-            label="System (coming soon)"
-            disabled
-            sx={{ bgcolor: "rgba(255,255,255,0.04)" }}
-          />
+          <Chip label="System (coming soon)" disabled sx={{ bgcolor: "rgba(255,255,255,0.04)" }} />
         </Box>
       </Box>
 

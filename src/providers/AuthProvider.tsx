@@ -1,20 +1,18 @@
 // /providers/AuthProvider.tsx
+/** biome-ignore-all lint/suspicious/noExplicitAny: any in use for now */
 "use client";
 
-import { ApolloProvider, useApolloClient, useQuery } from "@apollo/client/react";
-import React, {
-  createContext,
-  JSX,
-  useContext,
-  useEffect,
-  useMemo,
-} from "react";
-import { createCombinedApolloClient } from "@/lib/client/combined-client";
-import type { MeResult } from "@/types/user/user-graphql.type";
+import { useApolloClient, useQuery } from "@apollo/client/react";
+import type React from "react";
+import { createContext, type JSX, useContext, useEffect } from "react";
+import {
+  GetMeDocument,
+  type GetMeQuery,
+  type GetMeQueryVariables,
+  RealmRole,
+} from "@/generated/graphql";
+import type { User } from "@/graphql/graphql.type";
 import { AuthEventsBus, AuthManager, getCookie } from "@/utils/AuthManager";
-import { KcRole } from '../types/authentication/auth-enum.type';
-import { GetMeDocument, GetMeQuery, GetMeQueryVariables, RealmRole } from "@/generated/graphql";
-import { User } from '@/graphql/graphql.type'
 
 export interface AuthContextType {
   user?: User;
@@ -27,28 +25,23 @@ export interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({
-  children,
-}: {
-  children: React.ReactNode;
-  }): JSX.Element {
+export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const hasSession = !!getCookie("access_expires_at");
-    const apollo = useApolloClient();
-  
-  const { data, loading, refetch } = useQuery<GetMeQuery, GetMeQueryVariables>(
-    GetMeDocument, {
-          skip: !hasSession,
-      fetchPolicy: "cache-first",
-      nextFetchPolicy: "cache-first",
-      context: {
-        fetchOptions: {
-          credentials: "include"
-        }
+  const apollo = useApolloClient();
+
+  const { data, loading, refetch } = useQuery<GetMeQuery, GetMeQueryVariables>(GetMeDocument, {
+    skip: !hasSession,
+    fetchPolicy: "cache-first",
+    nextFetchPolicy: "cache-first",
+    context: {
+      fetchOptions: {
+        credentials: "include",
       },
+    },
   });
 
   const user = data?.me;
-  const isAdmin = user?.role == RealmRole.Admin;
+  const isAdmin = user?.role === RealmRole.Admin;
   const isAuthenticated = !!user;
 
   /* Initialize AuthManager */
@@ -67,7 +60,7 @@ export function AuthProvider({
     AuthEventsBus.on("signup", refetchUser);
     AuthEventsBus.on("logout", refetchUser);
 
-      return () => {
+    return () => {
       AuthEventsBus.off("login", refetchUser);
       AuthEventsBus.off("refresh", refetchUser);
       AuthEventsBus.off("signup", refetchUser);
@@ -76,18 +69,18 @@ export function AuthProvider({
   }, [refetch]);
 
   return (
-      <AuthContext.Provider
-        value={{
-          user,
-          isAdmin,
-          isAuthenticated,
-          loading,
-          logout: () => AuthManager.logout(),
-          refetchMe: () => refetch(),
-        }}
-      >
-        {children}
-      </AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAdmin,
+        isAuthenticated,
+        loading,
+        logout: () => AuthManager.logout(),
+        refetchMe: () => refetch(),
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 }
 

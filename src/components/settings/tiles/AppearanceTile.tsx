@@ -5,21 +5,13 @@
 
 "use client";
 
-import {
-  Box,
-  Chip,
-  IconButton,
-  Slider,
-  Typography,
-  alpha,
-} from "@mui/material";
-import PaletteIcon from "@mui/icons-material/Palette";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PaletteIcon from "@mui/icons-material/Palette";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import { alpha, Box, Chip, IconButton, Slider, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-
-import BentoTile from "./BentoTile";
 import { useSettings } from "../SettingsContext";
+import BentoTile from "./BentoTile";
 
 export default function AppearanceTile({
   index,
@@ -95,9 +87,7 @@ export default function AppearanceTile({
                 flex: 1,
                 p: 2,
                 borderRadius: 2,
-                bgcolor: !state.darkMode
-                  ? alpha("#2196F3", 0.2)
-                  : "transparent",
+                bgcolor: !state.darkMode ? alpha("#2196F3", 0.2) : "transparent",
                 border: `1px solid ${!state.darkMode ? "#2196F3" : "rgba(255,255,255,0.1)"}`,
                 textAlign: "center",
                 cursor: "pointer",
@@ -187,10 +177,7 @@ export default function AppearanceTile({
                 size="small"
                 onClick={(e) => e.stopPropagation()}
                 sx={{
-                  bgcolor:
-                    percent === 100
-                      ? alpha("#9C27B0", 0.2)
-                      : "rgba(255,255,255,0.05)",
+                  bgcolor: percent === 100 ? alpha("#9C27B0", 0.2) : "rgba(255,255,255,0.05)",
                   color: percent === 100 ? "#9C27B0" : "text.secondary",
                 }}
               />

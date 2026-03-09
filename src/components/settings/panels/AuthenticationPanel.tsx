@@ -5,9 +5,9 @@
 
 "use client";
 
-import { Box, Divider, Stack, Typography, Chip, Button } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import LockIcon from "@mui/icons-material/Lock";
+import { Box, Button, Chip, Divider, Stack, Typography } from "@mui/material";
 
 export default function AuthenticationPanel() {
   return (
@@ -51,9 +51,7 @@ export default function AuthenticationPanel() {
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
               <LockIcon sx={{ color: "#2196F3" }} />
-              <Typography fontWeight={900}>
-                Two-Factor Authentication
-              </Typography>
+              <Typography fontWeight={900}>Two-Factor Authentication</Typography>
             </Box>
             <Chip
               label="Enabled"
@@ -71,18 +69,10 @@ export default function AuthenticationPanel() {
           </Typography>
 
           <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 2 }}>
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{ borderColor: "rgba(255,255,255,0.22)" }}
-            >
+            <Button size="small" variant="outlined" sx={{ borderColor: "rgba(255,255,255,0.22)" }}>
               Regenerate codes
             </Button>
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{ borderColor: "rgba(255,255,255,0.22)" }}
-            >
+            <Button size="small" variant="outlined" sx={{ borderColor: "rgba(255,255,255,0.22)" }}>
               Change method
             </Button>
           </Box>
@@ -124,18 +114,10 @@ export default function AuthenticationPanel() {
           </Typography>
 
           <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 2 }}>
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{ borderColor: "rgba(255,255,255,0.22)" }}
-            >
+            <Button size="small" variant="outlined" sx={{ borderColor: "rgba(255,255,255,0.22)" }}>
               Re-enroll
             </Button>
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{ borderColor: "rgba(255,255,255,0.22)" }}
-            >
+            <Button size="small" variant="outlined" sx={{ borderColor: "rgba(255,255,255,0.22)" }}>
               Disable
             </Button>
           </Box>
@@ -154,8 +136,7 @@ export default function AuthenticationPanel() {
           Recovery
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Add backup email/phone and generate recovery codes (backend wiring
-          pending).
+          Add backup email/phone and generate recovery codes (backend wiring pending).
         </Typography>
       </Box>
     </Stack>

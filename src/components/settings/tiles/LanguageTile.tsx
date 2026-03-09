@@ -5,21 +5,13 @@
 
 "use client";
 
-import {
-  Box,
-  FormControl,
-  IconButton,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import LanguageIcon from "@mui/icons-material/Language";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, FormControl, IconButton, MenuItem, Select, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-
-import BentoTile from "./BentoTile";
-import { useSettings } from "../SettingsContext";
 import { useTranslations } from "next-intl";
+import { useSettings } from "../SettingsContext";
+import BentoTile from "./BentoTile";
 
 const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
@@ -44,8 +36,7 @@ export default function LanguageTile({
 }) {
   const router = useRouter();
   const { state, setState } = useSettings();
-    const tSettings = useTranslations("settings");
-  
+  const tSettings = useTranslations("settings");
 
   return (
     <BentoTile
@@ -94,11 +85,7 @@ export default function LanguageTile({
             {tSettings("labels.language")}
           </Typography>
 
-          <FormControl
-            fullWidth
-            size="small"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <FormControl fullWidth size="small" onClick={(e) => e.stopPropagation()}>
             <Select
               value={state.language}
               onChange={(e) => setState({ language: e.target.value })}
@@ -133,11 +120,7 @@ export default function LanguageTile({
             {tSettings("labels.currency")}
           </Typography>
 
-          <FormControl
-            fullWidth
-            size="small"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <FormControl fullWidth size="small" onClick={(e) => e.stopPropagation()}>
             <Select
               value={state.currency}
               onChange={(e) => setState({ currency: e.target.value })}

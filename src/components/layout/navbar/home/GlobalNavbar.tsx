@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Box,
@@ -13,24 +14,22 @@ import {
   Stack,
   Toolbar,
   Typography,
-  useTheme,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-
-import { JSX, useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { type JSX, useEffect, useState } from "react";
+import ColorBubbleSwitcher from "@/components/ui/ColorBubbleSwitcher";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import ThemeToggleButton from "@/components/ui/ThemeToggleButton";
+import UserMenu from "@/components/ui/UserMenu";
+import type { User } from "@/graphql/graphql.type";
 import { useAuth } from "@/providers/AuthProvider";
 import { useThemeMode } from "@/providers/ThemeModeProvider";
-import ThemeToggleButton from "@/components/ui/ThemeToggleButton";
-import ColorBubbleSwitcher from "@/components/ui/ColorBubbleSwitcher";
-import UserMenu from "@/components/ui/UserMenu";
-import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
-import { User } from "@/types/user/user.type";
 import { OMNIXYS_LOGOS } from "../../../../utils/omnixysBranding";
-import NavLink from "../../navigation/NavLink";
 import ProductSelectorMobileButton from "../../../home/ProductSelectorMobileButton";
+import NavLink from "../../navigation/NavLink";
 
 const NAV_ITEMS = [
   { label: "Nexys", href: "/home" },
@@ -57,16 +56,14 @@ export default function GlobalNavbar({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { scheme } = useThemeMode();
-  const { logout } = useAuth();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-
 
   useEffect(() => {
     if (!loading && !user) {
       router.replace("/login");
     }
-  }, [loading, user]);
+  }, [loading, user, router.replace]);
 
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
 
@@ -86,12 +83,7 @@ export default function GlobalNavbar({
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* LEFT */}
           <Stack direction="row" spacing={2} alignItems="center">
-            <Image
-              src={OMNIXYS_LOGOS[scheme]}
-              alt="Omnixys"
-              width={28}
-              height={28}
-            />
+            <Image src={OMNIXYS_LOGOS[scheme]} alt="Omnixys" width={28} height={28} />
             <Typography fontWeight={600}>Omnixys</Typography>
 
             {!isMobile && (
@@ -99,11 +91,7 @@ export default function GlobalNavbar({
                 <Divider orientation="vertical" flexItem />
                 <Stack direction="row" spacing={2}>
                   {NAV_ITEMS.map((item) => (
-                    <NavLink
-                      key={item.href}
-                      href={item.href}
-                      label={item.label}
-                    />
+                    <NavLink key={item.href} href={item.href} label={item.label} />
                   ))}
                 </Stack>
               </>
@@ -143,12 +131,7 @@ export default function GlobalNavbar({
         }}
       >
         <Box sx={{ p: 2 }}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            mb={2}
-          >
+          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
             <Typography fontWeight={600}>Navigation</Typography>
             <IconButton onClick={toggleDrawer}>
               <CloseIcon />

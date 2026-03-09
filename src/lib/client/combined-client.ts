@@ -16,14 +16,8 @@ const neverLink = new ApolloLink(() => {
   } as any;
 });
 
-function isSubscription(
-  def: DefinitionNode | null
-): def is OperationDefinitionNode {
-  return (
-    !!def &&
-    def.kind === "OperationDefinition" &&
-    def.operation === "subscription"
-  );
+function isSubscription(def: DefinitionNode | null): def is OperationDefinitionNode {
+  return !!def && def.kind === "OperationDefinition" && def.operation === "subscription";
 }
 
 function hasFile(value: any): boolean {
@@ -52,7 +46,7 @@ export function createCombinedApolloClient(token?: string): ApolloClient {
   const splitLink = ApolloLink.split(
     ({ query }) => isSubscription(getMainDefinition(query)),
     wsLink, // only subscriptions
-    httpLink // everything else
+    httpLink, // everything else
   );
 
   return new ApolloClient({
@@ -60,5 +54,3 @@ export function createCombinedApolloClient(token?: string): ApolloClient {
     link: splitLink,
   });
 }
-
-

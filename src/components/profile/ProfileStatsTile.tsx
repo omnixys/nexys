@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useMemo, useRef } from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { useLocale, useTranslations } from "next-intl";
 import { motion, useAnimationFrame } from "framer-motion";
-import { useDevice } from "@/providers/DeviceProvider";
-import { User } from "@/graphql/graphql.type";
+import { useLocale, useTranslations } from "next-intl";
+import React, { useMemo, useRef } from "react";
+import type { User } from "@/graphql/graphql.type";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { useDevice } from "@/providers/DeviceProvider";
 
 export default function ProfileStatsTile({ user }: { user: User }) {
   const t = useTypedTranslations("profile");
@@ -31,10 +31,7 @@ export default function ProfileStatsTile({ user }: { user: User }) {
 
     containerRef.current.scrollLeft += delta * 0.04;
 
-    if (
-      containerRef.current.scrollLeft >=
-      containerRef.current.scrollWidth / 2
-    ) {
+    if (containerRef.current.scrollLeft >= containerRef.current.scrollWidth / 2) {
       containerRef.current.scrollLeft = 0;
     }
   });
@@ -48,22 +45,10 @@ export default function ProfileStatsTile({ user }: { user: User }) {
         whiteSpace: "nowrap",
       }}
     >
-      <StatItem
-        label={t("label.profileCompleteness")}
-        value="92%"
-        color="#4CAF50"
-      />
-      <StatItem
-        label={t("label.securityScore")}
-        value="98/100"
-        color="#2196F3"
-      />
+      <StatItem label={t("label.profileCompleteness")} value="92%" color="#4CAF50" />
+      <StatItem label={t("label.securityScore")} value="98/100" color="#2196F3" />
       <StatItem label={t("label.dataPoints")} value="247" color="#9C27B0" />
-      <StatItem
-        label={t("label.lastUpdated")}
-        value={lastUpdatedLabel}
-        color="#FF9800"
-      />
+      <StatItem label={t("label.lastUpdated")} value={lastUpdatedLabel} color="#FF9800" />
     </Box>
   );
 
@@ -86,8 +71,7 @@ export default function ProfileStatsTile({ user }: { user: User }) {
             overflow: "hidden",
             display: "flex",
             flex: 1,
-            maskImage:
-              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
           }}
         >
           {StatsContent}
@@ -117,15 +101,7 @@ export default function ProfileStatsTile({ user }: { user: User }) {
    StatItem
 ===================================================== */
 
-function StatItem({
-  label,
-  value,
-  color,
-}: {
-  label: string;
-  value: string;
-  color: string;
-}) {
+function StatItem({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 0.25 }}>
       <Typography variant="caption" color="text.secondary">

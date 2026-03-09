@@ -5,7 +5,7 @@
 
 "use client";
 
-import { Box, Container, Typography, Chip, Stack } from "@mui/material";
+import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 import LayoutShell from "@/components/layout/navbar/home/LayoutShell";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -38,10 +38,7 @@ export default function StatusPage() {
               }}
             >
               <Typography fontWeight={600}>{s.name}</Typography>
-              <Chip
-                label={s.status}
-                color={s.status === "operational" ? "success" : "warning"}
-              />
+              <Chip label={s.status} color={s.status === "operational" ? "success" : "warning"} />
             </Box>
           ))}
         </Stack>

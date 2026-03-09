@@ -1,18 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { Box, Stack, IconButton, alpha, useTheme } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
-
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { alpha, Box, IconButton, Stack, useTheme } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
-import { GetUserAddressesByUserIdQuery } from "@/generated/graphql";
+import { useCallback, useEffect, useState } from "react";
 import AddressCard from "@/components/profile/AddressCard";
+import type { GetUserAddressesByUserIdQuery } from "@/generated/graphql";
 
-type Address =
-  GetUserAddressesByUserIdQuery["getUserAddressesByUserId"][number];
+type Address = GetUserAddressesByUserIdQuery["getUserAddressesByUserId"][number];
 
 type Props = {
   addresses: Address[];
@@ -64,7 +62,7 @@ export default function AddressCarousel({ addresses }: Props) {
         borderRadius: 4,
         overflow: "hidden",
         border: `1px solid ${alpha(theme.palette.divider, 0.7)}`,
-        py: 2
+        py: 2,
       }}
     >
       {/* Controls */}

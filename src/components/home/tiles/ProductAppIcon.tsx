@@ -1,12 +1,12 @@
 "use client";
 
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import { Product } from "@/mocks/products.mock";
-import { useThemeMode } from "@/providers/ThemeModeProvider";
-import { OMNIXYS_LOGOS } from "@/utils/omnixysBranding";
 import { Box, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { Product } from "@/mocks/products.mock";
+import { useThemeMode } from "@/providers/ThemeModeProvider";
+import { OMNIXYS_LOGOS } from "@/utils/omnixysBranding";
 
 export default function ProductAppIcon({
   product,
@@ -56,20 +56,10 @@ export default function ProductAppIcon({
           mb: 1,
         }}
       >
-        <Image
-          src={logoSrc}
-          alt={name}
-          width={52}
-          height={52}
-          draggable={false}
-        />
+        <Image src={logoSrc} alt={name} width={52} height={52} draggable={false} />
       </Box>
 
-      <Typography
-        color={theme.palette.text.primary}
-        variant="body2"
-        fontWeight={500}
-      >
+      <Typography color={theme.palette.text.primary} variant="body2" fontWeight={500}>
         {name}
       </Typography>
 

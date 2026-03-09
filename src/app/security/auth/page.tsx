@@ -10,7 +10,6 @@ import LayoutShell from "../../../components/layout/navbar/home/LayoutShell";
 import AuthenticationPanel from "../../../components/settings/panels/AuthenticationPanel";
 import { useAuth } from "../../../providers/AuthProvider";
 
-
 export default function AuthPage() {
   const { user, loading } = useAuth();
 

@@ -6,7 +6,7 @@
 "use client";
 
 import { Card, useTheme } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 const MotionCard = motion(Card);
 
@@ -14,7 +14,7 @@ const MotionCard = motion(Card);
    TILE ENTRY VARIANT (NO DELAY HERE)
 ===================================================== */
 
-const tileEntry = {
+const tileEntry: Variants = {
   hidden: {
     opacity: 0,
     scale: 0.92,
@@ -26,7 +26,7 @@ const tileEntry = {
     y: 0,
     transition: {
       duration: 0.45,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -45,9 +45,9 @@ export default function BentoTile({
   heavy?: boolean;
   focused: number | null;
   setFocused: (i: number | null) => void;
-  }) {
-      const theme = useTheme();
-  
+}) {
+  const theme = useTheme();
+
   const isFocused = focused === index;
   const isDimmed = focused !== null && !isFocused;
 
@@ -68,7 +68,7 @@ export default function BentoTile({
       }}
       sx={{
         gridArea: area,
-        width: 'minmax(200px, auto)',
+        width: "minmax(200px, auto)",
         height: "100%",
         outline: "none",
         cursor: "pointer",
@@ -78,9 +78,7 @@ export default function BentoTile({
         border: "1px solid rgba(255,255,255,0.14)",
         color: "#fff",
         display: "flex",
-        boxShadow: isFocused
-          ? "0 30px 90px rgba(0,0,0,0.6)"
-          : "0 12px 45px rgba(0,0,0,0.35)",
+        boxShadow: isFocused ? "0 30px 90px rgba(0,0,0,0.6)" : "0 12px 45px rgba(0,0,0,0.35)",
         zIndex: isFocused ? 10 : 1,
       }}
     >

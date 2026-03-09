@@ -5,9 +5,9 @@
 
 "use client";
 
-import Link from "next/link";
 import { Card, CardContent, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const MotionCard = motion(Card);
 
@@ -32,8 +32,7 @@ export default function ProductCard({
           height: 160,
           borderRadius: 3,
           cursor: "pointer",
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))",
           backdropFilter: "blur(14px)",
           border: "1px solid rgba(255,255,255,0.12)",
           color: "#fff",
@@ -45,10 +44,7 @@ export default function ProductCard({
       >
         <CardContent>
           <Typography variant="h6">{name}</Typography>
-          <Typography
-            variant="body2"
-            sx={{ mt: 1, color: "rgba(255,255,255,0.65)" }}
-          >
+          <Typography variant="body2" sx={{ mt: 1, color: "rgba(255,255,255,0.65)" }}>
             {description}
           </Typography>
         </CardContent>

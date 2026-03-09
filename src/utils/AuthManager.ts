@@ -1,38 +1,37 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: any in use for now */
 "use client";
 
-import { ApolloClient, gql } from "@apollo/client";
-import {
-  LoginCredentialsDocument,
-  LoginCredentialsMutation,
-  LoginCredentialsMutationVariables,
-  GenerateWebAuthnAuthOptionsDocument,
-  GenerateWebAuthnAuthOptionsMutation,
-  GenerateWebAuthnAuthOptionsMutationVariables,
-  LogInInput,
-  LoginTotpDocument,
-  LoginTotpMutation,
-  LoginTotpMutationVariables,
-  LogoutDocument,
-  LogoutMutation,
-  LogoutMutationVariables,
-  RefreshTokenDocument,
-  RefreshTokenMutation,
-  RefreshTokenMutationVariables,
-  SendMagicLinkDocument,
-  SendMagicLinkMutation,
-  SendMagicLinkMutationVariables,
-  VerifyMagicLinkDocument,
-  VerifyMagicLinkMutation,
-  VerifyMagicLinkMutationVariables,
-  VerifyWebAuthnAuthenticationDocument,
-  VerifyWebAuthnAuthenticationMutation,
-  VerifyWebAuthnAuthenticationMutationVariables,
-} from "@/generated/graphql";
+import type { ApolloClient } from "@apollo/client";
 import { startAuthentication } from "@simplewebauthn/browser";
-
+import {
+  GenerateWebAuthnAuthOptionsDocument,
+  type GenerateWebAuthnAuthOptionsMutation,
+  type GenerateWebAuthnAuthOptionsMutationVariables,
+  type LogInInput,
+  LoginCredentialsDocument,
+  type LoginCredentialsMutation,
+  type LoginCredentialsMutationVariables,
+  LoginTotpDocument,
+  type LoginTotpMutation,
+  type LoginTotpMutationVariables,
+  LogoutDocument,
+  type LogoutMutation,
+  type LogoutMutationVariables,
+  RefreshTokenDocument,
+  type RefreshTokenMutation,
+  type RefreshTokenMutationVariables,
+  SendMagicLinkDocument,
+  type SendMagicLinkMutation,
+  type SendMagicLinkMutationVariables,
+  VerifyMagicLinkDocument,
+  type VerifyMagicLinkMutation,
+  type VerifyMagicLinkMutationVariables,
+  VerifyWebAuthnAuthenticationDocument,
+  type VerifyWebAuthnAuthenticationMutation,
+  type VerifyWebAuthnAuthenticationMutationVariables,
+} from "@/generated/graphql";
 
 type OAuthProvider = "github" | "google";
-
 
 /* --------------------------------------------------------------
  * Browser Cookie Helper
@@ -43,9 +42,9 @@ export function getCookie(name: string): string | null {
   return m ? decodeURIComponent(m[1]) : null;
 }
 
-function removeCookie(name: string) {
-  document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`;
-}
+// function removeCookie(name: string) {
+//   document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`;
+// }
 
 /* --------------------------------------------------------------
  * Auth Event Bus
@@ -55,10 +54,10 @@ class AuthEventEmitter {
 
   on(name: string, fn: (p?: any) => void) {
     if (!this.listeners.has(name)) this.listeners.set(name, []);
-    this.listeners.get(name)!.push(fn);
+    this.listeners.get(name)?.push(fn);
   }
 
-    off(name: string, fn: (p?: any) => void) {
+  off(name: string, fn: (p?: any) => void) {
     const list = this.listeners.get(name);
     if (!list) return;
 
@@ -69,7 +68,9 @@ class AuthEventEmitter {
   }
 
   emit(name: string, payload?: any) {
-    this.listeners.get(name)?.forEach((fn) => fn(payload));
+    this.listeners.get(name)?.forEach((fn) => {
+      fn(payload);
+    });
   }
 }
 
@@ -85,7 +86,7 @@ class AuthManagerClass {
 
   init(apollo?: ApolloClient) {
     if (apollo) {
-    this.apollo = apollo;
+      this.apollo = apollo;
     }
 
     if (!this.intervalId) {
@@ -123,7 +124,7 @@ class AuthManagerClass {
   async login(input: LogInInput): Promise<void> {
     this.assertApollo();
 
-    const res = await this.apollo!.mutate<
+    const res = await this.apollo?.mutate<
       LoginCredentialsMutation,
       LoginCredentialsMutationVariables
     >({
@@ -133,7 +134,7 @@ class AuthManagerClass {
       context: { fetchOptions: { credentials: "include" } },
     });
 
-    if (!res.data?.credentialsLogin) {
+    if (!res?.data?.credentialsLogin) {
       throw new Error("Missing login payload");
     }
 
@@ -146,7 +147,7 @@ class AuthManagerClass {
   async loginWithTotp(username: string, code: string): Promise<void> {
     this.assertApollo();
 
-    await this.apollo!.mutate<LoginTotpMutation, LoginTotpMutationVariables>({
+    await this.apollo?.mutate<LoginTotpMutation, LoginTotpMutationVariables>({
       mutation: LoginTotpDocument,
       variables: { username, code },
       context: { fetchOptions: { credentials: "include" } },
@@ -163,18 +164,24 @@ class AuthManagerClass {
   async loginWithWebAuthn(): Promise<void> {
     this.assertApollo();
 
-    const { data } = await this.apollo!.mutate<GenerateWebAuthnAuthOptionsMutation, GenerateWebAuthnAuthOptionsMutationVariables>({
+    const res = await this.apollo?.mutate<
+      GenerateWebAuthnAuthOptionsMutation,
+      GenerateWebAuthnAuthOptionsMutationVariables
+    >({
       mutation: GenerateWebAuthnAuthOptionsDocument,
       context: { fetchOptions: { credentials: "include" } },
       fetchPolicy: "no-cache",
     });
 
-    const raw = data?.generateWebAuthnAuthOptions;
+    const raw = res?.data?.generateWebAuthnAuthOptions;
     const options = typeof raw === "string" ? JSON.parse(raw) : raw;
 
     const authResp = await startAuthentication(options);
 
-    await this.apollo!.mutate<VerifyWebAuthnAuthenticationMutation, VerifyWebAuthnAuthenticationMutationVariables>({
+    await this.apollo?.mutate<
+      VerifyWebAuthnAuthenticationMutation,
+      VerifyWebAuthnAuthenticationMutationVariables
+    >({
       mutation: VerifyWebAuthnAuthenticationDocument,
       variables: { response: authResp },
       context: { fetchOptions: { credentials: "include" } },
@@ -190,7 +197,7 @@ class AuthManagerClass {
   async verifyMagicLink(token: string): Promise<void> {
     this.assertApollo();
 
-    await this.apollo!.mutate<VerifyMagicLinkMutation, VerifyMagicLinkMutationVariables>({
+    await this.apollo?.mutate<VerifyMagicLinkMutation, VerifyMagicLinkMutationVariables>({
       mutation: VerifyMagicLinkDocument,
       variables: { token },
       context: { fetchOptions: { credentials: "include" } },
@@ -203,7 +210,7 @@ class AuthManagerClass {
   async requestMagicLink(email: string): Promise<void> {
     this.assertApollo();
 
-    await this.apollo!.mutate<SendMagicLinkMutation, SendMagicLinkMutationVariables>({
+    await this.apollo?.mutate<SendMagicLinkMutation, SendMagicLinkMutationVariables>({
       mutation: SendMagicLinkDocument,
       variables: { email },
       context: { fetchOptions: { credentials: "include" } },
@@ -213,8 +220,7 @@ class AuthManagerClass {
 
   loginWithProvider(provider: OAuthProvider): void {
     // const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
-    const base =
-      process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "http://localhost:7501";
+    const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "http://localhost:7501";
     if (!base) throw new Error("NEXT_PUBLIC_AUTH_API_BASE_URL missing");
 
     const url = `${base}/auth/oauth/${provider}`;
@@ -228,13 +234,13 @@ class AuthManagerClass {
   async forceRefresh(): Promise<void> {
     this.assertApollo();
 
-    const res = await this.apollo!.mutate<RefreshTokenMutation, RefreshTokenMutationVariables>({
+    const res = await this.apollo?.mutate<RefreshTokenMutation, RefreshTokenMutationVariables>({
       mutation: RefreshTokenDocument,
       fetchPolicy: "no-cache",
       context: { fetchOptions: { credentials: "include" } },
     });
 
-    if (!res.data?.refresh) {
+    if (!res?.data?.refresh) {
       throw new Error("Missing refresh payload");
     }
 
@@ -247,7 +253,7 @@ class AuthManagerClass {
   async logout(): Promise<void> {
     this.assertApollo();
 
-    await this.apollo!.mutate<LogoutMutation, LogoutMutationVariables>({
+    await this.apollo?.mutate<LogoutMutation, LogoutMutationVariables>({
       mutation: LogoutDocument,
       fetchPolicy: "no-cache",
       context: { fetchOptions: { credentials: "include" } },
@@ -267,6 +273,5 @@ class AuthManagerClass {
     }
   }
 }
-
 
 export const AuthManager = new AuthManagerClass();

@@ -5,18 +5,11 @@
  * @description Terms & Conditions step with scrollable legal container and i18n support.
  */
 
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Paper, Typography } from "@mui/material";
 
 import { Controller, useFormContext } from "react-hook-form";
-
-import { SignUpFormValues } from "@/schemas/sign-up.schema";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 export default function TermsStep() {
   const { control } = useFormContext<SignUpFormValues>();
@@ -108,11 +101,7 @@ export default function TermsStep() {
             />
 
             {fieldState.error?.message && (
-              <Typography
-                variant="caption"
-                color="error.main"
-                sx={{ display: "block", mt: 0.5 }}
-              >
+              <Typography variant="caption" color="error.main" sx={{ display: "block", mt: 0.5 }}>
                 {fieldState.error.message}
               </Typography>
             )}

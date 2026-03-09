@@ -1,5 +1,14 @@
-import { AddressType, ContactOptionsType, GenderType, MaritalStatusType, PhoneNumberType, RelationshipType, UserType } from "@/generated/graphql";
 import { z } from "zod";
+import {
+  AddressType,
+  ContactOptionsType,
+  GenderType,
+  MaritalStatusType,
+  PhoneNumberType,
+  RelationshipType,
+  SecurityQuestionEnum,
+  UserType,
+} from "@/generated/graphql";
 
 export type SignUpFormValues = z.infer<typeof schema>;
 export const schema = z
@@ -90,7 +99,7 @@ export const schema = z
       .array(
         z.object({
           questionId: z.string().min(3),
-          questionKey: z.string().min(3),
+          questionKey: z.enum(SecurityQuestionEnum),
           answer: z.string().min(2),
         }),
       )

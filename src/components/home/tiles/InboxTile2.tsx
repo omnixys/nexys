@@ -5,12 +5,12 @@
 
 "use client";
 
-import { INBOX } from "@/mocks/liveData";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { JSX, useEffect, useState } from "react";
-import TileSkeleton from "./TileSkeleton";
+import { type JSX, useEffect, useState } from "react";
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import { INBOX } from "@/mocks/liveData";
+import TileSkeleton from "./TileSkeleton";
 
 export default function InboxTile(): JSX.Element {
   const theme = useTheme();
@@ -27,11 +27,7 @@ export default function InboxTile(): JSX.Element {
 
   return (
     <Box p={2}>
-      <Typography
-        color={theme.palette.text.primary}
-        variant="subtitle2"
-        sx={{ opacity: 0.8 }}
-      >
+      <Typography color={theme.palette.text.primary} variant="subtitle2" sx={{ opacity: 0.8 }}>
         {t("inbox.title")}
       </Typography>
 
@@ -58,11 +54,7 @@ export default function InboxTile(): JSX.Element {
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <Typography
-              color={theme.palette.text.primary}
-              variant="body2"
-              sx={{ opacity: 0.75 }}
-            >
+            <Typography color={theme.palette.text.primary} variant="body2" sx={{ opacity: 0.75 }}>
               {m.from} — {m.subject}
             </Typography>
           </motion.div>

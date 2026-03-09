@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Box } from "@mui/material";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { NavItem } from "./navbar.types";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { NavItem } from "./navbar.types";
 
 export function NavbarLinks({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
@@ -23,8 +23,7 @@ export function NavbarLinks({ items }: { items: NavItem[] }) {
       }}
     >
       {items.map((item) => {
-        const active =
-          pathname === item.href || pathname.startsWith(item.href + "/");
+        const active = pathname === item.href || pathname.startsWith(item.href + "/");
 
         return (
           <Box key={item.href} sx={{ position: "relative" }}>

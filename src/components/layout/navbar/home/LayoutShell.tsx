@@ -1,13 +1,13 @@
 "use client";
 
-import { Box, useMediaQuery, useTheme, IconButton } from "@mui/material";
-import GlobalNavbar from "./GlobalNavbar";
-import { JSX, useState } from "react";
-import MobileSidebarSheet from "./MobileSidebarSheet";
 import MenuIcon from "@mui/icons-material/Menu";
-import UserSidebar from "./UserSidebar";
+import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import { type JSX, useState } from "react";
+import type { User } from "@/graphql/graphql.type";
 import ProductSelectorActionSheet from "../../../home/ProductSelectorActionSheet";
-import { User } from "@/graphql/graphql.type";
+import GlobalNavbar from "./GlobalNavbar";
+import MobileSidebarSheet from "./MobileSidebarSheet";
+import UserSidebar from "./UserSidebar";
 
 const SIDEBAR_WIDTH = 260;
 
@@ -27,12 +27,7 @@ export default function LayoutShell({
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#0B0B12" }}>
-      <GlobalNavbar
-        user={user}
-        loading={loading}
-        open={open}
-        setOpen={setOpen}
-      />
+      <GlobalNavbar user={user} loading={loading} open={open} setOpen={setOpen} />
 
       {/* Desktop Sidebar */}
       {!isMobile && <UserSidebar width={SIDEBAR_WIDTH} sx={{ px: 3 }} />}

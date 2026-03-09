@@ -1,36 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CircularProgress,
-  Button,
-  Stack,
-  LinearProgress,
-  useTheme,
-} from "@mui/material";
-
+import { useMutation } from "@apollo/client/react";
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import ErrorOutlineRounded from "@mui/icons-material/ErrorOutlineRounded";
-
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  LinearProgress,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-
-import { useMutation } from "@apollo/client/react";
-
+import AnimatedCheck from "@/components/ui/AnimatedCheck";
 import {
   VerifySignUpDocument,
-  VerifySignUpMutation,
-  VerifySignUpMutationVariables,
+  type VerifySignUpMutation,
+  type VerifySignUpMutationVariables,
 } from "@/generated/graphql";
-
 import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import AnimatedCheck from "@/components/ui/AnimatedCheck";
 
 type VerifyState = "loading" | "success" | "error";
 
@@ -39,7 +33,7 @@ export default function VerifyPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const t = useTypedTranslations("signup.verifyPage");
+  const t = useTypedTranslations("signup");
 
   const token = searchParams.get("token");
 
@@ -54,16 +48,16 @@ export default function VerifyPage() {
     height: 0,
   });
 
-  const [verifyRegistration] = useMutation<
-    VerifySignUpMutation,
-    VerifySignUpMutationVariables
-  >(VerifySignUpDocument, {
-    context: {
-      fetchOptions: {
-        credentials: "include",
+  const [verifyRegistration] = useMutation<VerifySignUpMutation, VerifySignUpMutationVariables>(
+    VerifySignUpDocument,
+    {
+      context: {
+        fetchOptions: {
+          credentials: "include",
+        },
       },
     },
-  });
+  );
 
   // screen size for confetti
   useEffect(() => {
@@ -83,7 +77,7 @@ export default function VerifyPage() {
   useEffect(() => {
     if (!token) {
       setState("error");
-      setErrorMessage(t("errors.missingToken"));
+      setErrorMessage(t("verifyPage.errors.missingToken"));
       return;
     }
 
@@ -97,7 +91,7 @@ export default function VerifyPage() {
 
         if (!result) {
           setState("error");
-          setErrorMessage(t("errors.unexpected"));
+          setErrorMessage(t("verifyPage.errors.unexpected"));
           return;
         }
 
@@ -117,21 +111,21 @@ export default function VerifyPage() {
 
         if (result.message === "ALREADY_REGISTERED") {
           setState("error");
-          setErrorMessage(t("errors.alreadyRegistered"));
+          setErrorMessage(t("verifyPage.errors.alreadyRegistered"));
           return;
         }
 
         if (result.message === "ALREADY_CONSUMED_OR_EXPIRED") {
           setState("error");
-          setErrorMessage(t("errors.expired"));
+          setErrorMessage(t("verifyPage.errors.expired"));
           return;
         }
 
         setState("error");
-        setErrorMessage(t("errors.failed"));
+        setErrorMessage(t("verifyPage.errors.failed"));
       } catch {
         setState("error");
-        setErrorMessage(t("errors.unexpected"));
+        setErrorMessage(t("verifyPage.errors.unexpected"));
       }
     };
 
@@ -146,12 +140,7 @@ export default function VerifyPage() {
           height={dimensions.height}
           recycle={false}
           numberOfPieces={320}
-          colors={[
-            theme.palette.primary.main,
-            theme.palette.secondary.main,
-            "#FFD700",
-            "#FFFFFF",
-          ]}
+          colors={[theme.palette.primary.main, theme.palette.secondary.main, "#FFD700", "#FFFFFF"]}
           style={{
             position: "fixed",
             top: 0,
@@ -186,16 +175,14 @@ export default function VerifyPage() {
             <CardContent>
               <Stack spacing={4} alignItems="center" textAlign="center">
                 <Typography variant="h5" fontWeight={700}>
-                  {t("title")}
+                  {t("verifyPage.title")}
                 </Typography>
 
                 {state === "loading" && (
                   <>
                     <CircularProgress size={46} />
 
-                    <Typography color="text.secondary">
-                      {t("loading")}
-                    </Typography>
+                    <Typography color="text.secondary">{t("verifyPage.loading")}</Typography>
 
                     <LinearProgress sx={{ width: "100%" }} />
                   </>
@@ -206,11 +193,11 @@ export default function VerifyPage() {
                     <AnimatedCheck />
 
                     <Typography variant="h6" fontWeight={600}>
-                      {t("successTitle", { username })}
+                      {t("verifyPage.successTitle", { username })}
                     </Typography>
 
                     <Typography color="text.secondary">
-                      {t("successDescription")}
+                      {t("verifyPage.successDescription")}
                     </Typography>
 
                     <LinearProgress sx={{ width: "100%" }} />
@@ -226,18 +213,13 @@ export default function VerifyPage() {
                     />
 
                     <Typography variant="h6" fontWeight={600}>
-                      {t("errorTitle")}
+                      {t("verifyPage.errorTitle")}
                     </Typography>
 
-                    <Typography color="text.secondary">
-                      {errorMessage}
-                    </Typography>
+                    <Typography color="text.secondary">{errorMessage}</Typography>
 
-                    <Button
-                      variant="contained"
-                      onClick={() => router.push("/register")}
-                    >
-                      {t("back")}
+                    <Button variant="contained" onClick={() => router.push("/register")}>
+                      {t("verifyPage.back")}
                     </Button>
                   </>
                 )}

@@ -1,10 +1,10 @@
 "use client";
 
-import { JSX, useEffect, useState } from "react";
-import { Command } from "cmdk";
 import { Dialog } from "@mui/material";
+import { Command } from "cmdk";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { type JSX, useEffect, useState } from "react";
 import { COMMANDS } from "./commands";
 
 export default function CommandPalette(): JSX.Element {

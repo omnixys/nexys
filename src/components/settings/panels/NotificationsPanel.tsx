@@ -5,16 +5,9 @@
 
 "use client";
 
-import {
-  Box,
-  Divider,
-  FormControlLabel,
-  Stack,
-  Switch,
-  Typography,
-} from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { Box, Divider, FormControlLabel, Stack, Switch, Typography } from "@mui/material";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const data = [
   { type: "Email", count: 124, color: "#FF9800" },
@@ -66,26 +59,13 @@ export default function NotificationsPanel() {
         </Typography>
 
         <Stack spacing={1}>
-          <FormControlLabel
-            control={<Switch defaultChecked />}
-            label="Email notifications"
-          />
-          <FormControlLabel
-            control={<Switch defaultChecked />}
-            label="Push notifications"
-          />
+          <FormControlLabel control={<Switch defaultChecked />} label="Email notifications" />
+          <FormControlLabel control={<Switch defaultChecked />} label="Push notifications" />
           <FormControlLabel control={<Switch />} label="SMS notifications" />
-          <FormControlLabel
-            control={<Switch defaultChecked />}
-            label="Marketing updates"
-          />
+          <FormControlLabel control={<Switch defaultChecked />} label="Marketing updates" />
         </Stack>
 
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ mt: 1, display: "block" }}
-        >
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: "block" }}>
           Quiet hours + per-category notification routing can be added next.
         </Typography>
       </Box>

@@ -5,19 +5,13 @@
 
 "use client";
 
-import Link from "next/link";
 import { Typography, useTheme } from "@mui/material";
-import { JSX } from "react";
+import Link from "next/link";
+import type { JSX } from "react";
 
-export default function NavLink({
-  href,
-  label,
-}: {
-  href: string;
-  label: string;
-  }): JSX.Element {
-          const theme = useTheme();
-  
+export default function NavLink({ href, label }: { href: string; label: string }): JSX.Element {
+  const theme = useTheme();
+
   return (
     <Link href={href} style={{ textDecoration: "none" }}>
       <Typography
@@ -27,7 +21,7 @@ export default function NavLink({
           "&:hover": { color: "#fff" },
         }}
       >
-       {label}
+        {label}
       </Typography>
     </Link>
   );

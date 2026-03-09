@@ -182,18 +182,12 @@ export function SecurityProvider({ children }: { children: React.ReactNode }) {
       setFeatureEnabled: (id, enabled) =>
         _setState((prev) => ({
           ...prev,
-          features: prev.features.map((f) =>
-            f.id === id ? { ...f, enabled } : f,
-          ),
+          features: prev.features.map((f) => (f.id === id ? { ...f, enabled } : f)),
         })),
     };
   }, [state]);
 
-  return (
-    <SecurityContext.Provider value={value}>
-      {children}
-    </SecurityContext.Provider>
-  );
+  return <SecurityContext.Provider value={value}>{children}</SecurityContext.Provider>;
 }
 
 export function useSecurity() {
