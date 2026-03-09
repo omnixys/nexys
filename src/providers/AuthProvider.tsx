@@ -1,7 +1,7 @@
 // /providers/AuthProvider.tsx
 "use client";
 
-import { ApolloProvider, useQuery } from "@apollo/client/react";
+import { ApolloProvider, useApolloClient, useQuery } from "@apollo/client/react";
 import React, {
   createContext,
   JSX,
@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import { createCombinedApolloClient } from "@/lib/client/combined-client";
 import type { MeResult } from "@/types/user/user-graphql.type";
-import { AuthEventsBus, AuthManager } from "@/utils/AuthManager";
+import { AuthEventsBus, AuthManager, getCookie } from "@/utils/AuthManager";
 import { KcRole } from '../types/authentication/auth-enum.type';
 import { GetMeDocument, GetMeQuery, GetMeQueryVariables, RealmRole } from "@/generated/graphql";
 import { User } from '@/graphql/graphql.type'
@@ -31,12 +31,15 @@ export function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
-  const client = useMemo(() => createCombinedApolloClient(), []);
+  }): JSX.Element {
+  const hasSession = !!getCookie("access_expires_at");
+    const apollo = useApolloClient();
+  
   const { data, loading, refetch } = useQuery<GetMeQuery, GetMeQueryVariables>(
     GetMeDocument, {
-      client,
-      fetchPolicy: "cache-and-network",
+          skip: !hasSession,
+      fetchPolicy: "cache-first",
+      nextFetchPolicy: "cache-first",
       context: {
         fetchOptions: {
           credentials: "include"
@@ -50,8 +53,8 @@ export function AuthProvider({
 
   /* Initialize AuthManager */
   useEffect(() => {
-    AuthManager.init(client);
-  }, [client]);
+    AuthManager.init(apollo);
+  }, [apollo]);
 
   /* Re-fetch user on events */
   useEffect(() => {
@@ -64,11 +67,15 @@ export function AuthProvider({
     AuthEventsBus.on("signup", refetchUser);
     AuthEventsBus.on("logout", refetchUser);
 
-    return () => {};
+      return () => {
+      AuthEventsBus.off("login", refetchUser);
+      AuthEventsBus.off("refresh", refetchUser);
+      AuthEventsBus.off("signup", refetchUser);
+      AuthEventsBus.off("logout", refetchUser);
+    };
   }, [refetch]);
 
   return (
-    <ApolloProvider client={client}>
       <AuthContext.Provider
         value={{
           user,
@@ -81,7 +88,6 @@ export function AuthProvider({
       >
         {children}
       </AuthContext.Provider>
-    </ApolloProvider>
   );
 }
 

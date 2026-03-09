@@ -25,6 +25,7 @@ import {
 
 import { formatEnum } from "@/i18n/format-enum";
 import { useInterestCategory } from "@/hooks/useInterest";
+import { AnimatePresence, motion } from "framer-motion";
 
 type Props = {
   interests: CustomerInterestPayload[];
@@ -196,9 +197,17 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
               whiteSpace: "nowrap",
             }}
           >
-            <TextTransition springConfig={presets.gentle} inline>
-              {currentLabel}
-            </TextTransition>
+           <AnimatePresence mode="wait">
+  <motion.span
+    key={currentLabel}
+    initial={{ opacity: 0, y: 6 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -6 }}
+    transition={{ duration: 0.25 }}
+  >
+    {currentLabel}
+  </motion.span>
+</AnimatePresence>
           </Box>
         </Box>
       </Stack>

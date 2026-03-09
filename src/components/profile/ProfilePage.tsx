@@ -188,7 +188,7 @@ export default function ProfilePage({ user, isAdmin }: { user: User, isAdmin: bo
                 height: "100%",
               }}
             >
-              <ProfileAddressStack user={user} />
+              <ProfileAddressStack userId={user.id} />
             </Box>
           </BentoTile>
         )}

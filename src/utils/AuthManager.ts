@@ -58,6 +58,16 @@ class AuthEventEmitter {
     this.listeners.get(name)!.push(fn);
   }
 
+    off(name: string, fn: (p?: any) => void) {
+    const list = this.listeners.get(name);
+    if (!list) return;
+
+    this.listeners.set(
+      name,
+      list.filter((l) => l !== fn),
+    );
+  }
+
   emit(name: string, payload?: any) {
     this.listeners.get(name)?.forEach((fn) => fn(payload));
   }
@@ -73,8 +83,10 @@ class AuthManagerClass {
   private apollo: ApolloClient | null = null;
   private isRefreshing = false;
 
-  init(apollo: ApolloClient) {
+  init(apollo?: ApolloClient) {
+    if (apollo) {
     this.apollo = apollo;
+    }
 
     if (!this.intervalId) {
       this.intervalId = window.setInterval(() => {
@@ -255,5 +267,6 @@ class AuthManagerClass {
     }
   }
 }
+
 
 export const AuthManager = new AuthManagerClass();
