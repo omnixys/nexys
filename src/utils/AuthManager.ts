@@ -219,8 +219,7 @@ class AuthManagerClass {
   }
 
   loginWithProvider(provider: OAuthProvider): void {
-    // const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
-    const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "http://localhost:7501";
+    const base = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
     if (!base) throw new Error("NEXT_PUBLIC_AUTH_API_BASE_URL missing");
 
     const url = `${base}/auth/oauth/${provider}`;
