@@ -3,6 +3,12 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.3.1](https://github.com/omnixys/nexys/compare/v1.3.0...v1.3.1) (2026-03-10)
+
+### Profile
+
+* **Profile:** improve address query handling and loading states ([](https://github.com/omnixys/nexys/commit/595dd7602c95182d3a634d9058bec198bf4e4ca5))
+
 ## [1.3.0](https://github.com/omnixys/nexys/compare/v1.2.0...v1.3.0) (2026-03-09)
 
 ### Auth
