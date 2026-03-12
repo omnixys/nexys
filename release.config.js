@@ -33,12 +33,12 @@ export default {
   /**
    * Release is only allowed from main
    */
-  branches: ["main"],
+  branches: ['main'],
 
   /**
    * Explicit tag format
    */
-  tagFormat: "v${version}",
+  tagFormat: 'v${version}',
 
   /**
    * Plugins pipeline
@@ -48,24 +48,24 @@ export default {
      * Analyze commits and determine next version
      */
     [
-      "@semantic-release/commit-analyzer",
+      '@semantic-release/commit-analyzer',
       {
-        preset: "conventionalcommits",
+        preset: 'conventionalcommits',
         releaseRules: [
-          { breaking: true, release: "major" },
-          { type: "feat", release: "minor" },
-          { type: "fix", release: "patch" },
-          { type: "perf", release: "patch" },
-          { type: "refactor", release: "patch" },
-          { type: "revert", release: "patch" },
+          { type: 'breaking', release: 'major' },
+          { type: 'feat', release: 'minor' },
+          { type: 'fix', release: 'patch' },
+          { type: 'perf', release: 'patch' },
+          { type: 'refactor', release: 'patch' },
+          { type: 'revert', release: 'patch' },
 
           // Explicitly ignore these types
-          { type: "docs", release: false },
-          { type: "style", release: false },
-          { type: "test", release: false },
-          { type: "chore", release: false },
-          { type: "ci", release: false },
-          { type: "build", release: false },
+          { type: 'docs', release: false },
+          { type: 'style', release: false },
+          { type: 'test', release: false },
+          { type: 'chore', release: false },
+          { type: 'ci', release: false },
+          { type: 'build', release: false },
         ],
       },
     ],
@@ -74,23 +74,24 @@ export default {
      * Generate structured release notes
      */
     [
-      "@semantic-release/release-notes-generator",
+      '@semantic-release/release-notes-generator',
       {
-        preset: "conventionalcommits",
+        preset: 'conventionalcommits',
 
         writerOpts: {
-          groupBy: "scope",
-          commitGroupsSort: "title",
-          commitsSort: ["type", "scope", "subject"],
+          groupBy: 'scope',
+          commitGroupsSort: 'title',
+          commitsSort: ['type', 'scope', 'subject'],
 
           transform(commit, context) {
-            const issues = commit.references?.map((ref) => `#${ref.issue}`) ?? [];
+            const issues =
+              commit.references?.map((ref) => `#${ref.issue}`) ?? [];
 
             return {
               ...commit,
               scope: commit.scope
                 ? commit.scope.charAt(0).toUpperCase() + commit.scope.slice(1)
-                : "Other",
+                : 'Other',
               subject: commit.subject,
               issues,
             };
@@ -99,11 +100,11 @@ export default {
 
         presetConfig: {
           types: [
-            { type: "feat", section: "✨ Features" },
-            { type: "fix", section: "🐛 Bug Fixes" },
-            { type: "perf", section: "⚡ Performance Improvements" },
-            { type: "refactor", section: "♻️ Refactoring" },
-            { type: "revert", section: "⏪ Reverts" },
+            { type: 'feat', section: '✨ Features' },
+            { type: 'fix', section: '🐛 Bug Fixes' },
+            { type: 'perf', section: '⚡ Performance Improvements' },
+            { type: 'refactor', section: '♻️ Refactoring' },
+            { type: 'revert', section: '⏪ Reverts' },
           ],
         },
       },
@@ -113,11 +114,11 @@ export default {
      * Generate / update CHANGELOG.md
      */
     [
-      "@semantic-release/changelog",
+      '@semantic-release/changelog',
       {
-        changelogFile: "CHANGELOG.md",
+        changelogFile: 'CHANGELOG.md',
         changelogTitle:
-          "# 🧾 Changelog\n\nAll notable changes in this project will be documented in this file.\n",
+          '# 🧾 Changelog\n\nAll notable changes in this project will be documented in this file.\n',
       },
     ],
 
@@ -126,7 +127,7 @@ export default {
      * Updates package.json version
      */
     [
-      "@semantic-release/npm",
+      '@semantic-release/npm',
       {
         npmPublish: false,
       },
@@ -136,10 +137,11 @@ export default {
      * Commit release artifacts back to repository
      */
     [
-      "@semantic-release/git",
+      '@semantic-release/git',
       {
-        assets: ["package.json", "pnpm-lock.yaml", "CHANGELOG.md"],
-        message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        assets: ['package.json', 'pnpm-lock.yaml', 'CHANGELOG.md'],
+        message:
+          'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
 
@@ -147,26 +149,35 @@ export default {
      * Create GitHub Release
      */
     [
-      "@semantic-release/github",
+      '@semantic-release/github',
       {
         assets: [
-          { path: "CHANGELOG.md", label: "Changelog" },
-          { path: "dist/**", label: "Build Artifacts" },
+          { path: 'CHANGELOG.md', label: 'Changelog' },
+          { path: 'dist/**', label: 'Build Artifacts' },
         ],
 
         releaseBodyTemplate: `
-Today, we are excited to share the **v{{version}}** release 🎉
+        # 🚀 Release v<%= nextRelease.version %>
+---
 
-This release includes stability improvements, bug fixes, and internal refinements for the **User Service**.
+## 📦 Changes
+
+<%= nextRelease.notes %>
 
 ---
 
-{{body}}
+## 🔎 Release Details
+
+- Git Tag: <%= nextRelease.gitTag %>
+- Branch: <%= branch.name %>
+- Previous Version: <%= lastRelease ? lastRelease.version : 'N/A' %>
+- Commit: <%= nextRelease.gitHead.substring(0, 7) %>
 
 ---
 
-📦 **Service:** Omnixys User Service  
-🔗 **Repository:** https://github.com/omnixys/omnixys-user-service  
+🏢 **Organization:** Omnixys
+📦 **Project:** Nexys
+🔗 **Repository:** Repository: <%= options.repositoryUrl %>
 🧭 **Docs:** https://omnixys.com/docs
 `,
       },

@@ -1,20 +1,22 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const SUPPORTED_LOCALES = ["de", "en", "fr"] as const;
-const DEFAULT_LOCALE = "de";
+const SUPPORTED_LOCALES = ["de-DE", "en-US"] as const;
+const DEFAULT_LOCALE = "de-DE";
 
 type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 function detectLocale(header: string | null): Locale {
   if (!header) return DEFAULT_LOCALE;
 
-  const languages = header.split(",").map((l) => l.split(";")[0].trim().toLowerCase());
+  const languages = header
+    .split(",")
+    .map((l) => l.split(";")[0].trim().toLowerCase());
 
   for (const lang of languages) {
-    const base = lang.split("-")[0];
-
-    if (SUPPORTED_LOCALES.includes(base as Locale)) {
-      return base as Locale;
+    for (const supported of SUPPORTED_LOCALES) {
+      if (lang.startsWith(supported.toLowerCase().split("-")[0])) {
+        return supported;
+      }
     }
   }
 
@@ -26,13 +28,18 @@ export function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   if (path.startsWith("/_next") || path.startsWith("/api") || path.includes(".")) {
+      return NextResponse.next();
   }
   const cookieLocale = req.cookies.get("locale")?.value;
+
+    // console.log({cookieLocale});
 
   if (!cookieLocale) {
     const header = req.headers.get("accept-language");
     const locale = detectLocale(header);
 
+      //  console.log({header});
+      
     console.log("Detected locale:", locale);
 
     res.cookies.set("locale", locale, {

@@ -6,12 +6,12 @@ import { CheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import React from "react";
+import { Locale } from "@/i18n/request";
 
-type Locale = "de" | "en";
 
 const LOCALES: { code: Locale; label: string }[] = [
-  { code: "de", label: "Deutsch" },
-  { code: "en", label: "English" },
+  { code: "de-DE", label: "Deutsch" },
+  { code: "en-US", label: "English" },
 ];
 
 export default function LanguageSwitcher() {
