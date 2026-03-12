@@ -3,6 +3,16 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.4.0](https://github.com/omnixys/nexys/compare/v1.3.1...v1.4.0) (2026-03-12)
+
+### Local
+
+* **Local:** add local ([](https://github.com/omnixys/nexys/commit/5825f62f49652f209fb8313817fffdf5fd455ab5))
+
+### Other
+
+* **Other:** Merge branch 'main' of https://github.com/omnixys/nexys ([](https://github.com/omnixys/nexys/commit/231e9cea1adaee612e2a7b876fcb00593968f5ac))
+
 ## [1.3.1](https://github.com/omnixys/nexys/compare/v1.3.0...v1.3.1) (2026-03-10)
 
 ### Profile
