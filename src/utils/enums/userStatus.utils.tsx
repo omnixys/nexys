@@ -7,28 +7,28 @@ import {
 } from "@mui/icons-material";
 import type { Theme } from "@mui/material";
 
-import { PersonStatus } from "@/generated/graphql";
-import { formatEnum, Translator } from "@/i18n/format-enum";
+import { PersonStatusType } from "@/generated/graphql";
+import { formatEnum } from "@/i18n/format-enum";
 
 export function formatUserStatus<T extends (key: any) => string>(
-  status: PersonStatus | null | undefined,
+  status: PersonStatusType | null | undefined,
   t: T,
 ) {
   return formatEnum(t, "userStatus", status);
 }
 
-export function getStatusIcon(status: PersonStatus | null | undefined, theme: Theme) {
+export function getStatusIcon(status: PersonStatusType | null | undefined, theme: Theme) {
   switch (status) {
-    case PersonStatus.Active:
+    case PersonStatusType.Active:
       return <CheckCircleOutline sx={{ color: theme.palette.success.main }} />;
 
-    case PersonStatus.Inactive:
+    case PersonStatusType.Inactive:
       return <PauseCircleOutlineOutlined sx={{ color: theme.palette.warning.main }} />;
 
-    case PersonStatus.Blocked:
+    case PersonStatusType.Blocked:
       return <BlockOutlined sx={{ color: theme.palette.error.main }} />;
 
-    case PersonStatus.Closed:
+    case PersonStatusType.Closed:
       return <DeleteOutlineOutlined sx={{ color: theme.palette.text.secondary }} />;
 
     default:
@@ -36,15 +36,15 @@ export function getStatusIcon(status: PersonStatus | null | undefined, theme: Th
   }
 }
 
-export function getStatusValueColor(status: PersonStatus | null | undefined, theme: Theme) {
+export function getStatusValueColor(status: PersonStatusType | null | undefined, theme: Theme) {
   switch (status) {
-    case PersonStatus.Active:
+    case PersonStatusType.Active:
       return theme.palette.success.main;
 
-    case PersonStatus.Inactive:
+    case PersonStatusType.Inactive:
       return theme.palette.warning.main;
 
-    case PersonStatus.Blocked:
+    case PersonStatusType.Blocked:
       return theme.palette.error.main;
 
     default:

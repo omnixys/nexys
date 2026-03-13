@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import type React from "react";
 import RootProviders from "@/providers/RootProvider";
 import StarsCanvas from "../../components/background/StarBackground";

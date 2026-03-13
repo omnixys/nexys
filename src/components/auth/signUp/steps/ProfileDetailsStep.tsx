@@ -2,6 +2,16 @@
 
 import { useQuery } from "@apollo/client/react";
 
+import { DynamicIcon } from "@/components/ui/DynamicIcon";
+import {
+  ContactOptionsType,
+  GetAllInterestCategoriesDocument,
+  type GetAllInterestCategoriesQuery,
+  type GetAllInterestCategoriesQueryVariables
+} from "@/generated/graphql";
+import type { InterestCategory } from "@/graphql/graphql.type";
+import { useTypedTranslations } from "@/i18n/useTypedTranslations";
+import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
@@ -15,17 +25,6 @@ import {
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { DynamicIcon } from "@/components/ui/DynamicIcon";
-import {
-  ContactOptionsType,
-  GetAllInterestCategoriesDocument,
-  type GetAllInterestCategoriesQuery,
-  type GetAllInterestCategoriesQueryVariables,
-  InterestEnum,
-} from "@/generated/graphql";
-import type { InterestCategory } from "@/graphql/graphql.type";
-import { useTypedTranslations } from "@/i18n/useTypedTranslations";
-import type { SignUpFormValues } from "@/schemas/sign-up.schema";
 
 const MotionChip = motion(Chip);
 const MotionBox = motion(Box);

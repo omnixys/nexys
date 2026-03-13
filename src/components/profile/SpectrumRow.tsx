@@ -5,13 +5,13 @@
 
 "use client";
 
+import type { GetMeQuery, InterestCategoryType, InterestType } from "@/generated/graphql";
+import { useInterestCategory } from "@/hooks/useInterest";
+import { formatEnum } from "@/i18n/format-enum";
 import { Box, MenuItem, Select, Stack, Typography, useTheme } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
-import type { GetMeQuery, InterestCategoryEnum, InterestEnum } from "@/generated/graphql";
-import { useInterestCategory } from "@/hooks/useInterest";
-import { formatEnum } from "@/i18n/format-enum";
 
 type Props = {
   interests?: NonNullable<NonNullable<GetMeQuery["me"]["customer"]>["customerInterest"]>;
@@ -27,13 +27,13 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
   const categories = data?.getAllInterestCategories ?? [];
 
   const userInterestKeys = useMemo(() => {
-    return interests?.map((i) => i.interest?.key).filter(Boolean) as InterestEnum[];
+    return interests?.map((i) => i.interest?.key).filter(Boolean) as InterestType[];
   }, [interests]);
 
   const categorized = useMemo(() => {
-    const result: Record<InterestCategoryEnum, InterestEnum[]> = {} as Record<
-      InterestCategoryEnum,
-      InterestEnum[]
+    const result: Record<InterestCategoryType, InterestType[]> = {} as Record<
+      InterestCategoryType,
+      InterestType[]
     >;
 
     categories.forEach((cat) => {
@@ -49,7 +49,7 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
   }, [categories, userInterestKeys]);
 
   const categoryKeys = useMemo(
-    () => Object.keys(categorized) as InterestCategoryEnum[],
+    () => Object.keys(categorized) as InterestCategoryType[],
     [categorized],
   );
 
@@ -57,11 +57,11 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
 
   const maxCount = Math.max(...Object.values(categorized).map((v) => v.length), 1);
 
-  const density = (cat: InterestCategoryEnum) => (categorized[cat]?.length ?? 0) / maxCount;
+  const density = (cat: InterestCategoryType) => (categorized[cat]?.length ?? 0) / maxCount;
 
   /* ---------------------- state */
 
-  const [category, setCategory] = useState<InterestCategoryEnum | "">("");
+  const [category, setCategory] = useState<InterestCategoryType | "">("");
 
   useEffect(() => {
     if (!category && categoryKeys.length) {
@@ -109,7 +109,7 @@ export default function CustomerInterestSpectrum({ interests }: Props) {
         <Select
           size="small"
           value={category}
-          onChange={(e) => setCategory(e.target.value as InterestCategoryEnum)}
+          onChange={(e) => setCategory(e.target.value as InterestCategoryType)}
           sx={{ minWidth: 180, borderRadius: 999 }}
         >
           {categoryKeys.map((cat) => (

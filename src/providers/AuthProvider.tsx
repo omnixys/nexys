@@ -9,7 +9,7 @@ import {
   GetMeDocument,
   type GetMeQuery,
   type GetMeQueryVariables,
-  RealmRole,
+  RealmRoleType,
 } from "@/generated/graphql";
 import type { User } from "@/graphql/graphql.type";
 import { AuthEventsBus, AuthManager, getCookie } from "@/utils/AuthManager";
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
   });
 
   const user = data?.me;
-  const isAdmin = user?.role === RealmRole.Admin;
+  const isAdmin = user?.role === RealmRoleType.Admin;
   const isAuthenticated = !!user;
 
   /* Initialize AuthManager */

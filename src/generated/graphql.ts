@@ -356,7 +356,20 @@ export type HouseNumber = {
   number: Scalars['String']['output'];
 };
 
-export enum InterestCategoryEnum {
+export type InterestCategoryPayload = {
+  __typename?: 'InterestCategoryPayload';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  interests?: Maybe<Array<InterestPayload>>;
+  key: InterestCategoryType;
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+/** Represents Interest Categories. */
+export enum InterestCategoryType {
   Finance = 'FINANCE',
   Lifestyle = 'LIFESTYLE',
   Music = 'MUSIC',
@@ -365,19 +378,19 @@ export enum InterestCategoryEnum {
   Technology = 'TECHNOLOGY'
 }
 
-export type InterestCategoryPayload = {
-  __typename?: 'InterestCategoryPayload';
+export type InterestPayload = {
+  __typename?: 'InterestPayload';
+  categoryId: Scalars['ID']['output'];
   createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  interests?: Maybe<Array<InterestPayload>>;
-  key: InterestCategoryEnum;
+  key: InterestType;
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export enum InterestEnum {
+/** Represents areas of interest associated with a user. */
+export enum InterestType {
   BankProductsAndServices = 'BANK_PRODUCTS_AND_SERVICES',
   Basketball = 'BASKETBALL',
   Classic = 'CLASSIC',
@@ -398,24 +411,13 @@ export enum InterestEnum {
   Travel = 'TRAVEL'
 }
 
-export type InterestPayload = {
-  __typename?: 'InterestPayload';
-  categoryId: Scalars['ID']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  icon?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  key: InterestEnum;
-  name: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type KcUser = {
   __typename?: 'KcUser';
   email: Scalars['String']['output'];
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
-  roles?: Maybe<Array<RealmRole>>;
+  roles?: Maybe<Array<RealmRoleType>>;
   username: Scalars['String']['output'];
 };
 
@@ -559,7 +561,7 @@ export type MutationArchiveNotificationArgs = {
 
 export type MutationAssignRealmRoleArgs = {
   id: Scalars['ID']['input'];
-  roleName: RealmRole;
+  roleName: RealmRoleType;
 };
 
 
@@ -665,7 +667,7 @@ export type MutationRemovePhoneNumbersArgs = {
 
 export type MutationRemoveRealmRoleArgs = {
   id: Scalars['ID']['input'];
-  roleName: RealmRole;
+  roleName: RealmRoleType;
 };
 
 
@@ -813,7 +815,7 @@ export enum NotificationStatus {
 }
 
 /** Represents the current lifecycle state of a user. */
-export enum PersonStatus {
+export enum PersonStatusType {
   Active = 'ACTIVE',
   Blocked = 'BLOCKED',
   Closed = 'CLOSED',
@@ -1090,7 +1092,8 @@ export type QueryValidateAddressArgs = {
   input: AddressValidationInput;
 };
 
-export enum RealmRole {
+/** Defines the Role of an User. */
+export enum RealmRoleType {
   Admin = 'ADMIN',
   Basic = 'BASIC',
   Elite = 'ELITE',
@@ -1322,7 +1325,7 @@ export type UpdateUserAddressInput = {
 
 export type UpdateUserInput = {
   id: Scalars['ID']['input'];
-  status?: InputMaybe<PersonStatus>;
+  status?: InputMaybe<PersonStatusType>;
   userType?: InputMaybe<UserType>;
 };
 
@@ -1388,8 +1391,8 @@ export type UserPayload = {
   employee?: Maybe<EmployeePayload>;
   id: Scalars['ID']['output'];
   personalInfo?: Maybe<PersonalInfoPayload>;
-  role?: Maybe<RealmRole>;
-  status: PersonStatus;
+  role?: Maybe<RealmRoleType>;
+  status: PersonStatusType;
   updatedAt: Scalars['DateTime']['output'];
   userType: UserType;
   username: Scalars['String']['output'];
@@ -1598,17 +1601,17 @@ export type CheckUsernameQuery = { __typename?: 'Query', checkUsername: boolean 
 export type GetAllInterestCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllInterestCategoriesQuery = { __typename?: 'Query', getAllInterestCategories: Array<{ __typename?: 'InterestCategoryPayload', id: string, key: InterestCategoryEnum, icon?: string | null, description?: string | null, interests?: Array<{ __typename?: 'InterestPayload', id: string, key: InterestEnum, icon?: string | null }> | null }> };
+export type GetAllInterestCategoriesQuery = { __typename?: 'Query', getAllInterestCategories: Array<{ __typename?: 'InterestCategoryPayload', id: string, key: InterestCategoryType, icon?: string | null, description?: string | null, interests?: Array<{ __typename?: 'InterestPayload', id: string, key: InterestType, icon?: string | null }> | null }> };
 
 export type GetAllInterestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllInterestsQuery = { __typename?: 'Query', getAllInterests: Array<{ __typename?: 'InterestPayload', id: string, key: InterestEnum, icon?: string | null }> };
+export type GetAllInterestsQuery = { __typename?: 'Query', getAllInterests: Array<{ __typename?: 'InterestPayload', id: string, key: InterestType, icon?: string | null }> };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'UserPayload', id: string, username: string, userType: UserType, status: PersonStatus, createdAt: any, updatedAt: any, role?: RealmRole | null, personalInfo?: { __typename?: 'PersonalInfoPayload', id: string, email: string, firstName: string, lastName: string, birthDate?: any | null, gender?: GenderType | null, maritalStatus?: MaritalStatusType | null, phoneNumbers?: Array<{ __typename?: 'PhoneNumberPayload', id: string, number: string, type: PhoneNumberType, infoId: string, label?: string | null, isPrimary?: boolean | null, countryCode: string }> | null } | null, contacts?: Array<{ __typename?: 'ContactPayload', id: string, userId: string, contactId: string, relationship: RelationshipType, withdrawalLimit: number, emergency: boolean, startDate?: any | null, endDate?: any | null }> | null, customer?: { __typename?: 'CustomerPayload', id: string, subscribed: boolean, state: StatusType, contactOptions: Array<ContactOptionsType>, customerInterest?: Array<{ __typename?: 'CustomerInterestPayload', id: string, isPrimary?: boolean | null, interest?: { __typename?: 'InterestPayload', key: InterestEnum } | null }> | null } | null, employee?: { __typename?: 'EmployeePayload', id: string, department?: string | null, position?: string | null, role?: string | null, salary?: number | null, hireDate?: any | null, isExternal: boolean } | null } };
+export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'UserPayload', id: string, username: string, userType: UserType, status: PersonStatusType, createdAt: any, updatedAt: any, role?: RealmRoleType | null, personalInfo?: { __typename?: 'PersonalInfoPayload', id: string, email: string, firstName: string, lastName: string, birthDate?: any | null, gender?: GenderType | null, maritalStatus?: MaritalStatusType | null, phoneNumbers?: Array<{ __typename?: 'PhoneNumberPayload', id: string, number: string, type: PhoneNumberType, infoId: string, label?: string | null, isPrimary?: boolean | null, countryCode: string }> | null } | null, contacts?: Array<{ __typename?: 'ContactPayload', id: string, userId: string, contactId: string, relationship: RelationshipType, withdrawalLimit: number, emergency: boolean, startDate?: any | null, endDate?: any | null }> | null, customer?: { __typename?: 'CustomerPayload', id: string, subscribed: boolean, state: StatusType, contactOptions: Array<ContactOptionsType>, customerInterest?: Array<{ __typename?: 'CustomerInterestPayload', id: string, isPrimary?: boolean | null, interest?: { __typename?: 'InterestPayload', key: InterestType } | null }> | null } | null, employee?: { __typename?: 'EmployeePayload', id: string, department?: string | null, position?: string | null, role?: string | null, salary?: number | null, hireDate?: any | null, isExternal: boolean } | null } };
 
 
 export const AutocompleteAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AutocompleteAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"text"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addressAutocomplete"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"text"},"value":{"kind":"Variable","name":{"kind":"Name","value":"text"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formatted"}},{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"houseNumber"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"confidence"}},{"kind":"Field","name":{"kind":"Name","value":"lat"}},{"kind":"Field","name":{"kind":"Name","value":"lon"}}]}}]}}]} as unknown as DocumentNode<AutocompleteAddressQuery, AutocompleteAddressQueryVariables>;
