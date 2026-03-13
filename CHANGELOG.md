@@ -3,6 +3,12 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.5.0](https://github.com/omnixys/nexys/compare/v1.4.0...v1.5.0) (2026-03-13)
+
+### Update
+
+* **Update:** graphql codeGen ([](https://github.com/omnixys/nexys/commit/29a708a6a9db8a7df923f341d329bbffeeff6a45))
+
 ## [1.4.0](https://github.com/omnixys/nexys/compare/v1.3.1...v1.4.0) (2026-03-12)
 
 ### Local
