@@ -3,6 +3,12 @@
 All notable changes in this project will be documented in this file.
 
 
+## [1.5.1](https://github.com/omnixys/nexys/compare/v1.5.0...v1.5.1) (2026-03-13)
+
+### RootLayout
+
+* **RootLayout:** changed Root Layout ([](https://github.com/omnixys/nexys/commit/f416eeb6f9278fbee2af19d1c60c3d2024b927fc))
+
 ## [1.5.0](https://github.com/omnixys/nexys/compare/v1.4.0...v1.5.0) (2026-03-13)
 
 ### Update
