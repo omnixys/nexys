@@ -1,7 +1,7 @@
+import RootProviders from "@/providers/NexysRootProvider";
 import { Box } from "@mui/material";
 import type { Metadata } from "next";
 import type React from "react";
-import RootProviders from "@/providers/RootProvider";
 import StarsCanvas from "../../components/background/StarBackground";
 import Footer from "../../components/layout/footer/Footer";
 

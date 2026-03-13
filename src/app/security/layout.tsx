@@ -1,8 +1,7 @@
-import { Box, CssBaseline, createTheme } from "@mui/material";
+import RootProviders from "@/providers/NexysRootProvider";
+import { Box } from "@mui/material";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import React, { type ReactNode } from "react";
-import RootProviders from "@/providers/RootProvider";
+import { type ReactNode } from "react";
 import StarsCanvas from "../../components/background/StarBackground";
 import SecurityLayoutClient from "./SecurityLayoutClient";
 

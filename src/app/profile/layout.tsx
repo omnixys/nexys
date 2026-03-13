@@ -1,9 +1,9 @@
+import StarsCanvas from "@/components/background/StarBackground";
+import RootProviders from "@/providers/NexysRootProvider";
 import { Box } from "@mui/material";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import type React from "react";
-import StarsCanvas from "@/components/background/StarBackground";
-import RootProviders from "@/providers/RootProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
