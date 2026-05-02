@@ -111,7 +111,7 @@ export default function UserMenu({ logoutPath }: { logoutPath: string }): JSX.El
           </MenuItem>
         )}
 
-        {/* Profile */}
+        {/* Profile
         <MenuItem onClick={() => go("/checkpoint/me")}>
           <ListItemIcon>
             <Person fontSize="small" />
@@ -119,7 +119,7 @@ export default function UserMenu({ logoutPath }: { logoutPath: string }): JSX.El
           {t("userMenu.profile")}
         </MenuItem>
 
-        {/* Notifications */}
+   
         <MenuItem onClick={() => go("/checkpoint/me/notifications")}>
           <ListItemIcon>
             <NotificationsIcon fontSize="small" />
@@ -127,13 +127,14 @@ export default function UserMenu({ logoutPath }: { logoutPath: string }): JSX.El
           {t("userMenu.notifications")}
         </MenuItem>
 
-        {/* QR Ticket */}
+  
         <MenuItem onClick={() => go("/checkpoint/my-qr")}>
           <ListItemIcon>
             <BadgeIcon fontSize="small" />
           </ListItemIcon>
           {t("userMenu.qr")}
-        </MenuItem>
+        </MenuItem> 
+        */}
 
         <Divider />
 

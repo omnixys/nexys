@@ -38,7 +38,7 @@ const NAV_ITEMS = [
   { label: "Journeyxys", href: "/journeyxys" },
   { label: "Conexys", href: "/conexys" },
   { label: "Vibe Check", href: "/vibe-check" },
-  { label: "Checkpoint", href: "/checkpoint" },
+  { label: "Checkpoint", href: process.env.NEXT_PUBLIC_CHECKPOINT_URL! },
 ];
 
 export default function GlobalNavbar({
