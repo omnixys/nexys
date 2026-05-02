@@ -92,9 +92,21 @@ const Footer = ({ isFullSize }: { isFullSize?: boolean }) => {
             Community
           </Typography>
 
-          <FooterItem icon={<FaYoutube />} label="YouTube" href="https://youtube.com" />
-          <FooterItem icon={<RxGithubLogo />} label="GitHub" href="https://github.com/omnixys" />
-          <FooterItem icon={<RxDiscordLogo />} label="Discord" href="https://discord.com" />
+          <FooterItem
+            icon={<FaYoutube />}
+            label="YouTube"
+            href="https://youtube.com"
+          />
+          <FooterItem
+            icon={<RxGithubLogo />}
+            label="GitHub"
+            href="https://github.com/omnixys"
+          />
+          <FooterItem
+            icon={<RxDiscordLogo />}
+            label="Discord"
+            href="https://discord.com"
+          />
         </Box>
 
         {/* SOCIAL */}
@@ -111,9 +123,21 @@ const Footer = ({ isFullSize }: { isFullSize?: boolean }) => {
             Social
           </Typography>
 
-          <FooterItem icon={<RxInstagramLogo />} label="Instagram" href="https://instagram.com" />
-          <FooterItem icon={<RxTwitterLogo />} label="Twitter / X" href="https://twitter.com" />
-          <FooterItem icon={<RxLinkedinLogo />} label="LinkedIn" href="https://linkedin.com" />
+          <FooterItem
+            icon={<RxInstagramLogo />}
+            label="Instagram"
+            href="https://instagram.com"
+          />
+          <FooterItem
+            icon={<RxTwitterLogo />}
+            label="Twitter / X"
+            href="https://twitter.com"
+          />
+          <FooterItem
+            icon={<RxLinkedinLogo />}
+            label="LinkedIn"
+            href="https://linkedin.com"
+          />
         </Box>
 
         {/* ABOUT */}
@@ -131,7 +155,10 @@ const Footer = ({ isFullSize }: { isFullSize?: boolean }) => {
           </Typography>
 
           <FooterItem label="Become a Sponsor" href="#" />
-          <FooterItem label="Learn more about Omnixys" href="/about/omnixys" />
+          <FooterItem
+            label="Learn more about Omnixys"
+            href={`${process.env.NEXT_PUBLIC_SHOWCASE_URL}/about/omnixys`}
+          />
           <FooterItem label="Contact" href="mailto:mifwebchain@gmail.com" />
         </Box>
       </Box>
