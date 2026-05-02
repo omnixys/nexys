@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
 
-  basePath: "/nexys",
-  assetPrefix: "/nexys",
+  // basePath: "/nexys",
+  // assetPrefix: "/nexys",
 };
 
 const withNextIntl = createNextIntlPlugin();
