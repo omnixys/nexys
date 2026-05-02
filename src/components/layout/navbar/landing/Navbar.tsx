@@ -12,9 +12,12 @@ import { NavbarSocials } from "./NavbarSocials";
 import type { NavItem } from "./navbar.types";
 
 const ITEMS: NavItem[] = [
-  { label: "About me", href: "/about/me" },
+  { label: "About me", href: `${process.env.NEXT_PUBLIC_SHOWCASE_URL}/about/me` },
   { label: "Home", href: "/" },
-  { label: "About Omnixys", href: "/about/omnixys" },
+  {
+    label: "About Omnixys",
+    href: `${process.env.NEXT_PUBLIC_SHOWCASE_URL}/about/omnixys`,
+  },
 ];
 
 export default function Navbar() {
