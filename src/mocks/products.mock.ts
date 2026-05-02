@@ -28,7 +28,7 @@ export const PRODUCTS: Product[] = [
     nameKey: "products.checkpoint.name",
     subtitleKey: "products.checkpoint.subtitle",
     descriptionKey: "products.checkpoint.description",
-    href: "/checkpoint",
+    href: `${process.env.NEXT_PUBLIC_SHOWCASE_URL}/checkpoint`,
     icon: "/logo/omnixys-original.png",
   },
   {

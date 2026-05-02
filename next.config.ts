@@ -5,9 +5,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
 
-  // typescript: {
-  //   ignoreBuildErrors: true,
-  // },
+  basePath: "/nexys",
+  assetPrefix: "/nexys",
 };
 
 const withNextIntl = createNextIntlPlugin();
